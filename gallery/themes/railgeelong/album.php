@@ -16,8 +16,6 @@ include_once('header.php'); ?>
   	<h3>Album: <?=getAlbumTitle();?></h3>
   	<?php printAlbumDescAndLink(true); ?>
   </div>
-    
-  </div>
   
   <?php 
   drawWongmAlbumNextables(false, getAlbumLinkURL().'page/');
