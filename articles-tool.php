@@ -1,0 +1,75 @@
+<?php 
+
+include_once("common/dbConnection.php");
+include_once("common/formatting-functions.php");
+include_once("common/source-functions.php");
+	
+$link = $_REQUEST['name'];
+
+if ($link == '')
+{
+	drawAllArticles('article');
+}
+// for a specific article
+else
+{
+	$article = MYSQL_QUERY("SELECT *, DATE_FORMAT(modified, '%M %e, %Y') AS fdate FROM articles WHERE `link` = '$link'");
+	
+	if (MYSQL_NUM_ROWS($article) == '1')
+	{
+		$pageTitle = stripslashes(MYSQL_RESULT($article,0,"title"));
+		$articleId = stripslashes(MYSQL_RESULT($article,0,"article_id"));
+		$description = stripslashes(MYSQL_RESULT($article,0,"content"));
+		$photos = stripslashes(MYSQL_RESULT($article,0,"photos"));
+		$articleSources = getObjectSources('article', $articleId, '');
+		$lastUpdatedDate = MYSQL_RESULT($article,0,"fdate"); 
+		
+		include_once("common/header.php");
+?>
+<table class="nextables">
+<tr><td><a href="/articles">&laquo; Back to Articles listing</a></td></tr>
+</table>
+<?
+		global $editablelinkforadmin;
+		if ($editablelinkforadmin)
+		{
+			echo "<b>Edit: </b><a href=\"/backend/editArticles.php?id=$articleId\" target=\"_new\">Edit Article</a><br/>\n";
+		}
+		
+		// get pretty header photo
+		drawHeaderPic('articles', $link, $pageTitle);
+		
+		$descriptionTitles = getDescriptionTitles($description);
+		$articleSources = getObjectSources('article', $articleId, '');
+		
+		if($photos != '')
+		{
+			$descriptionTitles = addDescriptionTitles($descriptionTitles, 'photos');
+		}
+		if (!$articleSources)
+		{
+			$descriptionTitles = addDescriptionTitles($descriptionTitles, 'sources');
+		}
+		
+		printDescriptionTitles($descriptionTitles);
+		drawFormattedText($description);
+		
+		if($photos != '')
+		{
+			include_once("common/gallery-functions.php");
+			getLocationImages($photos,$photos);
+		}
+		
+		// draw credits previously formatted by drawObjectSources()
+		if ($articleSources != '')
+		{
+			echo $articleSources;
+		}
+		include_once("common/footer.php");
+	}
+	else
+	{
+		draw404InvalidSubpage('articles','Article');
+	}
+}
+?>

@@ -1,0 +1,447 @@
+/* Marcus Wong */
+
+/* general page layout stuff
+------------------------------ */
+body {
+	background: white; 
+	color: black;
+}
+#container {
+	width: 100%;
+}
+#content li {
+	line-height: 1.4em;
+}	
+#header {
+	border: #999;
+	border-style: solid;
+	border-width: 0px 0px 2px 0;
+	line-height:1em;
+	height:4.5em;
+}
+#navigation { 
+	position:absolute;
+	left: 10px;
+	top: 5.9em;
+	_top: 6.5em;
+	text-align:center; 
+	width: 140px; 
+}
+#content {
+	padding: 5px;
+	background:#EEE;
+	color: inherit;
+	min-height: 500px;
+}
+#content p {
+	width: 95%;
+	margin: 0.7em auto;
+	line-height: 1.3em;
+}
+#footer { 
+	margin: 10px 0 0 0;
+	text-align:center;
+	font-size: 0.8em;
+}
+.photo-clear {
+	clear: top;
+	margin: 5px 10px;
+}
+.photo-left {
+	float: left;
+	margin: 5px 10px;
+}
+.photo-right {
+	float: right;
+	clear: none;
+	margin: 15px 0px 15px 10px;
+}
+.centeredTable, .linedTable {
+	margin: auto;
+	width: 95%;
+}
+.error {
+	text-align: center;
+	padding: 5px;
+	background: red;
+	color: white; 
+	font-weight: bold;
+	font-size:15px;
+	text-decoration: none;
+}
+#success {
+	background: green;
+}
+a.error:hover {
+	text-decoration:underline;
+	color: white;
+}
+/* image formatting stuff
+------------------------------ */
+img {
+	border: none;
+}
+
+/* lighbox
+------------------------------ */
+#overlay { background-image: url(/images/overlay.png); }
+
+* html #overlay {
+	background-color: #000;
+	back\ground-color: transparent;
+	background-image: url(/images/blank.gif);
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/images/overlay.png", sizingMethod="scale");
+}
+
+#lightbox {
+	background-color:#eee;
+	padding: 10px;
+	border-bottom: 2px solid #666;
+	border-right: 2px solid #666;
+}
+
+#lightboxDetails {
+	font-size: 0.8em;
+	padding-top: 0.4em;
+}
+	
+#lightboxCaption{ float: left; }
+#keyboardMsg{ float: right; }
+#lightbox img{ border: none; } 
+#overlay img{ border: none; }
+
+/* for the link bar along the top
+------------------------------ */
+.headbar {
+	font-size : 11px;
+	width: 100%;
+	border: #999;
+	border-style: solid;
+	border-width: 1px 0;
+	min-height: 2em;
+	background-color: #FAFAFA;
+}
+.headbar a {
+	text-decoration: none;
+}
+.headbar a:hover {
+	text-decoration: underline;
+}
+/* nextables ----------------------------------------------------------------*/
+.nextables { 
+  padding: 3px 5px;
+  border: 1px 0 solid white;
+  background: #FAFAFA;
+  width: 100%;
+}
+.nextables A.next { 
+	float: right; 
+	text-align: left; 
+}
+.nextables A.prev { 
+	float: left; 
+	text-align: right; 
+}
+.nextables A:hover, .nextables A:active { 
+	text-decoration: none; 
+}
+/* front page ----------------------------------------------------------------*/
+p.intro {
+	text-align:center;
+	padding: 1em 0 0 0;
+	clear:both;
+}
+h3.intro {
+	font-size:1.5em;
+	text-align:center;
+}
+.updatedPages .d {
+	width: 11em;
+}
+.updatedPages .t {
+	width: 6em;
+	text-align: center;
+}
+/* site menu formatting stuff --------------------------------------------------
+	based on http://www.projectseven.com/tutorials/css/uberlinks/index.htm */
+.menu a {
+	height: 1%;
+}
+ul.sitemenu{
+	margin: 0; 
+	padding: 2px 0 5px 0; 
+	list-style-type: none; 
+}
+.menu a {
+	display: block;
+	padding: 3px;
+	border: 1px solid;
+	border-color: #ddd #000 #000 #ddd;
+	background-color: #EEE;
+	color: #336633;
+	text-decoration: none;
+}
+.lmenu a {
+	font-size: 0.8em;
+}
+.menu a:hover {
+	background-color: #336633;
+	color: white;
+}
+.group a {
+	text-align:left;
+}
+#navigation a.sub {
+	font-weight: bold;
+	font-size: 1.1em;
+	color:#336633;
+} 
+/* font style attributes
+------------------------------ */
+body td, th, p, div, input, form, textarea {
+	font-family:verdana,helvetica, sans-serif;
+	font-size:12px;
+}
+h1, h2, h3, h4, h5, .h4 {
+	background-color: inherit;
+	text-decoration: none;
+	color:#336633;
+}
+h1 {
+	padding:.1em 0 0;
+	font-size:30px;
+}
+h1 a {
+	text-decoration: none;
+	color:#336633;
+}
+h1 a:hover {
+	text-decoration: underline;
+}
+h2 {
+	font-size:22px;
+}
+h3 {
+	font-size:18px; 
+}
+h4 {
+	font-size:15px;
+	margin: 1.2em 0 0.5em;
+}
+h4 a, h5 a {
+	text-decoration: none;
+	color:#336633;
+}
+h4 a:hover, h5 a:hover {
+	text-decoration: underline;
+}
+.photocredit {
+	font-style:italic; 
+	font-size:xx-small;
+}
+h5 {
+	font-size:13px;
+	vertical-align: bottom;
+	margin: 0.3em 0;
+}
+a {
+	color:black;
+	background-color: inherit;
+}
+a:hover {
+	color:#336633;
+	background-color: inherit;
+	text-decoration: none;
+}
+.credit {
+	font-size: .8em;
+	line-height: 1em;
+}
+/* for sitemap
+------------------------------ */
+#sitemap li {
+	line-height: 1.5em;
+}
+/* 'lineguide' and 'location' formatting stuff 
+------------------------------ */
+.linedTable td, th {
+	padding: .3em 10px;
+}
+.linedTable .date {
+	width: 18em;
+}
+.linedTable .x {
+	background-color: white;
+}
+.linedTable .y {
+	background-color: #F5F7F5;
+}
+#locationTable {
+	text-align: center;
+}
+
+/* gallery stuff */
+.i {
+	background-color: #FAFAFA;
+	padding: 10px !important;
+	vertical-align: top;
+}
+.i h4 {
+	padding: 5px 0;
+	margin: 0;
+}
+.i h4:hover {
+	text-decoration: underline;
+}
+	
+/* 'lineguide' specific formatting stuff
+------------------------------ */
+#lineguide .l, .s {
+	background-color: white;
+	line-height:0;
+	font-size:0;
+}
+#lineguide .g {
+	background-color: white;
+	text-align: center;
+	font-style:italic; 
+}
+#lineguide .s, td.t {
+	padding: 0 5px;
+}
+#lineguide .lineyears {
+	background-color: #FAFAFA;
+	border: #999;
+	border-style: solid;
+	border-width: 1px 0;
+	margin: 15px auto;
+	padding:3px;
+}
+#lineguide .lineyears td {
+	padding: 0 5px;
+}
+.d {
+	width: 8em;
+	text-align: center;
+}
+#legend td {
+	padding: .1em 3px;
+}
+#legend {
+	position: relative;
+	left: 2.5%;
+}
+#lineguide form #line {
+	visibility:hidden; 
+	width: 1px;
+	height: 1px;
+}
+#lineguide dd {
+	margin: 0.5em 0 0em 1em;
+}
+.regionContent {
+	padding: 0 1em;
+	vertical-align: top;
+}
+.regionLinks {
+	vertical-align: top;
+	white-space: nowrap;
+}
+.regionLinks ul {
+	margin: 0px;
+	padding: 0 1em 1em
+}
+/* 'locations' specific formatting stuff
+------------------------------ */
+.locations.map {
+	float: right;
+	height: 100px;
+	width: 100px;
+}	
+.locations .diagramTable .diagram {
+	padding: 5px 0;
+	background: white;
+}
+.centeredTable td{
+	padding: 5px 10px;
+	text-align: center;
+	width: 33%;
+}
+.locations .datatable {
+	line-height: 1.5em;
+	width: 95%;
+	margin: 0.5em auto 1em auto;
+}
+/* for 'news' section
+------------------------------ */
+#news h4 {
+	line-height: 1em;
+	text-align:left;
+	padding: 0;
+	margin: 0;
+}
+#news h5 {
+	font-size: 0.9em;
+}
+/* for 'tab' section
+------------------------------ */
+.shadetabs {
+padding: 3px 0;
+margin-left: 0;
+margin-top: 10px;
+margin-bottom: 0;
+list-style-type: none;
+text-align: left; /*set to left, center, or right to align the menu as desired*/
+}
+.shadetabscenter {
+padding: 3px 0;
+margin-left: 0;
+margin-top: 10px;
+margin-bottom: 0;
+list-style-type: none;
+text-align: center; /*set to left, center, or right to align the menu as desired*/
+}
+.shadetabs li {
+display: inline;
+margin: 0;
+}
+.shadetabs li a {
+text-decoration: none;
+padding: 3px 7px;
+margin-right: 3px;
+border: 1px solid #778;
+color: #2d2b2b;
+background-color: #EEE;
+}
+.shadetabs li a:hover {
+background-color: #336633;
+color: white;
+}
+.shadetabs li.selected a:hover {
+background-color: #FAFAFA;
+color: #336633;
+}
+.shadetabs li.selected {
+position: relative;
+top: 1px;
+}
+.shadetabs li.selected a { /*selected main tab style */
+background-color: #FAFAFA;
+border-bottom-color: #FAFAFA;
+color: #336633;
+}
+.tabcontentstyle { /*style of tab content container*/
+border: 1px solid gray;
+margin-bottom: 1em;
+padding: 10px;
+background-color: #FAFAFA;
+}
+@media print {
+.tabcontent {
+display:block!important;
+}
+}
+
+
+/* IE only style */
+/*\*/ @import "style-ie.css"; /**/

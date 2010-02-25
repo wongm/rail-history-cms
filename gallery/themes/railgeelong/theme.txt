@@ -1,0 +1,6 @@
+# Zenphoto theme definition file
+name::Rail Geelong
+author::Marcus Wong
+version::1.0.4
+date::11/28/2006
+desc::Based upon the 'Sub-Albums Testing Theme' by Tristan Harward.
