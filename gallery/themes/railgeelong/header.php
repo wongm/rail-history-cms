@@ -28,31 +28,11 @@ include_once('gallery-formatting-functions.php');
 <? printRSSHeaderLink("Gallery", "Recent uploads"); ?>
 </head>
 <body>
+<div id="container">
+<div id="header">
+<h1><a href="/" alt="Home" title="Home">Rail Geelong</a> - Gallery</h1>
+</div>
 <?php printMyAdminToolbox(); ?>
-<?php if($_REQUEST['p'] == 'full')
-{
-?>
-<table id="container" cellspacing="5">
-<tr><td id="header" colspan="2">
-<h1><a href="/">Rail Geelong</a> - Gallery</h1>
-</td></tr>
-<tr><td valign="top">
-<?php printMyAdminToolbox(); ?>
+<div id="contentwrapper">
 <div id="content">
 <div id="main">
-<? 	}
-	else
-	{
-?>
-<table id="container">
-<tr><td id="header" colspan="2">
-<h1><a href="/">Rail Geelong</a> - Gallery</h1>
-</td></tr>
-<tr><td width="140"></td>
-<td valign="top">
-<?php printMyAdminToolbox(); ?>
-<div id="content">
-<div id="main">
-<? 	}
-	// end if
-?>

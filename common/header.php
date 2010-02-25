@@ -57,11 +57,9 @@ if (strlen($pageHeading) > 35)
 <? } else { ?>
 <body>
 <? } ?>
-<table id="container">
-<tr><td id="header" colspan="2">
-<? /*<img src="/images/sig.small.jpg" height="60" width="468" style="float: right;"/> */ ?>
-	<h1><a href="/" alt="Home" title="Home">Rail Geelong</a> - <?php echo $pageHeading; ?></h1>
-</td></tr>
-<tr><td width="140"></td>
-<td id="big" valign="top">
+<div id="container">
+<div id="header">
+<h1><a href="/" alt="Home" title="Home">Rail Geelong</a> - <?php echo $pageHeading; ?></h1>
+</div>
+<div id="contentwrapper">
 <div id="content">

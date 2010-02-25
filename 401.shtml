@@ -1,93 +1,64 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
 <title>Rail Geelong - 401 Authorization Required</title>
-<link rel="stylesheet" type="text/css" href="/common/style.css" media="all" title="Normal" />
-<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
-<meta name="author" content="Marcus Wong" />
-<meta name="keywords" content="railways trains geelong victoria" />
-</head>
-<body>
-<table id="container" cellspacing="5">
-<tr><td id="header" colspan="2">
-<h1><a href="/">Rail Geelong</a></h1>
-<h2>401 Authorization Required</h2>
+<link rel="stylesheet" type="text/css" href="/common/style.css" media="all" title="Normal">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="author" content="Marcus Wong">
+<meta name="description" content="Rail Geelong Homepage">
+<meta name="keywords" content="railways trains geelong victoria">
+</head><body>
+<table id="container">
+<tbody><tr><td id="header" colspan="2">
+	<h1><a href="/" alt="Home" title="Home">Rail Geelong</a> - 401 Authorization Required</h1>
 </td></tr>
-<tr><td width="140"></td>
-<td id="big" valign="top">
-<div id="content">
-<div id="credits">
-<h3>401 Authorization Required</h3>
-<hr/>
+<tr><td>
+<div id="contentwrapper">
+<div id="content"><div id="credits">
 <p class="error">This page doesn't exist!</p>
 <p>Please check you typed the address correctly.</p>
 <p>If you followed a link from elsewhere, please inform them.</p>
 <p>If the link was from this site, then <a href="/contact.php">Contact Me</a>.</p>
-</div></div><div id="footer">
-<a href="/index.php">Home</a> :: <a href="/sitemap.php">Sitemap</a> :: <a href="/copyright.php">Copyright</a> :: <a href="/contact.php">Contact</a><br/>
-
-Page Generation: 0.488 seconds.<br/>Copyright 2006 - 2007 &copy; Marcus Wong except where otherwise noted.<br/><br/>
-<!-- Copyright (c)2006 Site Meter -->
-<script type="text/javascript" src="http://s37.sitemeter.com/js/counter.js?site=s37railgeelong">
-</script>
-<noscript>
-<p><a href="http://s37.sitemeter.com/stats.asp?site=s37railgeelong" >
-<img src="http://s37.sitemeter.com/meter.asp?site=s37railgeelong" alt="Site Meter" /></a></p>
-</noscript></div>
+</div></div></div>
 <div id="navigation">
-<!-- http://www.projectseven.com/tutorials/css/uberlinks/index.htm -->
 <ul class="sitemenu">
 	<li class="menu"><a href="/index.php">Home</a></li>
-
+	<li class="menu"><a href="/news">News</a></li>
+	<li class="menu"><a href="/updates">Updates</a></li>
 </ul>
-<a class="sub">Aerial View</a>
 <ul class="sitemenu">
-	<li class="menu"><a href="/aerial.php?section=overview">Overview</a></li>
-	<li class="menu"><a href="/aerial.php">Aerial View</a></li>
+	<li class="menu"><a href="/lineguide"><b>Line Guides</b></a></li>
+	<li class="menu"><a href="/region/geelong">Geelong Region</a></li>
+	<li class="menu"><a href="/region/melbourne">Melbourne Region</a></li>
+	<li class="menu"><a href="/region/south-west">South West Victoria</a></li>
+	</ul>
+<ul class="sitemenu">
+	<li class="menu"><a href="/locations"><b>Locations</b></a></li>
+	<li class="menu"><a href="/locations/stations">Stations</a></li>
+	<li class="menu"><a href="/locations/industries">Industries</a></li>
+	<li class="menu"><a href="/locations/signalboxes">Signal Boxes</a></li>
+	<li class="menu"><a href="/locations/yards">Yards</a></li>
+	<li class="menu"><a href="/locations/misc">Miscellaneous</a></li>
 </ul>
-<a class="sub">Line Guides</a>
 <ul class="sitemenu">
-	<li class="menu"><a href="/lineguide.php">Overview</a></li>
-
-	<li class="menu"><a href="/lineguide.php?line=geelong">Geelong Line</a></li>
-	<li class="menu"><a href="/lineguide.php?line=queenscliff">Queenscliff Line</a></li>
-	<li class="menu"><a href="/lineguide.php?line=fyansford">Fyansford Line</a></li>
-	<li class="menu"><a href="/lineguide.php?line=cunningham">Cunningham Pier</a></li>
+	<li class="menu"><a href="/articles"><b>Articles</b></a></li>
 </ul>
-<a class="sub">Locations</a>
 <ul class="sitemenu">
-	<li class="menu"><a href="/locations.php">Overview</a></li>
-
-	<li class="menu"><a href="/locations.php?type=stations">Stations</a></li>
-	<li class="menu"><a href="/locations.php?type=industries">Industries</a></li>
-	<li class="menu"><a href="/locations.php?type=signalboxes">Signal Boxes</a></li>
-	<li class="menu"><a href="/locations.php?type=yards">Yards</a></li>
+	<li class="menu"><a href="/aerial.php"><b>Aerial View</b></a></li>
+	<li class="menu"><a href="/aerial.php?section=overview">Help</a></li>
 </ul>
-<a class="sub">Articles</a>
 <ul class="sitemenu">
-	<li class="menu"><a href="/articles.php">Listing</a></li>
-
+	<li class="menu"><a href="/gallery/"><b>Gallery</b></a></li>
+	<li class="menu"><a href="/gallery/recent">Updates</a></li>
+	<li class="menu"><a href="/gallery/search">Search</a></li>
 </ul>
-<a class="sub">Photography</a>
 <ul class="sitemenu">
-	<li class="menu"><a href="/gallery/">Gallery</a></li>
-	<li class="menu"><a href="/gallery/search.php">Image Search</a></li>
-</ul>
-<a class="sub">Other</a>
-<ul class="sitemenu">
-	<li class="menu"><a href="/news/">News</a></li>
-
-	<li class="menu"><a href="/forums/">Forums</a></li>
 	<li class="menu"><a href="/contact.php">Contact</a></li>
 	<li class="menu"><a href="/credits.php">Credits</a></li>
 	<li class="menu"><a href="/sources.php">Sources</a></li>
 	<li class="menu"><a href="/sitemap.php">Sitemap</a></li>
-</ul>
-</div>
-</td></tr>
-</table>
-</body>
-</html>
-
-
-
+</ul></div>
+<div id="footer">
+<a href="/index.php">Home</a> :: <a href="/sitemap.php">Sitemap</a> :: <a href="/copyright.php">Copyright</a> :: <a href="/contact.php">Contact</a>
+<br>
+Copyright 2005 - 2010 © Marcus Wong except where otherwise noted.<br><br>
+</body></html>
