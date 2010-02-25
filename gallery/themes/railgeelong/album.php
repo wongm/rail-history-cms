@@ -36,7 +36,7 @@ include_once('header.php'); ?>
   while (next_album()):
   if ($i == 0)
   {
-	  echo '<tr>';
+	  echo "<tr>\n";
   }
   global $_zp_current_album;
 ?>
@@ -49,14 +49,20 @@ include_once('header.php'); ?>
     </td>
   <?php if ($i == 2)
   {
-	  echo '</tr>';
+	  echo "<tr>\n";
 	  $i = 0;
   }
   else
   {
 	  $i++; 
   }
-  endwhile; ?>
+  endwhile;
+  
+  if ($i != 0)
+  {
+	  echo "</tr>\n";
+  }
+  ?>
   </table>
   <?php $num = getNumImages(); 
   if ($num > 0): /* Only print if we have images. */ ?>
@@ -75,7 +81,7 @@ include_once('header.php'); ?>
   while (next_image()):
   if ($i == 0)
   {
-	  echo '<tr>';
+	  echo "<tr>\n";
   } 
   global $_zp_current_image;
 ?>
@@ -87,16 +93,21 @@ include_once('header.php'); ?>
     </td>  
   <?php if ($i == 2)
   {
-	  echo '</tr>';
+	  echo "<tr>\n";
 	  $i = 0;
   }
   else
   {
 	  $i++; 
   }
-  endwhile; ?>
-  </table>
-  <?php endif; 
+  endwhile;
+  
+  if ($i != 0)
+  {
+	  echo "</tr>\n";
+  } ?>
+</table>
+<?php endif; 
   
   drawWongmAlbumNextables(true, getAlbumLinkURL().'page/');
   

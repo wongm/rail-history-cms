@@ -28,7 +28,7 @@ include_once('header.php'); ?>
   while (next_album()):
   if ($i == 0)
   {
-	  echo '<tr>';
+	  echo "<tr>\n";
   } ?>
     <td class="album" valign="top">
       <div class="albumthumb"><a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?>">
@@ -40,7 +40,7 @@ include_once('header.php'); ?>
     
   <?php if ($i == 2)
   {
-	  echo '</tr>';
+	  echo "</tr>\n";
 	  $i = 0;
   }
   else
@@ -48,6 +48,11 @@ include_once('header.php'); ?>
 	  $i++; 
   }
   endwhile;
+  
+  if ($i != 0)
+  {
+	  echo "</tr>\n";
+  }
   
    ?>
   </table>
