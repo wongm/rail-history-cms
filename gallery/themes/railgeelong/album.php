@@ -49,7 +49,7 @@ include_once('header.php'); ?>
     </td>
   <?php if ($i == 2)
   {
-	  echo "<tr>\n";
+	  echo "</tr>\n";
 	  $i = 0;
   }
   else
@@ -93,7 +93,7 @@ include_once('header.php'); ?>
     </td>  
   <?php if ($i == 2)
   {
-	  echo "<tr>\n";
+	  echo "</tr>\n";
 	  $i = 0;
   }
   else
