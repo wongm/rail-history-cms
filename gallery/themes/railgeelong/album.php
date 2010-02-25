@@ -21,11 +21,16 @@ include_once('header.php'); ?>
   drawWongmAlbumNextables(false, getAlbumLinkURL().'page/');
   ?>  
   
+  <?php
+  $num = getNumSubAlbums(); 
+  if ($num > 0) // Only print if we have images
+  {
+?>
   <!-- Sub-Albums -->
   <table class="centeredTable">
   <?php 
   // neater for when only 4 items
-  if (getNumSubAlbums() == 4)
+  if ($num == 4)
   {
 	  $i = 1;
   }
@@ -64,7 +69,10 @@ include_once('header.php'); ?>
   }
   ?>
   </table>
-  <?php $num = getNumImages(); 
+  <?php 
+  } // end no album if
+  
+  $num = getNumImages(); 
   if ($num > 0): /* Only print if we have images. */ ?>
   <!-- Images -->
   <table class="centeredTable">
