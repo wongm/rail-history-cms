@@ -1,7 +1,7 @@
 <?php
 // don't display errors
 $server = $_SERVER['HTTP_HOST'];
-if ($server == 'z' OR $server == 'localhost')
+if ($server == 'z' OR $server == 'localhost' OR isset($_GET['wongm']))
 {
 	///error_reporting(E_ERROR);
 }

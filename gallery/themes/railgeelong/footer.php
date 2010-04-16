@@ -10,7 +10,7 @@
 $time2 = round(microtime(), 3);
 $generation = str_replace('-', '', $time2 - $time);
 echo "Page Generation: $generation seconds.<br/>";?>
-Copyright 2006 - 2007 &copy; Marcus Wong except where otherwise noted.
+Copyright 2006 - 2007 &copy; <a href="http://wongm.com">Marcus Wong</a> except where otherwise noted.
 </div>
 </div>
 <script type="text/javascript">
