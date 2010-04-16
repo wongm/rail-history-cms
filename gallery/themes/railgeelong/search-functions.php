@@ -283,7 +283,7 @@ function imageOrAlbumSearch($term, $type, $page)
 	}
 	elseif ($type == 'Album')
 	{
-		drawAlbums($galleryResult, ($page == 'error'));
+		drawAlbums($galleryResult, ($page == 'error'), true);
 	}
 	else
 	{
@@ -300,7 +300,7 @@ function imageOrAlbumSearch($term, $type, $page)
  * used by album search
  * and by the frontpage recently updated search
  */
-function drawAlbums($galleryResult, $error = false)
+function drawAlbums($galleryResult, $error = false, $search = false)
 {	
 	$numberOfRows = MYSQL_NUM_ROWS($galleryResult);
 	
@@ -324,22 +324,38 @@ function drawAlbums($galleryResult, $error = false)
 				$photoPath = MYSQL_RESULT($galleryResult,$i,"zen_albums.folder");
 				$photoAlbumTitle = stripslashes(MYSQL_RESULT($galleryResult,$i,"zen_albums.title"));
 				$albumId = MYSQL_RESULT($galleryResult,$i,"zen_albums.id");
-				$albumDate = strftime(TIME_FORMAT, strtotime(MYSQL_RESULT($galleryResult,$i,"zen_albums.date")));
 				
-				// get an image to display with it
-				$imageSql = "SELECT filename, id FROM zen_images WHERE zen_images.albumid = '$albumId' LIMIT 0,1 ";
-				$imageResult = MYSQL_QUERY($imageSql);
-				$numberOfImages = MYSQL_NUM_ROWS($imageResult);
-				if ($numberOfImages > 0)
+				//old shit
+				if ($search)
 				{
-					$photoUrl = MYSQL_RESULT($imageResult,0,"filename");
-					$photoId = MYSQL_RESULT($imageResult,0,"id");
-					$photoUrl = GALLERY_PATH."/$photoPath/image/thumb/$photoUrl";
+					$albumDate = strftime(TIME_FORMAT, strtotime(MYSQL_RESULT($galleryResult,$i,"fdate")));
+					
+					// get an image to display with it
+					$imageSql = "SELECT filename, id FROM zen_images WHERE zen_images.albumid = '$albumId' LIMIT 0,1 ";
+					$imageResult = MYSQL_QUERY($imageSql);
+					$numberOfImages = MYSQL_NUM_ROWS($imageResult);
+					if ($numberOfImages > 0)
+					{
+						$photoUrl = MYSQL_RESULT($imageResult,0,"filename");
+						$photoId = MYSQL_RESULT($imageResult,0,"id");
+						$photoUrl = GALLERY_PATH."/$photoPath/image/thumb/$photoUrl";
+					}
+					else
+					{
+						$photoUrl = GALLERY_PATH."/foldericon.gif";
+					}
 				}
+				// new frontpage stuff
 				else
 				{
-					$photoUrl = GALLERY_PATH."/foldericon.gif";
+					$photoUrl = MYSQL_RESULT($galleryResult,$i,"i.filename");
+					$photoId = MYSQL_RESULT($galleryResult,$i,"i.id");
+					$photoUrl = GALLERY_PATH."/$photoPath/image/thumb/$photoUrl";
+					$albumDate = strftime(TIME_FORMAT, MYSQL_RESULT($galleryResult,$i,"fdate"));
 				}
+				
+				
+				
 					
 				if ($photoDesc == '')
 				{

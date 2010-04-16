@@ -43,10 +43,20 @@ function getLocationImages($location)
 
 function printFrontpageRecent()
 {
-	$sql = "SELECT * , zen_images.mtime as fdate FROM zen_images, zen_albums 
-		WHERE zen_images.albumid = zen_albums.id 
-		GROUP BY albumid 
-		ORDER BY zen_images.id DESC LIMIT 0,".FRONT_PAGE_MAX_IMAGES;
+	$sql = "SELECT i.filename, i.id, zen_albums.folder, zen_albums.title, zen_albums.id, zen_albums.date, i.mtime as fdate 
+				FROM zen_images i
+				INNER JOIN zen_albums ON i.albumid = zen_albums.id 
+				LEFT JOIN
+				(
+				    select max(id) id1 from zen_images insideimage
+				    where albumid <> 0
+				    group by albumid
+				    order by max(id) desc
+				    limit ".FRONT_PAGE_MAX_IMAGES."
+				) t ON id1 = i.id
+				WHERE id1 is not null or albumid = 0 
+				ORDER BY i.id DESC
+				LIMIT 0,".FRONT_PAGE_MAX_IMAGES;
 	$galleryResult = MYSQL_QUERY($sql, galleryDBconnect());	
 	
 	drawAlbums($galleryResult);
