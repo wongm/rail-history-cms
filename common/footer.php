@@ -30,7 +30,7 @@ if ($lastUpdatedDate != '')
 	echo "Last updated $lastUpdatedDate<br/>\n";
 }
 ?>
-Copyright 2005 - <?=date('Y') ?> &copy; Marcus Wong except where otherwise noted.
+Copyright 2005 - <?=date('Y') ?> &copy; <a href="http://wongm.com">Marcus Wong</a> except where otherwise noted.
 </div>
 </div>
 <script type="text/javascript">

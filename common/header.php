@@ -7,7 +7,7 @@ $startTime = $startTime[1] + $startTime[0];
 
 // don't display errors
 $server = $_SERVER['HTTP_HOST'];
-if ($server == 'z' OR $server == 'localhost')
+if ($server == 'z' OR $server == 'localhost' OR isset($_GET['wongm']))
 {
 	$editablelinkforadmin = true;
 	//error_reporting(E_ALL);
