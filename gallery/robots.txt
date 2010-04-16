@@ -1,0 +1,13 @@
+User-agent: *
+Disallow: /gallery/albums/
+Disallow: /gallery/cache/
+Disallow: /gallery/themes/
+Disallow: /gallery/zp-core/
+Disallow: /gallery/zp-data/
+Disallow: /gallery/page/search/
+Disallow: /gallery/uploaded/
+Disallow: /gallery/rss.php
+Disallow: /gallery/rss-comments.php
+Disallow: /gallery/README.html
+Disallow: /gallery/rss-news-comments.php
+Disallow: /gallery/rss-news.php

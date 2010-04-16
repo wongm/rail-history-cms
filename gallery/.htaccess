@@ -1,0 +1,72 @@
+# htaccess file version 1.1.6.0
+# Update the above and the define in setup.php when you make changes to the rewrite rules!
+# NOTE: Change the RewriteBase below to the absolute path to your zenphoto directory. (Or let setup.php do it for you!)
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  
+  #### standard redirect to avoid http://railgeelong.com 
+  RewriteCond %{HTTP_HOST} ^railgeelong\.com$ [NC]
+  RewriteRule ^(.*)$ http://www.railgeelong.com/gallery/$1 [R=301,L]
+  
+  #### horrible kludge
+  RewriteRule ^home/rai49752/public_html/gallery/?$      /gallery [R,L,QSA]
+  
+  #### !!! Change this to the web path (eg: http://www.yourwebsite.com/photos --> /photos) !!!
+  RewriteBase /gallery
+  ####
+  
+  ## MW updated pages
+  RewriteRule ^recent/page/([0-9]+)/?$		index.php?p=uploads&page=$1 [L,QSA]
+  RewriteRule ^recent/(.*)/?$		index.php?p=uploads&page=$1 [L,QSA]
+  RewriteRule ^recent/?$			index.php?p=uploads
+  
+  RewriteRule	^admin/?$                       zp-core/admin.php [R,L]
+  
+  ### RewriteRule 	^search/?$                       search.php [L,QSA]
+  
+  # RSS
+  RewriteRule ^recentimages.rss?$      		       				rss.php? [L,QSA]
+  RewriteRule ^recentalbums.rss?$      		       				rss.php?albumsmode [L,QSA]
+  
+  #### Rewrite rule addition for search
+  RewriteRule ^search/fields([0-9]+)/(.*)/([0-9]+)/?$      index.php?p=search&searchfields=$1&words=$2&page=$2 [L,QSA]
+  RewriteRule ^search/fields([0-9]+)/(.*)/?$      index.php?p=search&searchfields=$1&words=$2 [L,QSA]
+  RewriteRule ^search/archive/(.*)/([0-9]+)/?$      index.php?p=search&date=$1&page=$2 [L,QSA]
+  RewriteRule ^search/archive/(.*)/?$      index.php?p=search&date=$1 [L,QSA]
+  RewriteRule ^search/tags/(.*)/([0-9]+)/?$  index.php?p=search&searchfields=4&words=$1&page=$2 [L,QSA]
+  RewriteRule ^search/tags/(.*)/?$ 					 index.php?p=search&searchfields=4&words=$1 [L,QSA]
+  RewriteRule ^search/(.*)/([0-9]+)/?$      index.php?p=search&words=$1&page=$2 [L,QSA]
+  RewriteRule ^search/(.*)/?$      index.php?p=search&words=$1 [L,QSA]
+  RewriteRule ^search?$      index.php?p=search [L,QSA]
+  
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^albums/?(.+/?)?$ $1 [R=301,L] 
+
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^.*$ - [R,L]
+  
+  RewriteRule index\.php$                     index.php [L,QSA]
+  RewriteRule ^page/([0-9]+)/?$               index.php?page=$1 [L,QSA]
+  RewriteRule ^page/([A-Za-z0-9\-_]+)/?$      index.php?p=$1 [L,QSA]
+  RewriteRule ^(.*)/page/([0-9]+)/?$          index.php?album=$1&page=$2 [L,QSA]
+  RewriteRule ^(.*)page/([A-Za-z0-9\-_]+)/?$      index.php?album=$1&p=$2 [L,QSA]
+  
+  #### Rewrite rule addtion for search
+  RewriteRule ^page/([A-Za-z0-9\-_]+)/fields([0-9]+)/(.*)/([0-9]+)/?$      index.php?p=$1&searchfields=$2&words=$3&page=$4 [L,QSA]
+  RewriteRule ^page/([A-Za-z0-9\-_]+)/fields([0-9]+)/(.*)/?$      index.php?p=$1&searchfields=$2&words=$3 [L,QSA]
+  RewriteRule ^page/([A-Za-z0-9\-_]+)/archive/(.*)/([0-9]+)/?$      index.php?p=$1&date=$2&page=$3 [L,QSA]
+  RewriteRule ^page/([A-Za-z0-9\-_]+)/archive/(.*)/?$      index.php?p=$1&date=$2 [L,QSA]
+  RewriteRule ^page/([A-Za-z0-9\-_]+)/tags/(.*)/([0-9]+)/?$  index.php?p=$1&searchfields=4&words=$2&page=$3 [L,QSA]
+  RewriteRule ^page/([A-Za-z0-9\-_]+)/tags/(.*)/?$ 					 index.php?p=$1&searchfields=4&words=$2 [L,QSA]
+  RewriteRule ^page/([A-Za-z0-9\-_]+)/(.*)/([0-9]+)/?$      index.php?p=$1&words=$2&page=$3 [L,QSA]
+  RewriteRule ^page/([A-Za-z0-9\-_]+)/(.*)/?$      index.php?p=$1&words=$2 [L,QSA]
+   
+  RewriteRule ^(.*)/image/(thumb|[0-9]{1,4})/([^/\\]+)$    zp-core/i.php?a=$1&i=$3&s=$2 [L,QSA]
+  RewriteRule ^(.*)/image/([^/\\]+)$          zp-core/i.php?a=$1&i=$2 [L,QSA]
+  ####
+   
+  # Catch-all - everything else gets handled in PHP for compatibility.
+  RewriteRule ^(.*)/?$                        index.php?album=$1 [L,QSA]
+</IfModule>
