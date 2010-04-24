@@ -23,21 +23,19 @@
   
   RewriteRule	^admin/?$                       zp-core/admin.php [R,L]
   
-  ### RewriteRule 	^search/?$                       search.php [L,QSA]
-  
   # RSS
   RewriteRule ^recentimages.rss?$      		       				rss.php? [L,QSA]
   RewriteRule ^recentalbums.rss?$      		       				rss.php?albumsmode [L,QSA]
   
   #### Rewrite rule addition for search
-  RewriteRule ^search/fields([0-9]+)/(.*)/([0-9]+)/?$      index.php?p=search&searchfields=$1&words=$2&page=$2 [L,QSA]
-  RewriteRule ^search/fields([0-9]+)/(.*)/?$      index.php?p=search&searchfields=$1&words=$2 [L,QSA]
-  RewriteRule ^search/archive/(.*)/([0-9]+)/?$      index.php?p=search&date=$1&page=$2 [L,QSA]
-  RewriteRule ^search/archive/(.*)/?$      index.php?p=search&date=$1 [L,QSA]
-  RewriteRule ^search/tags/(.*)/([0-9]+)/?$  index.php?p=search&searchfields=4&words=$1&page=$2 [L,QSA]
-  RewriteRule ^search/tags/(.*)/?$ 					 index.php?p=search&searchfields=4&words=$1 [L,QSA]
-  RewriteRule ^search/(.*)/([0-9]+)/?$      index.php?p=search&words=$1&page=$2 [L,QSA]
-  RewriteRule ^search/(.*)/?$      index.php?p=search&words=$1 [L,QSA]
+  RewriteRule ^page/search/fields([0-9]+)/(.*)/([0-9]+)/?$      index.php?p=search&searchfields=$1&words=$2&page=$2 [L,QSA]
+  RewriteRule ^page/search/fields([0-9]+)/(.*)/?$      index.php?p=search&searchfields=$1&words=$2 [L,QSA]
+  RewriteRule ^page/search/archive/(.*)/([0-9]+)/?$      index.php?p=search&date=$1&page=$2 [L,QSA]
+  RewriteRule ^page/search/archive/(.*)/?$      index.php?p=search&date=$1 [L,QSA]
+  RewriteRule ^page/search/tags/(.*)/([0-9]+)/?$  index.php?p=search&searchfields=4&words=$1&page=$2 [L,QSA]
+  RewriteRule ^page/search/tags/(.*)/?$ 					 index.php?p=search&searchfields=4&words=$1 [L,QSA]
+  RewriteRule ^page/search/(.*)/([0-9]+)/?$      index.php?p=search&words=$1&page=$2 [L,QSA]
+  RewriteRule ^page/search/(.*)/?$      index.php?p=search&words=$1 [L,QSA]
   RewriteRule ^search?$      index.php?p=search [L,QSA]
   
   RewriteCond %{REQUEST_FILENAME} -d
