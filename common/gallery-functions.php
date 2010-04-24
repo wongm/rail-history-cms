@@ -1,8 +1,8 @@
 <?php
 include_once('dbConnection.php');
 include_once('formatting-functions.php');
-include_once('./gallery/themes/railgeelong/search-functions.php');
-include_once('./gallery/themes/railgeelong/railgeelong-functions.php');
+include_once('./gallery/themes/railgeelong/functions-search.php');
+include_once('./gallery/themes/railgeelong/functions-railgeelong.php');
 
 // check this location has images to show
 function getLocationImages($location)
@@ -43,7 +43,7 @@ function getLocationImages($location)
 
 function printFrontpageRecent()
 {
-	$sql = "SELECT i.filename, i.id, zen_albums.folder, zen_albums.title, zen_albums.id, zen_albums.date, i.mtime as fdate 
+	$sql = "SELECT i.filename, i.id, zen_albums.folder, zen_albums.title, zen_albums.id, zen_albums.date, i.date as fdate 
 				FROM zen_images i
 				INNER JOIN zen_albums ON i.albumid = zen_albums.id 
 				LEFT JOIN
