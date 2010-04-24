@@ -1,86 +1,94 @@
-<?php
-
-/*
- * ---------------------------------
- * config settings for this file
- * ---------------------------------
- */
- 
-// the name of the directory that the theme being used lives in
-$theme = 'railgeelong';
-
-require_once("railgeelong-functions.php");
-include_once("search-functions.php");
-
-/*
- * ---------------------------------
- * page setup stuff
- * ---------------------------------
- */
-$search = $_REQUEST['search'];
-$page = $page = $_REQUEST['page'];
-
-$len = strlen($search);
-if (substr($search, ($len-1), $len) == '/')
-{
-	$search = substr($search, 0, ($len-1));
-}
+<?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
 
 $pageTitle = ' - Search';
+include_once('header.php'); 
 
-if (isset($_REQUEST['recent']))
+$totalAlbums = getNumAlbums();
+$totalImages = getNumImages();
+$total = $totalAlbums + $totalImages;
+
+if (strlen($searchwords) == 0)
 {
-	//$headerstuff = ' <a href="/gallery/recent">Recent updates</a>';
-	$headerstuff = " Recent updates";
-	$pageTitle = 'Gallery Recent Updates';
+	$leadingIntroText = "<h3>Search</h3>";
 }
 else
 {
-	$headerstuff = " Search";
-	//$headerstuff = ' <a href="/gallery/search">Search</a>';
+	$leadingIntroText = "<h3>Search results</h3>";
 }
-
-include_once("header.php");
-	?>
-<link rel="stylesheet" href="/gallery/themes/<?=$theme?>/zen.css" type="text/css" media="all" title="Normal" />
+?>
 <table class="headbar">
-    <tr><td><a href="/">Rail Geelong</a> &raquo; <a href="/gallery/">Gallery</a> &raquo; <?=$headerstuff?></td>
+    <tr><td><a href="/">Rail Geelong</a> &raquo; <a href="/gallery/">Gallery</a> &raquo; <a href="<?=SEARCH_URL_PATH?>">Search</a></td>
     <td id="righthead"><? printSearchBreadcrumb(); ?></td></tr>
 </table>
 <div class="topbar">
-<?	
+	<?php echo $leadingIntroText; ?>
+</div>
+<div id="searchpage">
+<?php
+if ($totalAlbums > 0)
+{
+	$albumsText = " - $totalAlbums albums and $totalImages images.";
+}
+if ($total > 0) 
+{
+	if (isset($_REQUEST['date']))
+	{
+		$searchwords = getFullSearchDate();
+	} 
+	else 
+	{ 
+		$searchwords = getSearchWords(); 
+	}
+ 	echo '<p>'.sprintf(gettext('%2$u total matches for <em>%1$s</em>'), $searchwords, $total)." $albumsText</p>";
+}
 
-if (isset($_REQUEST['recent']))
+if ($totalAlbums > 0)
 {
-	include_once('../common/dbConnection.php');
-	galleryDBconnect();
-	
-	echo COPYRIGHT."</div>";
-	printRecentPage($_REQUEST['recent']);
-}
-elseif ($search != '')
-{
-	include_once('../common/dbConnection.php');
-	galleryDBconnect();
-	
-	if($_REQUEST['type'] == 'albums')
+	echo "<table class=\"indexalbums\">\n";
+	while (next_album())
 	{
-		$type = 'Album';
+		if (is_null($firstAlbum)) 
+		{
+			$lastAlbum = albumNumber();
+			$firstAlbum = $lastAlbum;
+		} 
+		else 
+		{
+			$lastAlbum++;
+		}
+		drawWongmAlbumRow();
 	}
-	else
-	{
-		$type = 'Image';
-	}
-	
-	echo COPYRIGHT."</div>";
-	imageOrAlbumSearch($search, $type, $page);
+	echo "</table>";
 }
-// welcome page
-else
-{
-	echo COPYRIGHT."</div>";
-	drawImageOrAlbumSearchForm();
-}
-echo "</div>";
-include_once("../common/footer.php"); 
 ?>
+<div id="images">
+<?php drawWongmGridImages(); ?>
+</div>
+<?php
+if (function_exists('printSlideShowLink')) {
+	echo "<p align=\"center\">";
+	printSlideShowLink(gettext('View Slideshow'));
+	echo "</p>";
+}
+if ($totalImages == 0 AND $totalAlbums == 0) 
+{
+	if (!empty($searchwords))
+	{
+		echo "<p>".gettext("Sorry, no image matches. Try refining your search.")."</p>";
+	}
+	printSearchForm();
+}
+
+if (hasNextPage() OR hasPrevPage())
+{
+?>
+<table class="nextables"><tr id="pagelinked"><td>
+	<?php if (hasPrevPage()) { ?> <a class="prev" href="<?=getMyPageURL(getPrevPageURL());?>" title="Previous Page"><span>&laquo;</span> Previous</a> <?php } ?>
+	</td><td><?php printPageList(); ?></td><td>
+	<?php if (hasNextPage()) { ?> <a class="next" href="<?=getMyPageURL(getNextPageURL());?>" title="Next Page">Next <span>&raquo;</span></a><?php } ?>
+</td></tr></table>
+<?
+}
+?>
+</div>
+<?php include_once('footer.php'); ?>

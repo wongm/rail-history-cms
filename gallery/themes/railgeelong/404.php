@@ -23,6 +23,7 @@ if ($image != '')
 			$searchResult = $searchResult[0];
 		}
 		$location = FULLWEBPATH . "/" . $searchResult["folder"] . "/" . $searchResult["filename"] . ".html";
+		status_header(301);
 		header("Location: $location");
 		return;
 	}
@@ -33,17 +34,18 @@ header("HTTP/1.0 404 Not Found");
 header("Status: 404 Not Found");
  
 $startTime = array_sum(explode(" ",microtime())); 
-$pageTitle = ' - 404 Page Not Found Error';
+$pageTitle = ' - 404 Page Not Found';
 include_once('header.php');
-include_once('search-functions.php');
+include_once('functions-search.php');
 ?>
 <table class="headbar">
-	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 404 Page Not Found Error
+	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 404 Page Not Found
 	</td><td id="righthead"><?printSearchBreadcrumb();?></td></tr>
 </table>
+<div class="topbar">
+  	<h2>404 Page Not Found</h2>
+</div>
 <?php
-
-echo gettext("<h2>404 Page Not Found Error</h2>");
 echo gettext("<h4>The gallery object you are requesting cannot be found.</h4>");
 
 if (isset($image) AND $image != '') 
@@ -92,6 +94,24 @@ else
 	$wording = "You ";
 }
 ?>
-<p><?=$wording?>can use <a href="<?=SEARCH_URL_PATH?>">Search</a> to find what you are looking for. </p> 
-<p>Otherwise please check you typed the address correctly. If you followed a link from elsewhere, please inform them. If the link was from this site, then <a href="/contact.php">Contact Me</a>.</p>
-<?php include_once('footer.php'); ?>
+<p><?=$wording?>can use <a href="<?=SEARCH_URL_PATH?>/<?=$term?>">Search</a> to find what you are looking for. </p> 
+<p>Otherwise please check you typed the address correctly. If you followed a link from elsewhere, please inform them. If the link was from this site, then <a href="<?=CONTACT_URL_PATH?>">Contact Me</a>.</p>
+<?php include_once('footer.php');
+
+function status_header( $header ) {
+	if ( 200 == $header )
+		$text = 'OK';
+	elseif ( 301 == $header )
+		$text = 'Moved Permanently';
+	elseif ( 302 == $header )
+		$text = 'Moved Temporarily';
+	elseif ( 304 == $header )
+		$text = 'Not Modified';
+	elseif ( 404 == $header )
+		$text = 'Not Found';
+	elseif ( 410 == $header )
+		$text = 'Gone';
+
+	@header("HTTP/1.1 $header $text");
+	@header("Status: $header $text");
+} ?>

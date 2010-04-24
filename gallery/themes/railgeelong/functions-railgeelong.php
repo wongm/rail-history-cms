@@ -9,13 +9,10 @@
 //
 //******************************************************************************
 
-define ('IMAGETITLE_TRUNCATE_LENGTH', 40);
-define ('FORUM_IMAGE_SIZE', 500);
-
 // for searching by date links in the EXIF info box
 DEFINE ('DATE_SEARCH', false);
 //DEFINE ('ARCHIVE_URL_PATH', "/gallery/archive");
-DEFINE ('SEARCH_URL_PATH', "/gallery/search");
+DEFINE ('SEARCH_URL_PATH', "/gallery/page/search");
 DEFINE ('UPDATES_URL_PATH', "/gallery/recent");
 //DEFINE ('EVERY_ALBUM_PATH', "/gallery/everything");
 //DEFINE ('CONTACT_URL_PATH', "/misc/contact");
@@ -36,20 +33,10 @@ else
 {
 	define ('MAXIMAGES_PERPAGE', 24);
 	define ('MAXALBUMS_PERPAGE', 24);
-	define ('THUMBNAIL_IMAGE_SIZE', 150);
+	define ('THUMBNAIL_IMAGE_SIZE', 250);
 	define ('MAXIMAGES_LOCATIONPAGE', 9);
 	DEFINE ('GALLERY_PATH', '/gallery');
 	define ('TIME_FORMAT', '%B %d, %Y %H:%M %p');
-}
-
-// drawPageNumberLinks() already exists in Rail Geelong formatting-functions.php
-// so redefine function name to the gallery search one if it exists
-if (!function_exists(drawPageNumberLinks))
-{
-	function drawPageNumberLinks($index, $totalimg, $max, $url)
-	{
-		return drawSearchPageNumberLinks($index, $totalimg, $max, $url);
-	}
 }
 
 function printSearchBreadcrumb($foo='')

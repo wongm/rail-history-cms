@@ -18,7 +18,7 @@
 //*****************************************************************************/
 
 
-function galleryPageNavigationLinks($index, $totalimg, $url)
+function galleryPageNavigationLinks($index, $maxImagesCount, $totalimg, $url)
 {
 	$page = $index/MAXIMAGES_PERPAGE;
 	$url = fixNavigationUrl($url);
@@ -26,9 +26,9 @@ function galleryPageNavigationLinks($index, $totalimg, $url)
 	if ($totalimg == MAXIMAGES_PERPAGE OR $index > 0)
 	{
 		?>
-<table class="nextables"><tr><td>
+<table class="nextables"><tr id="pagelinked"><td>
 	<?
-	}
+	
 	if ($index > 0)
 	{	
 		if ($index-MAXIMAGES_PERPAGE < 0)
@@ -39,13 +39,18 @@ function galleryPageNavigationLinks($index, $totalimg, $url)
 <a class="prev" href="<? echo $url.($page) ?>" title="Previous Page"><span>&laquo;</span> Previous</a>
 <?
 	}
+?>
+	</td><td>
+<?php
+	drawPageNumberLinks($index, $maxImagesCount, MAXIMAGES_PERPAGE, $url);
+?>
+	</td><td>
+<?php
 	if ($totalimg == MAXIMAGES_PERPAGE )
 	{	?>
 <a class="next" href="<? echo $url.($page+2) ?>" title="Next Page">Next <span>&raquo;</span></a>
 	<?
 	}
-	if ($totalimg == MAXIMAGES_PERPAGE OR $index > 0)
-	{
 		?>
 </td></tr></table>
 	<?
@@ -141,7 +146,7 @@ function drawImageGallery($galleryResult, $type='')
 ?>
 <td class="i" <?=$style ?>><a href="<?=$imagePageLink?>"><img src="<?=$imageUrl ?>" alt="<? echo $photoDesc; ?>" title="<? echo $photoDesc; ?>" /></a>
 	<h4><a href="<?=$imagePageLink; ?>"><?=$photoTitle; ?></a></h4>
-	<small><?=$photoDate?><?=$photoStatsText?></small><br/>
+	<small><?=$photoDate?><br/><?=$photoStatsText?></small><br/>
 	In Album: <a href="<?=$albumPageLink; ?>"><?=$photoAlbumTitle; ?></a>
 </td>
 <?
@@ -321,7 +326,7 @@ function drawAlbums($galleryResult, $error = false, $search = false)
 			echo "<tr>\n";
 			while ($j < 3 AND $i<$numberOfRows)
 			{
-				$photoPath = MYSQL_RESULT($galleryResult,$i,"zen_albums.folder");
+			$photoPath = MYSQL_RESULT($galleryResult,$i,"zen_albums.folder");
 				$photoAlbumTitle = stripslashes(MYSQL_RESULT($galleryResult,$i,"zen_albums.title"));
 				$albumId = MYSQL_RESULT($galleryResult,$i,"zen_albums.id");
 				
@@ -351,12 +356,9 @@ function drawAlbums($galleryResult, $error = false, $search = false)
 					$photoUrl = MYSQL_RESULT($galleryResult,$i,"i.filename");
 					$photoId = MYSQL_RESULT($galleryResult,$i,"i.id");
 					$photoUrl = GALLERY_PATH."/$photoPath/image/thumb/$photoUrl";
-					$albumDate = strftime(TIME_FORMAT, MYSQL_RESULT($galleryResult,$i,"fdate"));
+					$albumDate = strftime(TIME_FORMAT, MYSQL_RESULT($galleryResult,$i,"date"));
 				}
-				
-				
-				
-					
+
 				if ($photoDesc == '')
 				{
 					$photoDesc = $photoTitle;
@@ -381,61 +383,6 @@ function drawAlbums($galleryResult, $error = false, $search = false)
 	}	// end if for non zero
 }		// end function
 
-
-/*
- * prints a pretty dodad that lists the total number of pages in a set
- * give it the index you are up to,
- * the total number of items,
- * the number  to go per page,
- * and the URL to link to
- */
-function drawSearchPageNumberLinks($index, $totalimg, $max, $url)
-{
-	$total = floor(($totalimg)/$max)+1;
-	$current = $index/$max;
-	$url = fixNavigationUrl($url);
-	
-	echo '<p>';
-  
-  	if ($total > 0)
-  	{
-		echo 'Page: ';
-	}
-	
-	if ($current > 3 AND $total > 7)
-	{
-		$url1 = $url."1";
-		echo "\n <a href=\"$url1\" alt=\"First page\" title=\"First page\">1</a>&nbsp;"; 
-		
-		if ($current > 4)
-		{
-			echo "...&nbsp;";
-		}
-	}
-	
-	for ($i=($j=max(1, min($current-2, $total-6))); $i <= min($total, $j+6); $i++) 
-	{
-		if ($i == $current+1)
-		{
-			echo $i;
-		}
-		else
-		{
-			echo '<a href="'.$url.$i.'" alt="Page '.$i.'" title="Page '.$i.'">'.($i).'</a>';
-		}
-		echo "&nbsp;";
-	}
-	if ($i <= $total) 
-	{
-		if ($current < $total-5)
-		{
-			echo "...&nbsp;";
-		}
-		
-		echo "<a href=\"$url$total\" alt=\"Last page\" title=\"Last page\">" . $total . "</a>"; 
-	}
-	echo '</p>';
-}	// end function
 
 function getGalleryUploadsResults($pageType, $pageTypeModifier, $nextURL, $start, $count, $currentImageResultIndex)
 {
@@ -542,11 +489,11 @@ function fixNavigationUrl($url)
 {
 	if (strrpos($url, "=") > 0)
 	{
-		return $url;
+		return getMyPageURL($url);
 	}
 	else
 	{
-		return $url.'page/';
+		return getMyPageURL($url.'page/');
 	}
 	
 }

@@ -9,8 +9,8 @@ else
 {
 	error_reporting(0);
 }
-require_once("railgeelong-functions.php");
-include_once('gallery-formatting-functions.php');
+require_once("functions-railgeelong.php");
+include_once('functions-gallery-formatting.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -32,7 +32,7 @@ include_once('gallery-formatting-functions.php');
 <div id="header">
 <h1><a href="/" alt="Home" title="Home">Rail Geelong</a> - Gallery</h1>
 </div>
-<?php printMyAdminToolbox(); ?>
+<?php printAdminToolbox(); ?>
 <div id="contentwrapper">
 <div id="content">
 <div id="main">

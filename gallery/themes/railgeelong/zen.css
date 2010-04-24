@@ -68,6 +68,101 @@ label {
 	vertical-align: top;
 	width: 15em;
 }
+/* Page Navigation
+------------------------------ */
 .nextables { 
   margin-top: 10px;
+  padding: 5px 10px;
+  border: 1px 0 solid white;
+  background: #FAFAFA;
+  width: 100%;
+}
+ul.pagelist {
+	font-size: 1em;
+	clear: both;
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+}
+ul.pagelist li {
+	display: inline;
+}
+ul.pagelist li a,ul.pagelist span.disabledlink, .pagelist a {
+	padding: 2px;
+}
+ul.pagelist li.current a {
+	text-decoration: none;
+	cursor: default;
+}
+ul.pagelist li.prev {
+	margin-right: 10px;
+}
+ul.pagelist li.next {
+	margin-left: 10px;
+}
+.disabledlink {
+	color: #ddd;
+	cursor: default;
+}
+.pagenav {
+	clear: both;
+}
+.disabled_nav {
+	visibility: hidden;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+.nextables #pagelinked td {
+	width: 33%;
+}
+#pagelinked .pagelist {
+	text-align: center;
+}
+.nextables A.next { 
+	float: right;
+	text-align: left; 
+	height: 100%;
+}
+.nextables A.prev { 
+	float: left; 
+	text-align: right; 
+	height: 100%;
+}
+.nextables A:hover, .nextables A:active { 
+	text-decoration: none; 
+}
+#thumbnav td {
+	width: 25%;
+}
+h4.main_formhead {
+	display: none;
+}
+/* Search and archive
+------------------------------ */
+#tag_cloud .tags a {
+	line-height: 1.5em;
+}
+#edit-editable_image_truncate, #edit-editable_album_2 {
+	width:600px;
+}
+#search_form a {
+	display: none;
+}
+#search_input {
+	margin-left: 2.5%;
+	width:250px;
+}
+.indexalbums {
+	margin:auto;
+	width:95%;
+	padding: 5px;
+}
+.indexalbums .albumthumb {
+	width: 280px;
+	text-align: center;
+	padding: 10px;
+}
+.indexalbums .albumdesc {
+	text-align: left;
+	vertical-align: top;
 }
