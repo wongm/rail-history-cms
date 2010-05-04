@@ -124,6 +124,11 @@ function drawImageGallery($galleryResult, $type='')
 						}
 					}
 					$photoStatsText = formatHitCounter($photoHitcounter);
+					
+					if (strlen($photoStatsText) > 0)
+					{
+						$photoStatsText = "<br>$photoStatsText";
+					}
 				}
 				
 				if ($photoDesc == '')
@@ -146,7 +151,7 @@ function drawImageGallery($galleryResult, $type='')
 ?>
 <td class="i" <?=$style ?>><a href="<?=$imagePageLink?>"><img src="<?=$imageUrl ?>" alt="<? echo $photoDesc; ?>" title="<? echo $photoDesc; ?>" /></a>
 	<h4><a href="<?=$imagePageLink; ?>"><?=$photoTitle; ?></a></h4>
-	<small><?=$photoDate?><br/><?=$photoStatsText?></small><br/>
+	<small><?=$photoDate?><?=$photoStatsText?></small><br/>
 	In Album: <a href="<?=$albumPageLink; ?>"><?=$photoAlbumTitle; ?></a>
 </td>
 <?

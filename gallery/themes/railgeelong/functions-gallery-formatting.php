@@ -107,24 +107,8 @@ function getFullImageLinkURL() {
 	    	'/index.php?album=' . urlencode($_zp_current_album->name) . '&image=' . urlencode($_zp_current_image->name));
     }
 }
-
-
-
-function getMostRecentImageDate()
-{
-	global $mostRecentImageDate;
-
-	// only get if not cached
-	if ($mostRecentImageDate == '')
-	{
-		$recentSQL = "SELECT " . prefix('images') . ".date FROM " . prefix('images') . "
-			ORDER BY " . prefix('images') . ".date DESC LIMIT 0 , 1";
-		$lastImage = query_full_array($recentSQL);
-		$mostRecentImageDate = strftime(TIME_FORMAT, strtotime($lastImage[0]['date']));
-	}
-
-	return $mostRecentImageDate;
-}
+	
+	
 
 /**
  * Returns the url of the previous image.
@@ -162,7 +146,12 @@ function printEXIFData()
 
 	if ( zp_loggedin() )
 	{
-		$hitCounterText .= "<br>Week reset = ".$_zp_current_image->get('hitcounter_week_reset').", Month reset = ".$_zp_current_image->get('hitcounter_month_reset');
+		if (strlen($hitCounterText) > 0)
+		{
+			$hitCounterText .= "<br/>";
+		}
+		
+		$hitCounterText .= "Week reset = ".$_zp_current_image->get('hitcounter_week_reset').", Month reset = ".$_zp_current_image->get('hitcounter_month_reset');
 	}
 
 	if (sizeof($result) > 1 AND $result[EXIFDateTimeOriginal] != '')
@@ -396,7 +385,7 @@ function drawWongmGridSubalbums()
 	<div class="albumthumb"><a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?>">
 	<?php printAlbumThumbImage(getAlbumTitle()); ?></a></div>
 	<div class="albumtitle"><h4><a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?>">
-	<?php printAlbumTitle(); ?></a></h4><small><?php printAlbumDate(); ?><br/><?php printHitCounter($_zp_current_album); ?></small></div>
+	<?php printAlbumTitle(); ?></a></h4><small><?php printAlbumDate(); ?><?php printHitCounter($_zp_current_album, true); ?></small></div>
 	<div class="albumdesc"><?php printAlbumDesc(); ?></div>
 </td>
 <?php
@@ -477,7 +466,7 @@ function drawWongmGridImages()
 	<div class="imagethumb"><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>">
 	<?php printImageThumb(getImageTitle()); ?></a></div>
 	<div class="imagetitle"><h4><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>">
-	<?php printImageTitle(); ?></a></h4><small><?php echo printImageDate(); ?><br/><?php printHitCounter($_zp_current_image); ?></small><?= $albumlink?></div>
+	<?php printImageTitle(); ?></a></h4><small><?php printImageDate(); ?><?php printHitCounter($_zp_current_image, true); ?></small><?= $albumlink?></div>
 </td>
 <?php
 
@@ -569,7 +558,7 @@ function drawWongmAlbumRow()
 		<a href="<?php echo htmlspecialchars(getAlbumLinkURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumThumbImage(getAlbumTitle()); ?></a>
 	</td><td class="albumdesc">
 		<h4><a href="<?php echo htmlspecialchars(getAlbumLinkURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumTitle(); ?></a></h4>
-		<p><small><?php printAlbumDate(""); ?><br/><?php printHitCounter($_zp_current_album); ?></small></p>
+		<p><small><?php printAlbumDate(""); ?><?php printHitCounter($_zp_current_album, true); ?></small></p>
 		<p><?php printAlbumDesc(); ?></p>
 <? 	if (zp_loggedin())
 	{
