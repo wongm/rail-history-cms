@@ -331,15 +331,15 @@ function drawAlbums($galleryResult, $error = false, $search = false)
 			echo "<tr>\n";
 			while ($j < 3 AND $i<$numberOfRows)
 			{
-			$photoPath = MYSQL_RESULT($galleryResult,$i,"zen_albums.folder");
+				$photoPath = MYSQL_RESULT($galleryResult,$i,"zen_albums.folder");
+				
 				$photoAlbumTitle = stripslashes(MYSQL_RESULT($galleryResult,$i,"zen_albums.title"));
 				$albumId = MYSQL_RESULT($galleryResult,$i,"zen_albums.id");
+				$albumDate = strftime(TIME_FORMAT, strtotime(MYSQL_RESULT($galleryResult,$i,"fdate")));
 				
 				//old shit
 				if ($search)
-				{
-					$albumDate = strftime(TIME_FORMAT, strtotime(MYSQL_RESULT($galleryResult,$i,"fdate")));
-					
+				{					
 					// get an image to display with it
 					$imageSql = "SELECT filename, id FROM zen_images WHERE zen_images.albumid = '$albumId' LIMIT 0,1 ";
 					$imageResult = MYSQL_QUERY($imageSql);
@@ -355,13 +355,12 @@ function drawAlbums($galleryResult, $error = false, $search = false)
 						$photoUrl = GALLERY_PATH."/foldericon.gif";
 					}
 				}
-				// new frontpage stuff
+				// new railgeelong frontpage stuff
 				else
 				{
 					$photoUrl = MYSQL_RESULT($galleryResult,$i,"i.filename");
 					$photoId = MYSQL_RESULT($galleryResult,$i,"i.id");
 					$photoUrl = GALLERY_PATH."/$photoPath/image/thumb/$photoUrl";
-					$albumDate = strftime(TIME_FORMAT, MYSQL_RESULT($galleryResult,$i,"date"));
 				}
 
 				if ($photoDesc == '')
