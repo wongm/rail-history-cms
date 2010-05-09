@@ -416,8 +416,8 @@ function getImageAlbumLink() {
 	if(!in_context(ZP_IMAGE)) return false;
 	global $_zp_current_image;
 	$title = $_zp_current_image->getAlbum()->getTitle();
-	$folder = $_zp_current_image->getAlbum()->getFolder();
-	return "<br/>In album: <a href=\"/$folder\">$title</a>";
+	$folder = getAlbumLinkURL($_zp_current_image->getAlbum());
+	return "<br/>In album: <a href=\"$folder\">$title</a>";
 }
 
 
