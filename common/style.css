@@ -135,10 +135,12 @@ img {
 }
 /* nextables ----------------------------------------------------------------*/
 .nextables { 
-  padding: 3px 5px;
   border: 1px 0 solid white;
   background: #FAFAFA;
   width: 100%;
+}
+.nextables td {
+  padding: 3px 5px;
 }
 .nextables A.next { 
 	float: right; 
