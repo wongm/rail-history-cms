@@ -33,6 +33,7 @@ function generateKMLScript($mapKML)
 	$mapHTML .= "        map.addControl(new GSmallZoomControl());\n";
 	$mapHTML .= "        map.addControl(new GMenuMapTypeControl());\n";
 	$mapHTML .= "        map.addMapType(G_PHYSICAL_MAP);\n";
+	$mapHTML .= "        map.setCenter(new GLatLng(-38.14454755370596, 144.3548154830932),7);\n";
 	$mapHTML .= "        map.addOverlay(geoXml);\n";
 	$mapHTML .= "        map.setZoom(map.getBoundsZoomLevel(geoXml.getDefaultBounds()));\n";
 	$mapHTML .= "        map.setCenter(geoXml.getDefaultCenter());\n";
