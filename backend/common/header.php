@@ -50,8 +50,8 @@ $pageHeading = substr($pageHeading, 0, 40)
 <meta name="keywords" content="railways trains geelong victoria" />
 </head>
 <body>
-<table id="container">
-<tr><td id="header" colspan="2">
+<div id="container">
+<div id="header">
 <h1><a href="/backend/admin.php" alt="Admin Home" title="Admin Home">RG</a> - <?php echo $pageHeading; ?></h1>
 <div id="user_info"><p>
 <?
@@ -66,7 +66,6 @@ else
 ?>
   <a href="/news/wp-admin/" target="_blank">News</a> &nbsp; | &nbsp; <a href="/gallery/zp-core/admin.php" target="_blank">Gallery</a> &nbsp; | &nbsp; <a href="/backend/index.php">Logout</a></p> 
 </div>
-</td></tr>
-<tr><td width="140"></td>
-<td id="big" valign="top">
+</div>
+<div id="contentwrapper">
 <div id="content">

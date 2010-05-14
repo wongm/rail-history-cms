@@ -46,7 +46,7 @@ A new record has been inserted in the database. Here is the information that has
 </tr>
 <tr height="30">
 	<td align="right"><b>Content : </b></td>
-	<td bgcolor="white"><? echo getDescription(stripslashes(stripslashes($thisContent))); ?></td>
+	<td bgcolor="white"><? echo drawFormattedText(stripslashes(stripslashes($thisContent))); ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Line : </b></td>

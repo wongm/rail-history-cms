@@ -65,12 +65,10 @@ function fail()
 </head>
 <body>
 <table id="container">
-<tr><td id="header" colspan="2">
+<tr><td id="header">
 <h1><a href="/">RG</a> - <?php echo $pageHeading; ?></h1>
-<div id="user_info"></div>
 </td></tr>
-<tr><td width="140"></td>
-<td id="big" valign="top">
+<tr><td id="big" valign="top">
 <div id="content">
 <table>
 <tr><td>
