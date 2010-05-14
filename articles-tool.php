@@ -3,6 +3,7 @@
 include_once("common/dbConnection.php");
 include_once("common/formatting-functions.php");
 include_once("common/source-functions.php");
+include_once("common/map-functions.php");
 	
 $link = $_REQUEST['name'];
 
@@ -23,6 +24,15 @@ else
 		$photos = stripslashes(MYSQL_RESULT($article,0,"photos"));
 		$articleSources = getObjectSources('article', $articleId, '');
 		$lastUpdatedDate = MYSQL_RESULT($article,0,"fdate"); 
+		
+		$mapKML = parseDescriptionForMap($description);
+		
+		if ($mapKML)
+		{
+			$googleHeader = 'article';
+			$googleHeaderKMLscript = generateKMLScript($mapKML);
+			$description = insertMapElement($description, $mapKML);
+		}
 		
 		include_once("common/header.php");
 ?>

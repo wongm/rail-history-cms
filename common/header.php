@@ -38,7 +38,10 @@ if (strlen($pageHeading) > 35)
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>Rail Geelong - <?php echo $pageTitle;?></title>
 <link rel="stylesheet" type="text/css" href="/common/style.css" media="all" title="Normal" />
-<? if ($googleHeader) { ?>
+<? if ($googleHeader == 'article') { ?>
+<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=<?=GOOGLE_KEY?>" type="text/javascript"></script>
+<?=$googleHeaderKMLscript?>
+<? } else if ($googleHeader) { ?>
 <link rel="stylesheet" type="text/css" href="/common/aerialstyle.css" />
 <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=<?=GOOGLE_KEY?>" type="text/javascript"></script>
 <script src="/common/aerialfunctions.js" type="text/javascript"></script></head>

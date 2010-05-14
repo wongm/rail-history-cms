@@ -66,6 +66,15 @@ body {
 	margin: auto;
 	width: 95%;
 }
+#content ul {
+	margin-left:2.5%;
+	padding-left:10px;
+}
+.inlinemap {
+	margin-left: 2.5%;
+	width: 800px; 
+	height: 600px;
+}
 .error {
 	text-align: center;
 	padding: 5px;
