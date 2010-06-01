@@ -124,7 +124,7 @@ function getUpdatedPages($index, $maxRowsPerPage)
 	
 	UNION ALL
 	SELECT link AS link, 'A' AS object_type, title AS name, modified, 0, 
-		DATE_FORMAT(a.modified, '".SHORT_DATE_FORMAT."') AS fdate, '' AS type, photos, description AS length
+		DATE_FORMAT(a.modified, '".SHORT_DATE_FORMAT."') AS fdate, '' AS type, photos, content AS length
 	FROM articles a
 	WHERE a.line_id = 0 AND a.link != ''
 	
