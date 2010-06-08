@@ -1,30 +1,37 @@
 /* Admin Toolbox
 ------------------------------ */
-#admin, #admin_data{
+#admin, #admin_data {
 	position: fixed;
   _position: absolute;
 	right: 0px;
 	top: 0px;
-	width: 130px;
+	width: 150px;
 	border-bottom: 1px solid #E6E6DF;
 	border-left: 1px solid #E6E6DF;
 	background: #fff;
-    z-index: 2; 	text-align: left;
+    z-index: 2; 	
+    text-align: left;
 }
-#admin_data{
+#admin_data {
 	top: 0px;
-	padding-top: 20px;
+	padding-top: 10px;
 	z-index: 1;
 	line-height: 1.6em;
-
+	text-align: center;
+}
+#admin_data ul {
+	padding-left: 5px;
 }
 #admin h3 {
 	font-size:12px;
-	color: #999;
-	margin:0;
-	padding:0; text-align: center;
+	color: #989;
+	margin: 0;
+	padding: 0; 
+	text-align: center;
 }
-#admin h3:hover { color: #036; }
+#admin h3:hover { 
+	color: #036; 
+}
 
 /* gallery */
 label {
@@ -35,18 +42,40 @@ label {
 	margin: 0 0 5px 0;
 }
 .topbar {
-	margin-top: 10px;
+	margin: 10px 0;
 }
 .album, .image {
 	background-color: #F5F6F5;
 	padding: 10px !important;
 }
-.centeredTable {
-	margin-top: 5px;
+/* Gallery specific stuff
+------------------------------ */
+.centeredTable td {
+	padding: 5px 10px;
+	text-align: center;
+}
+.i {
+	background-color: #FAFAFA;
+	padding: 10px !important;
+	vertical-align: top;
+}
+.i h4 {
+	padding: 5px 0;
+	margin: 0;
+}
+.i h4:hover {
+	text-decoration: underline;
+}
+.album, .image {
+	background-color: #F5F6F5;
+	padding: 10px !important;
 }
 .album h4, .image h4 {
 	padding: 5px 0;
 	margin: 0;
+}
+.albumdesc h4 {
+	padding: 10px 0 0 0.5em;
 }
 .pages {
 	margin: 10px 0;
@@ -60,8 +89,11 @@ label {
 	position: relative;
 	width: 30em !important;
 	background-color: #F5F6F5;
-	font-size: 0.9em;
+	font-size: 0.9em !important;
 	width: 50%;
+}
+#edit-editable_image_truncate, #edit-editable_album_2, .jeip-editfield {
+	width:600px;
 }
 #righthead {
 	text-align: right;
