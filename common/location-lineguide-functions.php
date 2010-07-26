@@ -194,6 +194,7 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 			
 			// image depending on length of description
 			$thisLength = '<a href="'.$locationUrl.'">'.$thisLength.'</a>';
+			
 			// image if photos
 			if ($thisPhoto != '0' AND $thisPhoto != '')
 			{
@@ -203,6 +204,7 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 			{
 				$thisPhoto = '';
 			}
+			
 			// depends on what type of diagram being drawn - type or line
 			if ($typeSql != '')
 			{
@@ -218,7 +220,7 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 			$pastid = $id;
 			
 		}	// end $thisUrl if
-	}	/*	end while	*/ 
+	}		// end while
 
 	return $toreturn;	
 }	//end function
@@ -245,115 +247,4 @@ function getLineguideDistanceURL($trackSubpageDistances, $currentKm)
 				
 	return $extraPageBounds;
 }
-
-/*
-function getLocationUrlForLineguide($id, $thisKm, $thisName, $thisLine, $thisUrl, $thisType, $thisEvent, $thisPhoto, $thisDescription, $extra)
-{
-	$base = str_replace(' ', '-', strtolower($thisName));
-	
-	echo "SELECT * FROM locations l, locations_raillines lr 
-		WHERE `name` = '".mysql_real_escape_string($thisName)."' AND `display` != 'tracks' 
-		AND l.location_id = lr.location_id AND lr.km != '".$thisKm."' 
-		AND (`type` != '".TYPE_YARD."' AND `type` != '".TYPE_SIGNAL_BOX."')<br><br>";
-	
-	echo "SELECT * FROM locations l, locations_raillines lr 
-		WHERE `name` = '".mysql_real_escape_string($thisName)."' AND `display` != 'tracks' 
-		AND l.location_id = lr.location_id AND lr.km != '".$thisKm."' 
-		AND (`type` != '".TYPE_YARD."' AND `type` != '".TYPE_SIGNAL_BOX."')<hr>";
-	
-	if (MYSQL_NUM_ROWS(MYSQL_QUERY("SELECT * FROM locations l, locations_raillines lr 
-		WHERE `name` = '".mysql_real_escape_string($thisName)."' AND `display` != 'tracks' 
-		AND l.location_id = lr.location_id AND lr.km != '".$thisKm."' 
-		AND (`type` != '".TYPE_YARD."' AND `type` != '".TYPE_SIGNAL_BOX."')", locationDBconnect())) > '1')
-	{
-		$base = $id;
-	}
-	if ($thisType == TYPE_JUNCTION)
-	{
-		$base .= '/'.$thisLine;
-	}
-	else if (MYSQL_NUM_ROWS(MYSQL_QUERY("SELECT * FROM locations 
-		WHERE `name` = '".mysql_real_escape_string($thisName)."' AND `display` != 'tracks' 
-		AND (`type` != '".TYPE_YARD."' AND `type` != '".TYPE_SIGNAL_BOX."')", locationDBconnect())) > '1')
-	{
-		$base .= '/'.$thisLine;
-	}
-	
-	// special setup for junctions
-	if ($thisType == TYPE_JUNCTION AND $extra != '')
-	{
-		$linkResultSQL = sprintf("SELECT * FROM raillines WHERE line_id = '%s'", mysql_real_escape_string($thisUrl));
-		$linkResult = MYSQL_QUERY($linkResultSQL, locationDBconnect());
-		// for the next / forward links
-		if ($extra == 'plain')
-		{
-			$thisUrl = '/location/'.$thisName.'/'.$thisLine;
-		}
-		// for the normal lineguide links
-		elseif (MYSQL_NUM_ROWS($linkResult) != '0')
-		{
-			$ourLine = MYSQL_RESULT($linkResult,0,"link");
-			$otherLineSQL = sprintf("SELECT * FROM raillines WHERE line_id = '%s'", mysql_real_escape_string($thisLine));
-			$otherLine = MYSQL_RESULT(MYSQL_QUERY($otherLineSQL, locationDBconnect()),0,"link");
-			$thisJunction = $ourLine;	// fixes up the images later down the track
-			
-			if ($thisUrl != $thisLine)
-			{
-				$thisUrl = '/lineguide/'.$ourLine.'/diagram#km'.$thisKm.'"><i>[Change Lines]</i></a><br/><a href="/location/'.$thisName.'/'.$thisLine;
-			}
-			else
-			{
-				$thisUrl = '/lineguide/'.$otherLine.'/diagram#km'.$thisKm.'"><i>[Change Lines]</i></a><br/><a href="/location/'.$thisName.'/'.$thisUrl;
-			}
-		}
-		else
-		{
-			$thisJunction = '';
-			$thisUrl = '/lineguide/'.$thisUrl.'/diagram"><i>[Change Lines]</i></a><br/><a href="/location/'.$base;
-		}
-	}
-	else
-	{
-		$thisJunction = '';
-		if ($thisEvent == '1' OR $thisPhoto == '1' OR $thisDescription != '')
-		{
-			$thisUrl = '/location/'.$base;
-		}
-		
-		//specific actions for certain types of location
-		switch ($thisType) 
-		{
-			case TYPE_SIGNAL_BOX:	//signal box
-				$thisUrl = '/location/'.$base.'/box';
-				break;
-			case TYPE_STATION:
-			case TYPE_RMSP:
-			case TYPE_JUNCTION:
-			case TYPE_INDUSTRY:
-			case TYPE_YARD:
-			case TYPE_CROSSING_LOOP:
-				$thisUrl = '/location/'.$base;
-				break;
-			case TYPE_TIMING_LOOP: 	//timing loop
-				$thisUrl = '/articles/timingloops';
-				break;
-			default:
-				break;
-		}
-	}
-	return $thisUrl;
-}
-*/
-
-
-
-/*
-function isUniqueLocationName($name)
-{
-	$uniqueLocationNameSQL = sprintf("SELECT * FROM locations WHERE `name` = '%s' AND `display` != 'tracks' 
-		AND `type` != '".TYPE_YARD."' AND `type` != '".TYPE_SIGNAL_BOX."'", 
-		mysql_real_escape_string($name));
-	return MYSQL_NUM_ROWS(MYSQL_QUERY($uniqueLocationNameSQL, locationDBconnect())) == 1;
-}
-*/
 ?>
