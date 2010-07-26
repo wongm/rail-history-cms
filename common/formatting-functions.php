@@ -795,22 +795,9 @@ function getLineguidePages($line, $type='list')
 	// draw 'extra' page links...
 	$extrasLength = sizeof($line['pageNameArray']);
 	
-	if ($extrasLength != 0)
+	for ($i = 1; $i < $extrasLength; $i++)
 	{
-		for ($i = 1; $i < $extrasLength; $i++)
-		{
-			$toreturn[] = $line['pageNameArray'][$i];
-		}
-	}
-	else
-	{
-		$extras = MYSQL_QUERY("SELECT * FROM articles WHERE `line_id` = '".mysql_real_escape_string($line['lineId'])."'", locationDBconnect());
-		$extrasLength = MYSQL_NUM_ROWS($extras);
-	
-		for ($i = 0; $i < $extrasLength; $i++)
-		{
-			$toreturn[] = array(stripslashes(MYSQL_RESULT($extras,$i,"link")), stripslashes(MYSQL_RESULT($extras,$i,"title")), stripslashes(MYSQL_RESULT($extras,$i,"title")));
-		}
+		$toreturn[] = $line['pageNameArray'][$i];
 	}
 
 	return $toreturn;

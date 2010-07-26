@@ -36,14 +36,14 @@ function getLineguideExtraPage($line, $section)
 function getLine($lineToDisplay, $yearToDisplay)
 {
 	//	fix up names and line IDs
-	$lineResultSQL = "SELECT r.*, r.link AS pagelink, r.name AS pagetitle, r.description as pagecontent, DATE_FORMAT(r.modified, '%M %e, %Y') AS fdate, count(lr.location_id) AS line_locations
+	$lineResultSQL = "SELECT r.*, r.link AS pagelink, r.name AS pagetitle, r.description as pagecontent, DATE_FORMAT(r.modified, '%M %e, %Y') AS fdate, count(lr.location_id) AS line_locations, 'page' AS type
 			FROM raillines r
 			LEFT OUTER JOIN locations_raillines lr ON lr.line_id = r.line_id
 			WHERE r.link = '".mysql_real_escape_string($lineToDisplay)."' 
 			AND todisplay != 'hide'
 			GROUP BY lr.line_id
 		UNION ALL 
-			SELECT r.*, a.link AS pagelink, a.title AS pagetitle, a.content as pagecontent, DATE_FORMAT(a.modified, '%M %e, %Y') AS fdate, 0 AS line_locations
+			SELECT r.*, a.link AS pagelink, a.title AS pagetitle, a.content as pagecontent, DATE_FORMAT(a.modified, '%M %e, %Y') AS fdate, 0 AS line_locations, 'subpage' AS type
 			FROM raillines r
 			LEFT OUTER JOIN articles a ON a.line_id = r.line_id
 			WHERE r.link = '".mysql_real_escape_string($lineToDisplay)."' 

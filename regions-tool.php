@@ -109,42 +109,81 @@ else
 
 function drawRegionRaillines($regionId)
 {
-	$raillineSQL = sprintf("SELECT r.*, rr.content, count(lr.line_id) AS line_locations 
-		FROM railline_region rr
-		INNER JOIN raillines r ON rr.line_id = r.line_id 
-		LEFT OUTER JOIN locations_raillines lr ON lr.line_id = r.line_id
-		WHERE article_id = '%s' AND todisplay != 'hide'
-		GROUP BY lr.line_id 
-		ORDER BY r.order ASC", mysql_real_escape_string($regionId));
+	$raillineSQL = sprintf("SELECT r.*, r.`order` AS lineorder, r.link AS pagelink, r.name AS pagetitle, r.description as pagecontent, rr.content as regioncontent, 
+			count(lr.line_id) AS line_locations, 'page' AS type
+			FROM railline_region rr
+			INNER JOIN raillines r ON rr.line_id = r.line_id 
+			LEFT OUTER JOIN locations_raillines lr ON lr.line_id = r.line_id
+			WHERE rr.article_id = '%s' AND todisplay != 'hide'
+			GROUP BY lr.line_id 
+		UNION ALL 
+			SELECT r.*, r.`order` AS lineorder, a.link AS pagelink, a.title AS pagetitle, a.content as pagecontent, '' as regioncontent, 
+			0 AS line_locations, 'subpage' AS type
+			FROM railline_region rr
+			INNER JOIN raillines r ON rr.line_id = r.line_id 
+			LEFT OUTER JOIN articles a ON a.line_id = r.line_id
+			WHERE rr.article_id = '%s' AND todisplay != 'hide'
+			ORDER BY lineorder ASC",
+			mysql_real_escape_string($regionId), mysql_real_escape_string($regionId));
+						
 	$raillineResults = MYSQL_QUERY($raillineSQL, locationDBconnect());
 	$numberOfLines = MYSQL_NUM_ROWS($raillineResults);
 	
-	
+	// build up the dataset
 	if ($numberOfLines > 0)
 	{
-		echo "<table class=\"linedTable\">\n";
-			
-		for ($i = 0; $i < $numberOfLines; $i++)
+		$i = 0;
+		$raillineIndex = -1;
+		
+		// add rows to the array
+		while ($i < $numberOfLines)
 		{
-			$name = stripslashes(MYSQL_RESULT($raillineResults,$i,"r.name"));
-			$link = stripslashes(MYSQL_RESULT($raillineResults,$i,"r.link"));
-			$content = parseLinks(stripslashes(MYSQL_RESULT($raillineResults,$i,"rr.content")));
+			$lineId = MYSQL_RESULT($raillineResults,$i,"line_id");
+			// check what type of item the row is
+			$rowType = MYSQL_RESULT($raillineResults,$i,"type");
+			$regionContent = parseLinks(stripslashes(MYSQL_RESULT($raillineResults,$i,"regioncontent")));
+			$pageTitle = stripslashes(MYSQL_RESULT($raillineResults,$i,"pagetitle"));
+			$pageLink = strToLower(stripslashes(MYSQL_RESULT($raillineResults,$i,"pagelink")));
+			$pageContent = stripslashes(MYSQL_RESULT($raillineResults,$i,"pagecontent"));
 			
-			$itemstodisplay = getLineguidePages(getLineBasicDetails($raillineResults, $i));	
+			if ($rowType == "page")
+			{
+				// the index into $lineArray, updated when a new / unique railine is found
+				$raillineIndex++;
+				$lineArray[$raillineIndex] = getLineBasicDetails($raillineResults, $i);
+				$lineArray[$raillineIndex]['pageNameArray'][] = array($pageLink, $pageTitle, $pageTitle);
+				$lineArray[$raillineIndex]['regionContent'] = $regionContent;
+				
+			}	
+			else if ($rowType == "subpage" && $pageLink != "")
+			{
+				$lineArray[$raillineIndex]['pageNameArray'][] = array($pageLink, $pageTitle, $pageTitle);
+			}
 			
-			echo "<tr><td colspan=\"2\"><h5>$name</h5></td></tr>\n";
+			$lineIdPast = $lineId;
+			$i++;
+		}
+		
+		// output the formatting HTML
+		echo "<table class=\"linedTable\">\n";
+		for ($i = 0; $i < sizeof($lineArray); $i++)
+		{	
+			$itemstodisplay = getLineguidePages($lineArray[$i]);
+							
+			echo "<tr><td colspan=\"2\"><h5>" . $lineArray[$i]['lineName'] . "</h5></td></tr>\n";
 			echo "<tr><td class=\"regionLinks\"><ul>\n";
-			echo "<li><a href=\"/lineguide/$link\">Introduction</a></li>\n";
-
+			echo "<li><a href=\"/lineguide/" . $lineArray[$i]['lineLink'] . "\">Introduction</a></li>\n";
+	
 			for ($j = 0; $j < sizeof($itemstodisplay); $j++)
 			{
 ?>
 <li><a href="/lineguide/<?=$link; ?>/<?=$itemstodisplay[$j][0]; ?>" ><?=$itemstodisplay[$j][1]; ?></a></li>
 <?		
-			}
-				
+			}	
 			echo "</ul></td>\n";
-			echo "<td class=\"regionContent\">$content</td></tr>\n";
+			echo "<td class=\"regionContent\">" . $lineArray[$i]['regionContent'] . "</td></tr>\n";
+			
+			$lineOrderPast = $lineOrder;
 		}
 		
 		echo "</table>\n";
