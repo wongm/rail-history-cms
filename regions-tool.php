@@ -109,7 +109,7 @@ else
 
 function drawRegionRaillines($regionId)
 {
-	$raillineSQL = sprintf("SELECT *, count(lr.line_id) AS line_locations 
+	$raillineSQL = sprintf("SELECT r.*, rr.content, count(lr.line_id) AS line_locations 
 		FROM railline_region rr
 		INNER JOIN raillines r ON rr.line_id = r.line_id 
 		LEFT OUTER JOIN locations_raillines lr ON lr.line_id = r.line_id

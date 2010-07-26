@@ -36,15 +36,23 @@ function getLineguideExtraPage($line, $section)
 function getLine($lineToDisplay, $yearToDisplay)
 {
 	//	fix up names and line IDs
-	$lineResultSQL = "SELECT r.*, DATE_FORMAT(modified, '".SHORT_DATE_FORMAT."') AS fdate, count(lr.location_id) AS line_locations
-		FROM raillines r
-		LEFT OUTER JOIN locations_raillines lr ON lr.line_id = r.line_id
-		WHERE link = '".mysql_real_escape_string($lineToDisplay)."' 
-		AND todisplay != 'hide'
-		GROUP BY lr.line_id";
+	$lineResultSQL = "SELECT r.*, r.link AS pagelink, r.name AS pagetitle, r.description as pagecontent, DATE_FORMAT(r.modified, '%M %e, %Y') AS fdate, count(lr.location_id) AS line_locations
+			FROM raillines r
+			LEFT OUTER JOIN locations_raillines lr ON lr.line_id = r.line_id
+			WHERE r.link = '".mysql_real_escape_string($lineToDisplay)."' 
+			AND todisplay != 'hide'
+			GROUP BY lr.line_id
+		UNION ALL 
+			SELECT r.*, a.link AS pagelink, a.title AS pagetitle, a.content as pagecontent, DATE_FORMAT(a.modified, '%M %e, %Y') AS fdate, 0 AS line_locations
+			FROM raillines r
+			LEFT OUTER JOIN articles a ON a.line_id = r.line_id
+			WHERE r.link = '".mysql_real_escape_string($lineToDisplay)."' 
+			AND todisplay != 'hide'";
+			
 	$lineResult = MYSQL_QUERY($lineResultSQL, locationDBconnect());
+	$numberOfPageResults = MYSQL_NUM_ROWS($lineResult);
 	
-	if (MYSQL_NUM_ROWS($lineResult) == 1)
+	if ($numberOfPageResults > 0)
 	{
 		// get basic details
 		$line = getLineBasicDetails($lineResult, 0);
@@ -119,6 +127,17 @@ function getLine($lineToDisplay, $yearToDisplay)
 				}
 			}
 		}
+		
+		for ($i = 0; $i < $numberOfPageResults; $i++)
+		{
+			$pageTitle = stripslashes(MYSQL_RESULT($lineResult,$i,"pagetitle"));
+			$pageLink = strToLower(stripslashes(MYSQL_RESULT($lineResult,$i,"pagelink")));
+			$pageContent = stripslashes(MYSQL_RESULT($lineResult,$i,"pagecontent"));
+			
+			$line['pageNameArray'][] = array($pageLink, $pageTitle, $pageTitle);
+			$line['pageContentArray'][] = $pageContent;
+		}
+			
 	}
 	else
 	{

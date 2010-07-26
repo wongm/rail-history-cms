@@ -790,15 +790,27 @@ function getLineguidePages($line, $type='list')
 	if ($line['showGoogleMap'])
 	{
 		$toreturn[] = array('map', 'Google Map', 'Google Map');
-	}	
+	}
 	
 	// draw 'extra' page links...
-	$extras = MYSQL_QUERY("SELECT * FROM articles WHERE `line_id` = '".mysql_real_escape_string($line['lineId'])."'", locationDBconnect());
-	$extrasLength = MYSQL_NUM_ROWS($extras);
+	$extrasLength = sizeof($line['pageNameArray']);
 	
-	for ($i = 0; $i < $extrasLength; $i++)
+	if ($extrasLength != 0)
 	{
-		$toreturn[] = array(stripslashes(MYSQL_RESULT($extras,$i,"link")), stripslashes(MYSQL_RESULT($extras,$i,"title")), stripslashes(MYSQL_RESULT($extras,$i,"title")));
+		for ($i = 1; $i < $extrasLength; $i++)
+		{
+			$toreturn[] = $line['pageNameArray'][$i];
+		}
+	}
+	else
+	{
+		$extras = MYSQL_QUERY("SELECT * FROM articles WHERE `line_id` = '".mysql_real_escape_string($line['lineId'])."'", locationDBconnect());
+		$extrasLength = MYSQL_NUM_ROWS($extras);
+	
+		for ($i = 0; $i < $extrasLength; $i++)
+		{
+			$toreturn[] = array(stripslashes(MYSQL_RESULT($extras,$i,"link")), stripslashes(MYSQL_RESULT($extras,$i,"title")), stripslashes(MYSQL_RESULT($extras,$i,"title")));
+		}
 	}
 
 	return $toreturn;
