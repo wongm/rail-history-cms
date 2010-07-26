@@ -1,6 +1,5 @@
 <ul class="sitemenu">
 	<li class="menu"><a href="/backend/listSources.php">Sources</a></li>
-	<li class="menu"><a href="/backend/listConfig.php">Variables</a></li>
 	<li class="menu"><a href="/backend/listArticles.php">Articles</a></li>
 	<li class="menu"><a href="/backend/listArticles.php?region=">Regions</a></li>
 	<li class="menu"><a href="/backend/listRaillineRegion.php">Region Mappings</a></li>

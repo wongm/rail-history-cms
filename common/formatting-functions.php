@@ -751,27 +751,6 @@ function highlight($keyword, $name)
 	return $text;
 }	// end function
 
-
-/*
- * Gets undecorated string for a particular config vaiable
- * no html in it
- */
-function getConfigVariable($name)
-{
-	$sql = "SELECT * FROM config WHERE name = '".mysql_real_escape_string($name)." ' LIMIT 0,1";
-	$result = MYSQL_QUERY($sql, locationDBconnect());
-	$numberOfRows = MYSQL_NUM_ROWS($result);
-	
-	$description = '';
-	
-	if ($numberOfRows == 1)
-	{
-		$description = stripslashes(MYSQL_RESULT($result,0,"value"));
-	}
-	
-	return $description;
-}
-
 function getLineguidePages($line, $type='list')
 {
 	if ($line['showTrack'])
