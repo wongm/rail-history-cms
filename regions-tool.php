@@ -177,7 +177,7 @@ function drawRegionRaillines($regionId)
 			for ($j = 0; $j < sizeof($itemstodisplay); $j++)
 			{
 ?>
-<li><a href="/lineguide/<?=$link; ?>/<?=$itemstodisplay[$j][0]; ?>" ><?=$itemstodisplay[$j][1]; ?></a></li>
+<li><a href="/lineguide/<?=$lineArray[$i]['lineLink']; ?>/<?=$itemstodisplay[$j][0]; ?>" ><?=$itemstodisplay[$j][1]; ?></a></li>
 <?		
 			}	
 			echo "</ul></td>\n";
