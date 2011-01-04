@@ -56,9 +56,9 @@ if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])){
      $fh = gethostbyaddr($_SERVER['REMOTE_ADDR']);
 }
 
-     $form_id = ''.$fd.''.$fp.''.$fl.''.$fv.''.$fh.'';
-     $trap1_value = ''.$fp.''.$fv.''.$fh.''.$fl.''.$fd.'';
-     $send_value = ''.$fh.''.$fd.''.$fv.''.$fp.''.$fl.'';
+     $form_id = md5(''.$fd.''.$fp.''.$fl.''.$fv.''.$fh.'');
+     $trap1_value = md5(''.$fp.''.$fv.''.$fh.''.$fl.''.$fd.'');
+     $send_value = md5(''.$fh.''.$fd.''.$fv.''.$fp.''.$fl.'');
      $form_id = strtoupper(trim(rtrim(str_replace(array("&", "/", "#", "\\", ":", "%", "|", "^", ";", "@", "?", "+", "$", ".", "~", "-", "=", "_", " ",), 'PjT31cXa', $form_id)))); 
      $trap1_value = strtoupper(trim(rtrim(str_replace(array("&", "/", "#", "\\", ":", "%", "|", "^", ";", "@", "?", "+", "$", ".", "~", "-", "=", "_", " ",), 'Hr2WgPmz', $trap1_value)))); 
      $send_value = strtoupper(trim(rtrim(str_replace(array("&", "/", "#", "\\", ":", "%", "|", "^", ";", "@", "?", "+", "$", ".", "~", "-", "=", "_", " ",), 'Li8s7bkd', $send_value)))); 
