@@ -181,6 +181,7 @@ h3.intro {
 }
 #headerpane {
 	width: 400px;
+	min-height: 280px;
 	padding: 6px;
 	background: white;
 	text-align: center;
