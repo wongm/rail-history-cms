@@ -66,7 +66,7 @@ body {
 	margin: auto;
 	width: 95%;
 }
-#content ul {
+#content ul.tableofcontents {
 	margin-left:2.5%;
 	padding-left:10px;
 }
@@ -179,6 +179,16 @@ h3.intro {
 	width: 6em;
 	text-align: center;
 }
+#headerpane {
+	width: 400px;
+	padding: 6px;
+	background: white;
+	text-align: center;
+}
+#headerpane img {
+	padding-bottom: 5px;
+}
+	
 /* site menu formatting stuff --------------------------------------------------
 	based on http://www.projectseven.com/tutorials/css/uberlinks/index.htm */
 .menu a {
