@@ -36,18 +36,18 @@ function convertToLink($text)
 
 function getLocationName($name, $type)
 {
-	switch ($type) 
+	switch ($type)
 	{
 		// is a station
 		case TYPE_STATION:
-			$name .= ' Station'; 
+			$name .= ' Station';
 			break;
 		// is a signal box
 		case TYPE_SIGNAL_BOX:
-			$name .= ' Signal Box'; 
+			$name .= ' Signal Box';
 			break;
 	}
-	
+
 	return $name;
 }
 
@@ -59,32 +59,16 @@ function getLineName($pageTitle)
 	return str_replace("Lines Line", "Lines", $pageTitle);
 }
 
-function getPageTitle($pageTitle)
-{
-	$toreturn = SITE_NAME;
-	$size = sizeof($pageTitle);
-	
-	for ($i = 0; $i < $size; $i++)
-	{
-		if ($pageTitle[$i][0] != '')
-		{
-			$toreturn = "$toreturn - ".$pageTitle[$i][0];
-		}
-	}
-		
-	return $toreturn;
-}
-
 function getPageBreadcrumbs($pageTitle)
 {
 	$toreturn = '<a href="/" title="'.SITE_NAME.' Home">Home</a>';
 	$size = sizeof($pageTitle);
-	
+
 	for ($i = 0; $i < $size; $i++)
 	{
 		$url = $pageTitle[$i][1];
 		$title = $pageTitle[$i][0];
-		
+
 		if ($url != '')
 		{
 			$toreturn = "$toreturn &raquo; <a href=\"$url\" title=\"$title\">$title</a>";
@@ -94,18 +78,18 @@ function getPageBreadcrumbs($pageTitle)
 			$toreturn = "$toreturn &raquo; $title";
 		}
 	}
-		
+
 	return $toreturn;
-	
-} 
+
+}
 
 function drawAllArticles($type)
 {
 	$pageTitle = ucfirst($type).'s Listing';
 	include_once("common/header.php");
-	
+
 	$articles = MYSQL_QUERY("SELECT * FROM articles WHERE link != '' AND `line_id` = '0'", locationDBconnect());
-	
+
 	for ($i = 0; $i < MYSQL_NUM_ROWS($articles); $i++)
 	{
 		echo '<h4><a href="/'.$type.'/'.stripslashes(MYSQL_RESULT($articles,$i,"link")).'">'.stripslashes(MYSQL_RESULT($articles,$i,"title")).'</a></h4>';
@@ -127,7 +111,7 @@ function drawDiagramTabs($diagramData)
 ?>
 <div class="centeredTable">
 <ul id="maintab" class="shadetabs">
-<?	
+<?
 	// draw the tabs headers for all diagram tabs
 	for ($i = 0; $i < sizeof($diagramData); $i++)
 	{
@@ -139,32 +123,32 @@ function drawDiagramTabs($diagramData)
 		}
 ?>
 	<li<?=$selected ?>><a href="#year<? echo $diagramData[$i][2]; ?>" rel="year<? echo $diagramData[$i][2]; ?>" ><? echo $diagramData[$i][2]; ?></a></li>
-<?	}	
+<?	}
 ?>
 </ul>
 <div class="tabcontentstyle">
 <?
 	// draw the diagram tabs themselves
 	for ($i = 0; $i < sizeof($diagramData); $i++)
-	{	
+	{
 ?>
 <div id="year<? echo $diagramData[$i][2]; ?>" name="year<? echo $diagramData[$i][2]; ?>" class="tabcontent">
 	<div id="tabtitle<? echo $i; ?>" ><br/><h5><? echo $diagramData[$i][2]; ?></h5> <a href="#diagrams" class="credit">Back to Year Listing</a></div>
 	<img src="/t/<? echo $diagramData[$i][0].'.gif'; ?>" alt="<? echo $name.' '.$diagramData[$i][1]; ?>" title="<? echo $name.' '.$diagramData[$i][1]; ?>" />
 </div>
-<?	
-	}	
+<?
+	}
 ?>
 </div>
-<? 
-	/* fixes which tab is open */ 
+<?
+	/* fixes which tab is open */
 ?>
 <script type="text/javascript">
 initializetabcontent("maintab")
 </script>
 </div>
-<? 	/* end tabs div */	
-	
+<? 	/* end tabs div */
+
 } // end function
 
 /*
@@ -183,36 +167,36 @@ initializetabcontent("maintab")
  * [[Image:IMAGE URL TO LINK TO]]
  * or [[Image:IMAGE URL TO LINK TO|caption]]
  * or [[Image:IMAGE URL TO LINK TO|thumb|caption]]
- * 
+ *
  */
 function drawFormattedText($text)
-{	
+{
 	echo getFormattedText($text);
 }
-	
+
 function getFormattedText($text, $simple=false)
 {
 	// parse links
 	$description = fixParagraphs($text);
 	$description = parseLinks($description, $simple);
-	
+
 	// split it and start to display it
 	$description = split ("==", $description);
 	$size = sizeof($description);
-	
+
 	// check for if the first part is not a heading markup, so just spit it out
 	if (substr($text, 0, 2) != '==')
 	{
 		$toreturn .= getParagraph($description[0], $simple)."\n";
 	}
-	
+
 	// loop though each heading and associated text
 	for ($i = 1; $i < $size; $i++)
 	{
 		if ($i % 2 == 0)
 		{
 			$toreturn .= getParagraph($description[$i], $simple)."\n";
-			
+
 			if (!$simple)
 			{
 				$toreturn .= "<p><a href=\"#top\" class=\"credit\">Top</a></p>\n";
@@ -223,7 +207,7 @@ function getFormattedText($text, $simple=false)
 			$toreturn .= "<h4 id=\"".convertToLink($description[$i])."\">".$description[$i]."</h4>\n<hr/>";
 		}
 	}
-	
+
 	return $toreturn;
 }	//end function
 
@@ -235,11 +219,11 @@ function getParagraph($text, $simple=true)
 	$toreturn = "";
 	$section = split("\n",$text);
 	$sectionRows = sizeof($section);
-	
+
 	for ($j = 0; $j < $sectionRows; $j++)
 	{
 		$section[$j] = eregi_replace("\n", "", $section[$j]);
-		
+
 		// test for HTML tags
 		if (substr(ltrim($section[$j]), 0, 1) == '<')
 		{
@@ -260,7 +244,7 @@ function getParagraph($text, $simple=true)
 			$toreturn .= "<p>".$section[$j]."</p>\n";
 		}
 	}
-	
+
 	return $toreturn;
 }	// end function
 
@@ -274,14 +258,14 @@ function getDescriptionTitles($text, $toReturn=NULL)
 {
 	$description = split ("==", $text);
 	$size = sizeof($description);
-	$i = 1; 
-	
+	$i = 1;
+
 	while ($i < $size)
 	{
 		$toReturn[] = '<a href="#'.convertToLink($description[$i]).'">'.$description[$i].'</a>';
 		$i = $i+2;
 	}
-	
+
 	return $toReturn;
 }	//end function
 
@@ -294,7 +278,7 @@ function addDescriptionTitles($toReturn, $text)
 // get pretty header photo
 // return boolean states if it has beeen drawn or not
 function drawHeaderPic($type, $link, $pageTitle, $caption='')
-{		
+{
 	$headerpic = strtolower("/images/$type/$link.jpg");
 	if (file_exists($_SERVER['DOCUMENT_ROOT'].$headerpic))
 	{
@@ -302,7 +286,7 @@ function drawHeaderPic($type, $link, $pageTitle, $caption='')
 		{
 			$caption = $pageTitle;
 		}
-		
+
 		$imgsize = getimagesize($_SERVER['DOCUMENT_ROOT'].$headerpic);
 		echo "<img class=\"photo-right\" src=\"$headerpic\" alt=\"$caption\" title=\"$caption\" $imgsize[3] \>\n";
 		return true;
@@ -320,13 +304,13 @@ function printDescriptionTitles($descriptionTabs)
 	if (sizeof($descriptionTabs) > 1)
 	{
 		echo "<h3 id=\"top\">Contents</h3>\n";
-		echo "<ul>\n";
-		
+		echo "<ul class=\"tableofcontents\">\n";
+
 		for ($i = 0; $i < sizeof($descriptionTabs); $i++)
 		{
 			echo "<li>".$descriptionTabs[$i]."</li>\n";
 		}
-		
+
 		echo "</ul>\n";
 	}
 }
@@ -335,7 +319,7 @@ function draw404InvalidSubpage($pageUrlRoot, $subpage='subpage')
 {
 	header("HTTP/1.1 404 Not Found");
 	header("Status: 404 Not Found");
-	
+
 	$pageTitle = "404 Page Not Found";
 	include_once("common/header.php");
 	echo "<p class=\"error\">Error - Invalid $subpage!</p>\n";
@@ -365,7 +349,7 @@ function getDescriptionSize($text)
  *
  * [[Image:IMAGE URL TO LINK TO]]
  * or [[Image:IMAGE URL TO LINK TO|caption]]
- * 
+ *
  */
 function parseLinks($text, $simple=false)
 {
@@ -374,15 +358,15 @@ function parseLinks($text, $simple=false)
 	{
 		$firstlink = true;
 	}
-	
+
 	// fixes for lineguide links
 	$description = str_replace('{{', '[[lineguide:', $text);
 	$description = str_replace('}}', '[[', $description);
-	
+
 	$description = str_replace(']]', '[[', $description);
 	$description = split ("\[\[", $description);
 	$size = sizeof($description);
-	
+
 	if($size > 1)
 	{
 		// if fist bit isn't a link, append it to output;
@@ -390,13 +374,13 @@ function parseLinks($text, $simple=false)
 		{
 			$toreturn .= $description[0];
 		}
-		
+
 		$i = 1;
 		while( $i < $size-1)
 		{
 			// check that is it is a image link
 			$tocheck = substr($description[$i], 0, 6);
-			
+
 			if ($tocheck == 'Image:' OR $tocheck == 'image:')
 			{
 				// test for optional link title
@@ -405,7 +389,7 @@ function parseLinks($text, $simple=false)
 				$title = split ("\|", $description[$i]);
 				$title[0] = str_replace('Image:', '', $title[0]);
 				$title[0] = str_replace('image:', '', $title[0]);
-				
+
 				// custom title found - set it
 				if(sizeof($title) == 3)
 				{
@@ -421,7 +405,7 @@ function parseLinks($text, $simple=false)
 				{
 					$linktitle = 'Image';
 				}
-				
+
 				$toreturn .= '<a href="/gallery/'.$title[0].'.html">';
 				$toreturn .= '<img src="/gallery/cache/'.$title[0].'_'.$imgsize.'.jpg" title="'.$linktitle.'" alt="'.$linktitle.'" /></a>';
 				$toreturn .= '<p class="credit">'.$linktitle.'</p>';
@@ -430,14 +414,14 @@ function parseLinks($text, $simple=false)
 			else
 			{
 				$currentSection = $description[$i];
-				
+
 				// check for line:xxx, article:yyy, region:zzz type links
 				$type = split ("\:", $currentSection);
-								
+
 				if (sizeof($type) > 1)
 				{
 					$currentSection = $type[1];
-					
+
 					switch ($type[0])
 					{
 						case 'line':
@@ -463,20 +447,20 @@ function parseLinks($text, $simple=false)
 					$currentSection = $type[0];
 					$linkType = 'location';
 				}
-			
+
 				// test for optional link title
 				$title = split ("\|", $currentSection);
-				
+
 				// custom title found - set it
 				if (sizeof($title) > 1)
 				{
-					$linktitle = $title[1];					
+					$linktitle = $title[1];
 				}
 				else
 				{
 					$linktitle = $title[0];
 				}
-				
+
 				// output URL of location
 				if ($simple)
 				{
@@ -486,7 +470,7 @@ function parseLinks($text, $simple=false)
 				{
 					$toreturn .= "<a href=\"/$linkType/".convertToLink($title[0]).'">'.$linktitle.'</a>';
 				}
-				
+
 				// output rest of text
 				$toreturn .= $description[$i+1];
 			}
@@ -515,11 +499,11 @@ function parseLineguideLinks($text)
 	{
 		$firstlink = true;
 	}
-	
+
 	$description = str_replace('{{', '}}', $text);
 	$description = split ("}}", $description);
 	$size = sizeof($description);
-	
+
 	if($size > 1)
 	{
 		// if fist bit isn't a lik, append it to output;
@@ -527,13 +511,13 @@ function parseLineguideLinks($text)
 		{
 			$toreturn .= $description[0];
 		}
-		
+
 		$i = 1;
 		while( $i < $size-1)
 		{
 			// test for optional link title
 			$title = split ("\|", $description[$i]);
-			
+
 			// custom title found - set it
 			if(sizeof($title) > 1)
 			{
@@ -543,14 +527,14 @@ function parseLineguideLinks($text)
 			{
 				$linktitle = $title[0];
 			}
-			
+
 			// output URL of line
 			$toreturn .= '<a href="/lineguide/'.convertToLink($title[0]).'">'.$linktitle.'</a>';
-			
+
 			// output rest of text
 			$toreturn .= $description[$i+1];
 			$i = $i+2;
-			
+
 		}
 	}
 	// if no links found
@@ -565,7 +549,7 @@ function parseLineguideLinks($text)
 function drawNextAndBackLinks($index, $totalimg, $max, $url)
 {
 	$page = $index/$max;
-	
+
 	if ($index > 0 OR $totalimg >= $max)
 	{	?>
 <table class="nextables"><tr><td>
@@ -580,9 +564,9 @@ function drawNextAndBackLinks($index, $totalimg, $max, $url)
 <a class="prev" href="<? echo $url.($page) ?>" title="Previous Page"><span>&laquo;</span> Previous</a>
 <?
 		}
-		
+
 		if ( ($totalimg - $index) >= $max)
-		{	
+		{
 ?>
 <a class="next" href="<? echo $url.($page+2) ?>" title="Next Page">Next <span>&raquo;</span></a>
 <?
@@ -615,25 +599,25 @@ function drawPageNumberLinks($index, $totalimg, $max, $url)
 {
 	$total = floor(($totalimg)/$max)+1;
 	$current = $index/$max;
-	
+
 	echo '<p>';
-  
+
   	if ($total > 0)
   	{
 		echo 'Page: ';
 	}
-	
+
 	if ($current > 3 AND $total > 7)
 	{
-		echo "\n <a href=\"$url\" alt=\"First page\" title=\"First page\">1</a>&nbsp;"; 
-		
+		echo "\n <a href=\"$url\" alt=\"First page\" title=\"First page\">1</a>&nbsp;";
+
 		if ($current > 4)
 		{
 			echo "...&nbsp;";
 		}
 	}
-	
-	for ($i=($j=max(1, min($current-2, $total-6))); $i <= min($total, $j+6); $i++) 
+
+	for ($i=($j=max(1, min($current-2, $total-6))); $i <= min($total, $j+6); $i++)
 	{
 		if ($i == $current+1)
 		{
@@ -645,14 +629,14 @@ function drawPageNumberLinks($index, $totalimg, $max, $url)
 		}
 		echo "&nbsp;";
 	}
-	if ($i <= $total) 
+	if ($i <= $total)
 	{
 		if ($current < $total-5)
 		{
 			echo "...&nbsp;";
 		}
-		
-		echo "<a href=\"$url$total\" alt=\"Last page\" title=\"Last page\">" . $total . "</a>"; 
+
+		echo "<a href=\"$url$total\" alt=\"Last page\" title=\"Last page\">" . $total . "</a>";
 	}
 	echo '</p>';
 }	// end function
@@ -684,7 +668,7 @@ function formatDistance($km, $kmAccuracy)
 	else
 	{
 		return '';
-	}	
+	}
 }
 
 /*
@@ -710,14 +694,14 @@ function formatDate($fdate, $type)
 			$str = split(' ', $fdate);
 			$period = substr($str[3], 3, 1);
 			$str = substr($str[3], 0, 3)."0s";
-			
+
 			if ($period == 0)
 			{}
-			else if ($period < 5) 
+			else if ($period < 5)
 			{
 				$str = "Early $str";
 			}
-			else if ($period >= 5) 
+			else if ($period >= 5)
 			{
 				$str = "Late $str";
 			}
@@ -762,9 +746,9 @@ function getLineguidePages($line, $type='list')
 				$beyondFirstText = 'Track Diagram ';
 				$elaborateText = 'part ';
 			}
-			
+
 			$toreturn[] = array("diagram/page-1", "Track Diagram (".$elaborateText."1)", "Track Diagram (".$elaborateText."1)");
-			
+
 			for ($i = 2; $i <= $line['trackSubpageCount']; $i++)
 			{
 				$toreturn[] = array("diagram/page-$i", "$beyondFirstText($elaborateText$i)", "$beyondFirstText($elaborateText$i)");
@@ -791,10 +775,10 @@ function getLineguidePages($line, $type='list')
 	{
 		$toreturn[] = array('map', 'Google Map', 'Google Map');
 	}
-	
+
 	// draw 'extra' page links...
 	$extrasLength = sizeof($line['pageNameArray']);
-	
+
 	for ($i = 1; $i < $extrasLength; $i++)
 	{
 		$toreturn[] = $line['pageNameArray'][$i];
@@ -808,7 +792,7 @@ function drawLinedLocationsTable($locationData)
 	$numberOfLocations = sizeof($locationData);
 	$numberOfColummns = sizeof($locationData['headertitle'])-1;
 	$numberOfSettingEntries = 5;
-	
+
 	if ($numberOfLocations > $numberOfSettingEntries)
 	{
 		echo $locationData['sorttext'];
@@ -825,7 +809,7 @@ function drawLinedLocationsTable($locationData)
 	</th>
 <?
 			}
-			
+
 			// one off for the actual link
 ?>
 	<th<?=$locationData['headerstyle'][$numberOfColummns]?> align="left"><a href="<?=$locationData['pageurl'] ?>/<?=$locationData['headerurl'][$numberOfColummns]?>"><?=$locationData['headertitle'][$numberOfColummns]?></a>
@@ -834,7 +818,7 @@ function drawLinedLocationsTable($locationData)
 <?
 		}
 		else
-		{		
+		{
 			for ($r = 0; $r < $numberOfColummns; $r++)
 			{
 	?>
@@ -842,21 +826,21 @@ function drawLinedLocationsTable($locationData)
 	</th>
 <?
 			}
-			
+
 			// one off for the actual link
 ?>
 	<th<?=$locationData['headerstyle'][$numberOfColummns];?> align="left"><?=$locationData['headertitle'][$numberOfColummns];?></th>
 </tr>
-<?					
+<?
 		}
-		
+
 		// fix number of rows by removing the initial ones containing settings
 		$numberOfLocations-=$numberOfSettingEntries;
 	}
-	
+
 	// skips the header cells
 	$i = 0;
-	
+
 	while ($i < $numberOfLocations)
 	{
 		if ($i%2 == '0')
@@ -867,9 +851,9 @@ function drawLinedLocationsTable($locationData)
 		{
 			$style = 'class="y"';
 		}
-		
+
 		echo "<tr $style>\n";
-		
+
 		for ($c = 0; $c < $numberOfColummns; $c++)
 		{
 			echo "<td>".$locationData[$i][$c]."</td>\n";
@@ -879,9 +863,9 @@ function drawLinedLocationsTable($locationData)
 </tr>
 <?
 		$i++;
-	}	
+	}
 	// end while
-	
+
 	echo "</table>\n";
 	return;	//end function
 }
@@ -889,7 +873,7 @@ function drawLinedLocationsTable($locationData)
 function getLocationDescriptionLengthImage($input, $events=0)
 {
 	$modifier = 150;
-	
+
 	//get length
 	if (is_numeric($input))
 	{
@@ -899,7 +883,7 @@ function getLocationDescriptionLengthImage($input, $events=0)
 	{
 		$length = strlen($input);
 	}
-	
+
 	// fix for short text entries
 	if ($length < 150 and $length > 50)
 	{
@@ -910,7 +894,7 @@ function getLocationDescriptionLengthImage($input, $events=0)
 	{
 		$length += 200;
 	}
-	
+
 	if ($length > 50*$modifier)
 	{
 		return '<img src="/images/rank5.gif" alt="Essay" title="Essay" />';
@@ -924,7 +908,7 @@ function getLocationDescriptionLengthImage($input, $events=0)
 		return '<img src="/images/rank3.gif" alt="Detailed" title="Detailed" />';
 	}
 	elseif ($length > 5*$modifier)
-	{		
+	{
 		return '<img src="/images/rank2.gif" alt="Beginning" title="Beginning" />';
 	}
 	elseif ($length > 1*$modifier)
@@ -944,7 +928,7 @@ function showPhotos($text)
 
 function getLocationUrlBase($id, $name, $uniqueName)
 {
-	
+
 	if (!$uniqueName OR strpos($name, '/') OR strpos($name, '-'))
 	{
 		return $id;
@@ -958,19 +942,19 @@ function getLocationUrlBase($id, $name, $uniqueName)
 // Original PHP code by Chirp Internet: www.chirp.com.au
 // Please acknowledge use of this code by including this header.
 
-function truncateString($string, $limit, $break=".", $pad="...") 
+function truncateString($string, $limit, $break=".", $pad="...")
 {
 	// return with no change if string is shorter than $limit
-  	if(strlen($string) <= $limit) return $string; 
+  	if(strlen($string) <= $limit) return $string;
 
   	// is $break present between $limit and the end of the string?
-  	if(false !== ($breakpoint = strpos($string, $break, $limit))) 
-  	{ 
+  	if(false !== ($breakpoint = strpos($string, $break, $limit)))
+  	{
   		if($breakpoint < strlen($string) - 1)
   		{
-  			$string = substr($string, 0, $breakpoint) . $pad; 
+  			$string = substr($string, 0, $breakpoint) . $pad;
   		}
-  	}    
+  	}
 	return $string;
 }
 ?>

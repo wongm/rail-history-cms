@@ -36,26 +36,26 @@ function pluralNumberWord($number, $text)
  * the number  to go per page,
  * and the URL to link to
  */
-function drawPageNumberLinks($index, $totalimg, $max, $url)
+function drawGallerySearchPageNumberLinks($index, $totalimg, $max, $url)
 {
 	$total = floor(($totalimg)/$max)+1;
 	$current = $index/$max;
 	$url = fixNavigationUrl($url);
-	
+
 	echo "<div class=\"pagelist\"\n>";
-	
+
 	if ($current > 3 AND $total > 7)
 	{
 		$url1 = $url."1";
-		echo "\n <a href=\"$url1\" alt=\"First page\" title=\"First page\">1</a>&nbsp;"; 
-		
+		echo "\n <a href=\"$url1\" alt=\"First page\" title=\"First page\">1</a>&nbsp;";
+
 		if ($current > 4)
 		{
 			echo "...&nbsp;";
 		}
 	}
-	
-	for ($i=($j=max(1, min($current-2, $total-6))); $i <= min($total, $j+6); $i++) 
+
+	for ($i=($j=max(1, min($current-2, $total-6))); $i <= min($total, $j+6); $i++)
 	{
 		if ($i == $current+1)
 		{
@@ -67,16 +67,16 @@ function drawPageNumberLinks($index, $totalimg, $max, $url)
 		}
 		echo "&nbsp;";
 	}
-	if ($i <= $total) 
+	if ($i <= $total)
 	{
 		if ($current < $total-5)
 		{
 			echo "...&nbsp;";
 		}
-		
-		echo "<a href=\"$url$total\" alt=\"Last page\" title=\"Last page\">" . $total . "</a>"; 
+
+		echo "<a href=\"$url$total\" alt=\"Last page\" title=\"Last page\">" . $total . "</a>";
 	}
-	
+
 	echo "</div>";
 }	// end function
 
@@ -107,8 +107,8 @@ function getFullImageLinkURL() {
 	    	'/index.php?album=' . urlencode($_zp_current_album->name) . '&image=' . urlencode($_zp_current_image->name));
     }
 }
-	
-	
+
+
 
 /**
  * Returns the url of the previous image.
@@ -138,7 +138,7 @@ function printEXIFData()
 	global $_zp_current_image;
 	$result = getImageMetaData();
 	$hitCounterText = formatHitCounter(incrementAndReturnHitCounter('image'));
-	
+
 	if (function_exists('getDeathmatchRatingsText'))
 	{
 		$ratingsText = getDeathmatchRatingsText();
@@ -150,7 +150,7 @@ function printEXIFData()
 		{
 			$hitCounterText .= "<br/>";
 		}
-		
+
 		$hitCounterText .= "Week reset = ".$_zp_current_image->get('hitcounter_week_reset').", Month reset = ".$_zp_current_image->get('hitcounter_month_reset');
 	}
 
@@ -263,12 +263,12 @@ function printTruncatedImageTitle($editable=false) {
 	if ($editable && zp_loggedin())
 	{
 		$text = getImageTitle();
-		
-		if (empty($text)) 
+
+		if (empty($text))
 		{
 			$text = gettext('(...)');
 		}
-		
+
 		$class= 'class="' . trim("zp_editable zp_editable_image_title") . '"';
 		echo "<span id=\"editable_image_truncate\" $class>" . $text . "</span>\n";
 		echo "<script type=\"text/javascript\">editInPlace('editable_image_truncate', 'image', 'title');</script>";
@@ -457,8 +457,8 @@ function drawWongmGridImages()
   {
 	  $albumlink = getImageAlbumLink();
   }
-  
-  
+
+
 
   global $_zp_current_image;
 ?>

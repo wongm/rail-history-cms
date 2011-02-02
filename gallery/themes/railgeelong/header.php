@@ -9,6 +9,25 @@ else
 {
 	error_reporting(0);
 }
+
+
+// work out the page title
+if ($_GET['p'] == 'news')
+{
+	$pageTitle = " - News";
+	$pageHeading = $pageTitle;
+}
+else if ($_GET['p'] == 'home')
+{
+	$pageTitle = " - Welcome";
+	$pageHeading = $pageTitle;
+}
+else
+{
+	$pageTitle = " - Gallery" . $pageTitle;
+	$pageHeading = " - Gallery";
+}
+
 require_once("functions-railgeelong.php");
 include_once('functions-gallery-formatting.php');
 ?>
@@ -16,7 +35,7 @@ include_once('functions-gallery-formatting.php');
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<title>Rail Geelong - <?php printGalleryTitle(); echo($pageTitle); ?></title>
+<title>Rail Geelong<?php echo($pageTitle); ?></title>
 <link rel="stylesheet" type="text/css" href="/common/style.css" media="all" title="Normal" />
 <link rel="stylesheet" href="<?= $_zp_themeroot ?>/zen.css" type="text/css" />
 <script type="text/javascript" src="/common/lightbox.js"></script>
@@ -30,7 +49,7 @@ include_once('functions-gallery-formatting.php');
 <body>
 <div id="container">
 <div id="header">
-<h1><a href="/" alt="Home" title="Home">Rail Geelong</a> - Gallery</h1>
+<h1><a href="/" alt="Home" title="Home">Rail Geelong</a><? echo $pageHeading; ?></h1>
 </div>
 <?php printAdminToolbox(); ?>
 <div id="contentwrapper">

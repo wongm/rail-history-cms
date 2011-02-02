@@ -20,11 +20,15 @@
   # RewriteCond %{REMOTE_HOST} !^120\.19\.125\.53
   # RewriteRule $ /maintenance.php [L] 
   
-  RewriteCond %{REQUEST_FILENAME} -f [NC,OR]
-  RewriteCond %{REQUEST_FILENAME} -d [NC]
-  RewriteRule ^.*$ - [R,L]
+  DirectoryIndex index.html
   
-  # RewriteRule index\.php$                     							index.php [L,QSA]
+  # CMS related stuff, redirect to Zenphoto
+  RewriteRule ^index.php?$       									gallery/index.php?p=home [L,QSA]
+  RewriteRule ^index.html?$       									gallery/index.php?p=home [L,QSA]
+    
+  # News related stuff, redirect to Zenphoto as CMS
+  RewriteRule ^news/?$       										gallery/index.php?p=news [L,QSA]
+  RewriteRule ^news/([-a-zA-Z0-9]*)/?$       						gallery/index.php?p=news&title=$1 [L,QSA]
   
   # fixes redirects to the old articles, 
   # sends them on a 301 trip to the proper ones

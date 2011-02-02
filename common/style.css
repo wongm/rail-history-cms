@@ -44,7 +44,7 @@ body {
 	padding: 10px 0 0 0;
 }
 #content p {
-	width: 95%;
+	width: 98%;
 	margin: 0.7em auto;
 	line-height: 1.3em;
 }
@@ -64,7 +64,7 @@ body {
 }
 .centeredTable, .linedTable {
 	margin: auto;
-	width: 95%;
+	width: 98%;
 }
 #content ul.tableofcontents {
 	margin-left:2.5%;
@@ -178,6 +178,10 @@ h3.intro {
 .updatedPages .t {
 	width: 6em;
 	text-align: center;
+}
+#news .d {
+	width: 11em;
+	margin: 0.5em 0;
 }
 #headerpane {
 	width: 400px;
@@ -397,7 +401,7 @@ a:hover {
 }
 .locations .datatable {
 	line-height: 1.5em;
-	width: 95%;
+	width: 98%;
 	margin: 0.5em auto 1em auto;
 }
 /* for 'news' section
@@ -408,8 +412,9 @@ a:hover {
 	padding: 0;
 	margin: 0;
 }
-#news h5 {
-	font-size: 0.9em;
+.newsarticlecontent {
+	width: 98%;	
+	margin: 0.2em auto 1.5em auto;
 }
 /* for 'tab' section
 ------------------------------ */
