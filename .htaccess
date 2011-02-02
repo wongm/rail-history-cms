@@ -19,12 +19,10 @@
   # RewriteCond %{REQUEST_URI} !/images(.*)$
   # RewriteCond %{REMOTE_HOST} !^120\.19\.125\.53
   # RewriteRule $ /maintenance.php [L] 
-  
-  DirectoryIndex index.html
-  
+    
   # CMS related stuff, redirect to Zenphoto
-  RewriteRule ^index.php?$       									gallery/index.php?p=home [L,QSA]
-  RewriteRule ^index.html?$       									gallery/index.php?p=home [L,QSA]
+  RewriteRule ^index.php?$       									gallery/index.php?p=home&title=home [L,QSA]
+  RewriteRule ^index.html?$       									gallery/index.php?p=home&title=home [L,QSA]
     
   # News related stuff, redirect to Zenphoto as CMS
   RewriteRule ^news/?$       										gallery/index.php?p=news [L,QSA]

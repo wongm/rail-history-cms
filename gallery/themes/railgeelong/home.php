@@ -68,17 +68,7 @@ foreach ($latestalbums as $latestalbum) {
 	}
 	
 	$folderpath = "/gallery/" . $latestalbum['folder'];
-	$foldername = "";
-	$splitfoldernames = str_replace('-', ' ', split('/', $latestalbum['folder']));
-	
-	foreach ($splitfoldernames as $foldernameitem)
-	{
-		if (strlen($foldername) > 0)
-		{
-			$foldername .= " - ";
-		}
-		$foldername .= ucfirst($foldernameitem);
-	}
+	$foldername = $latestalbum['title'];
 	
 	$images = getImageStatistic(1, "latest", $latestalbum['folder']);
 	
@@ -102,7 +92,7 @@ foreach ($latestalbums as $latestalbum) {
 <p><a href="/gallery/recent">Complete List...</a></p>
 <h4 style="clear:both">Coming Soon...</h4>
 <hr/>
-<p>Melbourne to Geelong and on to Warrnambool has now been covered, along with as well the various branches around Melbourne and Geelong. Geelong to Ballarat is currently in the works, with the Gheringhap to Maroona and Moriac to Wensleydale lines also partly researched.</p>
+<p><?php printPageContent(); ?></p>
 <?php
 include("footer.php"); 
 ?>
