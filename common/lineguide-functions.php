@@ -1,6 +1,6 @@
 <?php
 
-include_once("common/lineguide-database-functions.php");
+include_once(dirname(__FILE__) . "/../common/lineguide-database-functions.php");
 
 function drawLineguideHeaders($line, $section='')
 {
@@ -12,7 +12,7 @@ function drawLineguideHeaders($line, $section='')
 	if (strtolower($section) == 'google map') {
 		$googleHeader = true;
 	}
-	include_once("common/header.php");
+	include_once(dirname(__FILE__) . "/../common/header.php");
 	drawLineguideHeadbar($line);
 	echo "<div id=\"lineguide\">\n";
 }
@@ -31,7 +31,7 @@ function drawLineguideFooters($line, $section='')
 	echo "</div>\n";
 
 	$lastUpdatedDate = $line['updated'];
-	include_once("common/footer.php");
+	include_once(dirname(__FILE__) . "/../common/footer.php");
 }
 
 function drawSafeworkingDiagram($line, $section)
@@ -311,7 +311,7 @@ function drawSpecificLine($line, $contentsHeader = 'Contents')
 	// check to see if photos will be shown
 	if (showPhotos($line['photos']))
 	{
-		include_once("common/gallery-functions.php");
+		include_once(dirname(__FILE__) . "/../common/gallery-functions.php");
 		$linePhotos = getLocationImages($line['photos']);
 		$showPhotos = (sizeof($linePhotos) > 0);
 	}
@@ -437,7 +437,7 @@ function getFullLocationForLineguide($location)
 			$ida = MYSQL_RESULT($junctionresult,0,"line_id");
 			$idb = MYSQL_RESULT($junctionresult,1,"line_id");
 
-			include_once("common/location-lineguide-functions.php");
+			include_once(dirname(__FILE__) . "/../common/location-lineguide-functions.php");
 
 			if ($ida == $location['line_id'])
 			{

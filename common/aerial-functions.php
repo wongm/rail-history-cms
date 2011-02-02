@@ -1,6 +1,6 @@
 <?php
 
-include_once("common/dbConnection.php");
+include_once(dirname(__FILE__) . "/../common/dbConnection.php");
 
 function drawLineguideGoogleMap($line)
 {

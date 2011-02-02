@@ -1,38 +1,3 @@
-/* Admin Toolbox
------------------------------- */
-#admin, #admin_data {
-	position: fixed;
-  _position: absolute;
-	right: 0px;
-	top: 0px;
-	width: 150px;
-	border-bottom: 1px solid #E6E6DF;
-	border-left: 1px solid #E6E6DF;
-	background: #fff;
-    z-index: 2; 	
-    text-align: left;
-}
-#admin_data {
-	top: 0px;
-	padding-top: 10px;
-	z-index: 1;
-	line-height: 1.6em;
-	text-align: center;
-}
-#admin_data ul {
-	padding-left: 5px;
-}
-#admin h3 {
-	font-size:12px;
-	color: #989;
-	margin: 0;
-	padding: 0; 
-	text-align: center;
-}
-#admin h3:hover { 
-	color: #036; 
-}
-
 /* gallery */
 label {
 	padding: 0 0 0 2em;

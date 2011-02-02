@@ -1,8 +1,8 @@
 <?php
-include_once('dbConnection.php');
-include_once('formatting-functions.php');
-include_once('./gallery/themes/railgeelong/functions-search.php');
-include_once('./gallery/themes/railgeelong/functions-railgeelong.php');
+include_once(dirname(__FILE__) . "/dbConnection.php");
+include_once(dirname(__FILE__) . "/formatting-functions.php");
+include_once(dirname(__FILE__) . "/../gallery/themes/railgeelong/functions-search.php");
+include_once(dirname(__FILE__) . "/../gallery/themes/railgeelong/functions-railgeelong.php");
 
 // check this location has images to show
 function getLocationImages($location)

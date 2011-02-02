@@ -1,9 +1,9 @@
 <?php 
-include_once("common/dbConnection.php");
-include_once("common/location-functions.php");
-include_once("common/location-database-functions.php");
-include_once("common/source-functions.php");
-include_once("common/formatting-functions.php");
+include_once("../common/dbConnection.php");
+include_once("../common/location-functions.php");
+include_once("../common/location-database-functions.php");
+include_once("../common/source-functions.php");
+include_once("../common/formatting-functions.php");
 
 $locationName = str_replace('-', ' ', $_REQUEST['name']);
 $locationBox = str_replace('-', ' ', $_REQUEST['box']);
@@ -74,26 +74,26 @@ elseif($locationType != "")
 		default:
 			draw404InvalidSubpage('locations');
 			return;
-	}	
-	include_once("common/header.php");
-	include_once('common/location-lineguide-functions.php');
+	}
+	include_once("header.php");
+	include_once('../common/location-lineguide-functions.php');
 	drawLinedLocationsTable(getLocationsTable('', '', $sql, $locationType, $locationSort));
-	include_once("common/footer.php");
+	include_once("footer.php");
 }
 // find a location by name
 elseif($locationSearch != "")	
 {
 	$pageTitle = "Location Search - \"$locationSearch\"";
-	include_once("common/header.php");
+	include_once("header.php");
 	drawLocationSearch($locationSearch, $locationSearchPage);
-	include_once("common/footer.php");
+	include_once("footer.php");
 }
 // a default opening info page
 else	
 {
 	$pageTitle = 'Locations';
-	include_once("common/header.php");
+	include_once("header.php");
 	drawMainPage();	
-	include_once("common/footer.php");
+	include_once("footer.php");
 } ?>
 

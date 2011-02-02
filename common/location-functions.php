@@ -6,10 +6,10 @@ function drawInvalidLocation($locationToFind, $index=1)
 	header("HTTP/1.1 404 Not Found");
 	header("Status: 404 Not Found");
 	$pageTitle = "404 Page Not Found";
-	include_once("common/header.php");
+	include_once(dirname(__FILE__) . "/../common/header.php");
 	echo "<p class=\"error\">Error - Invalid Location!</p>\n";
 	drawLocationSearch($locationToFind, $index);
-	include_once("common/footer.php");
+	include_once(dirname(__FILE__) . "/../common/footer.php");
 }
 
 function drawDuplicateLocation($recheckresult)
@@ -17,12 +17,12 @@ function drawDuplicateLocation($recheckresult)
 	header("HTTP/1.1 404 Not Found");
 	header("Status: 404 Not Found");
 	$pageTitle = "404 Page Not Found";
-	include_once("common/header.php");
+	include_once(dirname(__FILE__) . "/../common/header.php");
 	echo "<div class=\"locations\">\n";
 	echo "<p class=\"error\">Multiple locations by that name found!</p>\n";
 	drawLinedLocationsTable(getLocationsOnlyTable($recheckresult, 'line'));
 	echo "</div>\n";
-	include_once("common/footer.php");
+	include_once(dirname(__FILE__) . "/../common/footer.php");
 }
 
 
@@ -35,8 +35,8 @@ function drawLocation($location)
 {
 	$pageTitle = "Locations - ".$location['pageTitle'];
 	$pageHeading = "Locations";
-	include_once("common/header.php");
-	include_once("common/event-functions.php");
+	include_once(dirname(__FILE__) . "/../common/header.php");
+	include_once(dirname(__FILE__) . "/../common/event-functions.php");
 
 	// working out if dot points section shown or not
 	$dotpoints = 0;
@@ -83,7 +83,7 @@ function drawLocation($location)
 	// check to see if photos will be shown
 	if (showPhotos($location['photos']))
 	{
-		include_once("common/gallery-functions.php");
+		include_once(dirname(__FILE__) . "/../common/gallery-functions.php");
 		$locationPhotos = getLocationImages($location['photos']);
 		$showPhotos = (sizeof($locationPhotos) > 0);
 		$dotpoints++;
@@ -242,7 +242,7 @@ function drawLocation($location)
 	echo "</div>\n";
 
 	$lastUpdatedDate = $location['updated'];
-	include_once("common/footer.php");
+	include_once(dirname(__FILE__) . "/../common/footer.php");
 
 } //end function
 
@@ -380,7 +380,7 @@ function drawLocationSearch($locationSearch, $searchPageNumber)
 	}
 	else
 	{
-		include_once('common/location-lineguide-functions.php');
+		include_once(dirname(__FILE__) . "/../common/location-lineguide-functions.php");
 		drawNextAndBackLinks($index, $totalNumberOfRecords, $maxRecordsPerPage, '?search='.$locationSearch.'&page=');
 
 		// display number of results
@@ -446,7 +446,7 @@ function drawLocationDataTable($location)
 		{
 			if ($location['trackSubpageCount'])
 			{
-				include_once("common/location-lineguide-functions.php");
+				include_once(dirname(__FILE__) . "/../common/location-lineguide-functions.php");
 				$extraPageBounds = getLineguideDistanceURL($location['trackSubpage'], $location['km']);
 			}
 ?>

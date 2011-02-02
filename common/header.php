@@ -64,5 +64,19 @@ if (strlen($pageHeading) > 35)
 <div id="header">
 <h1><a href="/" alt="Home" title="Home">Rail Geelong</a> - <?php echo $pageHeading; ?></h1>
 </div>
+<?php 
+// hack in stuff for zenphoto generated pages
+if (function_exists('printAdminToolbox'))
+{
+	global $editablelinkforadmin;
+	$editablelinkforadmin = zp_loggedin();
+		
+	//assume this function exists
+	if (zp_loggedin()) 
+	{
+		printAdminToolbox();
+		zenJavascript();
+	}
+} ?>
 <div id="contentwrapper">
 <div id="content">

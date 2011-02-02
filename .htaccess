@@ -35,7 +35,7 @@
   RewriteRule articles\.php$                     							articles-redirect.php [L,QSA]
 
   RewriteRule ^region/?$                       								/lineguide [R,QSA]  
-  RewriteRule ^region/(.*)/?$       										regions-tool.php?name=$1 [L,QSA]
+  RewriteRule ^region/(.*)/?$       										gallery/index.php?p=regions&name=$1 [L,QSA]
   
   RewriteRule ^articles/?$                       							articles-tool.php [L,QSA]
   RewriteRule ^article/(.*)/?$       										articles-tool.php?name=$1 [L,QSA]
@@ -44,40 +44,40 @@
   RewriteRule ^articles/([A-Za-z0-9/\-_]+)/?$       						articles-tool.php [L,QSA]
   
   RewriteRule ^updates?$                       								updates-tool.php?updated=1 [L,QSA]
-  RewriteRule ^updates/page/([0-9]+)?$       							updates-tool.php?updated=$1 [L,QSA]
-  RewriteRule ^updates/page/([0-9]+)/?$       							updates-tool.php?updated=$1 [L,QSA]
+  RewriteRule ^updates/page/([0-9]+)?$       								updates-tool.php?updated=$1 [L,QSA]
+  RewriteRule ^updates/page/([0-9]+)/?$       								updates-tool.php?updated=$1 [L,QSA]
   RewriteRule ^updates/?$                       							updates-tool.php?updated=1 [L,QSA]
   # RewriteRule ^updates/(.*)?$       										updates-tool.php?updated=invalid [L,QSA]
   
-  RewriteRule ^locations/?=search=?$                       					locations-tool.php?search=$1 [L,QSA]
-  RewriteRule ^locations/?=search=?$&page=([0-9]+)               			locations-tool.php?search=$1&page=$2[L,QSA]
+  RewriteRule ^locations/?=search=?$                       					gallery/index.php?p=locations&search=$1 [L,QSA]
+  RewriteRule ^locations/?=search=?$&page=([0-9]+)               			gallery/index.php?p=locations&search=$1&page=$2[L,QSA]
   
-  RewriteRule ^locations/([A-Za-z0-9\-_]+)/?$       						locations-tool.php?type=$1 [L,QSA]
-  RewriteRule ^locations/([A-Za-z0-9\-_]+)/([A-Za-z0-9\-_]+)/?$       		locations-tool.php?type=$1&sort=$2 [L,QSA]
+  RewriteRule ^locations/([A-Za-z0-9\-_]+)/?$       						gallery/index.php?p=locations&type=$1 [L,QSA]
+  RewriteRule ^locations/([A-Za-z0-9\-_]+)/([A-Za-z0-9\-_]+)/?$       		gallery/index.php?p=locations&type=$1&sort=$2 [L,QSA]
   # last fallthrough
   
-  RewriteRule ^locations(.*)?$                      						locations-tool.php [L,QSA]
+  RewriteRule ^locations(.*)?$                      						gallery/index.php?p=locations [L,QSA]
   
-  RewriteRule ^location/?$                      							locations-tool.php [L,QSA]
-  RewriteRule ^location/([0-9\-_]+)/?$				       					locations-tool.php?id=$1 [L,QSA]
-  RewriteRule ^location/([0-9\-_]+)/box/?$				       				locations-tool.php?id=$1 [L,QSA]
-  RewriteRule ^location/([A-Za-z0-9\-'.,_]+)/?$       						locations-tool.php?name=$1 [L,QSA]
-  RewriteRule ^location/([A-Za-z0-9\-'.,_]+)/box/?$    						locations-tool.php?box=$1 [L,QSA]
-  RewriteRule ^location/([A-Za-z0-9\-'.,_]+)/([A-Za-z0-9\-'._]+)/?$  		locations-tool.php?name=$1&line=$2 [L,QSA]
+  RewriteRule ^location/?$                      							gallery/index.php?p=locations [L,QSA]
+  RewriteRule ^location/([0-9\-_]+)/?$				       					gallery/index.php?p=locations&id=$1 [L,QSA]
+  RewriteRule ^location/([0-9\-_]+)/box/?$				       				gallery/index.php?p=locations&id=$1 [L,QSA]
+  RewriteRule ^location/([A-Za-z0-9\-'.,_]+)/?$       						gallery/index.php?p=locations&name=$1 [L,QSA]
+  RewriteRule ^location/([A-Za-z0-9\-'.,_]+)/box/?$    						gallery/index.php?p=locations&box=$1 [L,QSA]
+  RewriteRule ^location/([A-Za-z0-9\-'.,_]+)/([A-Za-z0-9\-'._]+)/?$  		gallery/index.php?p=locations&name=$1&line=$2 [L,QSA]
   # last fallthrough
-  RewriteRule ^location/(.*)?$ 												locations-tool.php?name=$1 [L,QSA]
+  RewriteRule ^location/(.*)?$ 												gallery/index.php?p=locations&name=$1 [L,QSA]
   
-  RewriteRule ^lineguide/?$                       							lineguide-tool.php [L,QSA]
-  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/?$      							lineguide-tool.php?line=$1 [L,QSA]
-  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/([A-Za-z0-9\-_]+)/?$      		lineguide-tool.php?line=$1&section=$2 [L,QSA]
-  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/locations/([A-Za-z0-9\-_]+)/?$      		lineguide-tool.php?line=$1&section=locations&sort=$2 [L,QSA]
-  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/diagram/year-([0-9\-_]+)/?$			lineguide-tool.php?line=$1&section=diagram&year=$2 [L,QSA]
-  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/diagram/page-([A-Za-z0-9\-_]+)/?$			lineguide-tool.php?line=$1&section=diagram&page=$2 [L,QSA]
-  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/diagram/page-([A-Za-z0-9\-_]+)/year-([0-9\-_]+)/?$			lineguide-tool.php?line=$1&section=diagram&page=$2&year=$3 [L,QSA]
-  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/diagram/year-([0-9\-_]+)/page-([0-9\-_]+)/?$			lineguide-tool.php?line=$1&section=diagram&year=$2&page=$3 [L,QSA]
-  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/safeworking/([A-Za-z0-9\-_]+)/?$					lineguide-tool.php?line=$1&section=safeworking&year=$2 [L,QSA]
+  RewriteRule ^lineguide/?$                       												gallery/index.php?p=lineguides [L,QSA]
+  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/?$      												gallery/index.php?p=lineguides&line=$1 [L,QSA]
+  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/([A-Za-z0-9\-_]+)/?$      							gallery/index.php?p=lineguides&line=$1&section=$2 [L,QSA]
+  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/locations/([A-Za-z0-9\-_]+)/?$      					gallery/index.php?p=lineguides&line=$1&section=locations&sort=$2 [L,QSA]
+  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/diagram/year-([0-9\-_]+)/?$							gallery/index.php?p=lineguides&line=$1&section=diagram&year=$2 [L,QSA]
+  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/diagram/page-([A-Za-z0-9\-_]+)/?$					gallery/index.php?p=lineguides&line=$1&section=diagram&page=$2 [L,QSA]
+  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/diagram/page-([A-Za-z0-9\-_]+)/year-([0-9\-_]+)/?$	gallery/index.php?p=lineguides&line=$1&section=diagram&page=$2&year=$3 [L,QSA]
+  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/diagram/year-([0-9\-_]+)/page-([0-9\-_]+)/?$			gallery/index.php?p=lineguides&line=$1&section=diagram&year=$2&page=$3 [L,QSA]
+  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/safeworking/([A-Za-z0-9\-_]+)/?$						gallery/index.php?p=lineguides&line=$1&section=safeworking&year=$2 [L,QSA]
   # last fallthrough
-  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/([A-Za-z0-9\-_]+)/([A-Za-z0-9/\-_]+)/?$      	lineguide-tool.php?line=$1&section=$2 [L,QSA]
+  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/([A-Za-z0-9\-_]+)/([A-Za-z0-9/\-_]+)/?$      		gallery/index.php?p=lineguides&line=$1&section=$2 [L,QSA]
   
   # depreciated pages, redirect to new ones
   RewriteRule ^locations/updated?$                       					updates-tool.php?updated=1 [L,QSA]

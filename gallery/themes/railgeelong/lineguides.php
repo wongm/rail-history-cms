@@ -1,17 +1,17 @@
 <?php
-include_once("common/dbConnection.php");
-include_once("common/lineguide-functions.php");
-include_once("common/lineguide-database-functions.php");
-include_once("common/event-functions.php");
-include_once("common/source-functions.php");
-include_once("common/formatting-functions.php");
-include_once("common/map-functions.php");
+include_once("../common/dbConnection.php");
+include_once("../common/lineguide-functions.php");
+include_once("../common/lineguide-database-functions.php");
+include_once("../common/event-functions.php");
+include_once("../common/source-functions.php");
+include_once("../common/formatting-functions.php");
+include_once("../common/map-functions.php");
 
 $lineToDisplay = 	$_REQUEST['line'];
-$sort = 			$_REQUEST['sort'];
 $yearToDisplay = 	$_REQUEST['year'];
 $trackPage = 		$_REQUEST['page'];
 $section= 			$_REQUEST['section'];
+$sort = 			$_REQUEST['sort'];
 $sort = str_replace('by-', '', $sort);
 $yearToDisplay = str_replace('year-', '', $yearToDisplay);
 
@@ -19,7 +19,7 @@ $yearToDisplay = str_replace('year-', '', $yearToDisplay);
 if ($lineToDisplay == '')
 {
 	$pageTitle = "Line Guides";
-	include_once("common/header.php");
+	include_once("header.php");
 ?>
 <h4>Introduction to the lineguides</h4>
 <img class="photo-right" src="/images/geelong-region.gif" alt="Geelong Region Railway Lines" title="Geelong Region Railway Lines" usemap="#linemap" height="402" width="500" />
@@ -43,7 +43,7 @@ Choose a line on the map to the right, or a link from below to start.</p>
 <h4 style="clear:both;" >The Lines...</h4><hr/>
 <?
 	drawAllLineguideDotpoints(false);
-	include_once("common/footer.php");
+	include_once("footer.php");
 }
 /* For specific line */
 else
@@ -77,7 +77,7 @@ else
 		// listing of locations for line
 		elseif ($section == 'locations' AND $line['showLocations'])
 		{
-			include_once('common/location-lineguide-functions.php');
+			include_once("../common/location-lineguide-functions.php");
 			drawLineguideHeaders($line, 'Locations');
 			drawAdminEditableLink("/backend/listLineLocations.php?line=".$line['lineLink'], "Edit locations");
 			echo "<h3>Locations</h3>\n";
@@ -87,13 +87,13 @@ else
 		// lineguide Google map
 		elseif ($section == 'map' AND $line['showGoogleMap'])
 		{
-			include_once("common/aerial-functions.php");
+			include_once("../common/aerial-functions.php");
 			$googleHeader = 'article';
 			$googleHeaderKMLscript = generateKMLScript('kml-' . $line['lineId'] . '.kml');
 
 			$pageTitle = $pageHeading = getLineName($line['lineName'])." Guide";
 			$pageTitle = "$pageTitle - Google Map";
-			include_once("common/header.php");
+			include_once("../common/header.php");
 			drawLineguideHeadbar($line);
 
 			echo "<div id=\"lineguide\">\n";

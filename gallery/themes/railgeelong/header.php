@@ -12,20 +12,28 @@ else
 
 
 // work out the page title
-if ($_GET['p'] == 'news')
+switch ($_GET['p'])
 {
-	$pageTitle = " - News";
-	$pageHeading = $pageTitle;
-}
-else if ($_GET['p'] == 'home')
-{
-	$pageTitle = " - Welcome";
-	$pageHeading = $pageTitle;
-}
-else
-{
-	$pageTitle = " - Gallery" . $pageTitle;
-	$pageHeading = " - Gallery";
+	case 'news':
+		$pageTitle = " - News";
+		$pageHeading = $pageTitle;
+		break;
+		
+	case 'home':
+		$pageTitle = " - Welcome";
+		$pageHeading = $pageTitle;
+		break;
+		
+	case 'locations':
+	case 'lineguides':
+	case 'regions':
+		$pageTitle = " - $pageTitle";
+		$pageHeading = $pageTitle;
+		break;
+
+	default:
+		$pageTitle = " - Gallery" . $pageTitle;
+		$pageHeading = " - Gallery";
 }
 
 require_once("functions-railgeelong.php");

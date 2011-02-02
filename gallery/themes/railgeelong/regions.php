@@ -1,9 +1,9 @@
 <?php
 
-include_once("common/dbConnection.php");
-include_once("common/formatting-functions.php");
-include_once("common/source-functions.php");
-include_once("common/lineguide-functions.php");
+include_once("../common/dbConnection.php");
+include_once("../common/formatting-functions.php");
+include_once("../common/source-functions.php");
+include_once("../common/lineguide-functions.php");
 
 /*
  * For regions, groupings of lineguides and articles, that all deal with a geographic area.
@@ -12,9 +12,6 @@ include_once("common/lineguide-functions.php");
  * 
  * 
  */
- 
-include_once("common/dbConnection.php");
-include_once("common/formatting-functions.php");
  
 $link = $_REQUEST['name'];
 
@@ -39,7 +36,7 @@ else
 		$caption = stripslashes(MYSQL_RESULT($article,0,"caption"));
 		$lastUpdatedDate = MYSQL_RESULT($article,0,"fdate"); 
 		
-		include_once('common/header.php');
+		include_once('../common/header.php');
 		
 		global $editablelinkforadmin;
 		if ($editablelinkforadmin)
@@ -57,7 +54,7 @@ else
 		
 		if(showPhotos($photos))
 		{
-			include_once("common/gallery-functions.php");
+			include_once("../common/gallery-functions.php");
 			$regionPhotos = getLocationImages($photos);
 			$showPhotos = (sizeof($regionPhotos) > 0);
 			$descriptionTitles = addDescriptionTitles($descriptionTitles, 'photos');
@@ -99,7 +96,7 @@ else
 			echo $articleSources;
 		}
 		
-		include_once("common/footer.php");
+		include_once("../common/footer.php");
 	}
 	else
 	{
