@@ -88,8 +88,17 @@ else
 		elseif ($section == 'map' AND $line['showGoogleMap'])
 		{
 			include_once("common/aerial-functions.php");
-			drawLineguideHeaders($line, 'Google Map');
-			drawLineguideGoogleMap($line);
+			$googleHeader = 'article';
+			$googleHeaderKMLscript = generateKMLScript('kml-' . $line['lineId'] . '.kml');
+
+			$pageTitle = $pageHeading = getLineName($line['lineName'])." Guide";
+			$pageTitle = "$pageTitle - Google Map";
+			include_once("common/header.php");
+			drawLineguideHeadbar($line);
+
+			echo "<div id=\"lineguide\">\n";
+			echo "<h3>Google Map</h3>\n";
+			echo '<div id="map" class="inlinemap"></div>';;
 			drawLineguideFooters($line);
 		}
 		// 'home' page for line with links
