@@ -110,7 +110,7 @@ function drawLocation($location)
 	// check if minimum number of dot points spat out
 	if ($dotpoints > 2)
 	{
-		echo "<ul>\n";
+		echo "<ul class=\"tableofcontents\">\n";
 
 		if ($numberOfTextSections > 0)
 		{
@@ -224,7 +224,7 @@ function drawLocation($location)
 
 	if ($location["hasAssociatedLocations"])
 	{
-		echo "<h4 id=\"other\">Other Locations</h4><hr/>\n<ul>";
+		echo "<h4 id=\"other\">Other Locations</h4><hr/>\n<ul class=\"tableofcontents\">";
 
 		foreach ($location['associatedLocations'] as $associatedLocation)
 		{
@@ -299,7 +299,7 @@ function drawMainPage()
 <hr/>
 <p>Here is a listing of all the railway locations in the Geelong Region. Either view by type, or search by name. You can also browse by line from the <a href="/lineguide/">lineguides</a>. The sort order can be altered in all cases.</p>
 <h4>By Type</h4>
-<ul><li><a href='/locations/stations'>Stations</a></li>
+<ul class=\"tableofcontents\"><li><a href='/locations/stations'>Stations</a></li>
 <li><a href='/locations/industries'>Industries</a></li>
 <li><a href='/locations/signalboxes'>Signal Boxes</a></li>
 <li><a href='/locations/yards'>Yards</a></li>
