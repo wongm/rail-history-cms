@@ -16,8 +16,8 @@
   # For maintenance
   # RewriteCond %{REQUEST_URI} !/maintenance.php$
   # RewriteCond %{REQUEST_URI} !/common/style.css$
+  # RewriteCond %{REQUEST_URI} !/common/(.*).js$
   # RewriteCond %{REQUEST_URI} !/images(.*)$
-  # RewriteCond %{REMOTE_HOST} !^120\.19\.125\.53
   # RewriteRule $ /maintenance.php [L] 
     
   # CMS related stuff, redirect to Zenphoto
@@ -84,5 +84,7 @@
   RewriteRule ^locations/updated/([A-Za-z0-9/\.-_]+)/?$       				updates-tool.php?updated=$1 [L,QSA]
   RewriteRule ^locations/updated/([A-Za-z0-9/\.-_]+)?$       				updates-tool.php?updated=$1 [L,QSA]
   RewriteRule ^locations/updated/?$                       					updates-tool.php?updated=1 [L,QSA]
+  
+  RewriteRule ^rss.php?$                       					gallery/rss-railgeelong.php [R=301,L]
   
 </IfModule>

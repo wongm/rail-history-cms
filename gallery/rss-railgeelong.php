@@ -1,7 +1,13 @@
 <?php
-include_once("common/dbConnection.php");
-include_once("common/updates-functions.php");
-include_once("common/formatting-functions.php");
+require_once(dirname(__FILE__).'/zp-core/folder-definitions.php');
+define('OFFSET_PATH', 0);
+require_once(ZENFOLDER . "/template-functions.php");
+require_once(ZENFOLDER . "/functions-rss.php");
+startRSSCache();
+
+include_once("../common/dbConnection.php");
+include_once("../common/updates-functions.php");
+include_once("../common/formatting-functions.php");
 
 $updatedPages = getUpdatedPages(0, 20);
 $updatedLocations = $updatedPages["result"];
@@ -84,3 +90,4 @@ for ($i = 0; $i < MYSQL_NUM_ROWS($updatedLocations); $i++)
 ?>
 </channel>
 </rss>
+<?php endRSSCache();?>
