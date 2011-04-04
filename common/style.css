@@ -27,8 +27,21 @@ body {
 	border: #999;
 	border-style: solid;
 	border-width: 0px 0px 2px 0;
-	height: 4.5em;
+	height: 4em;
 	margin-bottom: 2px;
+}
+#header h1 {
+	line-height: 0.1em;
+	*line-height: 1.4em; /* IE7 and below */
+}
+#header #sitename {
+	float: left;
+	height: 4.5em;
+}
+#header #sitedesc {
+	float: right;
+	margin-top: 2em;
+	font-style: italic;
 }
 #navigation{
 	float: left;
@@ -241,7 +254,6 @@ h1, h2, h3, h4, h5, .h4 {
 }
 h1 {
 	font-size:30px;
-	margin:0;
 }
 h1 a {
 	text-decoration: none;

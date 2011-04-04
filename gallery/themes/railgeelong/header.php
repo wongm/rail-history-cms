@@ -73,8 +73,11 @@ else if ($newsRSS)
 <body>
 <div id="container">
 <div id="header">
-<h1><a href="/" alt="Home" title="Home">Rail Geelong</a><? echo $pageHeading; ?></h1>
+<div id="sitename">
+	<h1><a href="/" alt="Home" title="Home">Rail Geelong</a><? echo $pageHeading; ?></h1>
 </div>
+<div id="sitedesc">A history of the railways of Geelong and District.</div>
+<div style="clear:both;"></div>
 <?php printAdminToolbox(); ?>
 <div id="contentwrapper">
 <div id="content">

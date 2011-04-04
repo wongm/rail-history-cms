@@ -62,8 +62,11 @@ if (strlen($pageHeading) > 35)
 <? } ?>
 <div id="container">
 <div id="header">
-<h1><a href="/" alt="Home" title="Home">Rail Geelong</a> - <?php echo $pageHeading; ?></h1>
+<div id="sitename">
+	<h1><a href="/" alt="Home" title="Home">Rail Geelong</a> - <?php echo $pageHeading; ?></h1>
 </div>
+<div id="sitedesc">A history of the railways of Geelong and District.</div>
+<div style="clear:both;"></div>
 <?php 
 // hack in stuff for zenphoto generated pages
 if (function_exists('printAdminToolbox'))
