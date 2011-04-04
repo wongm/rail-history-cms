@@ -53,7 +53,7 @@ if (strlen($pageHeading) > 35)
 <meta name="author" content="Marcus Wong" />
 <meta name="description" content="Rail Geelong Homepage" />
 <meta name="keywords" content="railways trains geelong victoria" />
-<link rel="alternate" type="application/rss+xml" title="Recently updated pages" href="http://www.railgeelong.com/rss.php" />
+<link rel="alternate" type="application/rss+xml" title="Recently updated pages" href="/rss" />
 </head>
 <? if ($googleHeader) { ?>
 <body onload="loadLineguideAll()" onunload="GUnload()">

@@ -10,18 +10,19 @@ else
 	error_reporting(0);
 }
 
-
 // work out the page title
 switch ($_GET['p'])
 {
 	case 'news':
 		$pageTitle = " - News";
 		$pageHeading = $pageTitle;
+		$newsRSS = true;
 		break;
 		
 	case 'home':
 		$pageTitle = " - Welcome";
 		$pageHeading = $pageTitle;
+		$railGeelongRSS = true;
 		break;
 		
 	case 'locations':
@@ -29,11 +30,13 @@ switch ($_GET['p'])
 	case 'regions':
 		$pageTitle = " - $pageTitle";
 		$pageHeading = $pageTitle;
+		$railGeelongRSS = true;
 		break;
 
 	default:
 		$pageTitle = " - Gallery" . $pageTitle;
 		$pageHeading = " - Gallery";
+		$galleryRSS = true;
 }
 
 require_once("functions-railgeelong.php");
@@ -52,7 +55,20 @@ include_once('functions-gallery-formatting.php');
 <meta name="author" content="Marcus Wong" />
 <meta name="description" content="Rail Geelong Homepage" />
 <meta name="keywords" content="railways trains geelong victoria" />
-<? printRSSHeaderLink("Gallery", "Recent uploads"); ?>
+<?php
+if ($galleryRSS)
+{
+	printRSSHeaderLink("AlbumsRSS", "Recent gallery uploads");
+}
+else if ($railGeelongRSS)
+{
+	echo '<link rel="alternate" type="application/rss+xml" title="Recently updated pages" href="/rss" />';
+}
+else if ($newsRSS)
+{
+	printZenpageRSSHeaderLink('News', '', 'Recent news updates', null);
+}
+?>
 </head>
 <body>
 <div id="container">

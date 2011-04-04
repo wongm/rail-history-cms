@@ -11,12 +11,11 @@ include_once("../common/formatting-functions.php");
 
 $updatedPages = getUpdatedPages(0, 20);
 $updatedLocations = $updatedPages["result"];
-
-header('Content-Type: application/rss+xml');
+header('Content-Type: application/xml');
 ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
 <channel>
-<title>Rail Geelong updates</title>
+<title>Rail Geelong - Updated content</title>
 <link>http://www.railgeelong.com</link>
 <atom:link href="http://www.railgeelong.com/rss.php" rel="self" type="application/rss+xml" />
 <description>Recent updates to lineguides, locations and articles</description>

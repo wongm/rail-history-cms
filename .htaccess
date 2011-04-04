@@ -85,6 +85,7 @@
   RewriteRule ^locations/updated/([A-Za-z0-9/\.-_]+)?$       				updates-tool.php?updated=$1 [L,QSA]
   RewriteRule ^locations/updated/?$                       					updates-tool.php?updated=1 [L,QSA]
   
-  RewriteRule ^rss.php?$                       					gallery/rss-railgeelong.php [R=301,L]
+  RewriteRule ^rss.php?$                       					gallery/rss-railgeelong.php [L,QSA]
+  RewriteRule ^rss?$                       						gallery/rss-railgeelong.php [L,QSA]
   
 </IfModule>

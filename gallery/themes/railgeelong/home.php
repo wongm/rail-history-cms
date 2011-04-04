@@ -19,7 +19,7 @@ include_once('header.php');
 <h3 class="intro">Rail Geelong - hopefully everything you ever wanted to know about the history of the railways of Geelong and District, and then some.</h3>
 <p class="intro">Currently detailed histories are in place for the Melbourne - Geelong - Warrnambool, Geelong - Ballarat, Maribyrnong River Line, Newport Power Station, Altona, Fyansford,  Cunningham Pier, Queenscliff, Geelong Racecourse, and Mortlake railway lines. Histories of the locations on the lines themselves have also been completed in various levels of detail.<br/><br/>
 Any comments or feedback is welcomed via the <a href="/contact.php">contact form</a>.</p>
-<h4 style="clear:both">Recent Updates</h4>
+<h4 style="clear:both">Site news</h4>
 <hr/>
 <table id="news" class="linedTable">	
 <?php
