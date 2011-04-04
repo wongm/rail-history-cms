@@ -812,22 +812,5 @@ function getLocationEvents($location)
 	return $locationevents;	//end function
 }
 
-/*
-function getEventCredits($source)
-{
-	if ($source != '')
-	{
-		$sourceResultsSQL = sprintf("SELECT * FROM sources WHERE source_id = '%s'", mysql_real_escape_string($source));
-		$sourceResults = MYSQL_QUERY($sourceResultsSQL, locationDBconnect());
-		
-		if (MYSQL_RESULT($sourceResults) == 1)
-		{
-			$sourceShort = stripslashes($sourceResults, 0,"short");
-			$sourceName = stripslashes($sourceResults, 0,"name");
-			return '<a title="Credit: '.$sourceName.'" href="sources.php#id'.$source.'">('.$sourceShort.')</a>';
-		}
-	}
-}	//end function
-*/
 
 ?>
