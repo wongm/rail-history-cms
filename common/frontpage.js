@@ -104,7 +104,7 @@ var cap=new Array('Shunting the cement works at Waurn Ponds, 2006',
 
 $(document).ready(function(){
 	var rand = Math.floor(url.length*Math.random());
-	$("#randomimage").attr("src", 'images/frontpage/' + url[rand]);
+	$("#randomimage").attr("src", '/images/frontpage/' + url[rand]);
 	$("#randomimage").attr("alt", cap[rand]);
 	$("#randomimage").attr("title", cap[rand]);	
 	$("#randomcaption").html(cap[rand]);
