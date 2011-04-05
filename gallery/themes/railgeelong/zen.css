@@ -2,13 +2,6 @@
 label {
 	padding: 0 0 0 2em;
 }
-.topbar h3{
-	text-align: left;
-	margin: 0 0 5px 0;
-}
-.topbar {
-	margin: 10px 0;
-}
 .album, .image {
 	background-color: #F5F6F5;
 	padding: 10px !important;
@@ -67,13 +60,6 @@ label {
 }
 /* Page Navigation
 ------------------------------ */
-.nextables { 
-  margin-top: 10px;
-  padding: 5px 10px;
-  border: 1px 0 solid white;
-  background: #FAFAFA;
-  width: 100%;
-}
 ul.pagelist {
 	font-size: 1em;
 	clear: both;
@@ -83,9 +69,6 @@ ul.pagelist {
 }
 ul.pagelist li {
 	display: inline;
-}
-ul.pagelist li a,ul.pagelist span.disabledlink, .pagelist a {
-	padding: 2px;
 }
 ul.pagelist li.current a {
 	text-decoration: none;
@@ -108,25 +91,6 @@ ul.pagelist li.next {
 	visibility: hidden;
 	padding: 0 !important;
 	margin: 0 !important;
-}
-.nextables #pagelinked td {
-	width: 33%;
-}
-#pagelinked .pagelist {
-	text-align: center;
-}
-.nextables A.next { 
-	float: right;
-	text-align: left; 
-	height: 100%;
-}
-.nextables A.prev { 
-	float: left; 
-	text-align: right; 
-	height: 100%;
-}
-.nextables A:hover, .nextables A:active { 
-	text-decoration: none; 
 }
 #thumbnav td {
 	width: 25%;

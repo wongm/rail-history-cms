@@ -155,25 +155,45 @@ img {
 .headbar a:hover {
 	text-decoration: underline;
 }
+.topbar h3 {
+	text-align: left;
+	margin: 0 0 5px 0;
+}
+.topbar {
+	margin: 10px 0;
+}
 /* nextables ----------------------------------------------------------------*/
 .nextables { 
-  border: 1px 0 solid white;
-  background: #FAFAFA;
-  width: 100%;
-}
-.nextables td {
-  padding: 3px 5px;
+	margin-top: 10px;
+	padding: 5px 10px;
+	border: 1px 0 solid white;
+	background: #FAFAFA;
+	width: 100%;
 }
 .nextables A.next { 
-	float: right; 
+	float: right;
 	text-align: left; 
+	height: 100%;
 }
 .nextables A.prev { 
 	float: left; 
 	text-align: right; 
+	height: 100%;
 }
 .nextables A:hover, .nextables A:active { 
 	text-decoration: none; 
+}
+.nextables td {
+	padding: 3px 5px;
+}
+.nextables .pagelist {
+    text-align: center;
+}
+.nextables #pagelinked td {
+	width: 33%;
+}
+ul.pagelist li a, ul.pagelist span.disabledlink, .pagelist a {
+    padding: 2px;
 }
 /* front page ----------------------------------------------------------------*/
 p.intro {

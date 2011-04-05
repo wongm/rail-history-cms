@@ -546,13 +546,13 @@ function parseLineguideLinks($text)
 }
  */
 
-function drawNextAndBackLinks($index, $totalimg, $max, $url)
+function drawNextAndBackLinks($index, $totalimg, $max, $url, $includePageNumberLinks=false)
 {
 	$page = $index/$max;
 
 	if ($index > 0 OR $totalimg >= $max)
 	{	?>
-<table class="nextables"><tr><td>
+<table class="nextables"><tr id="pagelinked"><td>
 <?
 		if ($index > 0)
 		{
@@ -564,7 +564,16 @@ function drawNextAndBackLinks($index, $totalimg, $max, $url)
 <a class="prev" href="<? echo $url.($page) ?>" title="Previous Page"><span>&laquo;</span> Previous</a>
 <?
 		}
-
+?>
+</td><td>
+<?		
+		if ($includePageNumberLinks)
+		{
+			drawPageNumberLinks($index, $totalimg, $max, $url);
+		}
+?>
+</td><td>
+<?	
 		if ( ($totalimg - $index) >= $max)
 		{
 ?>
@@ -600,13 +609,8 @@ function drawPageNumberLinks($index, $totalimg, $max, $url)
 	$total = floor(($totalimg)/$max)+1;
 	$current = $index/$max;
 
-	echo '<p>';
-
-  	if ($total > 0)
-  	{
-		echo 'Page: ';
-	}
-
+	echo '<div class="pagelist">';
+	
 	if ($current > 3 AND $total > 7)
 	{
 		echo "\n <a href=\"$url\" alt=\"First page\" title=\"First page\">1</a>&nbsp;";
@@ -638,7 +642,7 @@ function drawPageNumberLinks($index, $totalimg, $max, $url)
 
 		echo "<a href=\"$url$total\" alt=\"Last page\" title=\"Last page\">" . $total . "</a>";
 	}
-	echo '</p>';
+	echo '</div>';
 }	// end function
 
 
@@ -956,5 +960,10 @@ function truncateString($string, $limit, $break=".", $pad="...")
   		}
   	}
 	return $string;
+}
+
+function drawHeadbarSearchBox()
+{
+	echo 'a';
 }
 ?>
