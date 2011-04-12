@@ -10,6 +10,7 @@ include_once("../common/updates-functions.php");
 $pageHeading = "Welcome";
 include_once('header.php'); 
 ?>
+<div id="frontpage">
 <script type="text/javascript" src="/common/jquery-1.2.2.pack.js"></script>
 <script type="text/javascript" src="/common/frontpage.js"></script>
 <div id="headerpane" class="photo-right">
@@ -19,6 +20,7 @@ include_once('header.php');
 <h3 class="intro">Rail Geelong - hopefully everything you ever wanted to know about the history of the railways of Geelong and District, and then some.</h3>
 <p class="intro">Currently detailed histories are in place for the Melbourne - Geelong - Warrnambool, Geelong - Ballarat, Maribyrnong River Line, Newport Power Station, Altona, Fyansford,  Cunningham Pier, Queenscliff, Geelong Racecourse, and Mortlake railway lines. Histories of the locations on the lines themselves have also been completed in various levels of detail.<br/><br/>
 Any comments or feedback is welcomed via the <a href="/contact.php">contact form</a>.</p>
+<? drawHeadbarSearchBox("Looking for something?"); ?>
 <h4 style="clear:both">Site news</h4>
 <hr/>
 <table id="news" class="linedTable">	
@@ -57,7 +59,7 @@ drawUpdatedPagesTable($updates['result'], true);
 <table class="centeredTable">
 <tbody>
 <?php 
-$latestalbums = getAlbumStatistic(6, "latest");
+$latestalbums = query_full_array("SELECT i.filename, i.date, a.folder, a.title FROM " . prefix('images'). " i INNER JOIN " . prefix('albums'). " a ON i.albumid = a.id GROUP BY i.albumid, DATE(i.date) ORDER BY i.date DESC LIMIT 6");
 $i = 1;
 
 foreach ($latestalbums as $latestalbum) {
@@ -69,17 +71,14 @@ foreach ($latestalbums as $latestalbum) {
 	
 	$folderpath = "/gallery/" . $latestalbum['folder'];
 	$foldername = $latestalbum['title'];
+	$thumbnailURL = "/gallery/" . $latestalbum['folder'] . "/image/thumb/" . $latestalbum['filename'];
 	
-	$images = getImageStatistic(1, "latest", $latestalbum['folder']);
-	
-	foreach ($images as $image) {
-		echo '<td class="image">';
-		echo "<a href=\"" . htmlspecialchars($folderpath)."\" title=\"" . html_encode($foldername) . "\">\n";
-		echo "<img src=\"".htmlspecialchars($image->getThumb())."\" alt=\"" . html_encode($foldername) . "\" /></a>\n";
-		echo "<h4><a href=\"".htmlspecialchars($folderpath)."\" title=\"" . html_encode($foldername) . "\">$foldername</a></h4>\n";
-		echo "<small>". zpFormattedDate(getOption('date_format'),strtotime($image->getDateTime()))."</small>";
-	}
-	
+	echo '<td class="image">';
+	echo "<a href=\"" . htmlspecialchars($folderpath)."\" title=\"" . html_encode($foldername) . "\">\n";
+	echo "<img src=\"" . $thumbnailURL . "\" alt=\"" . html_encode($foldername) . "\" /></a>\n";
+	echo "<h4><a href=\"".htmlspecialchars($folderpath)."\" title=\"" . html_encode($foldername) . "\">$foldername</a></h4>\n";
+	echo "<small>". zpFormattedDate(getOption('date_format'),strtotime($latestalbum['date']))."</small>";
+		
 	if (($i % 3) == 0)
 	{
 		echo "</tr>";
@@ -93,6 +92,7 @@ foreach ($latestalbums as $latestalbum) {
 <h4 style="clear:both">Coming Soon...</h4>
 <hr/>
 <p><?php printPageContent(); ?></p>
+</div>
 <?php
 include("footer.php"); 
 ?>
