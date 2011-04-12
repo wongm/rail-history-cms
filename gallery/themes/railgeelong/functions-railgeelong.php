@@ -41,9 +41,7 @@ else
 
 function printSearchBreadcrumb($foo='')
 {
-	?>
-	<a href="<?=UPDATES_URL_PATH ?>">Recent uploads</a> :: <a href="<?=SEARCH_URL_PATH ?>">Search</a>
-<?
+	printSearchForm();
 }	// end function
 
 

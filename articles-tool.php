@@ -36,10 +36,12 @@ else
 		
 		include_once("common/header.php");
 ?>
-<table class="nextables">
-<tr><td><a href="/articles">&laquo; Back to Articles listing</a></td></tr>
+<table class="headbar">
+	<tr><td><a href="/">Home</a> &raquo; <a href="/articles">Articles</a> &raquo; <?=$pageTitle?></td>
+	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
 </table>
-<?
+<h3><?=$pageTitle?></h3>
+<?	
 		global $editablelinkforadmin;
 		if ($editablelinkforadmin)
 		{

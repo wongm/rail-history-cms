@@ -4,11 +4,11 @@ include_once("common/updates-functions.php");
 include_once("common/formatting-functions.php");
 
 $updatePageIndex = $_REQUEST['updated'];
-$pageTitle = 'Recently Updated Pages';
+$pageTitle = 'Updates';
 
 if ($updatePageIndex == '' OR is_numeric($updatePageIndex))
 {
-	$maxRowsPerPage = 25;
+	$maxRowsPerPage = 50;
 	$index = ($updatePageIndex*$maxRowsPerPage)-$maxRowsPerPage;
 	$updatedPages = getUpdatedPages($index, $maxRowsPerPage);
 	$updatedPages['maxRowsPerPage'] = $maxRowsPerPage;
@@ -17,7 +17,13 @@ if ($updatePageIndex == '' OR is_numeric($updatePageIndex))
 	
 	if ($updatedPages["numberOfRows"] > 0)
 	{
-		include_once("common/header.php");	
+		include_once("common/header.php");
+?>
+<table class="headbar">
+	<tr><td><a href="/">Home</a> &raquo; <a href="/updates">Updates</a></td>
+	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
+</table>
+<?
 		drawPageOfUpdated($updatedPages);
 		include_once("common/footer.php");
 	}

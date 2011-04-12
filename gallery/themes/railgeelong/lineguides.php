@@ -21,7 +21,11 @@ if ($lineToDisplay == '')
 	$pageTitle = "Line Guides";
 	include_once("header.php");
 ?>
-<h4>Introduction to the lineguides</h4>
+<table class="headbar">
+	<tr><td><a href="/">Home</a> &raquo; Line Guides</td>
+	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
+</table>
+<h3>Introduction to the line guides</h3>
 <img class="photo-right" src="/images/geelong-region.gif" alt="Geelong Region Railway Lines" title="Geelong Region Railway Lines" usemap="#linemap" height="402" width="500" />
 <map name="linemap" id="linemap">
 <!-- <area shape=poly coords="214,259,118,277,11,232,19,218,211,252,214,259" href="" alt="Maroona Line" title="Maroona Line"> -->

@@ -4,7 +4,7 @@ $pageTitle = ' - '.getAlbumTitle();
 include_once('header.php'); ?>
 
 <table class="headbar">
-	<tr><td><a href="/">Rail Geelong</a> &raquo; 
+	<tr><td><a href="/">Home</a> &raquo; 
 		<a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 
       	<?php printParentBreadcrumb('', ' &raquo; ', ' &raquo; '); ?>
       	<?php printAlbumTitle(true);?>

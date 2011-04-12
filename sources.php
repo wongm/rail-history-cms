@@ -3,7 +3,13 @@ include_once("common/dbConnection.php");
 include_once("common/formatting-functions.php");
 
 $pageTitle = 'Sources';
-include_once("common/header.php");?>
+include_once("common/header.php");
+?>
+<table class="headbar">
+	<tr><td><a href="/">Home</a> &raquo; Sources</td>
+	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
+</table>
+<h3>Sources</h3>
 <div id="sources">
 <p>The following sources were used in the research for this site. The availability of them varies. I would also like to thank the people and organisations listed on the <a href="/credits.php">Credits</a> page for their assistance.</p>
 <?
@@ -21,7 +27,7 @@ if ($numberOfRows>0)
 
 		if ($lastName != $thisShort)
 		{	?>
-<h4 name="id<? echo $thisId; ?>" id="id<? echo $thisId; ?>"><? echo $thisShort; ?></h4><?
+<b name="id<? echo $thisId; ?>" id="id<? echo $thisId; ?>"><? echo $thisShort; ?></b><?
 		}
 		echo "<p>$thisDetails</p>";
 		$lastName = $thisShort;

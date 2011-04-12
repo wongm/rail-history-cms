@@ -2,9 +2,12 @@
 include_once("common/formatting-functions.php");
 $pageTitle = 'Copyright';
 include_once("common/header.php");?>
-<div id="copyright">
+<table class="headbar">
+	<tr><td><a href="/">Home</a> &raquo; <? echo $pageTitle; ?></td>
+	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
+</table>
 <h3><? echo $pageTitle; ?></h3>
-<hr/>
+<div id="copyright">
 <p>All content on this site is the copyright of the author Marcus Wong unless otherwise noted.</p>
 <p>Sources of information used in the creation of this site are listed on the <a href="/sources.php">Sources</a> page.</p>
 <p>Content not produced by myself, but used with permission of the author, is marked as such.</p>

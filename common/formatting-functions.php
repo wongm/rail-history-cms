@@ -87,7 +87,13 @@ function drawAllArticles($type)
 {
 	$pageTitle = ucfirst($type).'s Listing';
 	include_once("common/header.php");
-
+?>
+<table class="headbar">
+	<tr><td><a href="/">Home</a> &raquo; Articles</td>
+	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
+</table>
+<h3><?=$pageTitle?></h3>
+<?	
 	$articles = MYSQL_QUERY("SELECT * FROM articles WHERE link != '' AND `line_id` = '0'", locationDBconnect());
 
 	for ($i = 0; $i < MYSQL_NUM_ROWS($articles); $i++)
@@ -303,8 +309,7 @@ function printDescriptionTitles($descriptionTabs)
 {
 	if (sizeof($descriptionTabs) > 1)
 	{
-		echo "<h3 id=\"top\">Contents</h3>\n";
-		echo "<ul class=\"tableofcontents\">\n";
+		echo "<ul id=\"top\" class=\"tableofcontents\">\n";
 
 		for ($i = 0; $i < sizeof($descriptionTabs); $i++)
 		{
@@ -321,10 +326,10 @@ function draw404InvalidSubpage($pageUrlRoot, $subpage='subpage')
 	header("Status: 404 Not Found");
 
 	$pageTitle = "404 Page Not Found";
-	include_once("common/header.php");
+	include_once(dirname(__FILE__) . "/../common//header.php");
 	echo "<p class=\"error\">Error - Invalid $subpage!</p>\n";
 	echo "<a href=\"/$pageUrlRoot\">Return</a>";
-	include_once("common/footer.php");
+	include_once(dirname(__FILE__) . "/../common//footer.php");
 	return;
 }
 
@@ -962,8 +967,13 @@ function truncateString($string, $limit, $break=".", $pad="...")
 	return $string;
 }
 
-function drawHeadbarSearchBox()
+function drawHeadbarSearchBox($title="Search")
 {
-	echo 'a';
+?>
+<form id="search_form" action="/search" method="get">
+	<input autocomplete="off" id="search_input" value="" size="10" name="q">
+	<input type="submit" id="search_submit" class="pushbutton" value="<?=$title?>">
+</form>
+<?
 }
 ?>

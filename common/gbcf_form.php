@@ -254,7 +254,7 @@ if($email != 'railgeeelong@gmail.com')
 } else { 
 // No errors so far? No successes so far? No confirmation? Hmm. Maybe the user needs a contact form
 ?>
- <h<?php echo(''.$gb_heading.''); ?> class="main_formhead"><?php echo(''.$gb_website_name.''); ?> Contact Form</h<?php echo(''.$gb_heading.''); ?>>
+ 
 <?php
 if(!function_exists('mail')) {
     echo('<p><strong class="error">Warning!</strong> It seems that the <abbr><span class="abbr" title="PHP Hypertext Preprocessor">PHP</span></abbr> <strong>mail()</strong> function isn&#8217;t enabled on your server. Sorry, but to use this plugin this function must be enabled. Please contact your web hosting provider to ask if they will enable this function for your domain. Optionally, should your web hosting provider deny your request, you may want to try this <a href="http://mikecherim.com/experiments/php_email_protector.php">PHP Email Protector</a> script.</p>');

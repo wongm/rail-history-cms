@@ -13,6 +13,7 @@ function drawLineguideHeaders($line, $section='')
 		$googleHeader = true;
 	}
 	include_once(dirname(__FILE__) . "/../common/header.php");
+	
 	drawLineguideHeadbar($line);
 	echo "<div id=\"lineguide\">\n";
 }
@@ -265,16 +266,16 @@ function drawLineguideHeadbar($line)
 {
 	$itemstodisplay = getLineguidePages($line, 'headbar');
 	$pageTitle = getLineName($line['lineName'])." Home";
-	echo "<table class=\"headbar\"><tr><td>\n";
-
+	$lineguideMenuHTML = "<table class=\"headbar\"><tr><td>\n";
+	
 	// initial home link
-	if ($_REQUEST['section'] == '')
+	if (strlen($_REQUEST['section']) == 0)
 	{
-		echo "<b>Home</b>\n";
+		$lineguideMenuHTML .= "Home\n";
 	}
 	else
 	{
-		echo "<a href=\"/lineguide/".$line['lineLink']."\" alt=\"$pageTitle\" title=\"$pageTitle\">Home</a>\n";
+		$lineguideMenuHTML .= "<a href=\"/lineguide/".$line['lineLink']."\" alt=\"$pageTitle\" title=\"$pageTitle\">Home</a>\n";
 	}
 
 	// loop through the different pages
@@ -292,16 +293,30 @@ function drawLineguideHeadbar($line)
 			// check to see what page we are on, so don't show link
 			if ($url == $singleline[0] OR $singleline[0] == '')
 			{
-				echo " :: <b>".$singleline[1]."</b>\n";
+				if (strlen($singleline[1]) > 0)
+				{
+					$lineguideMenuHTML .= " :: ".$singleline[1]."\n";
+					$currentBreadcrumbTitle = " &raquo; " . $singleline[1];
+				}
 			}
 			else
 			{
-				echo " :: <a href=\"/lineguide/".$line['lineLink']."/".$singleline[0]."\">".$singleline[1]."</a>\n";
+				$lineguideMenuHTML .= " :: <a href=\"/lineguide/".$line['lineLink']."/".$singleline[0]."\">".$singleline[1]."</a>\n";
 			}
 		}
 	}
 
-	echo "</td></tr></table>\n";
+	$lineguideMenuHTML .= "</td></tr></table>\n";	
+?>
+<table class="headbar">
+	<tr><td>
+		<a href="/">Home</a> &raquo; <a href="/lineguide">Line Guides</a> &raquo; <a href="/lineguide/<?=$line['lineLink'] ?>"><?=getLineName($line['lineName']) ?></a><?php echo $currentBreadcrumbTitle ?>
+	</td>
+	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
+</table>
+<?	
+	
+	echo $lineguideMenuHTML;
 }	//end function
 
 function drawSpecificLine($line, $contentsHeader = 'Contents')

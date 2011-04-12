@@ -3,7 +3,7 @@ label {
 	padding: 0 0 0 2em;
 }
 .album, .image {
-	background-color: #F5F6F5;
+	background-color: #FAFAFA;
 	padding: 10px !important;
 }
 /* Gallery specific stuff
@@ -25,7 +25,7 @@ label {
 	text-decoration: underline;
 }
 .album, .image {
-	background-color: #F5F6F5;
+	background-color: #FAFAFA;
 	padding: 10px !important;
 }
 .album h4, .image h4 {
@@ -46,17 +46,12 @@ label {
 	text-align: center;
 	position: relative;
 	width: 30em !important;
-	background-color: #F5F6F5;
+	background-color: #FAFAFA;
 	font-size: 0.9em !important;
 	width: 50%;
 }
 #edit-editable_image_truncate, #edit-editable_album_2, .jeip-editfield {
 	width:600px;
-}
-#righthead {
-	text-align: right;
-	vertical-align: top;
-	width: 15em;
 }
 /* Page Navigation
 ------------------------------ */
@@ -105,13 +100,6 @@ h4.main_formhead {
 }
 #edit-editable_image_truncate, #edit-editable_album_2 {
 	width:600px;
-}
-#search_form a {
-	display: none;
-}
-#search_input {
-	margin-left: 2.5%;
-	width:250px;
 }
 .indexalbums {
 	margin:auto;

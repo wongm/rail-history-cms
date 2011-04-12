@@ -3,7 +3,7 @@
 include_once('header.php'); ?>
 
   <table class="headbar">
-    <tr><td><a href="/">Rail Geelong</a> &raquo; <?php echo getGalleryTitle(); ?></td>
+    <tr><td><a href="/">Home</a> &raquo; Gallery</td>
     <td id="righthead"><?php printSearchBreadcrumb(true); ?></td></tr>
   </table>
   

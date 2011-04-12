@@ -7,8 +7,8 @@ function drawInvalidLocation($locationToFind, $index=1)
 	header("Status: 404 Not Found");
 	$pageTitle = "404 Page Not Found";
 	include_once(dirname(__FILE__) . "/../common/header.php");
-	echo "<p class=\"error\">Error - Invalid Location!</p>\n";
-	drawLocationSearch($locationToFind, $index);
+	$message = "<p class=\"error\">Error - Invalid Location!</p>\n";
+	drawLocationSearch($locationToFind, $index, $message);
 	include_once(dirname(__FILE__) . "/../common/footer.php");
 }
 
@@ -25,8 +25,6 @@ function drawDuplicateLocation($recheckresult)
 	include_once(dirname(__FILE__) . "/../common/footer.php");
 }
 
-
-
 /*
  * draws a Location to the page
  * give it an array with location data
@@ -37,7 +35,13 @@ function drawLocation($location)
 	$pageHeading = "Locations";
 	include_once(dirname(__FILE__) . "/../common/header.php");
 	include_once(dirname(__FILE__) . "/../common/event-functions.php");
-
+?>
+<table class="headbar">
+	<tr><td><a href="/">Home</a> &raquo; <a href="/locations">Locations</a> &raquo; <?=$location['pageTitle']?></td>
+	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
+</table>
+<h3 id="top"><?=$location['pageTitle']?></h3>
+<?php
 	// working out if dot points section shown or not
 	$dotpoints = 0;
 
@@ -97,10 +101,7 @@ function drawLocation($location)
 	$locationSources = getObjectSources('location', $location['id'], $location['credits']);
 
 	echo "<div class=\"locations\">\n";
-
-	// draw next and previous location links
-	drawLocationNeighbourBar($location['nextLocation'], $location['backLocation']);
-
+	
 	// get pretty header photo
 	$headerPicWasDrawn = drawHeaderPic('location', $location['id'], $location['pageTitle']);
 
@@ -294,9 +295,12 @@ function drawLocationDiagrams($diagramData)
 function drawMainPage()
 {
 ?>
+<table class="headbar">
+	<tr><td><a href="/">Home</a> &raquo; Locations</td>
+	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
+</table>
+<h3>Introduction to the locations database</h3>
 <div class="locations">
-<h3>Geelong Region Railway Locations</h3>
-<hr/>
 <p>Here is a listing of all the railway locations in the Geelong Region. Either view by type, or search by name. You can also browse by line from the <a href="/lineguide/">lineguides</a>. The sort order can be altered in all cases.</p>
 <h4>By Type</h4>
 <ul class=\"tableofcontents\"><li><a href='/locations/stations'>Stations</a></li>
@@ -335,9 +339,9 @@ function drawLocationSearchBox()
 } //end function
 
 
-function drawLocationSearch($locationSearch, $searchPageNumber)
+function drawLocationSearch($locationSearch, $searchPageNumber, $message="")
 {
-	$maxRecordsPerPage = 25;
+	$maxRecordsPerPage = 50;
 	$searchPageNumber--;
 
 	if($locationSearch == '')
@@ -372,6 +376,18 @@ function drawLocationSearch($locationSearch, $searchPageNumber)
 
 	$resultMaxRows = MYSQL_QUERY("SELECT count(l.location_id) ".$queryBaseSQL." GROUP BY l.location_id", locationDBconnect());
 	$totalNumberOfRecords = MYSQL_NUM_ROWS($resultMaxRows);
+	?>
+<table class="headbar">
+	<tr><td><a href="/">Home</a> &raquo; <a href="/locations">Locations</a> &raquo; Location search</td>
+	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
+</table>
+<h3>Location search results</h3>
+<?php
+
+	if ($message)
+	{
+		echo $message;
+	}
 
 	if ($numberOfRecords == 0)
 	{
@@ -381,8 +397,7 @@ function drawLocationSearch($locationSearch, $searchPageNumber)
 	else
 	{
 		include_once(dirname(__FILE__) . "/../common/location-lineguide-functions.php");
-		drawNextAndBackLinks($index, $totalNumberOfRecords, $maxRecordsPerPage, '?search='.$locationSearch.'&page=');
-
+		
 		// display number of results
 		$extraBit = ', locations '.drawNumberCurrentDispayedRecords($maxRecordsPerPage,$numberOfRecords,$searchPageNumber);
 		echo "<p>$totalNumberOfRecords results found for \"".stripslashes($locationSearch)."\"$extraBit.</p>\n";
@@ -391,8 +406,7 @@ function drawLocationSearch($locationSearch, $searchPageNumber)
 		drawLinedLocationsTable(getLocationsOnlyTable($result, 'search', $locationSearch));
 
 		// draw navigation links
-		drawPageNumberLinks($index, $totalNumberOfRecords, $maxRecordsPerPage, '?search='.$locationSearch.'&page=');
-		drawNextAndBackLinks($index, $totalNumberOfRecords, $maxRecordsPerPage, '?search='.$locationSearch.'&page=');
+		drawNextAndBackLinks($index, $totalNumberOfRecords, $maxRecordsPerPage, '?search='.$locationSearch.'&page=', true);
 	}
 
 } //end function
@@ -415,7 +429,6 @@ function drawLocationDataTable($location)
 		}
 	}
 ?>
-<h3 id="top"><?=$pageTitle?></h3>
 <div class="datatable">
 <?
 	if ($typeToDisplay == 'Miscellaneous')
@@ -441,7 +454,7 @@ function drawLocationDataTable($location)
 	<b>Line: </b><a href="/lineguide/<?=$lineLink?>"><?=$lineName?></a><br/>
 <?
 		}
-
+		
 		if (!$hideKm)
 		{
 			if ($location['trackSubpageCount'])

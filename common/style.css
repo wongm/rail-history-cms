@@ -141,12 +141,13 @@ img {
 /* for the link bar along the top
 ------------------------------ */
 .headbar {
-	font-size : 11px;
+	font-size : 14px;
 	width: 100%;
 	border: #999;
 	border-style: solid;
 	border-width: 1px 0;
-	min-height: 2em;
+	min-height: 3em;
+	padding: 3px 0;
 	background-color: #FAFAFA;
 }
 .headbar a {
@@ -155,15 +156,11 @@ img {
 .headbar a:hover {
 	text-decoration: underline;
 }
-.topbar h3 {
-	text-align: left;
-	margin: 0 0 5px 0;
-}
 .topbar {
-	margin: 10px 0;
+	margin: 0 0 10px 0;
 }
 /* nextables ----------------------------------------------------------------*/
-.nextables { 
+.nextables, .gsc-cursor-box { 
 	margin-top: 10px;
 	padding: 5px 10px;
 	border: 1px 0 solid white;
@@ -195,6 +192,14 @@ img {
 ul.pagelist li a, ul.pagelist span.disabledlink, .pagelist a {
     padding: 2px;
 }
+.gsc-cursor-box {
+	text-align: center;
+	padding: 10px;
+}
+.gsc-results .gsc-cursor-box .gsc-cursor-current-page {
+	color: black !important;
+	font-weight: normal !important;
+}
 /* front page ----------------------------------------------------------------*/
 p.intro {
 	text-align:center;
@@ -225,6 +230,15 @@ h3.intro {
 }
 #headerpane img {
 	padding-bottom: 5px;
+}
+#frontpage #search_form {
+	margin: auto;
+    text-align: center;
+}
+#frontpage #search_form input {
+	margin: 2px;
+	padding: 2px;
+	text-align: center;
 }
 	
 /* site menu formatting stuff --------------------------------------------------
@@ -286,7 +300,9 @@ h2 {
 	font-size:22px;
 }
 h3 {
-	font-size:18px; 
+	font-size:18px;	
+	text-align: left;
+	margin: 10px 0 5px 0;
 }
 h4 {
 	font-size:15px;
@@ -329,7 +345,7 @@ a:hover {
 /* 'lineguide' and 'location' formatting stuff 
 ------------------------------ */
 .linedTable td, th {
-	padding: .3em 10px;
+	padding: .4em 10px;
 }
 .linedTable .date {
 	width: 18em;
@@ -481,6 +497,32 @@ a:hover {
 .newsarticlecontent {
 	width: 98%;	
 	margin: 0.2em auto 1.5em auto;
+}
+/* for search
+------------------------------ */
+#search_form {
+	width: 300px;
+}
+#search_input {
+	width:200px;
+}
+#search_form a {
+	display: none;
+}
+#righthead {
+	text-align: right;
+	vertical-align: top;
+	width: 15em;
+}
+.gsc-adBlock {
+	display: none !important;
+}
+.gs-title {
+	color: black !important;
+}
+#content #results {
+	width: 800px;
+	margin: 1.5em 0 0 1%;
 }
 /* for 'tab' section
 ------------------------------ */

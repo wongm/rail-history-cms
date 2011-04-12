@@ -39,6 +39,8 @@ switch ($_GET['p'])
 		$galleryRSS = true;
 }
 
+$pageTitle = "Rail Geelong" . $pageTitle;
+
 require_once("functions-railgeelong.php");
 include_once('functions-gallery-formatting.php');
 ?>
@@ -46,7 +48,7 @@ include_once('functions-gallery-formatting.php');
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<title>Rail Geelong<?php echo($pageTitle); ?></title>
+<title><?php echo $pageTitle; ?></title>
 <link rel="stylesheet" type="text/css" href="/common/style.css" media="all" title="Normal" />
 <link rel="stylesheet" href="<?= $_zp_themeroot ?>/zen.css" type="text/css" />
 <script type="text/javascript" src="/common/lightbox.js"></script>
@@ -73,11 +75,10 @@ else if ($newsRSS)
 <body>
 <div id="container">
 <div id="header">
-<div id="sitename">
-	<h1><a href="/" alt="Home" title="Home">Rail Geelong</a><? echo $pageHeading; ?></h1>
+	<div id="sitename"><h1><a href="/" alt="Home" title="Home">Rail Geelong</a></h1></div>
+	<div id="sitedesc">A history of the railways of Geelong and District.</div>
+	<div style="clear:both;">
 </div>
-<div id="sitedesc">A history of the railways of Geelong and District.</div>
-<div style="clear:both;"></div>
 <?php printAdminToolbox(); ?>
 <div id="contentwrapper">
 <div id="content">

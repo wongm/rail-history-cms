@@ -96,12 +96,12 @@ function drawPageOfUpdated($updatedPages)
 	
 	$extraBit = ', pages '.drawNumberCurrentDispayedRecords($maxRowsPerPage, $updatedPages["numberOfRows"], $page-1);
 	$nextPageUrl = '/updates/page/';
-	
-	drawNextAndBackLinks($updatedPages['index'], $updatedPages["maxRows"], $maxRowsPerPage, $nextPageUrl);
-	echo "<p>Pages most recently created, expanded and updated appear first$extraBit</p>";
+?>
+<h3>Updated content</h3>
+<p>Pages most recently created, expanded and updated appear first<?=$extraBit?></p>
+<?php
 	drawUpdatedPagesTable($updatedPages["result"]);
-	drawPageNumberLinks($updatedPages['index'], $updatedPages["maxRows"], $maxRowsPerPage, $nextPageUrl);
-	drawNextAndBackLinks($updatedPages['index'], $updatedPages["maxRows"], $maxRowsPerPage, $nextPageUrl);
+	drawNextAndBackLinks($updatedPages['index'], $updatedPages["maxRows"], $maxRowsPerPage, $nextPageUrl, true);
 } //end function
 
 function getUpdatedPages($index, $maxRowsPerPage)

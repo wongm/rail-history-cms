@@ -1,5 +1,4 @@
 <ul class="sitemenu">
-	<li class="menu"><a href="/index.php">Home</a></li>
 	<li class="menu"><a href="/news">News</a></li>
 	<li class="menu"><a href="/updates">Updates</a></li>
 </ul>
@@ -39,8 +38,7 @@
 </ul>
 <ul class="sitemenu">
 	<li class="menu"><a href="/gallery/"><b>Gallery</b></a></li>
-	<li class="menu"><a href="/gallery/recent">Updates</a></li>
-	<li class="menu"><a href="/gallery/search">Search</a></li>
+	<li class="menu"><a href="/gallery/recent">Recent uploads</a></li>
 </ul>
 <ul class="sitemenu">
 	<li class="menu"><a href="/contact.php">Contact</a></li>

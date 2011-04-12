@@ -3,11 +3,19 @@ include_once("common/formatting-functions.php");
 include_once("common/lineguide-functions.php");
 
 $pageTitle = 'Sitemap';
-include_once("common/header.php");?>
+include_once("common/header.php");
+?>
+<table class="headbar">
+	<tr><td><a href="/">Home</a> &raquo; Sitemap</td>
+	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
+</table>
+<h3>Sitemap</h3>
 <div id="sitemap">
 <p>A guide to all the pages on this site.</p>
 <ul>
 <li><a href="/index.php">Home</a></li>
+<li><a href="/news">News</a></li>
+<li><a href="/updates">Updates</a></li>
 <li><a href="/aerial.php?section=overview">Aerial Explorer</a></li>
 <?
 // get regions
@@ -57,10 +65,8 @@ if ($numberOfRows>0)
 ?>
 <li><a href="/gallery/">Gallery</a>
 <ul>
-	<li><a href="/gallery/recent/">Updates</a></li>
-	<li><a href="/gallery/search/">Search</a></li>
+	<li><a href="/gallery/recent/">Recent uploads</a></li>
 </ul></li>
-<li><a href="/news">News</a></li>
 <li><a href="/contact.php">Contact</a></li>
 <li><a href="/credits.php">Credits and Acknowledgements</a></li>
 <li><a href="/sources.php">Sources</a></li>

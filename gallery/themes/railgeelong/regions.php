@@ -37,7 +37,13 @@ else
 		$lastUpdatedDate = MYSQL_RESULT($article,0,"fdate"); 
 		
 		include_once('../common/header.php');
-		
+?>
+<table class="headbar">
+	<tr><td><a href="/">Home</a> &raquo; <a href="/lineguide">Line Guides</a> &raquo; <?=$pageTitle?></td>
+	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
+</table>
+<h3><?=$pageTitle?></h3>
+<?		
 		global $editablelinkforadmin;
 		if ($editablelinkforadmin)
 		{

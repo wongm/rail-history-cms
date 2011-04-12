@@ -75,15 +75,24 @@ elseif($locationType != "")
 			draw404InvalidSubpage('locations');
 			return;
 	}
+	$breadCrumbTitle = $pageTitle;
+	
 	include_once("header.php");
 	include_once('../common/location-lineguide-functions.php');
+?>
+<table class="headbar">
+	<tr><td><a href="/">Home</a> &raquo; <a href="/locations">Locations</a> &raquo; <?=$breadCrumbTitle?></td>
+	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
+</table>
+<h3>Locations database: <?=$breadCrumbTitle?></h3>
+<?php
 	drawLinedLocationsTable(getLocationsTable('', '', $sql, $locationType, $locationSort));
 	include_once("footer.php");
 }
 // find a location by name
 elseif($locationSearch != "")	
 {
-	$pageTitle = "Location Search - \"$locationSearch\"";
+	$pageTitle = "Location search - \"$locationSearch\"";
 	include_once("header.php");
 	drawLocationSearch($locationSearch, $locationSearchPage);
 	include_once("footer.php");

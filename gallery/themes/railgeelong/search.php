@@ -1,6 +1,6 @@
 <?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
 
-$pageTitle = ' - Search';
+$pageTitle = ' - Search results';
 include_once('header.php'); 
 
 $totalAlbums = getNumAlbums();
@@ -26,18 +26,19 @@ else
 }
 ?>
 <table class="headbar">
-    <tr><td><a href="/">Rail Geelong</a> &raquo; <a href="/gallery/">Gallery</a> &raquo; <a href="<?=SEARCH_URL_PATH?>">Search</a></td>
+    <tr><td><a href="/">Home</a> &raquo; <a href="/gallery/">Gallery</a> &raquo; <a href="<?=SEARCH_URL_PATH?>">Search</a></td>
     <td id="righthead"><? printSearchBreadcrumb(); ?></td></tr>
 </table>
-<div class="topbar">
-	<?php echo $leadingIntroText; ?>
-</div>
+<?php echo $leadingIntroText; ?>
 <div id="searchpage">
 <?php
 if ($totalAlbums > 0)
 {
 	$albumsText = " - $totalAlbums albums and $totalImages images.";
 }
+
+echo "<p>You are currently searching the Gallery: you can also <a href=\"/search?q=$searchwords\">search this site via Google</a>.</p>";
+
 if ($total > 0) 
 {
  	echo '<p>'.sprintf(gettext('%2$u total matches for <em>%1$s</em>'), $searchwords, $total)." $albumsText</p>";
@@ -77,7 +78,6 @@ if ($totalImages == 0 AND $totalAlbums == 0)
 	{
 		echo "<p>".gettext("Sorry, no image matches. Try refining your search.")."</p>";
 	}
-	printSearchForm();
 }
 
 if (hasNextPage() OR hasPrevPage())

@@ -69,7 +69,7 @@ include_once('header.php');
 require_once("functions-search.php");
 ?>
 <table class="headbar">
-	<tr><td><a href="/">Rail Geelong</a> &raquo; 
+	<tr><td><a href="/">Home</a> &raquo; 
 		<a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 
 		<?=$pageBreadCrumb?>
 	</td><td id="righthead"><?printSearchBreadcrumb(true);?></td></tr>

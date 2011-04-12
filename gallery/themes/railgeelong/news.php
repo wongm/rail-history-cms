@@ -18,6 +18,12 @@ if (substr($pageTitle, $len-2, 1) == '-')
 
 $pageTitle = ' - '.getAlbumTitle();
 include_once('header.php');
+?>
+<table class="headbar">
+	<tr><td><a href="/">Home</a> &raquo; <a href="/news">News</a></td>
+	<td id="righthead"><?printSearchBreadcrumb(true);?></td></tr>
+</table>
+<?
 
 // single news article
 if(is_NewsArticle()) { 
