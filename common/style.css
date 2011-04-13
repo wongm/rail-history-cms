@@ -359,6 +359,13 @@ a:hover {
 #locationTable {
 	text-align: center;
 }
+.submenu {
+	border: 0px;
+    margin: 8px 0 5px;
+}
+.submenu a {
+	text-decoration: underline;
+}
 
 /* gallery stuff */
 .i {

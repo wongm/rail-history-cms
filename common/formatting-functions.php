@@ -756,11 +756,11 @@ function getLineguidePages($line, $type='list')
 				$elaborateText = 'part ';
 			}
 
-			$toreturn[] = array("diagram/page-1", "Track Diagram (".$elaborateText."1)", "Track Diagram (".$elaborateText."1)");
+			$toreturn[] = array("diagram/page-1", "Track Diagram (page ".$elaborateText."1)", "Track Diagram (page ".$elaborateText."1)");
 
 			for ($i = 2; $i <= $line['trackSubpageCount']; $i++)
 			{
-				$toreturn[] = array("diagram/page-$i", "$beyondFirstText($elaborateText$i)", "$beyondFirstText($elaborateText$i)");
+				$toreturn[] = array("diagram/page-$i", "$beyondFirstText(page $elaborateText$i)", "$beyondFirstText(page $elaborateText$i)");
 			}
 		}
 		else

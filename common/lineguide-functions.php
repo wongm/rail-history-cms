@@ -6,7 +6,7 @@ function drawLineguideHeaders($line, $section='')
 {
 	$pageTitle = $pageHeading = getLineName($line['lineName'])." Guide";
 
-	if ($section != '') {
+	if ($section != '') {		
 		$pageTitle = "$pageTitle - $section";
 	}
 	if (strtolower($section) == 'google map') {
@@ -264,22 +264,39 @@ function drawSafeworkingLegend()
 // doesn't show a link to the page you are currently on
 function drawLineguideHeadbar($line)
 {
+?>
+<table class="headbar">
+	<tr><td>
+		<a href="/">Home</a> &raquo; <a href="/lineguide">Line Guides</a> &raquo; <a href="/lineguide/<?=$line['lineLink'] ?>"><?=getLineName($line['lineName']) ?></a><?php echo $currentBreadcrumbTitle ?>
+	</td>
+	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
+</table>
+<?
 	$itemstodisplay = getLineguidePages($line, 'headbar');
-	$pageTitle = getLineName($line['lineName'])." Home";
-	$lineguideMenuHTML = "<table class=\"headbar\"><tr><td>\n";
+	
+	if (sizeof($itemstodisplay) > 1)
+	{
+		drawLineguideSubmenu($line, $itemstodisplay);
+	}
+}
+
+function drawLineguideSubmenu($line, $itemstodisplay)
+{
+	$pageTitle = getLineName($line['lineName'])." Introduction";
+	$lineguideMenuHTML = "<table class=\"submenu headbar\"><tr><td>\n";
 	
 	// initial home link
 	if (strlen($_REQUEST['section']) == 0)
 	{
-		$lineguideMenuHTML .= "Home\n";
+		$lineguideMenuHTML .= "<span>Introduction</span>\n";
 	}
 	else
 	{
-		$lineguideMenuHTML .= "<a href=\"/lineguide/".$line['lineLink']."\" alt=\"$pageTitle\" title=\"$pageTitle\">Home</a>\n";
+		$lineguideMenuHTML .= "<a href=\"/lineguide/".$line['lineLink']."\" alt=\"$pageTitle\" title=\"$pageTitle\">Introduction</a>\n";
 	}
-
+		
 	// loop through the different pages
-	if (sizeof($itemstodisplay) > 0)
+	if (sizeof($itemstodisplay) > 1)
 	{
 		foreach ($itemstodisplay as $singleline)
 		{
@@ -295,7 +312,7 @@ function drawLineguideHeadbar($line)
 			{
 				if (strlen($singleline[1]) > 0)
 				{
-					$lineguideMenuHTML .= " :: ".$singleline[1]."\n";
+					$lineguideMenuHTML .= " :: <span>".$singleline[1]."</span>\n";
 					$currentBreadcrumbTitle = " &raquo; " . $singleline[1];
 				}
 			}
@@ -306,17 +323,7 @@ function drawLineguideHeadbar($line)
 		}
 	}
 
-	$lineguideMenuHTML .= "</td></tr></table>\n";	
-?>
-<table class="headbar">
-	<tr><td>
-		<a href="/">Home</a> &raquo; <a href="/lineguide">Line Guides</a> &raquo; <a href="/lineguide/<?=$line['lineLink'] ?>"><?=getLineName($line['lineName']) ?></a><?php echo $currentBreadcrumbTitle ?>
-	</td>
-	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
-</table>
-<?	
-	
-	echo $lineguideMenuHTML;
+	echo $lineguideMenuHTML .= "</td></tr></table>\n";
 }	//end function
 
 function drawSpecificLine($line, $contentsHeader = 'Contents')
