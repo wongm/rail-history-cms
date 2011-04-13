@@ -22,15 +22,15 @@ function galleryPageNavigationLinks($index, $maxImagesCount, $totalimg, $url)
 {
 	$page = $index/MAXIMAGES_PERPAGE;
 	$url = fixNavigationUrl($url);
-
+	
 	if ($totalimg == MAXIMAGES_PERPAGE OR $index > 0)
 	{
 		?>
 <table class="nextables"><tr id="pagelinked"><td>
 	<?
-
+	
 	if ($index > 0)
-	{
+	{	
 		if ($index-MAXIMAGES_PERPAGE < 0)
 		{
 			$index = 1;
@@ -62,14 +62,17 @@ function drawImageGallery($galleryResult, $type='')
 {
 	$numberOfRows = MYSQL_NUM_ROWS($galleryResult);
 
-	if ($numberOfRows>0)
+	if ($numberOfRows>0) 
 	{
-		echo "<p>$text</p>\n";
+		if ($text != "")
+		{
+			echo "<p>$text</p>\n";
+		}
 		echo '<table class="centeredTable">';
 
 		$i=0;
 		$j=0;
-
+		
 		if ($numberOfRows == '4')
 		{
 			$j=1;
@@ -78,22 +81,28 @@ function drawImageGallery($galleryResult, $type='')
 		{
 			$style = 'width="30%" ';
 		}
-
+		
 		while ($i<$numberOfRows)// AND $i<29)
 		{
 			echo "<tr>\n";
-
+			
 			while ($j < 3 AND $i<$numberOfRows)
 			{
 				$photoTitle = stripslashes(MYSQL_RESULT($galleryResult,$i,"zen_images.title"));
 				$photoUrl = MYSQL_RESULT($galleryResult,$i,"zen_images.filename");
 				$photoDesc = stripslashes(MYSQL_RESULT($galleryResult,$i,"zen_images.desc"));
+				
+				if (strpos($photoDesc, 'href=') > 0)
+				{
+					$photoDesc = "";
+				}
+				
 				$photoId = MYSQL_RESULT($galleryResult,$i,"zen_images.id");
 				$photoPath = MYSQL_RESULT($galleryResult,$i,"zen_albums.folder");
 				$photoAlbumTitle = stripslashes(MYSQL_RESULT($galleryResult,$i,"zen_albums.title"));
 				$photoDate = stripslashes(MYSQL_RESULT($galleryResult,$i,"zen_images.date"));
 				$photoDate = strftime(TIME_FORMAT,strtotime($photoDate));
-
+				
 				if ($type == 'ratings')
 				{
 					$wins = MYSQL_RESULT($galleryResult,$i,"zen_images.ratings_win");
@@ -108,46 +117,41 @@ function drawImageGallery($galleryResult, $type='')
 					$hitsMonth = MYSQL_RESULT($galleryResult,$i,"zen_images.hitcounter_month");
 					$hitsWeek = MYSQL_RESULT($galleryResult,$i,"zen_images.hitcounter_week");
 					$photoHitcounter = array($hitsAll, $hitsMonth, $hitsWeek, $type);
-
+					
 					if ( zp_loggedin() )
 					{
 						$id = MYSQL_RESULT($galleryResult,$i,"zen_images.id");
 						$hitCounterWeekLastReset = MYSQL_RESULT($galleryResult,$i,"zen_images.hitcounter_week_reset");
 						$hitCounterMonthLastReset = MYSQL_RESULT($galleryResult,$i,"zen_images.hitcounter_month_reset");
 						$updatedHitCounter = updateHitCounter($hitsAll, $hitsMonth, $hitsWeek, $hitCounterMonthLastReset, $hitCounterWeekLastReset);
-
+												 
 						// only reset the monthly and weekly totals if and admin, and counter are past the date
-						if ($updatedHitCounter['admin'] != '')
+						if ($updatedHitCounter['admin'] != '') 
 						{
 							query("UPDATE zen_images SET ".$updatedHitCounter['admin']." WHERE `id` = $id");
 							$photoHitcounter = array($updatedHitCounter['hitCounterAllTime'], $updatedHitCounter['hitCounterMonth'], $updatedHitCounter['hitCounterWeek'], $type);
 						}
 					}
 					$photoStatsText = formatHitCounter($photoHitcounter);
-
+					
 					if (strlen($photoStatsText) > 0)
 					{
 						$photoStatsText = "<br>$photoStatsText";
 					}
 				}
-
-				if ($photoDesc == '')
-				{
-					$photoDesc = $photoTitle;
-				}
-				else
-				{
-					$photoDesc = 'Description: '.$photoDesc;
-				}
-
+				
+				$photoDesc = $photoTitle;
+				
 				// for when URL rewrite is on
 				/* <a href="/gallery/<? echo $photoPath; ?>/<? echo $photoUrl; ?>.html" target="new" ><img src="/gallery/cache/<? echo $photoPath; ?>/<? echo $photoUrl; ?>_<?php echo $thumbsize; ?>.jpg" alt="<? echo $photoTitle; ?>" title="<? echo $photoTitle; ?>" /></a>*/
 				// non rewrite
 				/* <a href="/gallery/index.php?album=<? echo $photoPath; ?>&amp;image=<? echo $photoUrl; ?>"><img src="/gallery/cache/<? echo $photoPath; ?>/<? echo $photoUrl; ?>_<?php echo $thumbsize; ?>.jpg" alt="<? echo $photoTitle; ?>" title="<? echo $photoTitle; ?>" /></a> */
-
+				
 				$imagePageLink = GALLERY_PATH."/$photoPath/$photoUrl.html";
 				$albumPageLink = GALLERY_PATH."/$photoPath/";
-				$imageUrl = GALLERY_PATH."/$photoPath/image/thumb/$photoUrl";
+				
+				$thumbUrl = replace_filename_with_cache_thumbnail_version($photoUrl);
+				$imageUrl = GALLERY_PATH."/cache/$photoPath/$thumbUrl";
 ?>
 <td class="i" <?=$style ?>><a href="<?=$imagePageLink?>"><img src="<?=$imageUrl ?>" alt="<? echo $photoDesc; ?>" title="<? echo $photoDesc; ?>" /></a>
 	<h4><a href="<?=$imagePageLink; ?>"><?=$photoTitle; ?></a></h4>
@@ -157,16 +161,16 @@ function drawImageGallery($galleryResult, $type='')
 <?
 				$j++;
 				$i++;
-
+		
 			}	//end while for cols
 			$j=0;
-
+			
 			echo "<tr>\n";
 		}	//end while for rows
-
+		
 		echo "</table>\n";
 	}	// end if for non zero
-}
+}	
 
 function drawImageOrAlbumSearchForm()
 {
@@ -222,7 +226,7 @@ function imageOrAlbumSearch($term, $type, $page)
 			$index = ($page*MAXIMAGES_PERPAGE)-MAXIMAGES_PERPAGE;
 		}
 	}
-
+	
 	// do the query
 	if ($type == 'Image')
 	{
@@ -241,7 +245,7 @@ function imageOrAlbumSearch($term, $type, $page)
 		$numberOfRows = MYSQL_NUM_ROWS($galleryResult);
 		$numberImagesFound = $numberOfRows;
 	}
-
+	
 	// display infomation to the user
 	// if this is being called from the 404 error page, display stripped down formatting
 	if ($page != 'error')
@@ -261,7 +265,7 @@ function imageOrAlbumSearch($term, $type, $page)
 			drawImageOrAlbumSearchForm();
 			return;
 		}
-
+			
 		$text .= '</b>'.$text2.' <a href="/gallery/search">Or start a new search?</a>';
 		echo "<p><b>$text</p>";
 	}
@@ -270,7 +274,7 @@ function imageOrAlbumSearch($term, $type, $page)
 		// for no results found and on error page
 		return;
 	}
-
+		
 	// display results
 	// if this is being called from the 404 error page, display stripped down formatting
 	if ($type == 'Image')
@@ -284,7 +288,7 @@ function imageOrAlbumSearch($term, $type, $page)
 			galleryPageNavigationLinks($index, $numberOfRows, $maxImagesPerPage, '/gallery/search/?search='.$term.'&page=');
 			drawImageGallery($galleryResult);
 			galleryPageNavigationLinks($index, $numberOfRows, $maxImagesPerPage, '/gallery/search/?search='.$term.'&page=');
-
+			
 			if ($numberOfRows == $maxImagesPerPage OR $index > 0)
 			{
 				drawGallerySearchPageNumberLinks($index, $numberImagesFound, $maxImagesPerPage, '/gallery/search/?search='.$term.'&page=');
@@ -305,41 +309,41 @@ function imageOrAlbumSearch($term, $type, $page)
 
 
 
-/*
+/* 
  * pass it an SQL result set
  * used by album search
  * and by the frontpage recently updated search
  */
 function drawAlbums($galleryResult, $error = false, $search = false)
-{
+{	
 	$numberOfRows = MYSQL_NUM_ROWS($galleryResult);
-
+	
 	if ($error)
 	{
 		if ($numberOfRows > 3)
 		$numberOfRows = 3;
 	}
-
-	if ($numberOfRows>0)
-	{
+	
+	if ($numberOfRows>0) 
+	{	
 		echo '<table class="centeredTable">';
 		$i=0;
 		$j=0;
-
+			
 		while ($i<$numberOfRows AND $i<29)
 		{
 			echo "<tr>\n";
 			while ($j < 3 AND $i<$numberOfRows)
 			{
-				$photoPath = MYSQL_RESULT($galleryResult,$i,"zen_albums.folder");
-
+			$photoPath = MYSQL_RESULT($galleryResult,$i,"zen_albums.folder");
 				$photoAlbumTitle = stripslashes(MYSQL_RESULT($galleryResult,$i,"zen_albums.title"));
 				$albumId = MYSQL_RESULT($galleryResult,$i,"zen_albums.id");
-				$albumDate = strftime(TIME_FORMAT, strtotime(MYSQL_RESULT($galleryResult,$i,"fdate")));
-
+				
 				//old shit
 				if ($search)
 				{
+					$albumDate = strftime(TIME_FORMAT, strtotime(MYSQL_RESULT($galleryResult,$i,"fdate")));
+					
 					// get an image to display with it
 					$imageSql = "SELECT filename, id FROM zen_images WHERE zen_images.albumid = '$albumId' LIMIT 0,1 ";
 					$imageResult = MYSQL_QUERY($imageSql);
@@ -355,12 +359,13 @@ function drawAlbums($galleryResult, $error = false, $search = false)
 						$photoUrl = GALLERY_PATH."/foldericon.gif";
 					}
 				}
-				// new railgeelong frontpage stuff
+				// new frontpage stuff
 				else
 				{
 					$photoUrl = MYSQL_RESULT($galleryResult,$i,"i.filename");
 					$photoId = MYSQL_RESULT($galleryResult,$i,"i.id");
 					$photoUrl = GALLERY_PATH."/$photoPath/image/thumb/$photoUrl";
+					$albumDate = strftime(TIME_FORMAT, MYSQL_RESULT($galleryResult,$i,"date"));
 				}
 
 				if ($photoDesc == '')
@@ -378,7 +383,7 @@ function drawAlbums($galleryResult, $error = false, $search = false)
 <?
 				$j++;
 				$i++;
-
+			
 			}	//end while for cols
 			$j=0;
 			echo "</tr>\n";
@@ -394,12 +399,12 @@ function getGalleryUploadsResults($pageType, $pageTypeModifier, $nextURL, $start
 	{
 		$count = MAXIMAGES_PERPAGE;
 	}
-
+	
 	if ($count < MAXIMAGES_PERPAGE)
 	{
 		$dontDoTotalCount = true;
 	}
-
+	
 	if ($pageTypeModifier == 'double')
 	{
 		if (!($count > 1))
@@ -410,17 +415,17 @@ function getGalleryUploadsResults($pageType, $pageTypeModifier, $nextURL, $start
 		{
 		$start = 0;
 		}
-
+		
 		$nextURL .= "/?double=&count=$count&start=$start&page=";
-
+	
 		$sql = "SELECT * FROM zen_images
-			INNER JOIN zen_albums ON zen_images.albumid = zen_albums.id
+			INNER JOIN zen_albums ON zen_images.albumid = zen_albums.id 
 			WHERE zen_images.filename IN (
-				SELECT filename
+				SELECT filename 
 				FROM (
-					SELECT filename, count(id) AS duplicates
+					SELECT filename, count(id) AS duplicates 
 					FROM zen_images
-					GROUP BY filename) AS inner_query
+					GROUP BY filename) AS inner_query 
 				WHERE duplicates > 1)
 			ORDER BY zen_images.date DESC
 			LIMIT $start, $count";
@@ -430,7 +435,7 @@ function getGalleryUploadsResults($pageType, $pageTypeModifier, $nextURL, $start
 		$captionLimitSql = "zen_images.title REGEXP '_[0-9]{4}' OR zen_images.title REGEXP 'DSCF[0-9]{4}'";
 		$captiona = $captionb = '';
 		$order = " ORDER BY zen_images.date DESC ";
-
+		
 		//show all images with bad captions
 		if ($pageTypeModifier == 'images')
 		{
@@ -451,12 +456,12 @@ function getGalleryUploadsResults($pageType, $pageTypeModifier, $nextURL, $start
 			if ($pageTypeModifier == 'this-month')
 			{
 				$order = " ORDER BY zen_images.hitcounter_month DESC";
-				$where = " AND zen_images.hitcounter_month > 0 ";
+				$where = " AND zen_images.hitcounter_month > " . HITCOUNTER_SHOW_THRESHOLD . " ";
 			}
 			else if ($pageTypeModifier == 'this-week')
 			{
 				$order = " ORDER BY zen_images.hitcounter_week DESC";
-				$where = " AND zen_images.hitcounter_week > 0 ";
+				$where = " AND zen_images.hitcounter_week > " . HITCOUNTER_SHOW_THRESHOLD . " ";
 			}
 			else if ($pageTypeModifier == 'all-time')
 			{
@@ -467,25 +472,25 @@ function getGalleryUploadsResults($pageType, $pageTypeModifier, $nextURL, $start
 				$order = " ORDER BY zen_images.ratings_score DESC, zen_images.hitcounter DESC";
 				$where = " AND zen_images.ratings_view > 0 ";
 			}
-
+			
 			$nextURL .= "/";
 		}
-
-		$sql = "SELECT * FROM zen_images, zen_albums
+		
+		$sql = "SELECT * FROM zen_images, zen_albums 
 			WHERE zen_images.albumid = zen_albums.id $captiona $captionb $where
 			$order
 			LIMIT $currentImageResultIndex,$count";
 	}
-
+	
 	if (!$dontDoTotalCount) {
-	$toreturn['maxImagesCount'] = MYSQL_RESULT(MYSQL_QUERY("SELECT count(*)
-		FROM zen_images, zen_albums
+	$toreturn['maxImagesCount'] = MYSQL_RESULT(MYSQL_QUERY("SELECT count(*) 
+		FROM zen_images, zen_albums 
 		WHERE zen_images.albumid = zen_albums.id $captiona $captionb $where"), 0, 'count(*)');
 	}
-
+	
 	$toreturn['galleryResult'] = MYSQL_QUERY($sql);
 	$toreturn['galleryResultCount'] = MYSQL_NUM_ROWS($toreturn['galleryResult']);
-	$toreturn['nextURL'] = $nextURL;
+	$toreturn['nextURL'] = $nextURL;	
 	return $toreturn;
 }
 
@@ -499,7 +504,7 @@ function fixNavigationUrl($url)
 	{
 		return getMyPageURL($url.'page/');
 	}
-
+	
 }
 
 ?>

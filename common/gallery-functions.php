@@ -83,7 +83,7 @@ function drawLocationImages($locationPhotos, $path='')
 	}
 	else		
 	{
-		$moreString = $displayRows.' images found.';
+		$moreString = '<a href="/gallery/'.$path.'">'.$displayRows.' images found</a>.';
 	}
 ?>
 <p><?=$moreString?> Click them to enlarge.</p>
@@ -129,9 +129,12 @@ function drawLocationImages($locationPhotos, $path='')
 			
 			// old version
 			/*<td class="i"><a href="/gallery/<? echo $photoPath; ?>/<? echo $photoUrl; ?>.html?size=" target="new" ><img src="/gallery/cache/<? echo $photoPath; ?>/<? echo $photoUrl; ?>_150_cw150_ch150.jpg" alt="<? echo $photoTitle; ?>" title="<? echo $photoTitle; ?>" />*/
+			
+			$thumbUrl = str_replace('.jpg', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.jpg', $photoUrl);
+			$normalImageUrl = str_replace('.jpg', '_' . NORMAL_IMAGE_SIZE . '.jpg', $photoUrl);
 ?>
 <td class="i">
-	<a href="/gallery/albums/<? echo $photoPath; ?>/<? echo $photoUrl; ?>" rel="lightbox" title="<? echo $photoTitle; ?>"><img src="/gallery/<? echo $photoPath; ?>/image/thumb/<? echo $photoUrl; ?>" alt="<? echo $photoTitle; ?>" title="<? echo $photoTitle; ?>" /></a>
+	<a href="/gallery/cache/<? echo $photoPath; ?>/<? echo $normalImageUrl; ?>" rel="lightbox" title="<? echo $photoTitle; ?>"><img src="/gallery/cache/<? echo $photoPath; ?>/<? echo $thumbUrl; ?>" alt="<? echo $photoTitle; ?>" title="<? echo $photoTitle; ?>" /></a>
 	<p><?=$photoTitle ?></p></td>
 <?		$j++;
 			$i++;

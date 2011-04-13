@@ -38,24 +38,24 @@ function pluralNumberWord($number, $text)
  */
 function drawGallerySearchPageNumberLinks($index, $totalimg, $max, $url)
 {
-	$total = floor(($totalimg)/$max)+1;
+	$total = floor(($totalimg-1)/$max)+1;
 	$current = $index/$max;
 	$url = fixNavigationUrl($url);
-
+	
 	echo "<div class=\"pagelist\"\n>";
-
+	
 	if ($current > 3 AND $total > 7)
 	{
 		$url1 = $url."1";
-		echo "\n <a href=\"$url1\" alt=\"First page\" title=\"First page\">1</a>&nbsp;";
-
+		echo "\n <a href=\"$url1\" alt=\"First page\" title=\"First page\">1</a>&nbsp;"; 
+		
 		if ($current > 4)
 		{
 			echo "...&nbsp;";
 		}
 	}
-
-	for ($i=($j=max(1, min($current-2, $total-6))); $i <= min($total, $j+6); $i++)
+	
+	for ($i=($j=max(1, min($current-2, $total-6))); $i <= min($total, $j+6); $i++) 
 	{
 		if ($i == $current+1)
 		{
@@ -67,16 +67,16 @@ function drawGallerySearchPageNumberLinks($index, $totalimg, $max, $url)
 		}
 		echo "&nbsp;";
 	}
-	if ($i <= $total)
+	if ($i <= $total) 
 	{
 		if ($current < $total-5)
 		{
 			echo "...&nbsp;";
 		}
-
-		echo "<a href=\"$url$total\" alt=\"Last page\" title=\"Last page\">" . $total . "</a>";
+		
+		echo "<a href=\"$url$total\" alt=\"Last page\" title=\"Last page\">" . $total . "</a>"; 
 	}
-
+	
 	echo "</div>";
 }	// end function
 
@@ -107,8 +107,8 @@ function getFullImageLinkURL() {
 	    	'/index.php?album=' . urlencode($_zp_current_album->name) . '&image=' . urlencode($_zp_current_image->name));
     }
 }
-
-
+	
+	
 
 /**
  * Returns the url of the previous image.
@@ -138,7 +138,7 @@ function printEXIFData()
 	global $_zp_current_image;
 	$result = getImageMetaData();
 	$hitCounterText = formatHitCounter(incrementAndReturnHitCounter('image'));
-
+	
 	if (function_exists('getDeathmatchRatingsText'))
 	{
 		$ratingsText = getDeathmatchRatingsText();
@@ -150,7 +150,7 @@ function printEXIFData()
 		{
 			$hitCounterText .= "<br/>";
 		}
-
+		
 		$hitCounterText .= "Week reset = ".$_zp_current_image->get('hitcounter_week_reset').", Month reset = ".$_zp_current_image->get('hitcounter_month_reset');
 	}
 
@@ -263,12 +263,12 @@ function printTruncatedImageTitle($editable=false) {
 	if ($editable && zp_loggedin())
 	{
 		$text = getImageTitle();
-
-		if (empty($text))
+		
+		if (empty($text)) 
 		{
 			$text = gettext('(...)');
 		}
-
+		
 		$class= 'class="' . trim("zp_editable zp_editable_image_title") . '"';
 		echo "<span id=\"editable_image_truncate\" $class>" . $text . "</span>\n";
 		echo "<script type=\"text/javascript\">editInPlace('editable_image_truncate', 'image', 'title');</script>";
@@ -430,25 +430,25 @@ function getImageAlbumLink() {
  * Used by album.php and search.php
  *
  */
-function drawWongmGridImages()
+function drawWongmGridImages($numberOfItems)
 {
 	?>
 <!-- Images -->
 <table class="centeredTable">
 <?php
   // neater for when only 4 items
-  if ($num == 4)
+  if ($numberOfItems == 4)
   {
-	  $i = 1;
+	  $row = 1;
   }
   else
   {
-	  $i = 0;
+	  $row = 0;
 	  $style = 'width="33%" ';
   }
 
-  while (next_image()): $c++;
-  if ($i == 0)
+  while (next_image()): $column++;
+  if ($row == 0)
   {
 	  echo '<tr>';
   }
@@ -457,32 +457,32 @@ function drawWongmGridImages()
   {
 	  $albumlink = getImageAlbumLink();
   }
-
-
-
+  
   global $_zp_current_image;
 ?>
 <td class="image" <?=$style?>valign="top">
 	<div class="imagethumb"><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>">
-	<?php printImageThumb(getImageTitle()); ?></a></div>
-	<div class="imagetitle"><h4><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>">
-	<?php printImageTitle(); ?></a></h4><small><?php printImageDate(); ?><?php printHitCounter($_zp_current_image, true); ?></small><?= $albumlink?></div>
+		<img src="<? echo getImageThumb() ?>" title="<?=getImageTitle();?>" alt="<?=getImageTitle();?>" />
+	</a></div>
+	<div class="imagetitle">
+		<h4><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
+		<small><?php printImageDate(); ?><?php printHitCounter($_zp_current_image, true); ?></small><?= $albumlink?>
+	</div>
 </td>
 <?php
 
-  if ($i == 2)
+  if ($row == 2)
   {
 	  echo "</tr>\n";
-	  $i = 0;
+	  $row = 0;
   }
   else
   {
-	  $i++;
+	  $row++;
   }
   endwhile; ?>
 </table>
 <?
-  return $c;
 }	// end function
 
 
@@ -572,4 +572,17 @@ function drawWongmAlbumRow()
 <?
 
 }	// end function
+
+function replace_filename_with_cache_thumbnail_version($filename)
+{
+	$imgURL = str_replace('.jpg', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.jpg', $filename);
+	$imgURL = str_replace('.JPG', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.JPG', $imgURL);
+	$imgURL = str_replace('.gif', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.gif', $imgURL);
+	$imgURL = str_replace('.GIF', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.GIF', $imgURL);
+	$imgURL = str_replace('.png', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.png', $imgURL);
+	$imgURL = str_replace('.PNG', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.PNG', $imgURL);
+	$imgURL = str_replace('.jpeg', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.jpeg', $imgURL);
+	$imgURL = str_replace('.JPEG', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.JPEG', $imgURL);
+	return $imgURL;	
+}
 ?>

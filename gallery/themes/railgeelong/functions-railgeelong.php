@@ -34,6 +34,7 @@ else
 	define ('MAXIMAGES_PERPAGE', 24);
 	define ('MAXALBUMS_PERPAGE', 24);
 	define ('THUMBNAIL_IMAGE_SIZE', 250);
+	define ('NORMAL_IMAGE_SIZE', 640);
 	define ('MAXIMAGES_LOCATIONPAGE', 9);
 	DEFINE ('GALLERY_PATH', '/gallery');
 	define ('TIME_FORMAT', '%B %d, %Y %H:%M %p');

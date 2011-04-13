@@ -71,7 +71,8 @@ foreach ($latestalbums as $latestalbum) {
 	
 	$folderpath = "/gallery/" . $latestalbum['folder'];
 	$foldername = $latestalbum['title'];
-	$thumbnailURL = "/gallery/" . $latestalbum['folder'] . "/image/thumb/" . $latestalbum['filename'];
+	$thumbUrl = replace_filename_with_cache_thumbnail_version($latestalbum['filename']);
+	$thumbnailURL = "/gallery/cache/" . $latestalbum['folder'] . "/$thumbUrl";
 	
 	echo '<td class="image">';
 	echo "<a href=\"" . htmlspecialchars($folderpath)."\" title=\"" . html_encode($foldername) . "\">\n";
