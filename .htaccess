@@ -29,6 +29,8 @@
   # Wordpress migration
   RewriteRule ^news/feed/?$	   							/gallery/rss-news.php [R=301,L]
   RewriteRule ^news/feed?$	   							/gallery/rss-news.php [R=301,L]
+  RewriteRule ^news/feed/atom?$	   							/gallery/rss-news.php [R=301,L]
+  RewriteRule ^news/feed/atom/?$	   						/gallery/rss-news.php [R=301,L]
 
   # News related stuff, redirect to Zenphoto as CMS
   RewriteRule ^news/?$	   								gallery/index.php?p=news [L,QSA]
