@@ -31,7 +31,7 @@ if (isset($_POST['option']))
 	
 	if ($session != $_POST['session'])
 	{
-		echo "<p class=\"error\">Form post error!<br>\n";
+		echo "<p class=\"error\">Form post error!<br/>\n";
 		echo 'Go back to the <a href="'.DO_RATINGS_URL_PATH.'">ratings page</a> and try again!</a></p>';
 	}
 	else
@@ -156,9 +156,9 @@ foreach ($imageOptions as $random)
 	
 	if (zp_loggedin())
 	{
-		echo "<br><br><input id=\"multiplyscore\" name=\"multiplyscore\" type=\"textbox\" size=\"2\" />\n";
+		echo "<br/><br/><input id=\"multiplyscore\" name=\"multiplyscore\" type=\"textbox\" size=\"2\" />\n";
 		echo '<label for="multiplyscore">Multiply score</label>';
-		echo "<br><input id=\"nopenalty\" name=\"nopenalty\" type=\"checkbox\" />\n";
+		echo "<br/><input id=\"nopenalty\" name=\"nopenalty\" type=\"checkbox\" />\n";
 		echo '<label for="nopenalty">No penalty for loser</label>';
 	}
 	echo "</form>\n";

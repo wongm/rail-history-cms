@@ -971,8 +971,8 @@ function drawHeadbarSearchBox($title="Search")
 {
 ?>
 <form id="search_form" action="/search" method="get">
-	<input autocomplete="off" id="search_input" value="" size="10" name="q">
-	<input type="submit" id="search_submit" class="pushbutton" value="<?=$title?>">
+	<input autocomplete="off" id="search_input" value="" size="10" name="q" />
+	<input type="submit" id="search_submit" class="pushbutton" value="<?=$title?>" />
 </form>
 <?
 }

@@ -136,7 +136,7 @@ function drawImageGallery($galleryResult, $type='')
 					
 					if (strlen($photoStatsText) > 0)
 					{
-						$photoStatsText = "<br>$photoStatsText";
+						$photoStatsText = "<br/>$photoStatsText";
 					}
 				}
 				
@@ -165,7 +165,7 @@ function drawImageGallery($galleryResult, $type='')
 			}	//end while for cols
 			$j=0;
 			
-			echo "<tr>\n";
+			echo "</tr>\n";
 		}	//end while for rows
 		
 		echo "</table>\n";

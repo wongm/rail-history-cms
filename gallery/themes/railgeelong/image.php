@@ -30,11 +30,11 @@ include_once('header.php'); ?>
     <?php if (hasPrevImage()) { ?>
     <a class="prev" href="<?=getPrevImageURL();?>" title="Previous Image"><span>&laquo;</span> Previous</a>
     </td><td>
-    <a class="next" href="<?=getPrevImageURL();?>" title="<?=getPrevImageTitle();?>"><?='<img src="'.getPrevImageThumb().'" />'; ?></a>
+    <a class="next" href="<?=getPrevImageURL();?>" title="<?=getPrevImageTitle();?>"><img src="<?=getPrevImageThumb();?>" alt="<?=getPrevImageTitle();?>" /></a>
     <?php } else { echo "</td><td>"; } ?>
     </td><td>
     <?php if (hasNextImage()) { ?>
-    <a class="prev" href="<?=getNextImageURL();?>" title="<?=getNextImageTitle();?>"><?='<img src="'.getNextImageThumb().'" />'; ?></a>
+    <a class="prev" href="<?=getNextImageURL();?>" title="<?=getNextImageTitle();?>"><img src="<?=getNextImageThumb();?>" alt="<?=getNextImageTitle();?>"/></a>
     </td><td>
     <a class="next" href="<?=getNextImageURL();?>" title="Next Image">Next <span>&raquo;</span></a>
     <?php } else { echo "</td><td>"; } ?>

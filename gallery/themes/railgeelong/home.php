@@ -14,7 +14,7 @@ include_once('header.php');
 <script type="text/javascript" src="/common/jquery-1.2.2.pack.js"></script>
 <script type="text/javascript" src="/common/frontpage.js"></script>
 <div id="headerpane" class="photo-right">
-<img id="randomimage" height="267" width="400" alt="Random image" title="Random image" />
+<img id="randomimage" height="267" width="400" alt="Random image" title="Random image" src=""/>
 <span id="randomcaption">Random image</span>
 </div>
 <h3 class="intro">Rail Geelong - hopefully everything you ever wanted to know about the history of the railways of Geelong and District, and then some.</h3>
@@ -38,7 +38,7 @@ while (next_news() && $i < 5): ;
 <tr <? echo $style; ?>>
 	<td class="d" valign="top"><?php printNewsDate();?></td>
 	<td><h4><?php echo getNewsTitle(); ?></h4>
-		<p><?php echo getNewsContent(true); ?></p>
+		<?php echo getNewsContent(true); ?>
 	</td>
 </tr>
 <?php
@@ -75,10 +75,11 @@ foreach ($latestalbums as $latestalbum) {
 	$thumbnailURL = "/gallery/cache/" . $latestalbum['folder'] . "/$thumbUrl";
 	
 	echo '<td class="image">';
-	echo "<a href=\"" . htmlspecialchars($folderpath)."\" title=\"" . html_encode($foldername) . "\">\n";
-	echo "<img src=\"" . $thumbnailURL . "\" alt=\"" . html_encode($foldername) . "\" /></a>\n";
-	echo "<h4><a href=\"".htmlspecialchars($folderpath)."\" title=\"" . html_encode($foldername) . "\">$foldername</a></h4>\n";
-	echo "<small>". zpFormattedDate(getOption('date_format'),strtotime($latestalbum['date']))."</small>";
+	echo "	<a href=\"" . htmlspecialchars($folderpath)."\" title=\"" . html_encode($foldername) . "\">\n";
+	echo "	<img src=\"" . $thumbnailURL . "\" alt=\"" . html_encode($foldername) . "\" /></a>\n";
+	echo "	<h4><a href=\"".htmlspecialchars($folderpath)."\" title=\"" . html_encode($foldername) . "\">$foldername</a></h4>\n";
+	echo "	<small>". zpFormattedDate(getOption('date_format'),strtotime($latestalbum['date']))."</small>\n";
+	echo "</td>\n";
 		
 	if (($i % 3) == 0)
 	{
@@ -92,7 +93,7 @@ foreach ($latestalbums as $latestalbum) {
 <p><a href="/gallery/recent">Complete List...</a></p>
 <h4 style="clear:both">Coming Soon...</h4>
 <hr/>
-<p><?php printPageContent(); ?></p>
+<?php printPageContent(); ?>
 </div>
 <?php
 include("footer.php"); 

@@ -53,7 +53,7 @@ include_once('functions-gallery-formatting.php');
 <link rel="stylesheet" href="<?= $_zp_themeroot ?>/zen.css" type="text/css" />
 <script type="text/javascript" src="/common/lightbox.js"></script>
 <?php zenJavascript(); ?>
-<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="author" content="Marcus Wong" />
 <meta name="description" content="Rail Geelong Homepage" />
 <meta name="keywords" content="railways trains geelong victoria" />
@@ -75,9 +75,9 @@ else if ($newsRSS)
 <body>
 <div id="container">
 <div id="header">
-	<div id="sitename"><h1><a href="/" alt="Home" title="Home">Rail Geelong</a></h1></div>
+	<div id="sitename"><h1><a href="/" title="Home">Rail Geelong</a></h1></div>
 	<div id="sitedesc">A history of the railways of Geelong and District.</div>
-	<div style="clear:both;">
+	<div style="clear:both;"></div>
 </div>
 <?php printAdminToolbox(); ?>
 <div id="contentwrapper">

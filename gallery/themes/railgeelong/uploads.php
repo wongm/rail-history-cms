@@ -58,8 +58,8 @@ else if ($pageType == '')
 	$pageBreadCrumb = "<a href=\"$nextURL\" title=\"Recent uploads\">Recent uploads</a>";
 	
 	if ( zp_loggedin() ) {
-		$adminOnlyText = '<p><a href="'.$nextURL.'/?caption=images">Uncaptioned images</a><br>
-			<a href="'.$nextURL.'/?caption=albums">Albums with uncaptioned images</a><br>
+		$adminOnlyText = '<p><a href="'.$nextURL.'/?caption=images">Uncaptioned images</a><br/>
+			<a href="'.$nextURL.'/?caption=albums">Albums with uncaptioned images</a><br/>
 			<a href="'.$nextURL.'/?double=">Duplicate images</a></p>';
 	}
 }

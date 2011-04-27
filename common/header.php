@@ -49,7 +49,7 @@ if (strlen($pageHeading) > 35)
 <? } ?>
 <script src="/common/lightbox.js" type="text/javascript"></script>
 <script src="/common/functions.js" type="text/javascript"></script>
-<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="author" content="Marcus Wong" />
 <meta name="description" content="Rail Geelong Homepage" />
 <meta name="keywords" content="railways trains geelong victoria" />
@@ -62,9 +62,9 @@ if (strlen($pageHeading) > 35)
 <? } ?>
 <div id="container">
 <div id="header">
-	<div id="sitename"><h1><a href="/" alt="Home" title="Home">Rail Geelong</a></h1></div>
+	<div id="sitename"><h1><a href="/" title="Home">Rail Geelong</a></h1></div>
 	<div id="sitedesc">A history of the railways of Geelong and District.</div>
-	<div style="clear:both;">
+	<div style="clear:both;"></div>
 </div>
 <?php 
 // hack in stuff for zenphoto generated pages

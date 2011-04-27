@@ -47,7 +47,7 @@ function drawGallerySearchPageNumberLinks($index, $totalimg, $max, $url)
 	if ($current > 3 AND $total > 7)
 	{
 		$url1 = $url."1";
-		echo "\n <a href=\"$url1\" alt=\"First page\" title=\"First page\">1</a>&nbsp;"; 
+		echo "\n <a href=\"$url1\" title=\"First page\">1</a>&nbsp;"; 
 		
 		if ($current > 4)
 		{
@@ -63,7 +63,7 @@ function drawGallerySearchPageNumberLinks($index, $totalimg, $max, $url)
 		}
 		else
 		{
-			echo '<a href="'.$url.$i.'" alt="Page '.$i.'" title="Page '.$i.'">'.($i).'</a>';
+			echo '<a href="'.$url.$i.'" title="Page '.$i.'">'.($i).'</a>';
 		}
 		echo "&nbsp;";
 	}
@@ -74,7 +74,7 @@ function drawGallerySearchPageNumberLinks($index, $totalimg, $max, $url)
 			echo "...&nbsp;";
 		}
 		
-		echo "<a href=\"$url$total\" alt=\"Last page\" title=\"Last page\">" . $total . "</a>"; 
+		echo "<a href=\"$url$total\" title=\"Last page\">" . $total . "</a>"; 
 	}
 	
 	echo "</div>";
@@ -165,7 +165,7 @@ function printEXIFData()
 		//check if seach by date exists, should be in set up in plugins\archive_days.php
 		if (function_exists('printAllDays'))
 		{
-			$dateLink = "<a href=\"".SEARCH_URL_PATH."/archive/$date[0]-$date[1]-$splitdate[0]\" alt=\"See other photos from this date\" title=\"See other photos from this date\">$fdate</a> $ftime";
+			$dateLink = "<a href=\"".SEARCH_URL_PATH."/archive/$date[0]-$date[1]-$splitdate[0]\" title=\"See other photos from this date\">$fdate</a> $ftime";
 		}
 		else
 		{
@@ -212,7 +212,7 @@ function drawGalleryPageNumberLinks($url='')
 
 	if ($current > 3 AND $total > 7)
 	{
-		echo "\n <a href=\"".$url.getMyPageURL(getPageURL(1))."\" alt=\"First page\" title=\"First page\">1</a>&nbsp;";
+		echo "\n <a href=\"".$url.getMyPageURL(getPageURL(1))."\" title=\"First page\">1</a>&nbsp;";
 
 		if ($current > 4)
 		{
@@ -228,7 +228,7 @@ function drawGalleryPageNumberLinks($url='')
 		}
 		else
 		{
-			echo '<a href="'.$url.getMyPageURL(getPageURL($i)).'"\" alt="Page '.$i.'" title="Page '.$i.'">'.($i).'</a>';
+			echo '<a href="'.$url.getMyPageURL(getPageURL($i)).'"\" title="Page '.$i.'">'.($i).'</a>';
 		}
 		echo "&nbsp;";
 	}
@@ -239,7 +239,7 @@ function drawGalleryPageNumberLinks($url='')
 			echo "...&nbsp;";
 		}
 
-		echo "<a href=\"".$url.getMyPageURL(getPageURL($total))."\" alt=\"Last page\" title=\"Last page\">" . $total . "</a>";
+		echo "<a href=\"".$url.getMyPageURL(getPageURL($total))."\" title=\"Last page\">" . $total . "</a>";
 	}
 	echo '</p>';
 }

@@ -303,7 +303,7 @@ function drawMainPage()
 <div class="locations">
 <p>Here is a listing of all the railway locations in the Geelong Region. Either view by type, or search by name. You can also browse by line from the <a href="/lineguide/">lineguides</a>. The sort order can be altered in all cases.</p>
 <h4>By Type</h4>
-<ul class=\"tableofcontents\"><li><a href='/locations/stations'>Stations</a></li>
+<ul class="tableofcontents"><li><a href="/locations/stations">Stations</a></li>
 <li><a href='/locations/industries'>Industries</a></li>
 <li><a href='/locations/signalboxes'>Signal Boxes</a></li>
 <li><a href='/locations/yards'>Yards</a></li>
