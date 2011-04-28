@@ -6,78 +6,8 @@
  */
 if (!defined('WEBPATH')) die(); 
 
-// trying to access cached image but it doesn't exist
-// eg: /cache/buses/E100_4823_500.jpg
-// suffering from an empty cache file?
-// so redirect to i.php to regenerate it
-if (substr($album, 0, 5) == 'cache')
-{
-	$imageparams = explode("_", $image);
-	
-	// check for URL format: E104_3247_180_thumb.jpg
-	if ((strtolower($imageparams[3]) == "thumb.jpg") OR (strtolower($imageparams[3]) == "thumb.gif"))
-	{
-		$imagesize = $imageparams[2];
-		$isThumb = true;
-	}
-	// or E104_3247_500.jpg
-	else 
-	{
-		$imageparams = explode(".", $imageparams[2]);
-			
-		if ((strtolower($imageparams[1]) == "jpg") OR (strtolower($imageparams[1]) == "gif"))
-		{
-			$imagesize = $imageparams[0];
-		}
-	}
-	
-	// we have an image size
-	if ($imagesize > 0)
-	{
-		// cleasn up album URL
-		$album = str_replace("cache/", "", $album);
-		
-		// cleanup image URL
-		$image = str_replace("_" . $imagesize . "_thumb", "", $image);
-		$image = str_replace("_" . $imagesize, "", $image);
-		
-		if ($isThumb)
-			$imagesize = 'thumb';
-		
-		if (strlen($album) > 0 && strlen($image) > 0)
-		{
-			$location = sprintf(FULLWEBPATH . "/zp-core/i.php?a=%s&i=%s&s=%s", $album, $image, $imagesize);
-			status_header(301);
-			header("Location: $location");
-			return;
-		}
-	}
-}
-
-// otherwise broken HTML page
-// do redirect to correct URL if a single image found by exact filename match
-// required a DB hit
-if ($image != '')
-{
-	$searchSql = "SELECT * FROM zen_images 
-		INNER JOIN zen_albums ON zen_images.albumid = zen_albums.id 
-		WHERE zen_images.filename = '".mysql_real_escape_string($image)."'";
-	$searchResult = query_full_array($searchSql);
-	
-	// if single result is returned
-	if (sizeof($searchResult) == 1)
-	{
-		//fix for some "query_full_array()" differences
-		if (sizeof($searchResult[0]) > 1)
-		{
-			$searchResult = $searchResult[0];
-		}
-		$location = FULLWEBPATH . "/" . $searchResult["folder"] . "/" . $searchResult["filename"] . ".html";
-		status_header(301);
-		header("Location: $location");
-		return;
-	}
-}
+if (function_exists(redirectOn404))
+	redirectOn404();
 
 // otherwise show the user possible results
 header("HTTP/1.0 404 Not Found");
