@@ -344,45 +344,51 @@ function drawLocationSearch($locationSearch, $searchPageNumber, $message="")
 	$maxRecordsPerPage = 50;
 	$searchPageNumber--;
 
-	if($locationSearch == '')
+	if($locationSearch != '')
 	{
-		return;
-	}
-
-	if ($searchPageNumber == '' OR $searchPageNumber < 0 OR !is_numeric($searchPageNumber))
-	{
-		$index = 0;
+		if ($searchPageNumber == '' OR $searchPageNumber < 0 OR !is_numeric($searchPageNumber))
+		{
+			$index = 0;
+		}
+		else
+		{
+			$index = $searchPageNumber*$maxRecordsPerPage;
+		}
+	
+		$queryBaseSQL = sprintf("FROM locations l
+		INNER JOIN locations_raillines lr ON lr.location_id = l.location_id
+		INNER JOIN raillines r  ON r.line_id = lr.line_id
+		INNER JOIN location_types lt ON lt.type_id = l.type
+		LEFT OUTER JOIN locations ol ON l.name = ol.name
+		WHERE r.todisplay != 'hide'  AND l.name != '' AND l.display != 'tracks' AND l.type != 18
+		AND ".SQL_NEXTABLE." AND l.name like '%s'", mysql_real_escape_string("%$locationSearch%"));
+	
+		$queryLimitSQL = sprintf(" GROUP BY l.location_id ORDER BY l.location_id, l.name ASC LIMIT %s, %s",
+			mysql_real_escape_string($index), mysql_real_escape_string($maxRecordsPerPage));
+	
+		$result = MYSQL_QUERY("SELECT l.location_id, l.name, r.name, l.type,
+			length(l.description) AS description_length, l.photos, l.events, lr.line_id, lt.basic,
+			count(l.location_id) AS unique_name ".$queryBaseSQL.$queryLimitSQL, locationDBconnect());
+		$numberOfRecords = MYSQL_NUM_ROWS($result);
+	
+		$resultMaxRows = MYSQL_QUERY("SELECT count(l.location_id) ".$queryBaseSQL." GROUP BY l.location_id", locationDBconnect());
+		$totalNumberOfRecords = MYSQL_NUM_ROWS($resultMaxRows);
 	}
 	else
 	{
-		$index = $searchPageNumber*$maxRecordsPerPage;
+		$totalNumberOfRecords = 0;
 	}
-
-	$queryBaseSQL = sprintf("FROM locations l
-	INNER JOIN locations_raillines lr ON lr.location_id = l.location_id
-	INNER JOIN raillines r  ON r.line_id = lr.line_id
-	INNER JOIN location_types lt ON lt.type_id = l.type
-	LEFT OUTER JOIN locations ol ON l.name = ol.name
-	WHERE r.todisplay != 'hide'  AND l.name != '' AND l.display != 'tracks' AND l.type != 18
-	AND ".SQL_NEXTABLE." AND l.name like '%s'", mysql_real_escape_string("%$locationSearch%"));
-
-	$queryLimitSQL = sprintf(" GROUP BY l.location_id ORDER BY l.location_id, l.name ASC LIMIT %s, %s",
-		mysql_real_escape_string($index), mysql_real_escape_string($maxRecordsPerPage));
-
-	$result = MYSQL_QUERY("SELECT l.location_id, l.name, r.name, l.type,
-		length(l.description) AS description_length, l.photos, l.events, lr.line_id, lt.basic,
-		count(l.location_id) AS unique_name ".$queryBaseSQL.$queryLimitSQL, locationDBconnect());
-	$numberOfRecords = MYSQL_NUM_ROWS($result);
-
-	$resultMaxRows = MYSQL_QUERY("SELECT count(l.location_id) ".$queryBaseSQL." GROUP BY l.location_id", locationDBconnect());
-	$totalNumberOfRecords = MYSQL_NUM_ROWS($resultMaxRows);
 	?>
 <table class="headbar">
 	<tr><td><a href="/">Home</a> &raquo; <a href="/locations">Locations</a> &raquo; Location search</td>
 	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
 </table>
-<h3>Location search results</h3>
 <?php
+
+	if ($numberOfRecords > 0)
+	{
+		echo "<h3>Location search results</h3>\n";
+	}
 
 	if ($message)
 	{
