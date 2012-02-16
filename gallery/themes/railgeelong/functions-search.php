@@ -90,7 +90,7 @@ function drawImageGallery($galleryResult, $type='')
 			{
 				$photoTitle = stripslashes(MYSQL_RESULT($galleryResult,$i,"zen_images.title"));
 				$photoUrl = MYSQL_RESULT($galleryResult,$i,"zen_images.filename");
-				$photoDesc = stripslashes(MYSQL_RESULT($galleryResult,$i,"zen_images.desc"));
+				$photoAltTag = $photoDesc = stripslashes(MYSQL_RESULT($galleryResult,$i,"zen_images.desc"));
 				
 				if (strpos($photoDesc, 'href=') > 0)
 				{
@@ -140,7 +140,11 @@ function drawImageGallery($galleryResult, $type='')
 					}
 				}
 				
-				$photoDesc = $photoTitle;
+				// get description
+				if (strlen($photoDesc) > 0)
+				{
+					$photoDesc = "<p>$photoDesc</p>";
+				}
 				
 				// for when URL rewrite is on
 				/* <a href="/gallery/<? echo $photoPath; ?>/<? echo $photoUrl; ?>.html" target="new" ><img src="/gallery/cache/<? echo $photoPath; ?>/<? echo $photoUrl; ?>_<?php echo $thumbsize; ?>.jpg" alt="<? echo $photoTitle; ?>" title="<? echo $photoTitle; ?>" /></a>*/
@@ -153,10 +157,16 @@ function drawImageGallery($galleryResult, $type='')
 				$thumbUrl = replace_filename_with_cache_thumbnail_version($photoUrl);
 				$imageUrl = GALLERY_PATH."/cache/$photoPath/$thumbUrl";
 ?>
-<td class="i" <?=$style ?>><a href="<?=$imagePageLink?>"><img src="<?=$imageUrl ?>" alt="<? echo $photoDesc; ?>" title="<? echo $photoDesc; ?>" /></a>
-	<h4><a href="<?=$imagePageLink; ?>"><?=$photoTitle; ?></a></h4>
-	<small><?=$photoDate?><?=$photoStatsText?></small><br/>
-	In Album: <a href="<?=$albumPageLink; ?>"><?=$photoAlbumTitle; ?></a>
+<td class="i" <?=$style ?>>
+	<a href="<?=$imagePageLink?>">
+		<img src="<?=$imageUrl ?>" alt="<? echo $photoAltTag; ?>" title="<? echo $photoAltTag; ?>" />
+	</a>
+	<div class="imagetitle">
+		<h4><a href="<?=$imagePageLink; ?>"><?=$photoTitle; ?></a></h4>
+		<?php echo $photoDesc; ?>	
+		<small><?=$photoDate?><?=$photoStatsText?></small><br/>
+		In Album: <a href="<?=$albumPageLink; ?>"><?=$photoAlbumTitle; ?></a>
+	</div>
 </td>
 <?
 				$j++;

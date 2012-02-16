@@ -53,6 +53,10 @@ label {
 #edit-editable_image_truncate, #edit-editable_album_2, .jeip-editfield {
 	width:600px;
 }
+#content .imagetitle p {
+	margin: 0 auto 0.8em;
+}
+
 /* Page Navigation
 ------------------------------ */
 ul.pagelist {

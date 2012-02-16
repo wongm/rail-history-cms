@@ -420,6 +420,13 @@ function getImageAlbumLink() {
 	return "<br/>In album: <a href=\"$folder\">$title</a>";
 }
 
+function printImageDescWrapped()
+{
+	if (strlen(getImageDesc()) > 0)
+	{
+		echo "<p>" . getImageDesc() . "</p>\n";
+	}	
+}
 
 
 /*
@@ -466,6 +473,7 @@ function drawWongmGridImages($numberOfItems)
 	</a></div>
 	<div class="imagetitle">
 		<h4><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
+		<?php echo printImageDescWrapped(); ?>
 		<small><?php printImageDate(); ?><?php printHitCounter($_zp_current_image, true); ?></small><?= $albumlink?>
 	</div>
 </td>
