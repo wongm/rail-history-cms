@@ -55,7 +55,7 @@ include_once('functions-gallery-formatting.php');
 <?php zenJavascript(); ?>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="author" content="Marcus Wong" />
-<meta name="description" content="Rail Geelong Homepage" />
+<meta name="description" content="A history of the railways of Geelong and District" />
 <meta name="keywords" content="railways trains geelong victoria" />
 <?php
 if ($galleryRSS)
@@ -69,6 +69,11 @@ else if ($railGeelongRSS)
 else if ($newsRSS)
 {
 	printZenpageRSSHeaderLink('News', '', 'Recent news updates', null);
+}
+//facebook headers for image.php
+if (getImageThumb())
+{
+	printFacebookTag();
 }
 ?>
 </head>

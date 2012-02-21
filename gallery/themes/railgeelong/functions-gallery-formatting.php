@@ -9,6 +9,18 @@
 //
 //******************************************************************************
 
+function printFacebookTag()
+{
+	$path = 'http://' . $_SERVER['HTTP_HOST'] . getImageThumb();		
+	$description = "A history of the railways of Geelong and District";	
+	if (strlen(getImageDesc()) > 0)	{
+		$description = getImageDesc() + ". $description";
+	}	
+	echo "<meta property=\"og:image\" content=\"$path\" />\n";
+	echo "<meta property=\"og:title\" content=\"" . getImageTitle() . "\" />\n";	
+	echo "<meta property=\"og:description\" content=\"$description\" />\n";
+}
+
 function pluralNumberWord($number, $text)
 {
 	if (is_numeric($number))
