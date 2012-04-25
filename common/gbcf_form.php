@@ -104,7 +104,7 @@ if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])){
      $send_value = stripslashes(strip_tags(trim($send_value)));
 
 // Email header
-     $gb_email_header = "From: $gb_email_address\n"."Reply-To: $email\n"."MIME-Version: 1.0\n"."Content-type: text/plain; charset=\"utf-8\"\n"."Content-transfer-encoding: quoted-printable\n\n"; 
+     $gb_email_header = "From: site@railgeelong.com\n"."Reply-To: $email\n"."MIME-Version: 1.0\n"."Content-type: text/plain; charset=\"utf-8\"\n"."Content-transfer-encoding: quoted-printable\n\n"; 
 
 // Strip more html, php, and binary, then scrub 
      $gb_email_header = stripslashes(strip_tags(trim($gb_email_header)));
@@ -131,7 +131,7 @@ if($gbcc == "gbcc") {
 } 
 // check for blank email
 if(!isset($email) || empty($email)){
-	$email = 'railgeeelong@gmail.com';
+	$email = 'site@railgeelong.com';
 }
 
 // Required fields need stuffing or get an error showing fields needed
@@ -231,7 +231,7 @@ if($gb_cc !== "") {
      <ul>
       <li><span class="items">Name:</span> '.$name.'</li>');
       
-if($email != 'railgeeelong@gmail.com')
+if($email != 'site@railgeelong.com')
 {   
 	echo '<li><span class="items">Email:</span> <a href="mailto:'.$email.'">'.$email.'</a> '.$cc_notify1.'</li>';
 }
