@@ -23,6 +23,7 @@ else if ($numberOfRows>0)
 	$thisLineId = stripslashes(MYSQL_RESULT($result,$i,"line_id"));
 	
 	$thisLink = stripslashes(MYSQL_RESULT($result,$i,"link"));
+	$thisOrder = stripslashes(MYSQL_RESULT($result,$i,"order"));
 	$thisStartlocation = stripslashes(MYSQL_RESULT($result,$i,"startlocation"));
 	$thisEndlocation = stripslashes(MYSQL_RESULT($result,$i,"endlocation"));
 	$thisOpened = stripslashes(MYSQL_RESULT($result,$i,"opened"));
@@ -45,7 +46,7 @@ else if ($numberOfRows>0)
 
     drawEditLineHeadbar($lineLink);
 ?>
-<fieldset><legend>Line</legend>
+<fieldset id="general"><legend>Line</legend>
 <form name="raillinesUpdateForm" method="POST" action="updateRaillines.php">
 <input type="hidden" name="thisLine_idField" value="<? echo $thisLineId; ?>">
 <table cellspacing="5" cellpadding="2" border="0" width="100%">
@@ -68,6 +69,10 @@ else if ($numberOfRows>0)
 	<tr valign="top" height="20">
 		<td align="right"> <b> <abbr title="'9999-01-01' for still open">Closed</abbr> :  </b> </td>
 		<td> <input type="text" name="thisClosedField" size="30" value="<? echo $thisClosed; ?>">  </td> 
+	</tr>
+	<tr valign="top" height="20">
+		<td align="right"> <b> Order :  </b> </td>
+		<td> <input type="text" name="thisOrderField" size="5" value="<? echo $thisOrder; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"><b>Show updated :  </b></td>

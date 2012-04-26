@@ -1,8 +1,10 @@
 <ul class="sitemenu">
 	<li class="menu"><a href="/backend/listSources.php">Sources</a></li>
 	<li class="menu"><a href="/backend/listArticles.php">Articles</a></li>
+</ul>
+<ul class="sitemenu">
 	<li class="menu"><a href="/backend/listArticles.php?region=">Regions</a></li>
-	<li class="menu"><a href="/backend/listRaillineRegion.php">Region Mappings</a></li>
+	<small><a href="/backend/listRaillineRegion.php">Line Mappings</a></small>
 </ul>
 <ul class="sitemenu">
 <?php

@@ -38,7 +38,7 @@ else if ($numberOfRows>0) {
 
 }
 ?>
-<fieldset id="update"><legend>Update Article</legend>
+<fieldset id="general"><legend>Update Article</legend>
 <form name="articlesUpdateForm" method="POST" action="updateArticles.php">
 
 <table cellspacing="2" cellpadding="2" border="0" width="100%">
@@ -48,12 +48,12 @@ else if ($numberOfRows>0) {
 		<td><? echo $thisId; ?></td> 
 	</tr>
 	<tr valign="top" height="20">
-		<td align="right"> <b> Link :  </b> </td>
-		<td> <input type="text" name="thisLinkField" size="40" value="<? echo $thisLink; ?>">  </td> 
-	</tr>
-	<tr valign="top" height="20">
 		<td align="right"> <b> Title :  </b> </td>
 		<td> <input type="text" name="thisTitleField" size="40" value="<? echo $thisTitle; ?>">  </td> 
+	</tr>
+	<tr valign="top" height="20">
+		<td align="right"> <b> Link :  </b> </td>
+		<td> <input type="text" name="thisLinkField" size="40" value="<? echo $thisLink; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Description :  </b> </td>
@@ -104,7 +104,6 @@ else if ($numberOfRows>0) {
 </table>
 
 <input type="submit" name="submitUpdateArticlesForm" value="Update Articles">
-<input type="reset" name="resetForm" value="Clear Form">
 
 </form>
 </fieldset>

@@ -89,13 +89,13 @@ if ($numberOfRows == $limitPerPage)
 	while ($i<$numberOfRows)
 	{
 
-		if (($i%2)==0) { $bgColor = "#FFFFFF"; } else { $bgColor = "#C0C0C0"; }
+		if (($i%2)==0) { $bgColor = "odd"; } else { $bgColor = "even"; }
 
 	$thisSuburb_id = MYSQL_RESULT($result,$i,"suburb_id");
 	$thisName = MYSQL_RESULT($result,$i,"name");
 
 ?>
-	<TR BGCOLOR="<? echo $bgColor; ?>">
+	<TR class="<? echo $bgColor; ?>">
 		<TD><? echo $thisSuburb_id; ?></TD>
 		<TD><? echo $thisName; ?></TD>
 	<TD><a href="editSuburbs.php?suburb_idField=<? echo $thisSuburb_id; ?>">Edit</a></TD>

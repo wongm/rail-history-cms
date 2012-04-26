@@ -14,35 +14,18 @@ if ($numberOfRows>0) {
 
 	$i=0;
 ?>
-
-<TABLE CELLSPACING="0" CELLPADDING="3" BORDER="0" WIDTH="100%">
-	<TR>
-		<TD>
-			<a href="<? echo $PHP_SELF; ?>?sortBy=safeworking_id&sortOrder=<? echo $newSortOrder; ?>&startLimit=<? echo $startLimit; ?>&rows=<? echo $limitPerPage; ?>">
-				<B>Safeworking_id</B>
-			</a>
-</TD>
-		<TD>
-			<a href="<? echo $PHP_SELF; ?>?sortBy=name&sortOrder=<? echo $newSortOrder; ?>&startLimit=<? echo $startLimit; ?>&rows=<? echo $limitPerPage; ?>">
-				<B>Name</B>
-			</a>
-</TD>
-		<TD>
-			<a href="<? echo $PHP_SELF; ?>?sortBy=link&sortOrder=<? echo $newSortOrder; ?>&startLimit=<? echo $startLimit; ?>&rows=<? echo $limitPerPage; ?>">
-				<B>Link</B>
-			</a>
-</TD>
-		<TD>
-			<a href="<? echo $PHP_SELF; ?>?sortBy=details&sortOrder=<? echo $newSortOrder; ?>&startLimit=<? echo $startLimit; ?>&rows=<? echo $limitPerPage; ?>">
-				<B>Details</B>
-			</a>
-</TD>
-	</TR>
+<TABLE class="linedTable">
+<TR>
+	<th>ID</th>
+	<th>Name</th>
+	<th>Link</th>
+	<th>Details</th>
+</TR>
 <?
 	while ($i<$numberOfRows)
 	{
 
-		if (($i%2)==0) { $bgColor = "#FFFFFF"; } else { $bgColor = "#C0C0C0"; }
+		if (($i%2)==0) { $bgColor = "odd"; } else { $bgColor = "even"; }
 
 	$thisSafeworking_id = MYSQL_RESULT($result,$i,"safeworking_id");
 	$thisName = MYSQL_RESULT($result,$i,"name");
@@ -50,13 +33,12 @@ if ($numberOfRows>0) {
 	$thisDetails = stripslashes(MYSQL_RESULT($result,$i,"details"));
 
 ?>
-	<TR BGCOLOR="<? echo $bgColor; ?>">
+	<TR class="<? echo $bgColor; ?>">
 		<TD><? echo $thisSafeworking_id; ?></TD>
-		<TD><? echo $thisName; ?></TD>
+		<TD style="white-space: nowrap"><a href="editSafeworking_types.php?safeworking_idField=<? echo $thisSafeworking_id; ?>"><? echo $thisName; ?></a></TD>
 		<TD><? echo $thisLink; ?></TD>
 		<TD><? echo $thisDetails; ?></TD>
-	<TD><a href="editSafeworking_types.php?safeworking_idField=<? echo $thisSafeworking_id; ?>">Edit</a></TD>
-	<TD><a href="confirmDeleteSafeworking_types.php?safeworking_idField=<? echo $thisSafeworking_id; ?>">Delete</a></TD>
+		<TD><a href="confirmDeleteSafeworking_types.php?safeworking_idField=<? echo $thisSafeworking_id; ?>">Delete</a></TD>
 	</TR>
 <?
 		$i++;

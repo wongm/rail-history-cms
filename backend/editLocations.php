@@ -92,8 +92,11 @@ else if ($formType == 'newLocationEvents')
 }
 
 
-$sql = "SELECT   * FROM locations l, locations_raillines lr 
-	WHERE l.location_id = lr.location_id AND $search";
+$sql = "SELECT  l.*, lr.*, r.link  
+	FROM locations l
+	INNER JOIN locations_raillines lr ON l.location_id = lr.location_id 
+	INNER JOIN raillines r ON r.line_id = lr.line_id 
+	WHERE $search";
 $result = MYSQL_QUERY($sql);
 $numberOfRows = MYSQL_NUMROWS($result);
 $pageTitle = 'Edit Location';
@@ -121,7 +124,6 @@ else
 	$thisImage = stripslashes(MYSQL_RESULT($result,$i,"image"));
 	$thisUrl = stripslashes(MYSQL_RESULT($result,$i,"url"));
 	$thisDiagrams = stripslashes(MYSQL_RESULT($result,$i,"diagrams"));
-	//$thisStatus = stripslashes(MYSQL_RESULT($result,$i,"status"));
 	$thisDisplay = stripslashes(MYSQL_RESULT($result,$i,"display"));
 	$thisDescription = stripslashes(MYSQL_RESULT($result,$i,"description"));
 	$thisCredits = stripslashes(MYSQL_RESULT($result,$i,"credits"));
@@ -130,27 +132,32 @@ else
 	$thisClose = stripslashes(MYSQL_RESULT($result,$i,"close"));
 	$thisCloseAccuracy = stripslashes(MYSQL_RESULT($result,$i,"closeAccuracy"));
 	$thisCoOrds = stripslashes(MYSQL_RESULT($result,$i,"long"));
-	//$thisKmAccuracy = stripslashes(MYSQL_RESULT($result,$i,"kmAccuracy"));
 	$thisPhotos = stripslashes(MYSQL_RESULT($result,$i,"photos"));
 	
 	$thisLine = stripslashes(MYSQL_RESULT($result,$i,"line_id"));
 	$thisKm = stripslashes(MYSQL_RESULT($result,$i,"km"));
+	$thisLineLink = stripslashes(MYSQL_RESULT($result,$i,"link"));
 	
 	$pageTitle = "Update Location - $thisName";
 	include_once("common/header.php");
 	
 	drawHeadbar($thisKm, $thisLine);
+	drawEditLineHeadbar($thisLineLink);
 ?>
 <table width="100%">
-<tr><td><ul>
-<li><a href="#general">General</a></li>
-<li><a href="#lines">Lines</a></li>
-<li><a href="#years">Important Years</a></li>
-<li><a href="#edit">Edit Events</a></li>
-<li><a href="#add">Add Events</a></li>
-<li><a href="#sources">Sources</a></li>
-</ul></td>
-<td valign="top"><p align="right"><a href="/location/<?=$thisLocationId?>">View location</a></p></tr>
+<tr><td>
+	<ul>
+		<li><a href="#general">General</a></li>
+		<li><a href="#lines">Lines</a></li>
+		<li><a href="#years">Important Years</a></li>
+		<li><a href="#edit">Edit Events</a></li>
+		<li><a href="#add">Add Events</a></li>
+		<li><a href="#sources">Sources</a></li>
+	</ul>
+</td>
+<td valign="top">
+	<p align="right"><a href="/location/<?=$thisLocationId?>">View location</a></p>
+</td></tr>
 </table>
 
 <form name="locationsUpdateForm" method="POST" action="updateLocations.php">
@@ -373,10 +380,20 @@ if ($numberOfRows2>0)
 	{	
 		$year = MYSQL_RESULT($result2,$i2,"year");
 		$yearID = MYSQL_RESULT($result2,$i2,"id");
-		if (($i2%2)==0) { $bgColor = "white"; } else { $bgColor = "#F5F7F5"; }
 		
-		?>
-<tr BGCOLOR="<? echo $bgColor; ?>"><td ALIGN='CENTER' class="date"><? echo $year; ?></td><td><a href="confirmDeleteLocationYears.php?yearField=<? echo $yearID; ?>">Delete?</a></td></tr>	<?
+		if (($i2%2)==0) 
+		{ 
+			$bgColor = "odd"; 
+		} 
+		else
+		{ 
+			$bgColor = "even";
+		} ?>
+<tr class="<? echo $bgColor; ?>">
+	<td ALIGN='CENTER' class="date"><? echo $year; ?></td>
+	<td><a href="confirmDeleteLocationYears.php?yearField=<? echo $yearID; ?>">Delete?</a></td>
+</tr>
+<?
 	} // end for loop
 } //end if
 else
@@ -418,7 +435,7 @@ if ($numberOfRows>0)
 {
 	for ($i = 0; $i < $numberOfRows; $i++)
 	{	
-		if (($i%2)==0) { $bgColor = "white"; } else { $bgColor = "#F5F7F5"; }
+		if (($i%2)==0) { $bgColor = "odd"; } else { $bgColor = "even"; }
 		$thisEvent_id = MYSQL_RESULT($result,$i,"event_id");
 		$date = MYSQL_RESULT($result,$i,"date");
 		$thisAdded = MYSQL_RESULT($result,$i,"added");
@@ -477,11 +494,11 @@ if ($numberOfRows>0)
 						break;
 				}
 			}	?>
-<tr BGCOLOR="<? echo $bgColor; ?>">
-<td class="date"><? echo $date; ?></td>
-<td><? echo $details; ?></td>
-<TD><a href="editLocationEvents.php?eventid=<? echo $thisEvent_id; ?>">Edit</a></TD>
-<TD><a href="confirmDeleteLocationEvents.php?eventid=<? echo $thisEvent_id; ?>">Delete</a></TD>
+<tr class="<? echo $bgColor; ?>">
+	<td class="date"><? echo $date; ?></td>
+	<td><? echo $details; ?></td>
+	<TD><a href="editLocationEvents.php?eventid=<? echo $thisEvent_id; ?>">Edit</a></TD>
+	<TD><a href="confirmDeleteLocationEvents.php?eventid=<? echo $thisEvent_id; ?>">Delete</a></TD>
 </tr>	<?
 	} // end for loop
 } //end if

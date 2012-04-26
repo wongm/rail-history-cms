@@ -4,39 +4,32 @@ include_once("common/dbConnection.php");
 include_once("common/header.php");
 
 $sql = "SELECT   * FROM railline_region, articles, raillines 
-	WHERE railline_region.line_id = raillines.line_id AND railline_region.article_id = articles.article_id";
+	WHERE railline_region.line_id = raillines.line_id AND railline_region.article_id = articles.article_id
+	ORDER BY articles.title, raillines.order";
 $result = MYSQL_QUERY($sql);
 $numberOfRows = MYSQL_NUM_ROWS($result);
 
 if ($numberOfRows>0) 
 {
 ?>	
-<a href="enterNewRaillineRegion.php">Add new mapping</a><hr/>
-	<TABLE CELLSPACING="0" CELLPADDING="3" BORDER="0" WIDTH="100%">
+<a href="editRaillineRegion.php">Add new mapping</a>
+	<TABLE class="linedTable">
 	<TR>
-		<TD>
-				<B>Linkzor ID</B>
-</TD>
-		<TD>
-				<B>Line</B>
-</TD>
-		<TD>
-				<B>Article</B>
-</TD>
+		<th>Line</th>
+		<th>Region</th>
 	</TR>
 <?
 	while ($i<$numberOfRows)
 	{
 
-		if (($i%2)==0) { $bgColor = "#FFFFFF"; } else { $bgColor = "#C0C0C0"; }
+		if (($i%2)==0) { $bgColor = "odd"; } else { $bgColor = "even"; }
 
 	$thisLinkzor_id = MYSQL_RESULT($result,$i,"linkzor_id");
 	$thisLine_id = MYSQL_RESULT($result,$i,"raillines.name");
 	$thisArticle_id = MYSQL_RESULT($result,$i,"articles.title");
 
 ?>
-	<TR BGCOLOR="<? echo $bgColor; ?>">
-		<TD><? echo $thisLinkzor_id; ?></TD>
+	<TR class="<? echo $bgColor; ?>">
 		<TD><? echo $thisLine_id; ?></TD>
 		<TD><? echo $thisArticle_id; ?></TD>
 	<TD><a href="editRaillineRegion.php?id=<? echo $thisLinkzor_id; ?>">Edit</a></TD>

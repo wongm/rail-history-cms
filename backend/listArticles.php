@@ -1,71 +1,57 @@
 <?php
-$pageTitle = 'Articles';
-include_once("common/dbConnection.php");
-include_once("common/header.php");
 
 if (isset($_REQUEST['region']))
 {
-	$extra = " WHERE line_id = -1";	
+	$pageSql = " WHERE line_id = -1";	
+	$pageType = 'region';
+	$pageLink = '?region=';
+	
 }
 else if (!isset($_REQUEST['all']))
 {
-	$extra = " WHERE line_id = 0";	
+	$pageSql = " WHERE line_id = 0";	
+	$pageType = 'article';
 }
 
-$sql = "SELECT  * FROM articles $extra";
+$pageTitle = ucfirst($pageType . 's');
+
+include_once("common/dbConnection.php");
+include_once("common/header.php");
+
+$sql = "SELECT  * FROM articles $pageSql";
 $result = MYSQL_QUERY($sql);
 $numberOfRows = MYSQL_NUM_ROWS($result);
 
-if ($numberOfRows>0) {
-
+if ($numberOfRows>0) 
+{
 	$i=0;
 ?>
-<a href="enterNewArticles.php">Add new article</a><hr/>
-<a href="<?=$_SERVER['PHP_SELF']?>">Articles Only</a> :: <a href="<?=$_SERVER['PHP_SELF']."?region="?>">Regions Only</a> :: <a href="<?=$_SERVER['PHP_SELF']."?all="?>">All Articles</a><hr/>
+<a href="insertNewArticles.php<?php echo $pageLink ?>">Add new <?php echo $pageType ?></a>
 
-<TABLE CELLSPACING="0" CELLPADDING="3" BORDER="0" WIDTH="100%">
+<TABLE class="linedTable">
 	<TR>
-		<TD>
-			<a href="<? echo $PHP_SELF; ?>?sortBy=link&sortOrder=<? echo $newSortOrder; ?>&startLimit=<? echo $startLimit; ?>&rows=<? echo $limitPerPage; ?>">
-				<B>Link</B>
-			</a>
-</TD>
-		<TD>
-			<a href="<? echo $PHP_SELF; ?>?sortBy=title&sortOrder=<? echo $newSortOrder; ?>&startLimit=<? echo $startLimit; ?>&rows=<? echo $limitPerPage; ?>">
-				<B>Title</B>
-			</a>
-</TD>
-		<TD>
-			<a href="<? echo $PHP_SELF; ?>?sortBy=description&sortOrder=<? echo $newSortOrder; ?>&startLimit=<? echo $startLimit; ?>&rows=<? echo $limitPerPage; ?>">
-				<B>Description</B>
-			</a>
-</TD>
-		<TD>
-			<a href="<? echo $PHP_SELF; ?>?sortBy=content&sortOrder=<? echo $newSortOrder; ?>&startLimit=<? echo $startLimit; ?>&rows=<? echo $limitPerPage; ?>">
-				<B>Content</B>
-			</a>
-</TD>
+		<th>Title</th>
+		<th>Description</th>
+		<th>Content</th>
 	</TR>
 <?
 	while ($i<$numberOfRows)
 	{
+		if (($i%2)==0) { $bgColor = "odd"; } else { $bgColor = "even"; }
 
-		if (($i%2)==0) { $bgColor = "#FFFFFF"; } else { $bgColor = "#C0C0C0"; }
-
-	$thisId = MYSQL_RESULT($result,$i,"article_id");
-	$thisLink = stripslashes(MYSQL_RESULT($result,$i,"link"));
-	$thisTitle = stripslashes(MYSQL_RESULT($result,$i,"title"));
-	$thisDescription = stripslashes(MYSQL_RESULT($result,$i,"description"));
-	$thisContent = stripslashes(MYSQL_RESULT($result,$i,"content"));
-
+		$thisId = MYSQL_RESULT($result,$i,"article_id");
+		$thisLink = stripslashes(MYSQL_RESULT($result,$i,"link"));
+		$thisTitle = stripslashes(MYSQL_RESULT($result,$i,"title"));
+		$thisDescription = stripslashes(MYSQL_RESULT($result,$i,"description"));
+		$thisContent = stripslashes(MYSQL_RESULT($result,$i,"content"));
 ?>
-	<TR BGCOLOR="<? echo $bgColor; ?>">
-		<TD><? echo $thisLink; ?></TD>
-		<TD><? echo $thisTitle; ?></TD>
+	<TR class="<? echo $bgColor; ?>">
+		<TD><a href="editArticles.php?id=<? echo $thisId; ?>" style="white-space: nowrap" alt="<? echo $thisLink; ?>" title="<? echo $thisLink; ?>">
+			<?php echo $thisTitle ?>
+		</a></TD>
 		<TD><? echo $thisDescription; ?></TD>
 		<TD><? if($thisContent != '') { echo 'Yes'; } ?></TD>
-	<TD><a href="editArticles.php?id=<? echo $thisId; ?>">Edit</a></TD>
-	<TD><a href="confirmDeleteArticles.php?id=<? echo $thisId; ?>">Delete</a></TD>
+		<TD><a href="confirmDeleteArticles.php?id=<? echo $thisId; ?>">Delete</a></TD>
 	</TR>
 <?
 		$i++;

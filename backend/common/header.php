@@ -64,7 +64,8 @@ else
 	echo '<a href="http://www.railgeelong.com:2082/3rdparty/phpMyAdmin/" target="_blank">phpMyAdmin</a> &nbsp; | &nbsp; ';
 }
 ?>
-  <a href="/news/wp-admin/" target="_blank">News</a> &nbsp; | &nbsp; <a href="/gallery/zp-core/admin.php" target="_blank">Gallery</a> &nbsp; | &nbsp; <a href="/backend/index.php">Logout</a></p> 
+<a href="/gallery/zp-core/admin.php" target="_blank">Gallery</a> &nbsp; | &nbsp; 
+<a href="/backend/index.php">Logout</a></p> 
 </div>
 </div>
 <div id="contentwrapper">

@@ -21,3 +21,10 @@
 	font-weight: bold;
 	margin: 0px;
 }
+
+tr {
+	vertical-align: top;
+}
+td {
+	padding: 6px 2px;
+}

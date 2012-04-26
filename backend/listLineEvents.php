@@ -62,31 +62,31 @@ else if ($numberOfRows>0) {
 	while ($i<$numberOfRows)
 	{
 
-		if (($i%2)==0) { $bgColor = "white"; } else { $bgColor = "#F5F7F5"; }
+		if (($i%2)==0) { $bgColor = "odd"; } else { $bgColor = "even"; }
 
-	$thisEvent_id = stripslashes(MYSQL_RESULT($result,$i,"event_id"));
-	$thisLine = stripslashes(MYSQL_RESULT($result,$i,"line"));
-	$thisDate = stripslashes(MYSQL_RESULT($result,$i,"date"));
-	$thisApprox = stripslashes(MYSQL_RESULT($result,$i,"dateAccuracy"));
-	$thisTracks = stripslashes(MYSQL_RESULT($result,$i,"tracks"));
-	$thisSafeworking = stripslashes(MYSQL_RESULT($result,$i,"safeworking"));
-	$thisGauge = stripslashes(MYSQL_RESULT($result,$i,"gauge"));
-	$thisWhy = stripslashes(MYSQL_RESULT($result,$i,"safeworking_why"));
-	$thisDisplay = stripslashes(MYSQL_RESULT($result,$i,"display"));
-	$thisDescription = MYSQL_RESULT($result,$i,"description");
-	
-	if (MYSQL_RESULT($result,$i,"safeworking_middle") != 0)
-	{
-		$thisMiddle = 'Y';
-	}
-	else
-	{
-		$thisMiddle = '';
-	}
+		$thisEvent_id = stripslashes(MYSQL_RESULT($result,$i,"event_id"));
+		$thisLine = stripslashes(MYSQL_RESULT($result,$i,"line"));
+		$thisDate = stripslashes(MYSQL_RESULT($result,$i,"date"));
+		$thisApprox = stripslashes(MYSQL_RESULT($result,$i,"dateAccuracy"));
+		$thisTracks = stripslashes(MYSQL_RESULT($result,$i,"tracks"));
+		$thisSafeworking = stripslashes(MYSQL_RESULT($result,$i,"safeworking"));
+		$thisGauge = stripslashes(MYSQL_RESULT($result,$i,"gauge"));
+		$thisWhy = stripslashes(MYSQL_RESULT($result,$i,"safeworking_why"));
+		$thisDisplay = stripslashes(MYSQL_RESULT($result,$i,"display"));
+		$thisDescription = MYSQL_RESULT($result,$i,"description");
+		
+		if (MYSQL_RESULT($result,$i,"safeworking_middle") != 0)
+		{
+			$thisMiddle = 'Y';
+		}
+		else
+		{
+			$thisMiddle = '';
+		}
 
 ?>
-	<TR BGCOLOR="<? echo $bgColor; ?>">
-		<TD><? echo $thisDate; ?></TD>
+	<TR class="<? echo $bgColor; ?>">
+		<TD><a href="editRaillineEvents.php?event=<? echo $thisEvent_id; ?>&line=<? echo $_REQUEST['line']; ?> "><? echo $thisDate; ?></a></TD>
 		<TD><? echo $thisApprox; ?></TD>
 		<TD><? echo $thisDisplay; ?></TD>
 <? 	if ($thisDescription != '')
@@ -108,8 +108,7 @@ else if ($numberOfRows>0) {
 		<TD><? echo $thisMiddle; ?></TD>
 		<TD><abbr title="<? echo $thisWhy; ?>"><? echo substr($thisWhy, 0, 4); ?></abbr></TD>
 <? 	}	?>		
-	<TD><a href="editRaillineEvents.php?event=<? echo $thisEvent_id; ?>&line=<? echo $_REQUEST['line']; ?> ">Edit</a>
-	<a href="confirmDeleteRaillineEvents.php?event=<? echo $thisEvent_id; ?>&line=<? echo $_REQUEST['line']; ?>">Delete</a></TD>
+		<TD><a href="confirmDeleteRaillineEvents.php?event=<? echo $thisEvent_id; ?>&line=<? echo $_REQUEST['line']; ?>">Delete</a></TD>
 	</TR>
 <?
 		$i++;

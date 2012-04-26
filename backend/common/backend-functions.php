@@ -73,9 +73,10 @@ function drawHeadbar($thisKm, $thisLine)
 	{
 	?>
 <!-- next / back links -->
-<table class="headbar">
-<tr><td><? echo $back; ?></td><td align="right"><? echo $next; ?></td></tr>
-</table>
+<div class="headbar">
+	<div class="previous"><? echo $back; ?></div>
+	<div class="next"><? echo $next; ?></div>
+</div>
 <?
 	}
 }	// end function
@@ -205,9 +206,10 @@ function drawLineNameSelectFields($currentLineId)
 		for ($i = 0; $i<$numberOfRows; $i++)
 		{
 			$thisLoopLine_id = stripslashes(MYSQL_RESULT($result,$i,"line_id"));
+			$thisLoopLine_link = stripslashes(MYSQL_RESULT($result,$i,"link"));
 			$thisName = stripslashes(MYSQL_RESULT($result,$i,"name"));
 			
-			if($thisLoopLine_id == $currentLineId)
+			if($thisLoopLine_id == $currentLineId || $thisLoopLine_link == $currentLineId)
 			{
 				$selected = ' selected';
 			}
@@ -543,11 +545,11 @@ function  drawAddNewLocationEvent()
 function drawEditLineHeadbar($lineLink)
 {
 	?>
-<table class="headbar"><tr><td>
+<div class="headbar">
 <a href="editLines.php?line=<? echo $lineLink; ?>">Details</a> :: 
 <a href="listLineLocations.php?line=<? echo $lineLink; ?>">Locations</a> :: 
 <a href="listLineEvents.php?line=<? echo $lineLink; ?>">Events</a>
-</td></tr></table>
+</div>
 <?
 }
 
@@ -599,17 +601,18 @@ if ($numberOfRows3>0)
 			$url = 'Y';
 		}
 	
-		if (($i3%2)==0) { $bgColor = "white"; } else { $bgColor = "#F5F7F5"; }
+		if (($i3%2)==0) { $bgColor = "odd"; } else { $bgColor = "even"; }
 		
 		?>
-<tr BGCOLOR="<? echo $bgColor; ?>">
-<td ALIGN='CENTER'><? echo $sourceName; ?></td>
-<td><? echo $extra; ?> </td>
-<td><? echo $page; ?> </td>
-<td><? echo $date; ?> </td>
-<td><? echo $url; ?> </td>
-<td><a href="editObjectSources.php?type=<?=$type?>&id=<? echo $uniqueId; ?>">Edit?</a></td>
-<td><a href="confirmDeleteObjectSources.php?type=<?=$type?>&id=<? echo $uniqueId; ?>">Delete?</a></td></tr>	<?
+<tr class="<? echo $bgColor; ?>">
+	<td ALIGN='CENTER'><? echo $sourceName; ?></td>
+	<td><? echo $extra; ?> </td>
+	<td><? echo $page; ?> </td>
+	<td><? echo $date; ?> </td>
+	<td><? echo $url; ?> </td>
+	<td><a href="editObjectSources.php?type=<?=$type?>&id=<? echo $uniqueId; ?>">Edit?</a></td>
+	<td><a href="confirmDeleteObjectSources.php?type=<?=$type?>&id=<? echo $uniqueId; ?>">Delete?</a></td>
+</tr>	<?
 	} // end for loop
 } //end if
 else

@@ -32,41 +32,27 @@ if ($numberOfRows>0) {
 ?>
 <a href="enterNewSources.php">Add new source</a><hr/>
 
-<TABLE CELLSPACING="0" CELLPADDING="3" BORDER="0" WIDTH="100%">
+<TABLE class="linedTable">
 	<TR>
-		<TD>
-			<a href="<? echo $PHP_SELF; ?>?sortBy=id&sortOrder=<? echo $newSortOrder; ?>&startLimit=<? echo $startLimit; ?>&rows=<? echo $limitPerPage; ?>">
-				<B>Source_id</B>
-			</a>
-</TD>
-		<TD>
-			<a href="<? echo $PHP_SELF; ?>?sortBy=name&sortOrder=<? echo $newSortOrder; ?>&startLimit=<? echo $startLimit; ?>&rows=<? echo $limitPerPage; ?>">
-				<B>Name</B>
-			</a>
-</TD>
-		<TD>
-			<a href="<? echo $PHP_SELF; ?>?sortBy=details&sortOrder=<? echo $newSortOrder; ?>&startLimit=<? echo $startLimit; ?>&rows=<? echo $limitPerPage; ?>">
-				<B>Details</B>
-			</a>
-</TD>
+		<th>Short</th>
+		<th>Name</th>
 	</TR>
 <?
 	while ($i<$numberOfRows)
 	{
 
-		if (($i%2)==0) { $bgColor = "#FFFFFF"; } else { $bgColor = "#C0C0C0"; }
+		if (($i%2)==0) { $bgColor = "odd"; } else { $bgColor = "even"; }
 
 	$thisSource_id = stripSlashes(MYSQL_RESULT($result,$i,"source_id"));
 	$thisName = stripSlashes(MYSQL_RESULT($result,$i,"name"));
+	$thisShort = stripSlashes(MYSQL_RESULT($result,$i,"short"));
 	$thisDetails = stripSlashes(MYSQL_RESULT($result,$i,"details"));
 
 ?>
-	<TR BGCOLOR="<? echo $bgColor; ?>">
-		<TD><? echo $thisSource_id; ?></TD>
+	<TR class="<? echo $bgColor; ?>">
+		<TD><a href="editSources.php?id=<? echo $thisSource_id; ?>"><? echo $thisShort; ?></a></TD>
 		<TD><? echo $thisName; ?></TD>
-		<TD><? echo $thisDetails; ?></TD>
-	<TD><a href="editSources.php?id=<? echo $thisSource_id; ?>">Edit</a></TD>
-	<TD><a href="confirmDeleteSources.php?id=<? echo $thisSource_id; ?>">Delete</a></TD>
+		<TD><a href="confirmDeleteSources.php?id=<? echo $thisSource_id; ?>">Delete</a></TD>
 	</TR>
 <?
 		$i++;
@@ -74,24 +60,6 @@ if ($numberOfRows>0) {
 	} // end while loop
 ?>
 </TABLE>
-
-<br>
-<?
-if ($_REQUEST['startLimit'] != "")
-{
-?>
-
-<a href="<? echo  $_SERVER['PHP_SELF']; ?>?startLimit=<? echo $previousStartLimit; ?>&limitPerPage=<? echo $limitPerPage; ?>&sortBy=<? echo $sortBy; ?>&sortOrder=<? echo $sortOrder; ?>">Previous <? echo $limitPerPage; ?> Results</a>....
-<? } ?>
-<?
-if ($numberOfRows == $limitPerPage)
-{
-?>
-<a href="<? echo $_SERVER['PHP_SELF']; ?>?startLimit=<? echo $nextStartLimit; ?>&limitPerPage=<? echo $limitPerPage; ?>&sortBy=<? echo $sortBy; ?>&sortOrder=<? echo $sortOrder; ?>">Next <? echo $limitPerPage; ?> Results</a>
-<? } ?>
-
-<br><br>
-<a href="enterNewSources.php">Enter new Source</a>
 <?
 } // end of if numberOfRows > 0 
  ?>
