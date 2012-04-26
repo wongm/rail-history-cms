@@ -140,21 +140,29 @@ img {
 
 /* for the link bar along the top
 ------------------------------ */
-.headbar {
-	font-size : 14px;
+table.headbar {
 	width: 100%;
+}
+.headbar {
 	border: #999;
 	border-style: solid;
 	border-width: 1px 0;
-	min-height: 3em;
-	padding: 3px 0;
+	padding: 5px;
 	background-color: #FAFAFA;
+	margin: 0 0 8px 0;
+	min-height: 1em;
 }
 .headbar a {
 	text-decoration: none;
 }
 .headbar a:hover {
 	text-decoration: underline;
+}
+.headbar .previous {
+	float: left;
+}
+.headbar .next {
+	float: right;
 }
 .topbar {
 	margin: 0 0 10px 0;
@@ -260,12 +268,15 @@ ul.sitemenu{
 	color: #336633;
 	text-decoration: none;
 }
-.lmenu a {
-	font-size: 0.8em;
-}
 .menu a:hover {
 	background-color: #336633;
 	color: white;
+}
+.submenu a {
+	font-size: 0.95em;
+}
+.subsubmenu a {
+	font-size: 0.9em;
 }
 .group a {
 	text-align:left;
@@ -344,27 +355,20 @@ a:hover {
 }
 /* 'lineguide' and 'location' formatting stuff 
 ------------------------------ */
+.odd td {
+	background-color: white;
+}
+.even td {
+	background-color: #F5F7F5;
+}
 .linedTable td, th {
 	padding: .4em 10px;
 }
 .linedTable .date {
 	width: 18em;
 }
-.linedTable .x {
-	background-color: white;
-}
-.linedTable .y {
-	background-color: #F5F7F5;
-}
 #locationTable {
 	text-align: center;
-}
-.submenu {
-	border: 0px;
-    margin: 8px 0 5px;
-}
-.submenu a {
-	text-decoration: underline;
 }
 
 /* gallery stuff */

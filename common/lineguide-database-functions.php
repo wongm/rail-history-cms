@@ -36,14 +36,17 @@ function getLineguideExtraPage($line, $section)
 function getLine($lineToDisplay, $yearToDisplay)
 {
 	//	fix up names and line IDs
-	$lineResultSQL = "SELECT r.*, r.link AS pagelink, r.name AS pagetitle, r.description as pagecontent, DATE_FORMAT(r.modified, '%M %e, %Y') AS fdate, count(lr.location_id) AS line_locations, 'page' AS type
+	$lineResultSQL = "SELECT r.*, r.link AS pagelink, r.name AS pagetitle, r.description as pagecontent, 
+			DATE_FORMAT(r.modified, '%M %e, %Y') AS fdate, 
+			count(lr.location_id) AS line_locations, 'page' AS type
 			FROM raillines r
 			LEFT OUTER JOIN locations_raillines lr ON lr.line_id = r.line_id
 			WHERE r.link = '".mysql_real_escape_string($lineToDisplay)."' 
 			AND todisplay != 'hide'
 			GROUP BY lr.line_id
 		UNION ALL 
-			SELECT r.*, a.link AS pagelink, a.title AS pagetitle, a.content as pagecontent, DATE_FORMAT(a.modified, '%M %e, %Y') AS fdate, 0 AS line_locations, 'subpage' AS type
+			SELECT r.*, a.link AS pagelink, a.title AS pagetitle, a.content as pagecontent, 
+			DATE_FORMAT(a.modified, '%M %e, %Y') AS fdate, 0 AS line_locations, 'subpage' AS type
 			FROM raillines r
 			LEFT OUTER JOIN articles a ON a.line_id = r.line_id
 			WHERE r.link = '".mysql_real_escape_string($lineToDisplay)."' 
@@ -56,6 +59,9 @@ function getLine($lineToDisplay, $yearToDisplay)
 	{
 		// get basic details
 		$line = getLineBasicDetails($lineResult, 0);
+		
+		// get all of the regions
+		$line['regions'] = getRegionsForLine($line["lineId"]);
 		
 		// get locations details
 		$line["trackDiagramNote"] = stripslashes(MYSQL_RESULT($lineResult,0,"trackdiagramnote"));
@@ -168,5 +174,21 @@ function getLineBasicDetails($result, $j)
 	$line["showGoogleMap"] = file_exists($_SERVER['DOCUMENT_ROOT'].$line["googleMapUrl"]) == 1;
 	
 	return $line;
+}
+
+function getRegionsForLine($lineid)
+{
+	$regionResultSQL = "SELECT region.link FROM railline_region rr
+			LEFT OUTER JOIN articles region ON region.article_id = rr.article_id
+			WHERE rr.line_id = '$lineid'";
+			
+	$regionResult = MYSQL_QUERY($regionResultSQL, locationDBconnect());
+	
+	for ($i = 0; $i < MYSQL_NUM_ROWS($regionResult); $i++)
+	{
+		$regions[] = stripslashes(MYSQL_RESULT($regionResult,$i,"region.link"));
+	}
+	
+	return $regions;
 }
 ?>

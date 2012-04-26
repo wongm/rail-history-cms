@@ -1,7 +1,7 @@
 <?php
 
 function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
-{
+{	
 	// depends on what class of diagram we want - line
 	if ($lineId != '')
 	{
@@ -86,15 +86,15 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 		// base page URL for sort links
 		$toreturn['pageurl'] = $pageUrl;
 		// the header cell titles
-		$toreturn['headertitle'] = array($headerTitle, 'Photos', 'Events', 'History', 'Distance', 'Name');
+		$toreturn['headertitle'] = array('Name', $headerTitle, 'Distance', 'Photos', 'Events', 'History');
 		// the header cell width
-		$toreturn['headerstyle'] = array(' width="'.$headerWidth.'"', ' width="50"', ' width="50"', ' width="50"', ' width="100"', '');
+		$toreturn['headerstyle'] = array('', '', ' width="100"', ' width="50"', ' width="50"', ' width="50"');
 		// the header cell URLs
-		$toreturn['headerurl'] = array($headerUrl, 'by-photos', 'by-events', 'by-history', 'by-km', 'by-name');
+		$toreturn['headerurl'] = array('by-name', $headerUrl, 'by-km', 'by-photos', 'by-events', 'by-history');
 	}
 	
 	for ($i  = 0; $i < $numberOfLocations; $i++)
-	{
+	{	
 		$id = stripslashes(MYSQL_RESULT($result,$i,"l.location_id"));
 		$uniqueName = (MYSQL_RESULT($result,$i,"unique_name") == 1);
 		
@@ -161,7 +161,7 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 		
 		// display locations with big description, or photos, or events
 		// fallback setting of URL
-		if ($thisPhoto != '0' OR $thisEvent == 1 OR $thisLength != '' AND $locationUrl == '')
+		if (($thisPhoto != '0' OR $thisEvent == 1 OR $thisLength != '') AND $locationUrl == '')
 		{
 			$locationUrl = '/location/'.$base;
 		}
@@ -169,14 +169,6 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 		// only show ones with URL set
 		if ($locationUrl != '')
 		{
-			if ($j%2 == '0')
-			{
-				$style = 'class="x"';
-			}
-			else
-			{
-				$style = 'class="y"';
-			}
 			// image if events
 			if ($thisEvent == 1)
 			{
@@ -215,7 +207,7 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 				$thisCommon = $locationTypeName;
 			}
 			
-			$toreturn[] = array($thisCommon, $thisPhoto, $thisEvent, $thisLength, $thisKm, $locationName, $locationUrl);
+			$toreturn[] = array($thisCommon, $thisKm, $thisPhoto, $thisEvent, $thisLength, $locationName, $locationUrl);
 			$j++;
 			$pastid = $id;
 			

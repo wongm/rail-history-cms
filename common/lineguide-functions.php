@@ -12,14 +12,21 @@ function drawLineguideHeaders($line, $section='')
 	if (strtolower($section) == 'google map') {
 		$googleHeader = true;
 	}
-	include_once(dirname(__FILE__) . "/../common/header.php");
 	
-	drawLineguideHeadbar($line);
-	echo "<div id=\"lineguide\">\n";
+	include_once(dirname(__FILE__) . "/../common/header.php");
+	?>
+<table class="headbar">
+	<tr><td>
+		<a href="/">Home</a> &raquo; <a href="/lineguides">Line Guides</a> &raquo; <a href="/lineguide/<?=$line['lineLink'] ?>"><?=getLineName($line['lineName']) ?></a>
+	</td>
+	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
+</table>
+<div id="lineguide">
+<?
 }
 
 function drawLineguideFooters($line, $section='')
-{
+{	
 	//draw the credits if they exist
 	if (strtolower($section) != 'google map') {
 		if ($line['fullsources'] == '')
@@ -32,6 +39,11 @@ function drawLineguideFooters($line, $section='')
 	echo "</div>\n";
 
 	$lastUpdatedDate = $line['updated'];
+	
+	// set parent item for nav.php
+	global $pageNavigation;
+	$pageNavigation = getLineguideNavigation($line);
+	
 	include_once(dirname(__FILE__) . "/../common/footer.php");
 }
 
@@ -261,44 +273,23 @@ function drawSafeworkingLegend()
 
 
 // for use on lineguide pages
-// doesn't show a link to the page you are currently on
-function drawLineguideHeadbar($line)
+// sets child items for use in nav.php
+function getLineguideNavigation($line)
 {
-?>
-<table class="headbar">
-	<tr><td>
-		<a href="/">Home</a> &raquo; <a href="/lineguide">Line Guides</a> &raquo; <a href="/lineguide/<?=$line['lineLink'] ?>"><?=getLineName($line['lineName']) ?></a><?php echo $currentBreadcrumbTitle ?>
-	</td>
-	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
-</table>
-<?
-	$itemstodisplay = getLineguidePages($line, 'headbar');
-	
-	if (sizeof($itemstodisplay) > 1)
-	{
-		drawLineguideSubmenu($line, $itemstodisplay);
-	}
-}
-
-function drawLineguideSubmenu($line, $itemstodisplay)
-{
-	$pageTitle = getLineName($line['lineName'])." Introduction";
-	$lineguideMenuHTML = "<table class=\"submenu headbar\"><tr><td>\n";
+	$itemsToDisplay = getLineguidePages($line, 'headbar');
+	$pageTitle = getLineName($line['lineName'])." History";
 	
 	// initial home link
-	if (strlen($_REQUEST['section']) == 0)
-	{
-		$lineguideMenuHTML .= "<span>Introduction</span>\n";
-	}
-	else
-	{
-		$lineguideMenuHTML .= "<a href=\"/lineguide/".$line['lineLink']."\" alt=\"$pageTitle\" title=\"$pageTitle\">Introduction</a>\n";
-	}
-		
+	$pageNavigation['regions'] = $line['regions'];
+	$pageNavigation[0]['url'] = "/lineguide/".$line['lineLink'];
+	$pageNavigation[0]['title'] = getLineName($line['lineName']);
+	
 	// loop through the different pages
-	if (sizeof($itemstodisplay) > 1)
+	if (sizeof($itemsToDisplay) > 1)
 	{
-		foreach ($itemstodisplay as $singleline)
+		$i = 0;
+		
+		foreach ($itemsToDisplay as $singleline)
 		{
 			$url = $_REQUEST['section'];
 			$url = str_replace('-by-date', '', $url);
@@ -312,18 +303,26 @@ function drawLineguideSubmenu($line, $itemstodisplay)
 			{
 				if (strlen($singleline[1]) > 0)
 				{
-					$lineguideMenuHTML .= " :: <span>".$singleline[1]."</span>\n";
-					$currentBreadcrumbTitle = " &raquo; " . $singleline[1];
+					$pageNavigation[0][$i]['url'] = "/lineguide/".$line['lineLink']."/".$singleline[0];
+					$pageNavigation[0][$i]['title'] = $singleline[1];
+					//$lineguideMenuHTML .= " :: <span>".$singleline[1]."</span>\n";
+					//$currentBreadcrumbTitle = " &raquo; " . $singleline[1];
 				}
 			}
 			else
-			{
-				$lineguideMenuHTML .= " :: <a href=\"/lineguide/".$line['lineLink']."/".$singleline[0]."\">".$singleline[1]."</a>\n";
+			{				
+				$pageNavigation[0][$i]['url'] = "/lineguide/".$line['lineLink']."/".$singleline[0];
+				$pageNavigation[0][$i]['title'] = $singleline[1];
+				//$lineguideMenuHTML .= " :: <a href=\"/lineguide/".$line['lineLink']."/".$singleline[0]."\">".$singleline[1]."</a>\n";
 			}
+			
+			$i++;
+			
 		}
 	}
 
-	echo $lineguideMenuHTML .= "</td></tr></table>\n";
+	return $pageNavigation;
+	//echo $lineguideMenuHTML .= "</td></tr></table>\n";
 }	//end function
 
 function drawSpecificLine($line, $contentsHeader = 'Contents')
@@ -1064,13 +1063,13 @@ function drawAllLineguideDotpoints($type)
 <?
 			if ($type == 'sitemap')
 			{
-				$itemstodisplay = getLineguidePages($line);
+				$itemsToDisplay = getLineguidePages($line);
 				echo "<ul class=\"tableofcontents\">\n";
 
-				for ($i = 0; $i < sizeof($itemstodisplay); $i++)
+				for ($i = 0; $i < sizeof($itemsToDisplay); $i++)
 				{
 ?>
-<li><a href="/lineguide/<? echo $line["lineLink"]; ?>/<? echo $itemstodisplay[$i][0]; ?>" ><? echo $itemstodisplay[$i][1]; ?></a></li>
+<li><a href="/lineguide/<? echo $line["lineLink"]; ?>/<? echo $itemsToDisplay[$i][0]; ?>" ><? echo $itemsToDisplay[$i][1]; ?></a></li>
 <?
 				}
 

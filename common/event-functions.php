@@ -653,17 +653,17 @@ function drawEventsTable($dataarray)
 	{	
 		if ($j%2 == '0')
 		{
-			$style = 'class="x"';
+			$style = 'odd';
 		}
 		else
 		{
-			$style = 'class="y"';
+			$style = 'even';
 		}
 		
 		if ($dataarray[$i]['details'] != '')
 		{
 ?>
-<tr <? echo $style; ?> valign="top">
+<tr class="<? echo $style; ?>">
 	<td class="date"><? echo $dataarray[$i]['date']; ?></td>
 	<td><? echo $dataarray[$i]['details'];	?></td>
 </tr>

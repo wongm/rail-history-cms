@@ -9,11 +9,11 @@ function drawUpdatedPagesTable($updatedLocations, $frontPage=false)
 	{
 ?>
 <tr>
-	<th class="d">Date</th>
+	<th></th>
 	<th class="t">Type</th>
+	<th class="d">Date</th>
 	<th class="t">Photos</th>
 	<th class="t">History</th>
-	<th></th>
 </tr>
 <?
 	}
@@ -22,11 +22,11 @@ function drawUpdatedPagesTable($updatedLocations, $frontPage=false)
 	{	
 		if ($j%2 == '0')
 		{
-			$style = 'class="x"';
+			$style = 'odd';
 		}
 		else
 		{
-			$style = 'class="y"';
+			$style = 'even';
 		}
 		
 		$date = MYSQL_RESULT($updatedLocations,$i,"fdate");
@@ -42,22 +42,22 @@ function drawUpdatedPagesTable($updatedLocations, $frontPage=false)
 		switch ($objecttype)
 		{
 			case 'L':
-				$path = 'Location';
+				$itemType = 'Location';
 				$name = getLocationName($name, $locationtype);
 				break;
 			case 'RL':
-				$path = 'Lineguide';
+				$itemType = 'Lineguide';
 				$name = getLineName($name);
 				break;
 			case 'A':
-				$path = 'Article';
+				$itemType = 'Article';
 				break;	
 			case 'R':
-				$path = 'Region';
+				$itemType = 'Region';
 				break;
 		}
 		
-		$urlText = '<a href="/'.strtolower($path).'/'.$id.'">';
+		$urlText = '<a href="/'.strtolower($itemType).'/'.$id.'">';
 		
 		if (showPhotos(MYSQL_RESULT($updatedLocations,$i,"photos")))
 		{
@@ -73,12 +73,12 @@ function drawUpdatedPagesTable($updatedLocations, $frontPage=false)
 		{
 			$j++;
 ?>
-<tr <? echo $style; ?>>
+<tr class="<? echo $style; ?>">
+	<td align="left"><?=$urlText?><?=$name; ?></a></td>
+	<td><?=$itemType ?></td>
 	<td><? echo $date; ?></td>
-	<td><?=$path ?></td>
 	<td><?=$photosText ?></td>
 	<td><?=getLocationDescriptionLengthImage($length, $events) ?></td>
-	<td align="left"><?=$urlText?><?=$name; ?></a></td>
 </tr>
 <?		}
 		
@@ -94,7 +94,7 @@ function drawPageOfUpdated($updatedPages)
 	$page = $updatedPages['page'];
 	$maxRowsPerPage = $updatedPages['maxRowsPerPage'];
 	
-	$extraBit = ', pages '.drawNumberCurrentDispayedRecords($maxRowsPerPage, $updatedPages["numberOfRows"], $page-1);
+	$extraBit = ', pages '.drawNumberCurrentDisplayedRecords($maxRowsPerPage, $updatedPages["numberOfRows"], $page-1);
 	$nextPageUrl = '/updates/page/';
 ?>
 <h3>Updated content</h3>

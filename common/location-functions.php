@@ -20,7 +20,7 @@ function drawDuplicateLocation($recheckresult)
 	include_once(dirname(__FILE__) . "/../common/header.php");
 	echo "<div class=\"locations\">\n";
 	echo "<p class=\"error\">Multiple locations by that name found!</p>\n";
-	drawLinedLocationsTable(getLocationsOnlyTable($recheckresult, 'line'));
+	drawLinedLocationsTable(getLocationsOnlyTable($recheckresult, 'line'), 'search');
 	echo "</div>\n";
 	include_once(dirname(__FILE__) . "/../common/footer.php");
 }
@@ -154,7 +154,7 @@ function drawLocation($location)
 
 		if ($location["hasAssociatedLocations"])
 		{
-			echo "<li><a href=\"#other\">Other Locations</a></li>\n";
+			echo "<li><a href=\"#other\">Related Locations</a></li>\n";
 		}
 
 		// for location sources and credits
@@ -225,7 +225,7 @@ function drawLocation($location)
 
 	if ($location["hasAssociatedLocations"])
 	{
-		echo "<h4 id=\"other\">Other Locations</h4><hr/>\n<ul class=\"tableofcontents\">";
+		echo "<h4 id=\"other\">Related Locations</h4><hr/>\n<ul class=\"tableofcontents\">";
 
 		foreach ($location['associatedLocations'] as $associatedLocation)
 		{
@@ -290,40 +290,6 @@ function drawLocationDiagrams($diagramData)
 <?
 }	// end function
 
-
-
-function drawMainPage()
-{
-?>
-<table class="headbar">
-	<tr><td><a href="/">Home</a> &raquo; Locations</td>
-	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
-</table>
-<h3>Introduction to the locations database</h3>
-<div class="locations">
-<p>Here is a listing of all the railway locations in the Geelong Region. Either view by type, or search by name. You can also browse by line from the <a href="/lineguide/">lineguides</a>. The sort order can be altered in all cases.</p>
-<h4>By Type</h4>
-<ul class="tableofcontents"><li><a href="/locations/stations">Stations</a></li>
-<li><a href='/locations/industries'>Industries</a></li>
-<li><a href='/locations/signalboxes'>Signal Boxes</a></li>
-<li><a href='/locations/yards'>Yards</a></li>
-<li><a href='/locations/misc'>Miscellaneous</a></li></ul>
-</div>
-<?
-	drawLocationSearchBox();
-?>
-<h4>About the Location listings</h4>
-<hr/>
-<p>Each location in the database can have a written history, tables of location and line events, track diagrams, and photographs. The listings show what information is available to view for each location.</p>
-<p>The 'star guide' shows how detailed each location history is:<br/><br/>
-<img src="/images/rank5.gif" alt="Essay" title="Essay" /> Essay<br/><br/>
-<img src="/images/rank4.gif" alt="Very Detailed" title="Very Detailed" /> Very Detailed<br/><br/>
-<img src="/images/rank3.gif" alt="Detailed" title="Detailed" /> Detailed<br/><br/>
-<img src="/images/rank2.gif" alt="Beginning" title="Beginning" /> Beginning<br/><br/>
-<img src="/images/rank1.gif" alt="Basic" title="Basic" /> Basic<br/><br/>
-I recommend having a look at the page on <a href="/location/south-geelong">South Geelong</a> for an example of a detailed page.  ;-)</p>
-<?
-} //end function
 
 function drawLocationSearchBox()
 {
@@ -405,11 +371,11 @@ function drawLocationSearch($locationSearch, $searchPageNumber, $message="")
 		include_once(dirname(__FILE__) . "/../common/location-lineguide-functions.php");
 		
 		// display number of results
-		$extraBit = ', locations '.drawNumberCurrentDispayedRecords($maxRecordsPerPage,$numberOfRecords,$searchPageNumber);
+		$extraBit = ', locations '.drawNumberCurrentDisplayedRecords($maxRecordsPerPage,$numberOfRecords,$searchPageNumber);
 		echo "<p>$totalNumberOfRecords results found for \"".stripslashes($locationSearch)."\"$extraBit.</p>\n";
 
 		// draw the actual results
-		drawLinedLocationsTable(getLocationsOnlyTable($result, 'search', $locationSearch));
+		drawLinedLocationsTable(getLocationsOnlyTable($result, 'search', $locationSearch), 'search');
 
 		// draw navigation links
 		drawNextAndBackLinks($index, $totalNumberOfRecords, $maxRecordsPerPage, '?search='.$locationSearch.'&page=', true);
@@ -497,7 +463,11 @@ function drawLocationDataTable($location)
 	<b>Closed: </b><?=formatDate($close, $approxClose)?><br/>
 <?
 	}
-
+	/*
+?>
+	<b>Previous location: </b><?php echo $backLocation; ?><br/>
+	<b>Next location: </b><?php echo $nextLocation; ?><br/>
+<?	*/
 	global $editablelinkforadmin;
 	if ($editablelinkforadmin)
 	{

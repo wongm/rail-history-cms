@@ -1,6 +1,7 @@
 </div></div>
 <div id="navigation">
-<?php include_once("nav.php"); ?>
+<?php 
+require_once("nav.php"); ?>
 </div>
 <div id="footer">
 <a href="/index.php">Home</a> :: <a href="/sitemap.php">Sitemap</a> :: <a href="/copyright.php">Copyright</a> :: <a href="/contact.php">Contact</a>

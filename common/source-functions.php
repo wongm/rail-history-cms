@@ -49,6 +49,7 @@ function getObjectSources($type, $id, $credits)
 	if ($credits != '')
 	{
 		$credits = fixParagraphs($credits);
+		$credits = eregi_replace("\r\n", '</li><li>', $credits);
 		$credits = eregi_replace("\n", '</li><li>', $credits);
 		$credits = eregi_replace("</p><p>", '</li><li>', $credits);
 		$credits = eregi_replace("</p>\n<p>", "</li>\n<li>", $credits);
