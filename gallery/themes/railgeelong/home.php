@@ -28,14 +28,14 @@ Any comments or feedback is welcomed via the <a href="/contact.php">contact form
 while (next_news() && $i < 5): ;
 	if ($i%2 == '0')
 	{
-		$style = 'class="x"';
+		$style = 'odd';
 	}
 	else
 	{
-		$style = 'class="y"';
+		$style = 'even';
 	}
 	?>
-<tr <? echo $style; ?>>
+<tr class="<? echo $style; ?>">
 	<td class="d" valign="top"><?php printNewsDate();?></td>
 	<td><h4><?php echo getNewsTitle(); ?></h4>
 		<?php echo getNewsContent(true); ?>

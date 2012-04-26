@@ -1,53 +1,17 @@
 <?php 
 include_once("../common/dbConnection.php");
 include_once("../common/location-functions.php");
-include_once("../common/location-database-functions.php");
-include_once("../common/source-functions.php");
 include_once("../common/formatting-functions.php");
 
-$locationName = str_replace('-', ' ', $_REQUEST['name']);
-$locationBox = str_replace('-', ' ', $_REQUEST['box']);
-$locationId = str_replace('-', ' ', $_REQUEST['id']);
-
-if (!is_numeric($locationId) AND $locationId != '')
-{
-	$locationName = $locationId;
-	$locationId = '';
-}
-
-// fix for auto modrewrite stuff
-if (is_numeric($locationName) AND $locationId == '')
-{
-	$locationId = $locationName;
-	$locationName = '';
-}
-
-$lineLink = $_REQUEST['line'];
 $locationType = $_REQUEST['type'];
 $locationSearch = $_REQUEST['search'];
 $locationSearchPage = $_REQUEST['page'];
 $locationSort = str_replace('by-', '', $_REQUEST['sort']);
 
-// show specific location - when losts of info given
-if($locationBox != "" OR $locationName != "" OR $locationId != "")
-{
-	$location = getLocation($locationName, $locationBox, $locationId, $lineLink);
-	
-	if (!$location['error'])
-	{
-		drawLocation($location);
-	}
-	else if ($location['error'] == 'duplicates')
-	{
-		drawDuplicateLocation($location['duplicates']);
-	}
-	else if ($location['error'] == 'empty')
-	{
-		drawInvalidLocation($location['locationToFind']);
-	}
-}
-// show a listing of certain type of location
-elseif($locationType != "")
+/*
+ * show a listing of certain type of location
+ */
+if($locationType != "")
 {
 	switch ($locationType)
 	{
@@ -86,10 +50,12 @@ elseif($locationType != "")
 </table>
 <h3>Locations database: <?=$breadCrumbTitle?></h3>
 <?php
-	drawLinedLocationsTable(getLocationsTable('', '', $sql, $locationType, $locationSort));
+	drawLinedLocationsTable(getLocationsTable('', '', $sql, $locationType, $locationSort), 'type');
 	include_once("footer.php");
 }
-// find a location by name
+/*
+ * find a location by name
+ */
 elseif($locationSearch != "")	
 {
 	$pageTitle = "Location search - \"$locationSearch\"";
@@ -97,12 +63,4 @@ elseif($locationSearch != "")
 	drawLocationSearch($locationSearch, $locationSearchPage);
 	include_once("footer.php");
 }
-// a default opening info page
-else	
-{
-	$pageTitle = 'Locations';
-	include_once("header.php");
-	drawMainPage();	
-	include_once("footer.php");
-} ?>
-
+?>

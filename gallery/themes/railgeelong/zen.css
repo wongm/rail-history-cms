@@ -1,7 +1,4 @@
 /* gallery */
-label {
-	padding: 0 0 0 2em;
-}
 .album, .image {
 	background-color: #FAFAFA;
 	padding: 10px !important;

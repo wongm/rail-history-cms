@@ -14,7 +14,7 @@ include_once('header.php'); ?>
 
   <div class="topbar">
   	<h3><?=getAlbumTitle();?></h3>
-  	<?php printAlbumDesc(true); ?>
+  	<?php printAlbumDescAndLink(true); ?>
   </div>
   
   <?php

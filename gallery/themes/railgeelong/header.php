@@ -3,7 +3,7 @@
 $server = $_SERVER['HTTP_HOST'];
 if ($server == 'z' OR $server == 'localhost' OR isset($_GET['wongm']))
 {
-	///error_reporting(E_ERROR);
+	error_reporting(E_ALL - E_NOTICE);
 }
 else
 {
@@ -26,7 +26,10 @@ switch ($_GET['p'])
 		break;
 		
 	case 'locations':
+	case 'locations-home':
+	case 'location':
 	case 'lineguides':
+	case 'lineguide':
 	case 'regions':
 		$pageTitle = " - $pageTitle";
 		$pageHeading = $pageTitle;
@@ -56,7 +59,7 @@ include_once('functions-gallery-formatting.php');
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="author" content="Marcus Wong" />
 <meta name="description" content="A history of the railways of Geelong and District" />
-<meta name="keywords" content="railways trains geelong victoria" />
+<meta name="keywords" content="photos of railways trains history geelong victoria australia transport" />
 <?php
 if ($galleryRSS)
 {

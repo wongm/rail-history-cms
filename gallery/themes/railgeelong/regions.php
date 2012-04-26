@@ -13,9 +13,9 @@ include_once("../common/lineguide-functions.php");
  * 
  */
  
-$link = $_REQUEST['name'];
+$regionLink = $_REQUEST['name'];
 
-if ($link == '')
+if ($regionLink == '')
 {
 	draw404InvalidSubpage('lineguide');
 }
@@ -23,7 +23,7 @@ else
 {	
 	$articleSQL = "SELECT DATE_FORMAT(modified, '".SHORT_DATE_FORMAT.sprintf("') AS fdate, title, 
 		content, description, photos, article_id, caption, `link` 
-		FROM articles WHERE `link` = '%s'", mysql_real_escape_string($link));
+		FROM articles WHERE `link` = '%s'", mysql_real_escape_string($regionLink));
 	$article = MYSQL_QUERY($articleSQL, locationDBconnect());
 	
 	if (MYSQL_NUM_ROWS($article) == '1')
@@ -39,7 +39,7 @@ else
 		include_once('../common/header.php');
 ?>
 <table class="headbar">
-	<tr><td><a href="/">Home</a> &raquo; <a href="/lineguide">Line Guides</a> &raquo; <?=$pageTitle?></td>
+	<tr><td><a href="/">Home</a> &raquo; <a href="/lineguides">Line Guides</a> &raquo; <?=$pageTitle?></td>
 	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
 </table>
 <h3><?=$pageTitle?></h3>
@@ -51,7 +51,7 @@ else
 		}
 		
 		// get pretty header photo
-		$headerpicdisplayed = drawHeaderPic('region', $link, $pageTitle, $caption);
+		$headerpicdisplayed = drawHeaderPic('region', $regionLink, $pageTitle, $caption);
 		
 		// get contents titles
 		$descriptionTitles = addDescriptionTitles('', 'lines');
@@ -70,7 +70,7 @@ else
 			$showPhotos = false;
 		}
 	
-		if (!$articleSources)
+		if ($articleSources)
 		{
 			$descriptionTitles = addDescriptionTitles($descriptionTitles, 'sources');
 		}
@@ -87,7 +87,7 @@ else
 		}
 		echo "<h4 id=\"lines\">Rail lines</h4><hr/>\n";
 		
-		drawRegionRaillines($regionId);
+		drawRegionRaillines($regionLink, $regionId);
 		
 		echo drawFormattedText($pageContent);
 		
@@ -110,7 +110,7 @@ else
 	}
 }
 
-function drawRegionRaillines($regionId)
+function drawRegionRaillines($regionLink, $regionId)
 {
 	$raillineSQL = sprintf("SELECT r.*, r.`order` AS lineorder, r.link AS pagelink, r.name AS pagetitle, r.description as pagecontent, rr.content as regioncontent, 
 			count(lr.line_id) AS line_locations, 'page' AS type
@@ -138,6 +138,10 @@ function drawRegionRaillines($regionId)
 		$i = 0;
 		$raillineIndex = -1;
 		
+		// set parent item for nav.php
+		global $pageNavigation;
+		$pageNavigation['regions'] = array($regionLink);
+		
 		// add rows to the array
 		while ($i < $numberOfLines)
 		{
@@ -156,7 +160,6 @@ function drawRegionRaillines($regionId)
 				$lineArray[$raillineIndex] = getLineBasicDetails($raillineResults, $i);
 				$lineArray[$raillineIndex]['pageNameArray'][] = array($pageLink, $pageTitle, $pageTitle);
 				$lineArray[$raillineIndex]['regionContent'] = $regionContent;
-				
 			}	
 			else if ($rowType == "subpage" && $pageLink != "")
 			{
@@ -170,13 +173,17 @@ function drawRegionRaillines($regionId)
 		// output the formatting HTML
 		echo "<table class=\"linedTable\">\n";
 		for ($i = 0; $i < sizeof($lineArray); $i++)
-		{	
+		{
+			// set child items for nav.php
+			$pageNavigation[$i]['url'] = "/lineguide/" . $lineArray[$i]['lineLink'];
+			$pageNavigation[$i]['title'] = $lineArray[$i]['lineName'];
+			
 			$itemstodisplay = getLineguidePages($lineArray[$i]);
 							
 			echo "<tr><td colspan=\"2\"><h5>" . $lineArray[$i]['lineName'] . "</h5></td></tr>\n";
 			echo "<tr><td class=\"regionLinks\"><ul>\n";
-			echo "<li><a href=\"/lineguide/" . $lineArray[$i]['lineLink'] . "\">Introduction</a></li>\n";
-	
+			echo "<li><a href=\"/lineguide/" . $lineArray[$i]['lineLink'] . "\">History</a></li>\n";
+			
 			for ($j = 0; $j < sizeof($itemstodisplay); $j++)
 			{
 ?>
