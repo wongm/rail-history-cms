@@ -34,7 +34,7 @@ if ($numberOfRows>0)
 }
 
 // draw all lines and their subsections
-echo "<li><a href=\"/lineguide\">Lineguide Overview</a>\n";
+echo "<li><a href=\"/lineguides\">Lineguide Overview</a>\n";
 drawAllLineguideDotpoints('sitemap');
 ?>
 <li><a href="/locations/">Location Overview</a></li>
