@@ -13,8 +13,8 @@ include_once('header.php'); ?>
 </table>
 
   <div class="topbar">
-  	<h3>Album: <?=getAlbumTitle();?></h3>
-  	<?php printAlbumDescAndLink(true); ?>
+  	<h3><?=getAlbumTitle();?></h3>
+  	<?php printAlbumDesc(true); ?>
   </div>
   
   <?php
@@ -44,8 +44,9 @@ include_once('header.php'); ?>
     <td class="album" valign="top">
       <div class="albumthumb"><a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?>">
         <?php printAlbumThumbImage(getAlbumTitle()); ?></a></div>
-      <div class="albumtitle"><h4><a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?>">
-        <?php printAlbumTitle(); ?></a></h4><small><?php printAlbumDate(); ?><br/><? printHitCounter($_zp_current_album) ?></small></div>
+      <div class="albumtitle">
+      	<h4><a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?>"><?php printAlbumTitle(); ?></a></h4>
+        <small><?php printAlbumDate(); ?><br/><? printHitCounter($_zp_current_album) ?></small></div>
       <div class="albumdesc"><?php printAlbumDesc(); ?></div>
     </td>
   <?php if ($i == 2)
@@ -72,16 +73,8 @@ include_once('header.php'); ?>
   if ($num > 0): /* Only print if we have images. */ ?>
   <!-- Images -->
   <table class="centeredTable">
-  <?php 
-  // neater for when only 4 items
-  if ($num == 4)
-  {
-	  $i = 1;
-  }
-  else
-  {
-	  $i = 0;
-  }
+  <?php   
+  $i = 0;
   while (next_image()):
   if ($i == 0)
   {
@@ -92,10 +85,15 @@ include_once('header.php'); ?>
   <td class="image" valign="top">
       <div class="imagethumb"><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>">
        <?php printImageThumb(getImageTitle()); ?></a></div>
-      <div class="imagetitle"><h4><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>">
-        <?php printImageTitle(); ?></a></h4><small><?php printImageDate(); ?><br/><? printHitCounter($_zp_current_image) ?></small></div>
+      <div class="imagetitle">
+      	<h4><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
+		<?php echo printImageDescWrapped(); ?>
+        <small><?php printImageDate(); ?><br/><? printHitCounter($_zp_current_image) ?></small>
+      </div>
     </td>  
-  <?php if ($i == 2)
+  <?php 
+  // neater for when only 4 items
+  if ($i == 2 || ($num == 4 && $i == 1))
   {
 	  echo "</tr>\n";
 	  $i = 0;

@@ -10,11 +10,11 @@
 class ThemeOptions {
 	
 	function ThemeOptions() {
-		setThemeOptionDefault('railgeelong_imagetitle_truncate_length', 40); 
+		setThemeOptionDefault('wongm_imagetitle_truncate_length', 64); 
 	}
 	
 	function getOptionsSupported() {
-		return array(	gettext('Image title: truncate length') => array('key' => 'railgeelong_imagetitle_truncate_length', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Image title in breadcrumb: truncate to this length'))
+		return array(	gettext('Image title: truncate length') => array('key' => 'wongm_imagetitle_truncate_length', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Image title in breadcrumb: truncate to this length'))
 					);
 	}
 }
