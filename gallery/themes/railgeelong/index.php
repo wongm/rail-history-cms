@@ -4,7 +4,7 @@ include_once('header.php'); ?>
 
 	<div id="headbar">
 		<div class="link"><a href="/">Home</a> &raquo; Gallery</div>
-		<div class="search"><? printSearchBreadcrumb(true); ?></div>
+		<div class="search"><? printSearchForm(); ?></div>
 	</div>
 	
 <?php include_once('midbar.php'); ?>

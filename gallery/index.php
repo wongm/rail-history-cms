@@ -1,148 +1,149 @@
 <?php
-
+$_zp_script_timer['start'] = microtime();
 // force UTF-8 Ø
-
-require_once(dirname(__FILE__).'/zp-core/folder-definitions.php');
-if (!file_exists(dirname(__FILE__) . '/' . DATA_FOLDER . "/zp-config.php")) {
-	if (file_exists(dirname(__FILE__).'/'.ZENFOLDER.'/setup.php')) {
-		$dir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
-		if (substr($dir, -1) == '/') $dir = substr($dir, 0, -1);
-		$location = "http://". $_SERVER['HTTP_HOST']. $dir . "/" . ZENFOLDER . "/setup.php";
-		header("Location: $location" );
-	} else {
-		die('setup scripts missing');
-	}
-}
-
+require_once(dirname(__FILE__).'/zp-core/global-definitions.php');
 define('OFFSET_PATH', 0);
-require_once(ZENFOLDER . "/template-functions.php");
-if (getOption('zenphoto_release') != ZENPHOTO_RELEASE) {
-	if (file_exists(dirname(__FILE__).'/'.ZENFOLDER.'/setup.php')) {
-		header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/setup.php");
-		exit();
-	} else {
-		die('setup scripts missing');
-	}
-}
+require_once(dirname(__FILE__)."/".ZENFOLDER . "/template-functions.php");
+checkInstall();
 
+//$_zp_script_timer['require'] = microtime();
 /**
  * Invoke the controller to handle requests
  */
+require_once(dirname(__FILE__). "/".ZENFOLDER.'/functions-controller.php');
+zp_load_gallery();
 require_once(dirname(__FILE__). "/".ZENFOLDER.'/controller.php');
-header ('Content-Type: text/html; charset=' . getOption('charset'));
-$_zp_obj = '';
 
+$_index_theme = $_zp_script = '';
+$_zp_loaded_plugins = array();
+
+// RSS feed calls before anything else
+if (isset($_GET['rss'])) {
+	//	load the theme plugins just incase
+	$_zp_gallery_page = 'rss.php';
+	foreach (getEnabledPlugins() as $extension=>$plugin) {
+		$loadtype = $plugin['priority'];
+		if ($loadtype&THEME_PLUGIN) {
+			require_once($plugin['path']);
+		}
+		$_zp_loaded_plugins[] = $extension;
+	}
+	require_once(dirname(__FILE__). "/".ZENFOLDER.'/class-rss.php');
+	$rss = new RSS();
+	$rss->printRSSFeed();
+	exitZP();
+}
+//$_zp_script_timer['controller'] = microtime();
 // Display an arbitrary theme-included PHP page
 if (isset($_GET['p'])) {
-	handleSearchParms('page', $_zp_current_album, $_zp_current_image);
-	$theme = setupTheme();
-	$page = str_replace(array('/','\\','.'), '', sanitize($_GET['p']));
-	if (strpos($page, '*')===0) {
-		$page = substr($page,1); // handle old zenfolder page urls
-		$_GET['z'] = true;
-	}
-	if (isset($_GET['z'])) { // system page
-		$_zp_gallery_page = basename($_zp_obj = ZENFOLDER."/".$page.".php");
-	} else {
-		$_zp_obj = THEMEFOLDER."/$theme/$page.php";
-		$_zp_gallery_page = basename($_zp_obj);
-	}
-
+	$_index_theme = prepareCustomPage();
 // Display an Image page.
 } else if (in_context(ZP_IMAGE)) {
-	handleSearchParms('image', $_zp_current_album, $_zp_current_image);
-	$theme = setupTheme();
-	$_zp_gallery_page = basename($_zp_obj = THEMEFOLDER."/$theme/image.php");
+	$_index_theme = prepareImagePage();
 
 // Display an Album page.
 } else if (in_context(ZP_ALBUM)) {
-	if ($_zp_current_album->isDynamic()) {
-		$search = $_zp_current_album->getSearchEngine();
-		zp_setcookie("zenphoto_search_params", $search->getSearchParams(), 0);
-	} else {
-		handleSearchParms('album', $_zp_current_album);
-	}
-	$theme = setupTheme();
-	$_zp_gallery_page = basename($_zp_obj = THEMEFOLDER."/$theme/album.php");
-
+	$_index_theme = prepareAlbumPage();
 	// Display the Index page.
 } else if (in_context(ZP_INDEX)) {
-	handleSearchParms('index');
-	$theme = setupTheme();
-	$_zp_gallery_page = basename($_zp_obj = THEMEFOLDER."/$theme/index.php");
+	$_index_theme = prepareIndexPage();
+} else {
+	$_index_theme = setupTheme();
 }
-
-if (!isset($theme)) {
-	$theme = setupTheme();
+//$_zp_script_timer['theme setup'] = microtime();
+if (DEBUG_PLUGINS) {
+	debugLog('Loading the "theme" plugins.');
 }
-if (DEBUG_PLUGINS) debugLog('Loading the "theme" plugins.');
-$_zp_loaded_plugins = array();
-foreach (getEnabledPlugins() as $extension=>$loadtype) {
-	if ($loadtype <= 1) {
-		if (DEBUG_PLUGINS) debugLog('    '.$extension.' ('.$loadtype.')');
-		require_once(getPlugin($extension.'.php'));
+foreach (getEnabledPlugins() as $extension=>$plugin) {
+	$loadtype = $plugin['priority'];
+	if ($loadtype&THEME_PLUGIN) {
+		if (DEBUG_PLUGINS) {
+			list($usec, $sec) = explode(" ", microtime());
+			$start = (float)$usec + (float)$sec;
+		}
+		require_once($plugin['path']);
+		if (DEBUG_PLUGINS) {
+			list($usec, $sec) = explode(" ", microtime());
+			$end = (float)$usec + (float)$sec;
+			debugLog(sprintf('    '.$extension.'(THEME:%u)=>%.4fs',$priority & PLUGIN_PRIORITY,$end-$start));
+		}
+		//		$_zp_script_timer['load '.$extension] = microtime();
 	}
 	$_zp_loaded_plugins[] = $extension;
 }
 
-$custom = SERVERPATH.'/'.THEMEFOLDER.'/'.internalToFilesystem($theme).'/functions.php';
+if (!$zp_request && isset($_GET['fromlogout'])) {	//	redirect not visible to user
+	zp_load_gallery();
+	$_index_theme = prepareIndexPage();
+	$zp_request = true;
+}
+
+$_zp_script = zp_apply_filter('load_theme_script', $_zp_script, $zp_request);
+$custom = SERVERPATH.'/'.THEMEFOLDER.'/'.internalToFilesystem($_index_theme).'/functions.php';
 if (file_exists($custom)) {
 	require_once($custom);
 } else {
 	$custom = false;
 }
-
-
-if ($zp_request) {
-	$_zp_obj = zp_apply_filter('load_theme_script',$_zp_obj);
-}
-if ($zp_request && file_exists(SERVERPATH . "/" . internalToFilesystem($_zp_obj))) {
-	$hint = $show = false;
-	if (checkforPassword($hint, $show)) { // password protected object
-		$passwordpage = SERVERPATH.'/'.THEMEFOLDER.'/'.$theme.'/password.php';
-		if (!file_exists($passwordpage)) {
-			$passwordpage = SERVERPATH.'/'.ZENFOLDER.'/password.php';
+//$_zp_script_timer['theme scripts'] = microtime();
+if ($zp_request && $_zp_script && file_exists($_zp_script = SERVERPATH . "/" . internalToFilesystem($_zp_script))) {
+	if (checkAccess($hint, $show)) { // ok to view
+		setThemeColumns();
+	} else {
+		if (is_object($_zp_HTML_cache)) {	//	don't cache the logon page or you can never see the real one
+			$_zp_HTML_cache->abortHTMLCache();
 		}
-		header("HTTP/1.0 200 OK");
-		header("Status: 200 OK");
-		header('Last-Modified: ' . gmdate('D, d M Y H:i:s').' GMT');
-		include($passwordpage);
-		exposeZenPhotoInformations($_zp_obj, $_zp_loaded_plugins, $theme, $_zp_filters);
-		exit();
+		$_zp_gallery_page = 'password.php';
+		$_zp_script = SERVERPATH.'/'.THEMEFOLDER.'/'.$_index_theme.'/password.php';
+		if (!file_exists(internalToFilesystem($_zp_script))) {
+			$_zp_script = SERVERPATH.'/'.ZENFOLDER.'/password.php';
+		}
 	}
-
-	// re-initialize video dimensions if needed
-	if (isImageVideo() & isset($_zp_flash_player)) $_zp_current_image->updateDimensions();
-
-	// Display the page itself
-	if(!is_null($_zp_HTML_cache)) { $_zp_HTML_cache->startHTMLCache(); }
 	// Include the appropriate page for the requested object, and a 200 OK header.
+	header ('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 	header("HTTP/1.0 200 OK");
 	header("Status: 200 OK");
-	header('Last-Modified: ' . gmdate('D, d M Y H:i:s').' GMT');
-	include(internalToFilesystem($_zp_obj));
-
+	header('Last-Modified: ' . ZP_LAST_MODIFIED);
+	zp_apply_filter('theme_headers');
+	include(internalToFilesystem($_zp_script));
 } else {
 	// If the requested object does not exist, issue a 404 and redirect to the theme's
 	// 404.php page, or a 404.php in the zp-core folder.
-
+	if (is_object($_zp_HTML_cache)) {
+		$_zp_HTML_cache->abortHTMLCache();
+	}
 	list($album, $image) = rewrite_get_album_image('album','image');
-	debug404($album, $image, $theme);
+	debug404($album, $image, $_index_theme);
 	$_zp_gallery_page = '404.php';
-	$errpage = THEMEFOLDER.'/'.internalToFilesystem($theme).'/404.php';
+	$_zp_script = THEMEFOLDER.'/'.internalToFilesystem($_index_theme).'/404.php';
+	header ('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 	header("HTTP/1.0 404 Not Found");
 	header("Status: 404 Not Found");
-	if (file_exists(SERVERPATH . "/" . $errpage)) {
+	zp_apply_filter('theme_headers');
+	if (file_exists(SERVERPATH . "/" . $_zp_script)) {
 		if ($custom) require_once($custom);
-		include($errpage);
+		include($_zp_script);
 	} else {
 		include(ZENFOLDER. '/404.php');
 	}
-	$_zp_HTML_cache = NULL;
 }
-
-exposeZenPhotoInformations($_zp_obj, $_zp_loaded_plugins, $theme, $_zp_filters);
-
-if(!is_null($_zp_HTML_cache)) { $_zp_HTML_cache->endHTMLCache(); }
+//$_zp_script_timer['theme script load'] = microtime();
+exposeZenPhotoInformations($_zp_script, $_zp_loaded_plugins, $_index_theme);
+//$_zp_script_timer['expose information'] = microtime();
+db_close();	// close the database as we are done
+echo "\n";
+list($usec, $sec) = explode(' ', array_shift($_zp_script_timer));
+$first = $last = (float)$usec + (float)$sec;
+$_zp_script_timer['end'] = microtime();
+foreach ($_zp_script_timer as $step=>$time) {
+	list($usec, $sec) = explode(" ", $time);
+	$cur = (float)$usec + (float)$sec;
+	printf("<!-- ".gettext('Zenphoto script processing %1$s:%2$.4f seconds')." -->\n",$step,$cur-$last);
+	$last = $cur;
+}
+if (count($_zp_script_timer)>1) printf("<!-- ".gettext('Zenphoto script processing total:%.4f seconds')." -->\n",$last-$first);
+if (is_object($_zp_HTML_cache)) {
+	$_zp_HTML_cache->endHTMLCache();
+}
 
 ?>

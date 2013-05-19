@@ -70,7 +70,7 @@ require_once("functions-search.php");
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; <a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; <?=$pageBreadCrumb?></div>
-	<div class="search"><? drawHeadbarSearchBox(true); ?></div>
+	<div class="search"><? printSearchForm(); ?></div>
 </div>
 <?php include_once('midbar.php'); ?>
 <div class="topbar">

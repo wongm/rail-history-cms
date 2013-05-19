@@ -15,7 +15,7 @@ include_once('header.php');
 ?>
 <div id="headbar">
 	<div class="link"><?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; <a href="<?=DO_RATINGS_URL_PATH?>">Rate my photos</a></div>
-	<div class="search"><? printSearchBreadcrumb(); ?></div>
+	<div class="search"><? printSearchForm(); ?></div>
 </div>
 <?php 
 

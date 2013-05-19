@@ -40,12 +40,6 @@ else
 	define ('TIME_FORMAT', '%B %d, %Y %H:%M %p');
 }
 
-function printSearchBreadcrumb($foo='')
-{
-	printSearchForm();
-}	// end function
-
-
 /**
  * Prints the album description of the current album.
  *

@@ -1,9 +1,10 @@
-# htaccess file version 1.2.8.0;
+# htaccess file version 1.4.4;
 # When Zenphoto requires changes to the rewrite rules:
 #		First make a copy of this file as 'oldhtaccess' in the zp-core folder so setup can test for unmodified files
 #		Update the above and the define in setup.php
-
-
+<IfModule mod_autoindex.c>
+	IndexIgnore *
+</IfModule>
 <IfModule mod_rewrite.c>
   RewriteEngine On
   
@@ -16,7 +17,13 @@
   
   #### !!! Change this to the web path (eg: http://www.yourwebsite.com/photos --> /photos) !!!
   RewriteBase /gallery
-  ####
+  
+#	Redirection for site updates--remove the comment crosshatches from the following rules
+#	"closed.html" in the plugins/site_upgrade folder is the target for the rewrites. You can change 
+#	this file to suit your needs.  
+# RewriteRule ^index\.php(.*)$      plugins/site_upgrade/closed.php%1 [NC,R=302,L]  
+# RewriteRule ^$      plugins/site_upgrade/closed.php [NC,R=302,L] 
+#	End redirection for site updates 
   
   ## MW updated pages
   RewriteRule ^recent/page/([0-9]+)/?$		index.php?p=uploads&page=$1 [L,QSA]
@@ -25,18 +32,25 @@
   RewriteRule ^search/?$			index.php?p=search
   RewriteRule ^search.php?$			index.php?p=search
   
-  RewriteRule ^admin/?$                       zp-core/admin.php [R,L]
+  RewriteRule	^admin/?$                       zp-core/admin.php [R,L]
   
-  # RSS
-  RewriteRule ^recentimages.rss?$      		       				rss.php? [L,QSA]
-  RewriteRule ^recentalbums.rss?$      		       				rss.php?albumsmode [L,QSA]
-  
+  #Rewrite rules for replaced ?RSS-xxx query parameters
+	RewriteCond %{QUERY_STRING} ^rss-(.*)&
+	RewriteRule	^index\.php?$               		index.php?rss=%1 [NC,L,QSA,R=301]
+	RewriteCond %{QUERY_STRING} ^rss-(.*)$
+	RewriteRule	^index\.php?$               		index.php?rss=%1 [NC,L,QSA,R=301]
+
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^albums/?(.+/?)?$ $1 [R=301,L] 
 
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^.*$ - [L]
+  
+  ##### put no rules before this line #######
+  
+  #rewrite rule for tinyURLs
+  RewriteRule ^tiny/([0-9]+)/?$               index.php?p=$1&t [L,QSA]
   
   RewriteRule index\.php$                     index.php [L,QSA]
   RewriteRule ^page/([0-9]+)/?$               index.php?page=$1 [L,QSA]

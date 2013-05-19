@@ -17,7 +17,7 @@ $pageBreadCrumb = 'Popular photos';
 ?>
 <div id="headbar">
 	<div class="link"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; <?=$pageBreadCrumb?></div>
-	<div class="search"><? printSearchBreadcrumb(); ?></div>
+	<div class="search"><? printSearchForm(); ?></div>
 </div>
 <?php 
 

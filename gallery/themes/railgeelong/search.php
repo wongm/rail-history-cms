@@ -27,9 +27,9 @@ else
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; <a href="/gallery/">Gallery</a> &raquo; <a href="<?=SEARCH_URL_PATH?>">Search</a></div>
-	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+	<div class="search"><? printSearchForm(); ?></div>
 </div>
-<?php include_once('../common/header.php'); ?>
+<?php include_once('midbar.php'); ?>
 <?php echo $leadingIntroText; ?>
 <div id="searchpage">
 <?php
@@ -65,7 +65,7 @@ if ($totalAlbums > 0)
 }
 ?>
 <div id="images">
-<?php drawWongmGridImages(); ?>
+<?php drawWongmGridImages($totalImages); ?>
 </div>
 <?php
 if (function_exists('printSlideShowLink')) {

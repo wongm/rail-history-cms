@@ -6,11 +6,11 @@ include_once('header.php'); ?>
   <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; 
 		<a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 
-		<?php printParentBreadcrumb('', ' &raquo; ', ' &raquo; '); ?>
+		<?php printParentBreadcrumb('', ' » ', ' » '); ?>
 		<a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?> Index"><?=getAlbumTitle();?></a> &raquo; 
       	<?php printTruncatedImageTitle(true); ?>
 	</div>
-	<div class="search"><?php printSearchBreadcrumb(true); ?></div>
+	<div class="search"><?php printSearchForm(); ?></div>
   </div>
 
 <?php include_once('midbar.php'); ?>

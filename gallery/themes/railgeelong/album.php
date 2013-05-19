@@ -6,9 +6,9 @@ include_once('header.php'); ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; 
 		<a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 
-      	<?php printParentBreadcrumb('', ' &raquo; ', ' &raquo; '); ?>
+      	<?php printParentBreadcrumb('', ' » ', ' » '); ?>
       	<?php printAlbumTitle(true);?></div>
-	<div class="search"><?php printSearchBreadcrumb(true); ?></div>
+	<div class="search"><?php printSearchForm(); ?></div>
 </div>
 <?php include_once('midbar.php'); ?>
   <div class="topbar">

@@ -20,7 +20,7 @@ include_once('functions-search.php');
 ?>
 <div id="headbar">
 	<div class="link"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 404 Page Not Found</div>
-	<div class="search"><? printSearchBreadcrumb(); ?></div>
+	<div class="search"><? printSearchForm(); ?></div>
 </div>
 <?php include_once('midbar.php'); ?>
 <div class="topbar">

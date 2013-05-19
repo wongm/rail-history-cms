@@ -56,7 +56,7 @@ include_once('functions-gallery-formatting.php');
 <link rel="stylesheet" href="<?= $_zp_themeroot ?>/zen.css" type="text/css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="/common/js/lightbox.js"></script>
-<?php zenJavascript(); ?>
+<?php zp_apply_filter('theme_head') ?>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="author" content="Marcus Wong" />
 <meta name="description" content="A history of the railways of Geelong and District" />
