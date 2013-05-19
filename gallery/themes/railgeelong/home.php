@@ -12,7 +12,7 @@ include_once('header.php');
 ?>
 <div id="headbar">
 	<div class="link">Welcome</div>
-	<div class="search"><? printSearchBreadcrumb(true); ?></div>
+	<div class="search"><? drawHeadbarSearchBox(); ?></div>
 </div>
 <?php include_once('midbar.php'); ?>
 <div id="frontpage">
