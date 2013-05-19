@@ -60,6 +60,10 @@
   # depreciated pages, redirect to new ones		
   RewriteRule ^locations/updated?$					   	/updates [R=301,L]
   RewriteRule ^locations/updated(.*)/?$			   		/updates [R=301,L]
+    
+  # aerial
+  RewriteRule ^location/([0-9]+)/map$					   				aerial-tool.php?id=$1&view=map [L,QSA]
+  RewriteRule ^location/([0-9]+)/satellite$					   			aerial-tool.php?id=$1&view=satellite [L,QSA]
   
   # locations
   RewriteRule ^locations/?=search=?$					   				gallery/index.php?p=locations&search=$1 [L,QSA]
