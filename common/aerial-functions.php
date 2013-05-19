@@ -160,19 +160,15 @@ else
 </div><? /* end tabs div */	?>
 <? } 	// end function
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*
+ *
+ * Draw a Google Map for a specific location
+ * Either map or satelite views
+ *
+ *
+ *
+ *
+ */
 function drawSpecific($view, $id)
 {
 	$pageTitle = "Aerial Explorer";
@@ -208,43 +204,54 @@ function drawSpecific($view, $id)
 <meta name="description" content="Rail Geelong Homepage" />
 <meta name="keywords" content="railways trains geelong victoria" />
 <link rel="stylesheet" type="text/css" href="/common/css/style.css" media="all" title="Normal" />
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<?=GOOGLE_KEY?>" type="text/javascript"></script>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=<?=GOOGLE_KEY?>&sensor=false"></script>
 <script type="text/javascript">
 <? /* google map function - single location */ ?>
-function loadSingle()
-{	
-	if (GBrowserIsCompatible()) 
-	{
-        var map = new GMap2(document.getElementById("map"));
-       	var marker, point;
-       	point = new GLatLng(<? echo $coords; ?>);
-		marker = new GMarker(point);
-        new GKeyboardHandler(map);
-        map.addControl(new GLargeMapControl());
-		map.addControl(new GMapTypeControl());
-		map.addControl(new GScaleControl());
+var map, marker, infowindow;
+function initialize() {
+	var locationLatlng = new google.maps.LatLng(<? echo $coords; ?>);
+	var mapOptions = {
+		zoom: 15,
+		center: locationLatlng,
+		scaleControl: true,
+		mapTypeControl: true,
+		mapTypeControlOptions: {
+			style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+		},
+		zoomControl: true,
+		zoomControlOptions: {
+			style: google.maps.ZoomControlStyle.SMALL
+		},
 <?php if ($view == 'map') {	?>
-		map.setCenter(point, 16, G_NORMAL_MAP);
+		mapTypeId: google.maps.MapTypeId.ROADMAP
 <?php } else if ($view == 'satellite') {	?>
-		map.setCenter(point, 16, G_SATELLITE_MAP);
+		mapTypeId: google.maps.MapTypeId.SATELLITE 
 <?php } ?>
-		map.addOverlay(marker);
-	}
-	else
-	{
-		alert('Sorry! Your browser is not compatible with Google Maps. Please upgrade your browser to a more recent version to use this feature.');
-	}
+	};	
+	map = new google.maps.Map(document.getElementById('map'), mapOptions);	
+	infowindow = new google.maps.InfoWindow({
+		position: locationLatlng,
+		content: '<b><?php echo $name ?></b><p><?php echo $typeName ?></p>'
+	});
+	marker = new google.maps.Marker({
+		position: locationLatlng,
+		map: map,
+		title: '<?php echo $name ?>'
+	});
+	marker.setIcon('https://maps.google.com/mapfiles/ms/icons/blue.png');	
+	infowindow.open(map,marker);
+	google.maps.event.addListener(marker, 'click', function() {
+		infowindow.open(map,marker);
+	});
 };
+google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 <noscript>
 Sorry! Your browser is not compatible with Google Maps. Please upgrade your browser to a more recent version to use this feature.
 </noscript>
 </head>
-<body style="width: 98%; height: 100%; margin: 1%; padding: 0;" onload="loadSingle()" onunload="GUnload()">
-<div>
-<h2><? echo $name; ?> - Aerial View</h2>
-<div name="map" id="map" style="position: absolute; top: 5em; width: 98%; height: 85%;"></div>
-</div>
+<body style="margin: 0;">
+<div name="map" id="map" style="padding: 0; position: absolute; width: 100%; height: 100%;"></div>
 </body>
 </html>
 <?php
