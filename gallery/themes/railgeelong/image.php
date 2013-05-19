@@ -3,14 +3,17 @@
 $pageTitle = ' - '.getImageTitle();
 include_once('header.php'); ?>
 
-  <table class="headbar">
-	<tr><td><a href="/">Home</a> &raquo; 
+  <div id="headbar">
+	<div class="link"><a href="/">Home</a> &raquo; 
 		<a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 
 		<?php printParentBreadcrumb('', ' &raquo; ', ' &raquo; '); ?>
 		<a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?> Index"><?=getAlbumTitle();?></a> &raquo; 
       	<?php printTruncatedImageTitle(true); ?>
-	</td><td id="righthead"><?php printSearchBreadcrumb(true); ?></td></tr>
-  </table>
+	</div>
+	<div class="search"><?php printSearchBreadcrumb(true); ?></div>
+  </div>
+
+<?php include_once('midbar.php'); ?>
   
   <div class="topbar">
   	<h3><?=getImageTitle();?></h3>

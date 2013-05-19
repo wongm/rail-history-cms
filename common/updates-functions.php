@@ -74,9 +74,10 @@ function drawUpdatedPagesTable($updatedLocations, $frontPage=false)
 			$j++;
 ?>
 <tr class="<? echo $style; ?>">
+<?php if ($frontPage) { ?><td class="d"><? echo $date; ?></td><?php } ?>
 	<td align="left"><?=$urlText?><?=$name; ?></a></td>
 	<td><?=$itemType ?></td>
-	<td><? echo $date; ?></td>
+<?php if (!$frontPage) { ?><td class="d"><? echo $date; ?></td><?php } ?>
 	<td><?=$photosText ?></td>
 	<td><?=getLocationDescriptionLengthImage($length, $events) ?></td>
 </tr>

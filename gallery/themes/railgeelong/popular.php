@@ -15,12 +15,13 @@ require_once("search-functions.php");
 //$pageBreadCrumb = "<a href=\"".POPULAR_URL_PATH."\" title=\"Popular photos\">Popular photos</a>";
 $pageBreadCrumb = 'Popular photos';
 ?>
-<table class="headbar">
-	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo;
-	<?=$pageBreadCrumb?>
-	</td><td id="righthead"><?printSearchBreadcrumb();?></td></tr>
-</table>
-<?
+<div id="headbar">
+	<div class="link"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; <?=$pageBreadCrumb?></div>
+	<div class="search"><? printSearchBreadcrumb(); ?></div>
+</div>
+<?php 
+
+include_once('midbar.php');
 
 foreach (array('this-week', 'ratings', 'this-month', 'all-time') AS $viewType)
 {

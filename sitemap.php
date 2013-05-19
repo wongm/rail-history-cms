@@ -5,10 +5,11 @@ include_once("common/lineguide-functions.php");
 $pageTitle = 'Sitemap';
 include_once("common/header.php");
 ?>
-<table class="headbar">
-	<tr><td><a href="/">Home</a> &raquo; Sitemap</td>
-	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
-</table>
+<div id="headbar">
+	<div class="link"><a href="/">Home</a> &raquo; Sitemap</div>
+	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+</div>
+<?php include_once("common/midbar.php"); ?>
 <h3>Sitemap</h3>
 <div id="sitemap">
 <p>A guide to all the pages on this site.</p>

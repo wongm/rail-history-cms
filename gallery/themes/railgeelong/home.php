@@ -10,10 +10,11 @@ include_once("../common/updates-functions.php");
 $pageHeading = "Welcome";
 include_once('header.php'); 
 ?>
-<table class="headbar">
-	<tr><td>Welcome</td>
-	<td id="righthead"><?php printSearchBreadcrumb(true); ?></td></tr>
- </table>
+<div id="headbar">
+	<div class="link">Welcome</div>
+	<div class="search"><? printSearchBreadcrumb(true); ?></div>
+</div>
+<?php include_once('midbar.php'); ?>
 <div id="frontpage">
 <script type="text/javascript" src="/common/js/frontpage.js"></script>
 <div id="headerpane" class="photo-right">

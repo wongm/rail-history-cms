@@ -18,10 +18,11 @@ $pageTitle = ' - 404 Page Not Found';
 include_once('header.php');
 include_once('functions-search.php');
 ?>
-<table class="headbar">
-	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 404 Page Not Found
-	</td><td id="righthead"><?printSearchBreadcrumb();?></td></tr>
-</table>
+<div id="headbar">
+	<div class="link"><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 404 Page Not Found</div>
+	<div class="search"><? printSearchBreadcrumb(); ?></div>
+</div>
+<?php include_once('midbar.php'); ?>
 <div class="topbar">
   	<h2>404 Page Not Found</h2>
 </div>

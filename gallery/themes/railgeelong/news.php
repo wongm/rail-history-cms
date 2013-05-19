@@ -19,11 +19,13 @@ if (substr($pageTitle, $len-2, 1) == '-')
 $pageTitle = ' - '.getAlbumTitle();
 include_once('header.php');
 ?>
-<table class="headbar">
-	<tr><td><a href="/">Home</a> &raquo; <a href="/news">News</a></td>
-	<td id="righthead"><?printSearchBreadcrumb(true);?></td></tr>
-</table>
-<?
+<div id="headbar">
+	<div class="link"><a href="/">Home</a> &raquo; <a href="/news">News</a></div>
+	<div class="search"><? printSearchBreadcrumb(true); ?></div>
+</div>
+<?php 
+
+include_once('midbar.php');
 
 // single news article
 if(is_NewsArticle()) { 
@@ -112,13 +114,11 @@ if (getOption('comment_form_articles')) { ?>
 } else {
 // news article loop
 ?>
-<div class="topbar"></div>
 <div id="news">
 <?php
   while (next_news()): ;?> 
 	<div class="newsarticle"> 
-    	<h4><?php echo getNewsTitle(); ?></h4>
-    	<hr/>
+    	<h3><?php echo getNewsTitle(); ?></h3>
         <div class="newsarticlecredit">
         <p><small><?php printNewsDate();?></small></p>
 <?php

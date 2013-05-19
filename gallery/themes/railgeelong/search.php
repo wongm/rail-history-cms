@@ -25,10 +25,11 @@ else
 	$leadingIntroText = "<h3>Search results</h3>";
 }
 ?>
-<table class="headbar">
-    <tr><td><a href="/">Home</a> &raquo; <a href="/gallery/">Gallery</a> &raquo; <a href="<?=SEARCH_URL_PATH?>">Search</a></td>
-    <td id="righthead"><? printSearchBreadcrumb(); ?></td></tr>
-</table>
+<div id="headbar">
+	<div class="link"><a href="/">Home</a> &raquo; <a href="/gallery/">Gallery</a> &raquo; <a href="<?=SEARCH_URL_PATH?>">Search</a></div>
+	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+</div>
+<?php include_once('../common/header.php'); ?>
 <?php echo $leadingIntroText; ?>
 <div id="searchpage">
 <?php

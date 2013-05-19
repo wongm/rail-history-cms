@@ -2,11 +2,13 @@
 
 include_once('header.php'); ?>
 
-  <table class="headbar">
-    <tr><td><a href="/">Home</a> &raquo; Gallery</td>
-    <td id="righthead"><?php printSearchBreadcrumb(true); ?></td></tr>
-  </table>
-  
+	<div id="headbar">
+		<div class="link"><a href="/">Home</a> &raquo; Gallery</div>
+		<div class="search"><? printSearchBreadcrumb(true); ?></div>
+	</div>
+	
+<?php include_once('midbar.php'); ?>
+
   <div class="topbar">
   	<h3>Welcome to the Gallery</h3>
   	<p>All photographs copyright Marcus Wong unless otherwise noted.</p>

@@ -89,10 +89,13 @@ function drawAllArticles($type)
 	$pageTitle = ucfirst($type).'s Listing';
 	include_once("common/header.php");
 ?>
-<table class="headbar">
-	<tr><td><a href="/">Home</a> &raquo; Articles</td>
-	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
-</table>
+<div id="headbar">
+	<div class="link"><a href="/">Home</a> &raquo; Articles</div>
+	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+</div>
+<?php
+	include_once("common/midbar.php");
+?>
 <h3><?=$pageTitle?></h3>
 <?	
 	$articles = MYSQL_QUERY("SELECT * FROM articles WHERE link != '' AND `line_id` = '0'", locationDBconnect());

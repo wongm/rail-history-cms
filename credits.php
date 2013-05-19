@@ -5,10 +5,11 @@ include_once("common/formatting-functions.php");
 $pageTitle = 'Credits and Acknowledgements';
 include_once("common/header.php");
 ?>
-<table class="headbar">
-	<tr><td><a href="/">Home</a> &raquo; <? echo $pageTitle; ?></td>
-	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
-</table>
+<div id="headbar">
+	<div class="link"><a href="/">Home</a> &raquo; <? echo $pageTitle; ?></div>
+	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+</div>
+<?php include_once("common/midbar.php"); ?>
 <h3><? echo $pageTitle; ?></h3>
 <div id="credits">
 <p>I would like to thank the following people for their assistance provided in creating this site.</p>

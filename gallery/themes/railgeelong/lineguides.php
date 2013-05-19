@@ -6,10 +6,11 @@ include_once("../common/formatting-functions.php");
 $pageTitle = "Line Guides";
 include_once("header.php");
 ?>
-<table class="headbar">
-	<tr><td><a href="/">Home</a> &raquo; Line Guides</td>
-	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
-</table>
+<div id="headbar">
+	<div class="link"><a href="/">Home</a> &raquo; Line Guides</div>
+	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+</div>
+<?php include_once('midbar.php'); ?>
 <h3>Introduction to the line guides</h3>
 <img class="photo-right" src="/images/geelong-region.gif" alt="Geelong region railway lines" title="Geelong region railway lines" usemap="#linemap" height="402" width="500" />
 <map name="linemap" id="linemap">

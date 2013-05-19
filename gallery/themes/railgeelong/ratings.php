@@ -13,11 +13,13 @@ $pageTitle = ' - Rate my photos';
 $votePromptText = "Cast your vote";
 include_once('header.php');
 ?>
-<table class="headbar">
-	<tr><td><a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; <a href="<?=DO_RATINGS_URL_PATH?>">Rate my photos</a></td>
-	<td id="righthead"><?printSearchBreadcrumb();?></td></tr>
-</table>
-<?
+<div id="headbar">
+	<div class="link"><?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; <a href="<?=DO_RATINGS_URL_PATH?>">Rate my photos</a></div>
+	<div class="search"><? printSearchBreadcrumb(); ?></div>
+</div>
+<?php 
+
+include_once('midbar.php');
 
 if (isset($_POST['option']))
 {	

@@ -90,5 +90,3 @@ if (getImageThumb())
 </div>
 <?php printAdminToolbox(); ?>
 <div id="contentwrapper">
-<div id="content">
-<div id="main">

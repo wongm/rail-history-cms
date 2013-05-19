@@ -36,10 +36,11 @@ function drawLocation($location)
 	include_once(dirname(__FILE__) . "/../common/header.php");
 	include_once(dirname(__FILE__) . "/../common/event-functions.php");
 ?>
-<table class="headbar">
-	<tr><td><a href="/">Home</a> &raquo; <a href="/locations">Locations</a> &raquo; <?=$location['pageTitle']?></td>
-	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
-</table>
+<div id="headbar">
+	<div class="link"><a href="/">Home</a> &raquo; <a href="/locations">Locations</a> &raquo; <?=$location['pageTitle']?></div>
+	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+</div>
+<?php include_once(dirname(__FILE__) . "/../common/midbar.php"); ?>
 <h3 id="top"><?=$location['pageTitle']?></h3>
 <?php
 	// working out if dot points section shown or not
@@ -345,11 +346,12 @@ function drawLocationSearch($locationSearch, $searchPageNumber, $message="")
 		$totalNumberOfRecords = 0;
 	}
 	?>
-<table class="headbar">
-	<tr><td><a href="/">Home</a> &raquo; <a href="/locations">Locations</a> &raquo; Location search</td>
-	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
-</table>
+<div id="headbar">
+	<div class="link"><a href="/">Home</a> &raquo; <a href="/locations">Locations</a> &raquo; Location search</div>
+	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+</div>
 <?php
+	include_once(dirname(__FILE__) . "/../common/midbar.php");
 
 	if ($numberOfRecords > 0)
 	{

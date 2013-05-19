@@ -5,10 +5,11 @@ include_once("common/formatting-functions.php");
 $pageTitle = 'Sources';
 include_once("common/header.php");
 ?>
-<table class="headbar">
-	<tr><td><a href="/">Home</a> &raquo; Sources</td>
-	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
-</table>
+<div id="headbar">
+	<div class="link"><a href="/">Home</a> &raquo; Sources</div>
+	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+</div>
+<?php include_once("common/midbar.php"); ?>
 <h3>Sources</h3>
 <div id="sources">
 <p>The following sources were used in the research for this site. The availability of them varies. I would also like to thank the people and organisations listed on the <a href="/credits.php">Credits</a> page for their assistance.</p>

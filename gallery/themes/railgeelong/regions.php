@@ -38,10 +38,11 @@ else
 		
 		include_once('../common/header.php');
 ?>
-<table class="headbar">
-	<tr><td><a href="/">Home</a> &raquo; <a href="/lineguides">Line Guides</a> &raquo; <?=$pageTitle?></td>
-	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
-</table>
+<div id="headbar">
+	<div class="link"><a href="/">Home</a> &raquo; <a href="/lineguides">Line Guides</a> &raquo; <?=$pageTitle?></div>
+	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+</div>
+<?php include_once('../common/midbar.php'); ?>
 <h3><?=$pageTitle?></h3>
 <?		
 		global $editablelinkforadmin;

@@ -15,12 +15,11 @@ function drawLineguideHeaders($line, $section='')
 	
 	include_once(dirname(__FILE__) . "/../common/header.php");
 	?>
-<table class="headbar">
-	<tr><td>
-		<a href="/">Home</a> &raquo; <a href="/lineguides">Line Guides</a> &raquo; <a href="/lineguide/<?=$line['lineLink'] ?>"><?=getLineName($line['lineName']) ?></a>
-	</td>
-	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
-</table>
+<div id="headbar">
+	<div class="link"><a href="/">Home</a> &raquo; <a href="/lineguides">Line Guides</a> &raquo; <a href="/lineguide/<?=$line['lineLink'] ?>"><?=getLineName($line['lineName']) ?></a></div>
+	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+</div>
+<?php include_once(dirname(__FILE__) . "/../common/midbar.php"); ?>
 <div id="lineguide">
 <?
 }

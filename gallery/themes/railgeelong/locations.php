@@ -4,8 +4,6 @@ include_once("../common/location-functions.php");
 include_once("../common/formatting-functions.php");
 
 $locationType = $_REQUEST['type'];
-$locationSearch = $_REQUEST['search'];
-$locationSearchPage = $_REQUEST['page'];
 $locationSort = str_replace('by-', '', $_REQUEST['sort']);
 
 /*
@@ -44,23 +42,14 @@ if($locationType != "")
 	include_once("header.php");
 	include_once('../common/location-lineguide-functions.php');
 ?>
-<table class="headbar">
-	<tr><td><a href="/">Home</a> &raquo; <a href="/locations">Locations</a> &raquo; <?=$breadCrumbTitle?></td>
-	<td id="righthead"><? drawHeadbarSearchBox(); ?></td></tr>
-</table>
+<div id="headbar">
+	<div class="link"><a href="/">Home</a> &raquo; <a href="/locations">Locations</a> &raquo; <?=$breadCrumbTitle?></div>
+	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+</div>
+<?php include_once('midbar.php'); ?>
 <h3>Locations database: <?=$breadCrumbTitle?></h3>
 <?php
 	drawLinedLocationsTable(getLocationsTable('', '', $sql, $locationType, $locationSort), 'type');
-	include_once("footer.php");
-}
-/*
- * find a location by name
- */
-elseif($locationSearch != "")	
-{
-	$pageTitle = "Location search - \"$locationSearch\"";
-	include_once("header.php");
-	drawLocationSearch($locationSearch, $locationSearchPage);
 	include_once("footer.php");
 }
 ?>

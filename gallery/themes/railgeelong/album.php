@@ -3,15 +3,14 @@
 $pageTitle = ' - '.getAlbumTitle();
 include_once('header.php'); ?>
 
-<table class="headbar">
-	<tr><td><a href="/">Home</a> &raquo; 
+<div id="headbar">
+	<div class="link"><a href="/">Home</a> &raquo; 
 		<a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 
       	<?php printParentBreadcrumb('', ' &raquo; ', ' &raquo; '); ?>
-      	<?php printAlbumTitle(true);?>
-	</td>
-    <td id="righthead"><?php printSearchBreadcrumb(true); ?></td></tr>
-</table>
-
+      	<?php printAlbumTitle(true);?></div>
+	<div class="search"><?php printSearchBreadcrumb(true); ?></div>
+</div>
+<?php include_once('midbar.php'); ?>
   <div class="topbar">
   	<h3><?=getAlbumTitle();?></h3>
   	<?php printAlbumDescAndLink(true); ?>

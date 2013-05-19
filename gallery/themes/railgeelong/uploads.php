@@ -68,12 +68,11 @@ $pageTitle = " - $pageTitle";
 include_once('header.php'); 
 require_once("functions-search.php");
 ?>
-<table class="headbar">
-	<tr><td><a href="/">Home</a> &raquo; 
-		<a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 
-		<?=$pageBreadCrumb?>
-	</td><td id="righthead"><?printSearchBreadcrumb(true);?></td></tr>
-</table>
+<div id="headbar">
+	<div class="link"><a href="/">Home</a> &raquo; <a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; <?=$pageBreadCrumb?></div>
+	<div class="search"><? drawHeadbarSearchBox(true); ?></div>
+</div>
+<?php include_once('midbar.php'); ?>
 <div class="topbar">
 	<h3><?=$leadingIntroText?></h3>
 </div>

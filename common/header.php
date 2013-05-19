@@ -95,4 +95,3 @@ if (function_exists('printAdminToolbox'))
 	}
 } ?>
 <div id="contentwrapper">
-<div id="content">

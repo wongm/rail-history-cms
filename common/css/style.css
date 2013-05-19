@@ -16,8 +16,11 @@ body {
 	float: left;
 	width: 100%;
 }
-#content {
+#content, #headbar {
 	margin-left: 185px;
+}
+#content {
+	padding: 0 5px 20px 5px;
 	background:#EEE;
 	color: inherit;
 	min-height: 500px;
@@ -106,7 +109,7 @@ img {
 
 /* lighbox
 ------------------------------ */
-#overlay { background-image: url(/images/overlay.png); }
+#overlay {background-image: url(/images/overlay.png); }
 
 * html #overlay {
 	background-color: #000;
@@ -127,73 +130,72 @@ img {
 	padding-top: 0.4em;
 }
 	
-#lightboxCaption{ float: left; }
-#keyboardMsg{ float: right; }
-#lightbox img{ border: none; } 
-#overlay img{ border: none; }
+#lightboxCaption{float: left; }
+#keyboardMsg{float: right; }
+#lightbox img{border: none; } 
+#overlay img{border: none; }
 
 /* for the link bar along the top
 ------------------------------ */
-table.headbar {
-	width: 100%;
-}
-.headbar {
+#headbar {
 	font-size : 14px;
-	width: 100%;
 	height: 30px;
 	color: white;
 	background-color: #336633;
 	padding: 0 5px;
 }
-.headbar a {
+#headbar div {
+	line-height: 30px;
+}
+#headbar a {
 	color: white;
 	text-decoration: none;
 }
-.headbar a:hover {
+#headbar a:hover {
 	color: white;
 	text-decoration: underline;
 }
-.headbar .previous {
+#headbar .previous, #headbar .link {
 	float: left;
 }
-.headbar .next {
+#headbar .next, #headbar .search {
 	float: right;
 }
 .topbar {
 	margin: 0 0 10px 0;
 }
 /* nextables ----------------------------------------------------------------*/
-.nextables, .gsc-cursor-box { 
+.nextables, .gsc-cursor-box {
 	margin-top: 10px;
 	padding: 5px 10px;
 	border: 1px 0 solid white;
 	background: #FAFAFA;
 	width: 100%;
 }
-.nextables A.next { 
+.nextables A.next {
 	float: right;
 	text-align: left; 
 	height: 100%;
 }
-.nextables A.prev { 
+.nextables A.prev {
 	float: left; 
 	text-align: right; 
 	height: 100%;
 }
-.nextables A:hover, .nextables A:active { 
+.nextables A:hover, .nextables A:active {
 	text-decoration: none; 
 }
 .nextables td {
 	padding: 3px 5px;
 }
 .nextables .pagelist {
-    text-align: center;
+	text-align: center;
 }
 .nextables #pagelinked td {
 	width: 33%;
 }
 ul.pagelist li a, ul.pagelist span.disabledlink, .pagelist a {
-    padding: 2px;
+	padding: 2px;
 }
 .gsc-cursor-box {
 	text-align: center;
@@ -236,7 +238,7 @@ h3.intro {
 }
 #frontpage #search_form {
 	margin: auto;
-    text-align: center;
+	text-align: center;
 }
 #frontpage #search_form input {
 	margin: 2px;
@@ -307,9 +309,10 @@ h2 {
 	font-size:22px;
 }
 h3 {
-	font-size:18px;	
+	font-size:18px;
 	text-align: left;
-	margin: 10px 0 5px 0;
+	padding: 10px 0 5px 0;
+	margin: 0;
 }
 h4 {
 	font-size:15px;
@@ -470,8 +473,8 @@ a:hover {
 	border-bottom: 1px solid #E6E6DF;
 	border-left: 1px solid #E6E6DF;
 	background: #fff;
-    z-index: 2; 	
-    text-align: left;
+	z-index: 2; 	
+	text-align: left;
 }
 #admin_data {
 	top: 0px;
@@ -490,7 +493,7 @@ a:hover {
 	padding: 0; 
 	text-align: center;
 }
-#admin h3:hover { 
+#admin h3:hover {
 	color: #036; 
 }
 /* for 'news' section
@@ -502,24 +505,15 @@ a:hover {
 	margin: 0;
 }
 .newsarticlecontent {
-	width: 98%;	
 	margin: 0.2em auto 1.5em auto;
 }
 /* for search
 ------------------------------ */
-#search_form {
-	width: 300px;
-}
 #search_input {
 	width:200px;
 }
 #search_form a {
 	display: none;
-}
-#righthead {
-	text-align: right;
-	vertical-align: top;
-	width: 15em;
 }
 .gsc-adBlock {
 	display: none !important;
@@ -573,12 +567,12 @@ color: #336633;
 position: relative;
 top: 1px;
 }
-.shadetabs li.selected a { /*selected main tab style */
+.shadetabs li.selected a {/*selected main tab style */
 background-color: #FAFAFA;
 border-bottom-color: #FAFAFA;
 color: #336633;
 }
-.tabcontentstyle { /*style of tab content container*/
+.tabcontentstyle {/*style of tab content container*/
 border: 1px solid gray;
 margin-bottom: 1em;
 padding: 10px;

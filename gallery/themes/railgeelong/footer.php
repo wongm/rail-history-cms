@@ -1,4 +1,3 @@
-</div>
 </div></div>
 <div id="navigation">
 <?php include_once($_SERVER["DOCUMENT_ROOT"] . "/common/nav.php"); ?>

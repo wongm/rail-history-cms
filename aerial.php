@@ -50,9 +50,17 @@ else
 	if ($preset != '' AND $section == 'preset')
 	{
 		$query = "aerial.php?section=popup&amp;preset=".$preset;
-	}	?>
-<p class="error"><a href="<? echo $query; ?>" class="error" onClick="pl('<? echo $query; ?>'); return false;" target="_blank">Something should have popped...</a></p>
-<?
+	}
+	?>
+<div id="headbar">
+	<div class="link"><a href="/">Home</a> &raquo; Aerial Explorer</div>
+	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+</div>
+<?php
+	
+	include_once("common/midbar.php");?>
+<p class="error" style="margin-top: 0"><a href="<? echo $query; ?>" class="error" onClick="pl('<? echo $query; ?>'); return false;" target="_blank">Something should have popped...</a></p>
+<?	
 drawDescription();
 ?>
 <script type="text/javascript">
