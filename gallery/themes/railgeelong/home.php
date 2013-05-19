@@ -10,17 +10,19 @@ include_once("../common/updates-functions.php");
 $pageHeading = "Welcome";
 include_once('header.php'); 
 ?>
+<table class="headbar">
+	<tr><td>Welcome</td>
+	<td id="righthead"><?php printSearchBreadcrumb(true); ?></td></tr>
+ </table>
 <div id="frontpage">
-<script type="text/javascript" src="/common/jquery-1.2.2.pack.js"></script>
-<script type="text/javascript" src="/common/frontpage.js"></script>
+<script type="text/javascript" src="/common/js/frontpage.js"></script>
 <div id="headerpane" class="photo-right">
-<img id="randomimage" height="267" width="400" alt="Random image" title="Random image" src=""/>
+<img id="randomimage" height="267" width="400" alt="Random image" title="Random image" src="/images/frontpage/E105_0086.jpg"/>
 <span id="randomcaption">Random image</span>
 </div>
 <h3 class="intro">Rail Geelong - hopefully everything you ever wanted to know about the history of the railways of Geelong and District, and then some.</h3>
 <p class="intro">Currently detailed histories are in place for the Melbourne - Geelong - Warrnambool, Geelong - Ballarat, Maribyrnong River Line, Newport Power Station, Altona, Fyansford,  Cunningham Pier, Queenscliff, Geelong Racecourse, and Mortlake railway lines. Histories of the locations on the lines themselves have also been completed in various levels of detail.<br/><br/>
 Any comments or feedback is welcomed via the <a href="/contact.php">contact form</a>.</p>
-<? drawHeadbarSearchBox("Looking for something?"); ?>
 <h4 style="clear:both">Site news</h4>
 <hr/>
 <table id="news" class="linedTable">	

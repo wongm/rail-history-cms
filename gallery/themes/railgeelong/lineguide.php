@@ -61,11 +61,10 @@ else
 		$pageTitle = $pageHeading = getLineName($line['lineName'])." Guide";
 		$pageTitle = "$pageTitle - Google Map";
 		include_once("../common/header.php");
-		drawLineguideHeadbar($line);
-
-		echo "<div id=\"lineguide\">\n";
+		drawLineguideHeaders($line, 'Google Map');
+		
 		echo "<h3>Google Map</h3>\n";
-		echo '<div id="map" class="inlinemap"></div>';;
+		echo '<div id="map" class="inlinemap"></div>';
 		drawLineguideFooters($line);
 	}
 	// 'home' page for line with links

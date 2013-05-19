@@ -16,7 +16,9 @@ function drawLineEvents($lineId, $type)
 	}
 	if ($dataarray[0] != '')
 	{
-		echo "<h4>$type</h4>\n";
+		$title = str_replace(' ', '', strtolower($type));
+		
+		echo "<h4 id=\"$title\">$type</h4>\n";
 		drawEventsTable($dataarray);
 	}
 }
@@ -653,17 +655,17 @@ function drawEventsTable($dataarray)
 	{	
 		if ($j%2 == '0')
 		{
-			$style = 'odd';
+			$style = 'class="x"';
 		}
 		else
 		{
-			$style = 'even';
+			$style = 'class="y"';
 		}
 		
 		if ($dataarray[$i]['details'] != '')
 		{
 ?>
-<tr class="<? echo $style; ?>">
+<tr <? echo $style; ?> valign="top">
 	<td class="date"><? echo $dataarray[$i]['date']; ?></td>
 	<td><? echo $dataarray[$i]['details'];	?></td>
 </tr>

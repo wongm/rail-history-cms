@@ -445,8 +445,8 @@ function drawLocationDataTable($location)
 	{
 ?>
 	<b>Google Maps: </b>
-		<a href="/aerial.php?view=satellite&id=<?=$id?>"  onClick="p(this.href); return false;">Satellite</a>&nbsp;/&nbsp;
-		<a href="/aerial.php?view=map&id=<?=$id?>"  onClick="p(this.href); return false;">Map</a><br/>
+		<a href="/location/<?=$id?>/satellite" onClick="p(this.href); return false;">Satellite</a>&nbsp;/&nbsp;
+		<a href="/location/<?=$id?>/map" onClick="p(this.href); return false;">Map</a><br/>
 <?
 	}
 

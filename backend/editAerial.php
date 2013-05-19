@@ -22,7 +22,7 @@ session_start();
 <!-- Author: Marcus Wong -->
 <!-- Date: November 28 2006 -->
 <title>Rail Geelong - <?php echo $pageTitle;?></title>
-<link rel="stylesheet" type="text/css" href="/common/style.css" media="all" title="Normal" />
+<link rel="stylesheet" type="text/css" href="/common/css/style.css" media="all" title="Normal" />
 <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
 <meta name="author" content="Marcus Wong" />
 <meta name="description" content="Rail Geelong Homepage" />

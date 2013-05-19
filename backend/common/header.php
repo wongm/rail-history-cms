@@ -36,11 +36,11 @@ $pageHeading = substr($pageHeading, 0, 40)
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>Rail Geelong - <?php echo $pageTitle;?></title>
-<link rel="stylesheet" type="text/css" href="/common/style.css" />
+<link rel="stylesheet" type="text/css" href="/common/css/style.css" />
 <link rel="stylesheet" type="text/css" href="/backend/common/style.css" media="all" title="Normal" />
-<script src="/common/functions.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="/common/js/functions.js" type="text/javascript"></script>
 <script src="/backend/common/scriptaculous/scriptaculous.js" type="text/javascript"></script>
-<script src="/backend/common/jquery.js" type="text/javascript"></script>
 <script src="/backend/common/jquery.dimensions.js" type="text/javascript"></script>
 <script src="/backend/common/jquery.tooltip.js" type="text/javascript"></script>
 <script src="/backend/common/jquery.tabs.js" type="text/javascript"></script>

@@ -13,7 +13,7 @@ include_once('header.php'); ?>
   </table>
   
   <div class="topbar">
-  	<h3>Image: <?=getImageTitle();?></h3>
+  	<h3><?=getImageTitle();?></h3>
   	<?php printImageDesc(true); ?>
   </div>
   

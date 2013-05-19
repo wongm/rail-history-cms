@@ -6,10 +6,10 @@ include_once("common/formatting-functions.php");
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>Rail Geelong - Undergoing Maintenance</title>
-<link rel="stylesheet" type="text/css" href="/common/style.css" media="all" title="Normal" />
-<script src="/common/functions.js" type="text/javascript"></script>
-<script type="text/javascript" src="/common/jquery-1.2.2.pack.js"></script>
-<script type="text/javascript" src="/common/frontpage.js"></script>
+<link rel="stylesheet" type="text/css" href="/common/css/style.css" media="all" title="Normal" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="/common/js/functions.js"></script>
+<script type="text/javascript" src="/common/js/frontpage.js"></script>
 <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
 <meta name="author" content="Marcus Wong" />
 <meta name="description" content="Rail Geelong Homepage" />

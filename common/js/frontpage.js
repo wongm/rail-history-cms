@@ -108,4 +108,5 @@ $(document).ready(function(){
 	$("#randomimage").attr("alt", cap[rand]);
 	$("#randomimage").attr("title", cap[rand]);	
 	$("#randomcaption").html(cap[rand]);
+	$("#randomcaption").show()
 });
