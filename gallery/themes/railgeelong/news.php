@@ -131,7 +131,12 @@ if(is_GalleryNewsType()) {
  	</div>	
 <?php
   endwhile; 
-  drawNewsFrontpageNextables();
+  
+?>
+<div class="pagelist">
+<?php printNewsPageListWithNav(gettext("Next") . " »", "« " . gettext("Previous")); ?>
+</div>
+<?php
 } 
 ?>
 </div>

@@ -45,7 +45,7 @@ include_once('header.php'); ?>
         <?php printAlbumThumbImage(getAlbumTitle()); ?></a></div>
       <div class="albumtitle">
       	<h4><a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?>"><?php printAlbumTitle(); ?></a></h4>
-        <small><?php printAlbumDate(); ?><br/><? printHitCounter($_zp_current_album) ?></small></div>
+        <small><?php printAlbumDate(); ?><br/><? if(function_exists(printHitCounter)) { printHitCounter($_zp_current_album); } ?></small></div>
       <div class="albumdesc"><?php printAlbumDesc(); ?></div>
     </td>
   <?php if ($i == 2)
@@ -87,7 +87,7 @@ include_once('header.php'); ?>
       <div class="imagetitle">
       	<h4><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
 		<?php echo printImageDescWrapped(); ?>
-        <small><?php printImageDate(); ?><br/><? printHitCounter($_zp_current_image) ?></small>
+        <small><?php printImageDate(); ?><br/><? if(function_exists(printHitCounter)) { printHitCounter($_zp_current_image); } ?></small>
       </div>
     </td>  
   <?php 
@@ -111,6 +111,8 @@ include_once('header.php'); ?>
 <?php endif; 
 
 printPageListWithNav("« " . gettext("Previous"), gettext("Next") . " »");
-echo "<p>".formatHitcounter(incrementAndReturnHitCounter('album'), false)."</p>";
+if(function_exists(formatHitcounter)) { 
+	echo "<p>" . formatHitcounter(incrementAndReturnHitCounter('album'), false) . "</p>"; 
+}
 
 include_once('footer.php'); ?>

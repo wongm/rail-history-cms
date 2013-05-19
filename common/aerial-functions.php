@@ -204,7 +204,7 @@ function drawSpecific($view, $id)
 <meta name="description" content="Rail Geelong Homepage" />
 <meta name="keywords" content="railways trains geelong victoria" />
 <link rel="stylesheet" type="text/css" href="/common/css/style.css" media="all" title="Normal" />
-<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=<?=GOOGLE_KEY?>&sensor=false"></script>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=<?=GOOGLE_KEY_3?>&sensor=false"></script>
 <script type="text/javascript">
 <? /* google map function - single location */ ?>
 var map, marker, infowindow;

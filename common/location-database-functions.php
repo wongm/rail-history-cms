@@ -39,8 +39,8 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 	
 	// check for duplicates from DB
 	$locationSql = "SELECT lt.*, lr.*, l.* , r.todisplay, r.name, r.link, r.line_id, r.tracksubpage, 
-		DATE_FORMAT(open, '".DATE_FORMAT."') AS fopen, DATE_FORMAT(close, '".DATE_FORMAT."') 
-		AS fclose, DATE_FORMAT(l.modified, '".DATE_FORMAT."') AS fmodified, '' AS unique_name,
+		DATE_FORMAT(open, '".SHORT_DATE_FORMAT."') AS fopen, DATE_FORMAT(close, '".SHORT_DATE_FORMAT."') 
+		AS fclose, DATE_FORMAT(l.modified, '".SHORT_DATE_FORMAT."') AS fmodified, '' AS unique_name,
 		length(l.description) AS description_length
 		FROM locations l
 		INNER JOIN locations_raillines lr ON l.location_id = lr.location_id

@@ -99,6 +99,7 @@ foreach ($latestalbums as $latestalbum) {
 <h4 style="clear:both">Coming Soon...</h4>
 <hr/>
 <?php printPageContent(); ?>
+Melbourne to Geelong and on to Warrnambool has now been covered, along with as well the various branches around Melbourne and Geelong. Geelong to Ballarat is currently in the works, with the Gheringhap to Maroona and Moriac to Wensleydale lines also partly researched.
 </div>
 <?php
 include("footer.php"); 

@@ -31,7 +31,7 @@ function getLineLocationEvents($lineId, $type)
 	if ($type == 'Location Opened')
 	{
 		$desc = 'opened';
-		$sql = "SELECT DATE_FORMAT(open, '".DATE_FORMAT."')  AS fdate, openAccuracy AS dateaccuracy, 
+		$sql = "SELECT DATE_FORMAT(open, '".SHORT_DATE_FORMAT."')  AS fdate, openAccuracy AS dateaccuracy, 
 			l.location_id, l.name, basic, type_id, '".$desc."' AS constantdesc 
 			FROM locations l
 			INNER JOIN location_types lt ON l.type = lt.type_id 
@@ -43,7 +43,7 @@ function getLineLocationEvents($lineId, $type)
 	elseif ($type == 'Location Closed')
 	{
 		$desc = 'closed';
-		$sql = "SELECT DATE_FORMAT(close, '".DATE_FORMAT."') AS fdate, closeAccuracy AS dateaccuracy, 
+		$sql = "SELECT DATE_FORMAT(close, '".SHORT_DATE_FORMAT."') AS fdate, closeAccuracy AS dateaccuracy, 
 			l.location_id, l.name, basic, type_id, '".$desc."' AS constantdesc 
 			FROM locations l
 			INNER JOIN location_types lt ON l.type = lt.type_id 
@@ -76,7 +76,7 @@ function getLineLocationEvents($lineId, $type)
  */
 function getMiscLineEvents($lineId)
 {
-	$sql = "SELECT DATE_FORMAT(date, '".DATE_FORMAT."') AS fdate, dateAccuracy, description
+	$sql = "SELECT DATE_FORMAT(date, '".SHORT_DATE_FORMAT."') AS fdate, dateAccuracy, description
 	FROM railline_events
 	WHERE (line = '".$lineId."') AND display != 'hide' 
 	AND (safeworking_why = 'plain') 
@@ -171,7 +171,7 @@ function getLocationLineEvents($type, $location)
 	
 	if ($type != 'By Date')
 	{
-		$sql = "SELECT event_id, DATE_FORMAT(date, '".DATE_FORMAT."') AS fdate, RE.tracks, safeworking, safeworking_why,
+		$sql = "SELECT event_id, DATE_FORMAT(date, '".SHORT_DATE_FORMAT."') AS fdate, RE.tracks, safeworking, safeworking_why,
 		gauge, start_location, end_location, date, line, RE.description, RE.tracks, 
 		safeworking_middle, safeworking_why, source, sourcedetail, dateAccuracy,
 		STARTKM.km AS start_distance, ENDKM.km AS end_distance, MIDDLEKM.km AS middle_distance, 
@@ -195,7 +195,7 @@ function getLocationLineEvents($type, $location)
 	// super convoluted to make sure all events get in - union all
 	else
 	{
-		$sql = "SELECT event_id, DATE_FORMAT(date, '".DATE_FORMAT."') AS fdate, date AS plaindate, RE.tracks AS tracks, 
+		$sql = "SELECT event_id, DATE_FORMAT(date, '".SHORT_DATE_FORMAT."') AS fdate, date AS plaindate, RE.tracks AS tracks, 
 		safeworking, gauge, start_location, STARTKM.km AS start_distance, 
 		end_location, ENDKM.km AS end_distance, date, line, RE.description, 
 		safeworking_middle, '-', safeworking_why, ST.name AS safeworking_type, source, sourcedetail, dateAccuracy,
@@ -215,7 +215,7 @@ function getLocationLineEvents($type, $location)
 		OR ( gauge != 'BG' ) OR ( RE.description != '' AND start_location = '' AND end_location = '' ))  
 		AND RE.display != 'hide'
 		UNION
-		SELECT l.location_id AS event_id, DATE_FORMAT(l.open, '".DATE_FORMAT."') AS fdate, l.open AS plaindate, 'opened' AS tracks, 
+		SELECT l.location_id AS event_id, DATE_FORMAT(l.open, '".SHORT_DATE_FORMAT."') AS fdate, l.open AS plaindate, 'opened' AS tracks, 
 		'-', '-', '-', '-', 
 		'-', '-', l.open AS date, line_id AS line, '', 
 		'-', '-', basic, '-', '-', '-', l.openAccuracy AS dateAccuracy, 
@@ -226,7 +226,7 @@ function getLocationLineEvents($type, $location)
 		WHERE display != 'tracks' AND (".IMPORTANT_LOCATION.") AND line_id = '$lineId' 
 		AND name != '' AND open != '".DATE_UNKNOWN_OPEN."' AND open != '".DATE_UNKNOWN_CLOSE."' 
 		UNION
-		SELECT l.location_id AS event_id, DATE_FORMAT(l.close, '".DATE_FORMAT."')  AS fdate, l.close AS plaindate, 'closed' AS tracks, 
+		SELECT l.location_id AS event_id, DATE_FORMAT(l.close, '".SHORT_DATE_FORMAT."')  AS fdate, l.close AS plaindate, 'closed' AS tracks, 
 		'-', '-', '-', '-', 
 		'-', '-', l.close, line_id AS line, '', 
 		'-', '-', basic, '-', '-', '-', l.closeAccuracy AS dateAccuracy, 
@@ -752,7 +752,7 @@ function getLocationEvents($location)
 	//extract($location);
 	//print_r($location);
 	
-	$sql = "SELECT DATE_FORMAT(date, '".DATE_FORMAT."') AS fdate, 
+	$sql = "SELECT DATE_FORMAT(date, '".SHORT_DATE_FORMAT."') AS fdate, 
 		date, dateAccuracy, details, source, sourcedetail 
 		FROM location_events 
 		WHERE location = '".mysql_real_escape_string($location['id'])."' 

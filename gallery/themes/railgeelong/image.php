@@ -27,9 +27,10 @@ include_once('header.php'); ?>
         <a href="<?=getFullImageURL();?>" rel="lightbox" title="<?=getImageTitle();?>">View full size photo (<?=getFullWidth()?>px by <?=getFullHeight()?>px)</a><br/>
       </td></tr>
   </table>
-<?php printEXIFData() ; ?>
+<?php 
+if(function_exists("printEXIFData")) { printEXIFData(); } ?>
 <?php if (hasPrevImage() or hasNextImage()) { ?>    
-  <table class="pagelist"><tr id="thumbnav"><td>
+  <div class="pagelist"><table><tr id="thumbnav"><td>
     <?php if (hasPrevImage()) { ?>
     <a class="prev" href="<?=getPrevImageURL();?>" title="Previous Image"><span>&laquo;</span> Previous</a>
     </td><td>
@@ -41,11 +42,10 @@ include_once('header.php'); ?>
     </td><td>
     <a class="next" href="<?=getNextImageURL();?>" title="Next Image">Next <span>&raquo;</span></a>
     <?php } else { echo "</td><td>"; } ?>
-  </td></tr></table>
+  </td></tr></table></div>
 <?php } 
 
-if(function_exists("printImageMarkupFields"))
-{	
+if(function_exists("printImageMarkupFields")) {
 	printImageMarkupFields();
 }
 

@@ -149,7 +149,10 @@ function printEXIFData()
 {
 	global $_zp_current_image;
 	$result = getImageMetaData();
-	$hitCounterText = formatHitCounter(incrementAndReturnHitCounter('image'));
+	if (function_exists('formatHitCounter'))
+	{
+		$hitCounterText = formatHitCounter(incrementAndReturnHitCounter('image'));
+	}
 	
 	if (function_exists('getDeathmatchRatingsText'))
 	{
@@ -308,20 +311,6 @@ function drawNewsNextables()
 <table class="nextables"><tr><td>
   <?php if($prev) { ?><a class="prev" href="<?=$prev['link'];?>" title="<?=$prev['title']?>"><span>&laquo;</span> <?=$prev['title']?></a> <? } ?>
   <?php if($next) { ?><a class="next" href="<?=$next['link'];?>" title="<?=$next['title']?>"><?=$next['title']?> <span>&raquo;</span></a> <? } ?>
-</td></tr></table>
-  <?php }
-}
-
-function drawNewsFrontpageNextables()
-{
-	$next = getNextNewsPageURL();
-	$prev = getPrevNewsPageURL();
-
-	if($next OR $prev) {
-	?>
-<table class="nextables"><tr><td>
-  <?php if($prev) { ?><a class="prev" href="<?="http://".$_SERVER['HTTP_HOST'].$prev;?>" title="Previous page"><span>&laquo;</span> Previous page</a> <? } ?>
-  <?php if($next) { ?><a class="next" href="<?="http://".$_SERVER['HTTP_HOST'].$next;?>" title="Next page">Next page <span>&raquo;</span></a> <? } ?>
 </td></tr></table>
   <?php }
 }

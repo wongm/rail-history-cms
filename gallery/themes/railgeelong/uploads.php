@@ -48,7 +48,7 @@ include_once('header.php');
 			<div class="imagetitle">
 				<h4><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
 		<?php echo printImageDescWrapped(); ?>
-				<small><?php printImageDate(); ?><br/><? printHitCounter($_zp_current_image) ?></small>
+				<small><?php printImageDate(); ?><br/><? if(function_exists(printHitCounter)) { printHitCounter($_zp_current_image); } ?></small>
 			</div>
 		</td>
 	<?php 
