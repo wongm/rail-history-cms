@@ -1,110 +1,75 @@
-<?php 
-/*
- * Present the different types of ordered photo pages
- * - highest this month
- * - highest this week
- * - highest of all time
- * - highest ranking
- * - show most recent uploaded photos
- *
- */ 
-$startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
+<?php
 
-require_once("functions-railgeelong.php");
+$description = "images ";
 
-// set up variables
-$recentPageNumber = $_REQUEST['page'];
-$pageType = $_REQUEST['type'];
-$pageTypeModifier = $_REQUEST['period'];
-$start = $_REQUEST['start'];
-$count = $_REQUEST['count'];
-
-// various modifiers for the recent upload pages
-if (isset($_REQUEST['double']))
-{
-	$pageTypeModifier = 'double';
-}
-
-if (isset($_REQUEST['caption']))
-{
+// admin only magic for photostream
+if (isset($_REQUEST['caption'])) {
 	$pageTypeModifier = $_REQUEST['caption'];
-}
-
-// used when drawing out the galllery item later on
-$galleryType = $pageTypeModifier;
-
-// draw gallery of hitcounter or rating based ranked pages
-if ($pageType == 'popular')
-{
-	$pageTitle = $popularImageText[$pageTypeModifier]['title'];
-	$leadingIntroText = $popularImageText[$pageTypeModifier]['text'];
-	$nextURL = $popularImageText[$pageTypeModifier]['url'];
-	$pageBreadCrumb = "<a href=\"".POPULAR_URL_PATH."\" title=\"Popular photos\">Popular photos</a>
-		&raquo; <a href=\"$nextURL\" title=\"$leadingIntroText\">$leadingIntroText</a>";
+	$limitSql = "i.title REGEXP '_[0-9]{4}' OR i.title REGEXP 'DSCF[0-9]{4}'";
 	
-	if ($pageTypeModifier == 'ratings')
-	{
-		$trailingIntroText = '. '.RATINGS_TEXT;
-	}
-}
-// get date based ranked pages
-else if ($pageType == '')
-{
-	$nextURL = UPDATES_URL_PATH;
-	$leadingIntroText = $pageTitle = 'Recent uploads';
-	$rssType = 'Gallery';
-	$rssTitle = 'Recent uploads';
-	
-	$pageBreadCrumb = "<a href=\"$nextURL\" title=\"Recent uploads\">Recent uploads</a>";
-	
-	if ( zp_loggedin() ) {
-		$adminOnlyText = '<p><a href="'.$nextURL.'/?caption=images">Uncaptioned images</a><br/>
-			<a href="'.$nextURL.'/?caption=albums">Albums with uncaptioned images</a><br/>
-			<a href="'.$nextURL.'/?double=">Duplicate images</a></p>';
+	// images without a caption
+	if ($pageTypeModifier == 'images') {
+		$description = "uncaptioned images ";
+		setCustomPhotostream($limitSql);
+	// albums that have at least one image without a caption
+	} else if ($pageTypeModifier == 'albums') {
+		$description = "albums with uncaptioned images ";
+		setCustomPhotostream($limitSql, "albumid");
 	}
 }
 
-$pageTitle = " - $pageTitle";
+$breadcrumb = 'Recent Uploads';
+$pageTitle = " - $breadcrumb";
 include_once('header.php'); 
-require_once("functions-search.php");
 ?>
 <div id="headbar">
-	<div class="link"><a href="/">Home</a> &raquo; <a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; <?=$pageBreadCrumb?></div>
+	<div class="link"><a href="/">Home</a> &raquo; <a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; <a href="/gallery/recent"><?php echo $breadcrumb; ?></a></div>
 	<div class="search"><? printSearchForm(); ?></div>
 </div>
 <?php include_once('midbar.php'); ?>
 <div class="topbar">
-	<h3><?=$leadingIntroText?></h3>
+	<h3><?php echo $breadcrumb; ?></h3>
 </div>
-<?
-if (!is_numeric($recentPageNumber) OR $recentPageNumber < 1)
-{
-	$recentPageNumber = 1;
-}
-
-if ($recentPageNumber == '' OR $recentPageNumber <= 1 OR !is_numeric($recentPageNumber))
-{
-	$currentImageResultIndex = 0;
-}
-else
-{
-	$currentImageResultIndex = ($recentPageNumber*MAXIMAGES_PERPAGE)-MAXIMAGES_PERPAGE;
-}
-
-// get gallery results, number of records, total number of records, and modified value of the next URL
-$galleryResults = getGalleryUploadsResults($pageType, $pageTypeModifier, $nextURL, $start, $count, $currentImageResultIndex);
-
-if ($galleryResults['galleryResultCount'] == 0 AND $recentPageNumber != 'fail')
-{
-	$currentImageResultIndex = 0;//getRecent('fail');
-}
-else
-{
-	echo "<p>$leadingIntroText, photos ".getNumberCurrentDispayedRecords(MAXIMAGES_PERPAGE, $galleryResults['galleryResultCount'], $recentPageNumber-1)."$trailingIntroText</p>";
-	echo $adminOnlyText;
+<p><?php echo getNumberCurrentDisplayedRecords("Displaying $description", ""); ?></p>
+<!-- Images -->
+<table class="centeredTable">
+	<?php	 
+	$i = 0;
+	while (next_photostream_image()):
+	if ($i == 0)
+	{
+		echo "<tr>\n";
+	} 
+	global $_zp_current_image;
+?>
+	<td class="image" valign="top">
+			<div class="imagethumb"><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>">
+			 <?php printImageThumb(getImageTitle()); ?></a></div>
+			<div class="imagetitle">
+				<h4><a href="<?=getImageLinkURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
+		<?php echo printImageDescWrapped(); ?>
+				<small><?php printImageDate(); ?><br/><? printHitCounter($_zp_current_image) ?></small>
+			</div>
+		</td>
+	<?php 
+	// neater for when only 4 items
+	if ($i == 2 || ($num == 4 && $i == 1))
+	{
+		echo "</tr>\n";
+		$i = 0;
+	}
+	else
+	{
+		$i++; 
+	}
+	endwhile;
 	
-	drawImageGallery($galleryResults['galleryResult'], $galleryType);
-	galleryPageNavigationLinks($currentImageResultIndex, $galleryResults['maxImagesCount'], $galleryResults['galleryResultCount'], $galleryResults['nextURL']);
-}
+	if ($i != 0)
+	{
+		echo "</tr>\n";
+	} ?>
+</table>
+<?php
+printPhotostreamPageListWithNav("« " . gettext("Previous"), gettext("Next") . " »");
 include_once('footer.php'); 
 ?>

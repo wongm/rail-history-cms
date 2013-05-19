@@ -1,7 +1,9 @@
 <?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
 
 // trick zenpage into displaying the HOME page
-zenpage_setup_page('home');
+//zenpage_setup_page('home');
+
+add_context(ZP_ZENPAGE_NEWS_DATE);
 
 include_once("../common/dbConnection.php");
 include_once("../common/formatting-functions.php");

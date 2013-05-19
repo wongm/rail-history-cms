@@ -4,24 +4,6 @@ define('SITE_NAME', 'Rail Geelong');
 
 require_once('parsing-functions.php');
 
-function status_header( $header ) {
-	if ( 200 == $header )
-		$text = 'OK';
-	elseif ( 301 == $header )
-		$text = 'Moved Permanently';
-	elseif ( 302 == $header )
-		$text = 'Moved Temporarily';
-	elseif ( 304 == $header )
-		$text = 'Not Modified';
-	elseif ( 404 == $header )
-		$text = 'Not Found';
-	elseif ( 410 == $header )
-		$text = 'Gone';
-
-	@header("HTTP/1.1 $header $text");
-	@header("Status: $header $text");
-}
-
 function drawAdminEditableLink($link, $title)
 {
 	global $editablelinkforadmin;
@@ -221,7 +203,7 @@ function drawNextAndBackLinks($index, $totalimg, $max, $url, $includePageNumberL
 
 	if ($index > 0 OR $totalimg >= $max)
 	{	?>
-<table class="nextables"><tr id="pagelinked"><td>
+<div class="pagelist"><ul class="pagelist">
 <?
 		if ($index > 0)
 		{
@@ -230,27 +212,22 @@ function drawNextAndBackLinks($index, $totalimg, $max, $url, $includePageNumberL
 				$index = $max;
 			}
 ?>
-<a class="prev" href="<? echo $url.($page) ?>" title="Previous Page"><span>&laquo;</span> Previous</a>
+<li class="prev"><a href="<? echo $url.($page) ?>" title="Previous Page"><span>&laquo;</span> Previous</a></li>
 <?
 		}
-?>
-</td><td>
-<?		
 		if ($includePageNumberLinks)
 		{
 			drawPageNumberLinks($index, $totalimg, $max, $url);
 		}
-?>
-</td><td>
-<?	
+
 		if ( ($totalimg - $index) >= $max)
 		{
 ?>
-<a class="next" href="<? echo $url.($page+2) ?>" title="Next Page">Next <span>&raquo;</span></a>
+<li class="next"><a href="<? echo $url.($page+2) ?>" title="Next Page">Next <span>&raquo;</span></a></li>
 <?
 		}
 ?>
-</td></tr></table>
+</ul></div>
 <?
 	}
 } // end function
@@ -278,15 +255,13 @@ function drawPageNumberLinks($index, $totalimg, $max, $url)
 	$total = floor(($totalimg)/$max)+1;
 	$current = $index/$max;
 
-	echo '<div class="pagelist">';
-	
 	if ($current > 3 AND $total > 7)
 	{
-		echo "\n <a href=\"$url\" alt=\"First page\" title=\"First page\">1</a>&nbsp;";
+		echo "<li class=\"first\"><a href=\"$url\" alt=\"First page\" title=\"First page\">1</a></li>";
 
 		if ($current > 4)
 		{
-			echo "...&nbsp;";
+			echo "...";
 		}
 	}
 
@@ -294,24 +269,23 @@ function drawPageNumberLinks($index, $totalimg, $max, $url)
 	{
 		if ($i == $current+1)
 		{
-			echo $i;
+			echo "<li>$i</li>";
 		}
 		else
 		{
-			echo '<a href="'.$url.$i.'" alt="Page '.$i.'" title="Page '.$i.'">'.($i).'</a>';
+			echo '<li><a href="'.$url.$i.'" alt="Page '.$i.'" title="Page '.$i.'">'.($i).'</a></li>';
 		}
-		echo "&nbsp;";
+		echo "";
 	}
 	if ($i <= $total)
 	{
 		if ($current < $total-5)
 		{
-			echo "...&nbsp;";
+			echo "...";
 		}
 
-		echo "<a href=\"$url$total\" alt=\"Last page\" title=\"Last page\">" . $total . "</a>";
+		echo "<li class=\"last\"><a href=\"$url$total\" alt=\"Last page\" title=\"Last page\">" . $total . "</a></li>";
 	}
-	echo '</div>';
 }	// end function
 
 

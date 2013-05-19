@@ -165,40 +165,62 @@ img {
 	margin: 0 0 10px 0;
 }
 /* nextables ----------------------------------------------------------------*/
-.nextables, .gsc-cursor-box {
+.pagelist, .gsc-cursor-box {
 	margin-top: 10px;
 	padding: 5px 10px;
 	border: 1px 0 solid white;
 	background: #FAFAFA;
-	width: 100%;
+	min-height: 20px;
 }
-.nextables A.next {
+.pagelist .next {
 	float: right;
 	text-align: left; 
 	height: 100%;
 }
-.nextables A.prev {
+.pagelist .prev {
 	float: left; 
 	text-align: right; 
 	height: 100%;
 }
-.nextables A:hover, .nextables A:active {
+.pagelist A:hover, .pagelist A:active {
 	text-decoration: none; 
 }
-.nextables td {
-	padding: 3px 5px;
-}
-.nextables .pagelist {
+ul.pagelist {
 	text-align: center;
+	font-size: 1em;
+	clear: both;
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
 }
-.nextables #pagelinked td {
-	width: 33%;
+ul.pagelist li {
+	display: inline;
+	padding: 2px 5px;
 }
-ul.pagelist li a, ul.pagelist span.disabledlink, .pagelist a {
-	padding: 2px;
+ul.pagelist li.current a {
+	text-decoration: none;
+	cursor: default;
+}
+ul.pagelist li.prev {
+	margin-right: 10px;
+}
+ul.pagelist li.next {
+	margin-left: 10px;
+}
+.disabledlink {
+	color: #ddd;
+	cursor: default;
+}
+.pagenav {
+	clear: both;
+}
+.disabled_nav {
+	visibility: hidden;
+	padding: 0 !important;
+	margin: 0 !important;
 }
 .gsc-cursor-box {
-	text-align: center;
+	text-align: center !important;
 	padding: 10px;
 }
 .gsc-results .gsc-cursor-box .gsc-cursor-current-page {
@@ -522,7 +544,6 @@ a:hover {
 	color: black !important;
 }
 #content #results {
-	width: 800px;
 	margin: 1.5em 0 0 1%;
 }
 /* for 'tab' section

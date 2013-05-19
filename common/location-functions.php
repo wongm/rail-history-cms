@@ -254,9 +254,9 @@ function drawLocationNeighbourBar($nextLocation, $backLocation)
 	if ($backLocation != '' OR $nextLocation != '')
 	{
 ?>
-<table class="nextables"><tr>
-	<td><?=$backLocation; ?><?=$nextLocation;?></td>
-</tr></table>
+<div class="pagelist">
+	<?=$backLocation; ?><?=$nextLocation;?>
+</div>
 <?
 	}
 }	// end function

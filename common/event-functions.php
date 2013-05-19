@@ -655,11 +655,11 @@ function drawEventsTable($dataarray)
 	{	
 		if ($j%2 == '0')
 		{
-			$style = 'class="x"';
+			$style = 'class="odd"';
 		}
 		else
 		{
-			$style = 'class="y"';
+			$style = 'class="even"';
 		}
 		
 		if ($dataarray[$i]['details'] != '')

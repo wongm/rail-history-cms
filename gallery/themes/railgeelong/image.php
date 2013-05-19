@@ -29,7 +29,7 @@ include_once('header.php'); ?>
   </table>
 <?php printEXIFData() ; ?>
 <?php if (hasPrevImage() or hasNextImage()) { ?>    
-  <table class="nextables"><tr id="thumbnav"><td>
+  <table class="pagelist"><tr id="thumbnav"><td>
     <?php if (hasPrevImage()) { ?>
     <a class="prev" href="<?=getPrevImageURL();?>" title="Previous Image"><span>&laquo;</span> Previous</a>
     </td><td>

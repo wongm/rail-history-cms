@@ -56,38 +56,6 @@
 
 /* Page Navigation
 ------------------------------ */
-ul.pagelist {
-	font-size: 1em;
-	clear: both;
-	padding: 0;
-	margin: 0;
-	list-style-type: none;
-}
-ul.pagelist li {
-	display: inline;
-}
-ul.pagelist li.current a {
-	text-decoration: none;
-	cursor: default;
-}
-ul.pagelist li.prev {
-	margin-right: 10px;
-}
-ul.pagelist li.next {
-	margin-left: 10px;
-}
-.disabledlink {
-	color: #ddd;
-	cursor: default;
-}
-.pagenav {
-	clear: both;
-}
-.disabled_nav {
-	visibility: hidden;
-	padding: 0 !important;
-	margin: 0 !important;
-}
 #thumbnav td {
 	width: 25%;
 }

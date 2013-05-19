@@ -109,18 +109,8 @@ include_once('header.php'); ?>
   } ?>
 </table>
 <?php endif; 
-  
-  	if (hasPrevPage() || hasNextPage())
-  	{
-?>
-<table class="nextables"><tr id="pagelinked"><td>
-	<?php if (hasPrevPage()) { ?> <a class="prev" href="<?=getMyPageURL(getPrevPageURL());?>" title="Previous Page"><span>&laquo;</span> Previous</a> <?php } ?>
-	</td><td><?php printPageList(); ?></td><td>
-	<?php if (hasNextPage()) { ?> <a class="next" href="<?=getMyPageURL(getNextPageURL());?>" title="Next Page">Next <span>&raquo;</span></a><?php } ?>
-</td></tr></table>
-<?php
-	} 
-  
-  echo "<p>".formatHitcounter(incrementAndReturnHitCounter('album'), false)."</p>";
-  
+
+printPageListWithNav("« " . gettext("Previous"), gettext("Next") . " »");
+echo "<p>".formatHitcounter(incrementAndReturnHitCounter('album'), false)."</p>";
+
 include_once('footer.php'); ?>

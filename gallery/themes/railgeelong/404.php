@@ -6,8 +6,9 @@
  */
 if (!defined('WEBPATH')) die(); 
 
-if (function_exists(redirectOn404))
+if (function_exists(redirectOn404)) {
 	redirectOn404();
+}
 
 // otherwise show the user possible results
 header("HTTP/1.0 404 Not Found");
@@ -24,7 +25,7 @@ include_once('functions-search.php');
 </div>
 <?php include_once('midbar.php'); ?>
 <div class="topbar">
-  	<h2>404 Page Not Found</h2>
+  	<h3>404 Page Not Found</h3>
 </div>
 <?php
 echo gettext("<h4>The gallery object you are requesting cannot be found.</h4>");
@@ -46,6 +47,7 @@ $term  = str_replace('.JPG', '', $term);
 
 if ($image)
 {
+	// setCustomPhotostream("(i.title like " . db_quote('%' . $term . '%') . " OR i.desc like " . db_quote('%' . $term . '%') . " OR i.filename like " . db_quote('%' . $term . '%') . ")");
 	$numberofresults = imageOrAlbumSearch($term, 'Image', 'error');
 }
 else
@@ -58,6 +60,7 @@ $term = str_replace('-', ' ', $term);
 
 if ($numberofresults == 0)
 {
+	// setCustomPhotostream("(a.title like " . db_quote('%' . $term . '%') . " OR a.desc like " . db_quote('%' . $term . '%') . " OR a.folder like " . db_quote('%' . $term . '%') . ")");
 	$numberofresults = imageOrAlbumSearch($term, 'Album', 'error');
 }
 
@@ -78,21 +81,4 @@ else
 <p><?=$wording?>can use <a href="<?=SEARCH_URL_PATH?>/<?=$term?>">Search</a> to find what you are looking for. </p> 
 <p>Otherwise please check you typed the address correctly. If you followed a link from elsewhere, please inform them. If the link was from this site, then <a href="<?=CONTACT_URL_PATH?>">Contact Me</a>.</p>
 <?php include_once('footer.php');
-
-function status_header( $header ) {
-	if ( 200 == $header )
-		$text = 'OK';
-	elseif ( 301 == $header )
-		$text = 'Moved Permanently';
-	elseif ( 302 == $header )
-		$text = 'Moved Temporarily';
-	elseif ( 304 == $header )
-		$text = 'Not Modified';
-	elseif ( 404 == $header )
-		$text = 'Not Found';
-	elseif ( 410 == $header )
-		$text = 'Gone';
-
-	@header("HTTP/1.1 $header $text");
-	@header("Status: $header $text");
-} ?>
+ ?>

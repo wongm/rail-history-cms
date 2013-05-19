@@ -30,11 +30,11 @@ for ($i = 0; $i < MYSQL_NUM_ROWS($updatedLocations); $i++)
 	{	
 		if ($j%2 == '0')
 		{
-			$style = 'class="x"';
+			$style = 'class="odd"';
 		}
 		else
 		{
-			$style = 'class="y"';
+			$style = 'class="even"';
 		}
 		
 		$date = MYSQL_RESULT($updatedLocations,$i,"fdate");
