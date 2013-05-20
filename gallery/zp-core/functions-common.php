@@ -471,7 +471,7 @@ function zp_setCookie($name, $value, $time=NULL, $path=NULL, $secure=false) {
 	if (is_null($time)) {
 		$time = COOKIE_PESISTENCE;
 	}
-	$path = WEBPATH;
+	$path = '/';
 	if (substr($path, -1, 1) != '/') $path .= '/';
 	if (DEBUG_LOGIN) {
 		debugLog("zp_setCookie($name, $value, $time, $path)::album_session=".GALLERY_SESSION."; SESSION=".session_id());
