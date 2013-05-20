@@ -32,6 +32,11 @@
   RewriteRule ^search/?$			index.php?p=search
   RewriteRule ^search.php?$			index.php?p=search
   
+  
+  # MW RSS
+  RewriteRule ^recentimages.rss?$      		       				index.php?rss [L,QSA]
+  RewriteRule ^recentalbums.rss?$      		       				index.php?rss&albumsmode [L,QSA]
+  
   RewriteRule	^admin/?$                       zp-core/admin.php [R,L]
   
   #Rewrite rules for replaced ?RSS-xxx query parameters
