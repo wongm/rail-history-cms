@@ -26,9 +26,9 @@
 #	End redirection for site updates 
   
   ## MW updated pages
-  RewriteRule ^recent/page/([0-9]+)/?$		index.php?p=uploads&page=$1 [L,QSA]
-  RewriteRule ^recent/(.*)/?$		index.php?p=uploads&page=$1 [L,QSA]
-  RewriteRule ^recent/?$			index.php?p=uploads
+  RewriteRule ^recent/page/([0-9]+)/?$		index.php?p=recent&page=$1 [L,QSA]
+  RewriteRule ^recent/(.*)/?$		index.php?p=recent&page=$1 [L,QSA]
+  RewriteRule ^recent/?$			index.php?p=recent
   RewriteRule ^search/?$			index.php?p=search
   RewriteRule ^search.php?$			index.php?p=search
   
