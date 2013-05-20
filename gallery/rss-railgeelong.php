@@ -1,8 +1,9 @@
 <?php
-require_once(dirname(__FILE__).'/zp-core/folder-definitions.php');
+// force UTF-8 Ø
+require_once(dirname(__FILE__).'/zp-core/global-definitions.php');
 define('OFFSET_PATH', 0);
-require_once(ZENFOLDER . "/template-functions.php");
-require_once(ZENFOLDER . "/functions-rss.php");
+require_once(dirname(__FILE__)."/".ZENFOLDER . "/template-functions.php");
+require_once(ZENFOLDER . "/class-rss.php");
 startRSSCache();
 
 include_once("../common/dbConnection.php");
