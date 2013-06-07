@@ -6,7 +6,7 @@
  */
 if (!defined('WEBPATH')) die(); 
 
-if (function_exists(redirectOn404)) {
+if (function_exists('redirectOn404')) {
 	redirectOn404();
 }
 
