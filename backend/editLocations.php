@@ -118,6 +118,7 @@ else
 	$i=0;
 	$thisLocationId = stripslashes(MYSQL_RESULT($result,$i,"l.location_id"));
 	$thisName = stripslashes(MYSQL_RESULT($result,$i,"name"));
+	$thisLink = stripslashes(MYSQL_RESULT($result,$i,"link"));
 	$thisSuburb = stripslashes(MYSQL_RESULT($result,$i,"suburb"));
 	$thisTracks = stripslashes(MYSQL_RESULT($result,$i,"tracks"));
 	$thisType = stripslashes(MYSQL_RESULT($result,$i,"type"));
@@ -173,6 +174,10 @@ else
 	<tr valign="top" height="20">
 		<td align="right"> <b> Name :  </b> </td>
 		<td> <input type="text" name="thisNameField" size="30" value="<? echo $thisName; ?>">  </td> 
+	</tr>
+	<tr valign="top" height="20">
+		<td align="right"> <b> Link (for page URL):  </b> </td>
+		<td> <input type="text" name="thisLinkField" size="30" value="<? echo $thisLink; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Location Type :  </b> </td>
@@ -256,7 +261,7 @@ else
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"><b>Show updated :  </b></td>
-		<td><label><input type="checkbox" checked="yes" name="flag" /> <small>(check to show on main page as recently updated)</small></label></td> 
+		<td><label><input type="checkbox" name="flag" /> <small>(check to show on main page as recently updated)</small></label></td> 
 	</tr>
 </table>
 

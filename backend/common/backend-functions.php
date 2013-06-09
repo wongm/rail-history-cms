@@ -73,8 +73,8 @@ function drawHeadbar($thisKm, $thisLine)
 	{
 	?>
 <!-- next / back links -->
-<div class="headbar">
-	<div class="previous"><? echo $back; ?></div>
+<div class="pagelist">
+	<div class="prev"><? echo $back; ?></div>
 	<div class="next"><? echo $next; ?></div>
 </div>
 <?

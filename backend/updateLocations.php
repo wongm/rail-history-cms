@@ -8,6 +8,7 @@ include_once("common/dbConnection.php");
 // Retreiving Form Elements from Form
 $thisLocationId = addslashes($_REQUEST['thisLocation_idField']);
 $thisName = addslashes($_REQUEST['thisNameField']);
+$thisLink = strtolower(addslashes($_REQUEST['thisLinkField']));
 $thisSuburb = addslashes($_REQUEST['thisSuburbField']);
 $thisLine = addslashes($_REQUEST['thisLineField']);
 $thisTracks = addslashes($_REQUEST['thisTracksField']);
@@ -35,7 +36,7 @@ if ($thisPhotos == '')
 }
 	
 //create the SQL string
-$sql = "UPDATE locations SET `name` = '$thisName' , `tracks` = '$thisTracks' , `display` = '$thisDisplay' , `type` = '$thisType' ";
+$sql = "UPDATE locations SET `name` = '$thisName' , `link` = '$thisLink' , `tracks` = '$thisTracks' , `display` = '$thisDisplay' , `type` = '$thisType' ";
 
 // for auto modification of last modified 
 
