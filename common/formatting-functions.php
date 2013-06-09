@@ -335,7 +335,11 @@ function formatDate($fdate, $type)
 			break;
 		case 'year':
 			$str = split(' ', $fdate);
-			return $str[3];
+			if (sizeof($str) == 4) {
+				return $str[3];
+			} else {
+				return $fdate;
+			}
 			break;
 		case 'decade':
 			$str = split(' ', $fdate);
@@ -343,20 +347,26 @@ function formatDate($fdate, $type)
 			$str = substr($str[3], 0, 3)."0s";
 
 			if ($period == 0)
-			{}
+			{
+				return $fdate;
+			}
 			else if ($period < 5)
 			{
-				$str = "Early $str";
+				return "Early $str";
 			}
 			else if ($period >= 5)
 			{
-				$str = "Late $str";
+				return "Late $str";
 			}
-			return $str;
+			return $fdate;
 			break;
 		case 'month':
 			$str = split(' ', $fdate);
-			return $str[2].' '.$str[3];
+			if (sizeof($str) == 4) {
+				return $str[2].' '.$str[3];
+			} else {
+				return $fdate;
+			}
 			break;
 		default:
 			return $fdate;
