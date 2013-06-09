@@ -588,15 +588,15 @@ function showPhotos($text)
 	return ($text != '0' AND $text != '');
 }
 
-function getLocationUrlBase($id, $name, $uniqueName)
+function getLocationUrlBase($id, $name, $link)
 {
-	if (!$uniqueName OR strpos($name, '/') OR strpos($name, '-'))
+	if (strlen($link) > 0)
 	{
-		return $id;
+		return $link;
 	}
 	else
 	{
-		return convertToLink($name);
+		return $id;
 	}
 }
 

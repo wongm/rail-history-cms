@@ -30,12 +30,15 @@ function drawUpdatedPagesTable($updatedLocations, $frontPage=false)
 		}
 		
 		$date = MYSQL_RESULT($updatedLocations,$i,"fdate");
-		$id = 	MYSQL_RESULT($updatedLocations,$i,"link");
+		$objectid = MYSQL_RESULT($updatedLocations,$i,"object_id");
+		$locationlink = MYSQL_RESULT($updatedLocations,$i,"link");
 		$name = stripslashes(MYSQL_RESULT($updatedLocations,$i,"name"));
 		$objecttype = MYSQL_RESULT($updatedLocations,$i,"object_type");
 		$locationtype = MYSQL_RESULT($updatedLocations,$i,"type");
 		$length = MYSQL_RESULT($updatedLocations,$i,"length");
 		$events = MYSQL_RESULT($updatedLocations,$i,"events");
+		
+		$itemlink = $objectid;
 		
 		//print_r(mysql_fetch_assoc($updatedLocations));
 		
@@ -44,6 +47,9 @@ function drawUpdatedPagesTable($updatedLocations, $frontPage=false)
 			case 'L':
 				$itemType = 'Location';
 				$name = getLocationName($name, $locationtype);
+				if (strlen($locationlink) > 0) {
+					$itemlink = $locationlink;
+				}
 				break;
 			case 'RL':
 				$itemType = 'Lineguide';
@@ -57,7 +63,7 @@ function drawUpdatedPagesTable($updatedLocations, $frontPage=false)
 				break;
 		}
 		
-		$urlText = '<a href="/'.strtolower($itemType).'/'.$id.'">';
+		$urlText = '<a href="/'.strtolower($itemType).'/'.$itemlink.'">';
 		
 		if (showPhotos(MYSQL_RESULT($updatedLocations,$i,"photos")))
 		{
@@ -69,7 +75,7 @@ function drawUpdatedPagesTable($updatedLocations, $frontPage=false)
 		}
 		
 		// skip location if has already been displayed, when on multiple lines it has the same ID
-		if ($id != $pastId)
+		if ($objectid != $pastId)
 		{
 			$j++;
 ?>
@@ -83,7 +89,7 @@ function drawUpdatedPagesTable($updatedLocations, $frontPage=false)
 </tr>
 <?		}
 		
-		$pastId = $id;
+		$pastId = $objectid;
 	}	// end for loop
 ?>
 </table>
@@ -107,7 +113,7 @@ function drawPageOfUpdated($updatedPages)
 
 function getUpdatedPages($index, $maxRowsPerPage)
 {
-	$sqlQuery = "SELECT l.location_id AS link, 'L' AS object_type, l.name, l.modified, l.events, 
+	$sqlQuery = "SELECT l.location_id AS object_id, 'L' AS object_type, l.name, l.link AS link, l.modified, l.events, 
 		DATE_FORMAT(l.modified, '".SHORT_DATE_FORMAT."') AS fdate, l.type, l.photos AS photos, l.description AS length
 	FROM locations_raillines lr
 	INNER JOIN locations l ON lr.location_id = l.location_id
@@ -118,19 +124,19 @@ function getUpdatedPages($index, $maxRowsPerPage)
 	GROUP BY l.location_id
 	
 	UNION ALL
-	SELECT link AS link, 'RL' AS object_type, name, modified, 0, 
+	SELECT link AS object_id, 'RL' AS object_type, name, '' AS link, modified, 0, 
 		DATE_FORMAT(r.modified, '".SHORT_DATE_FORMAT."') AS fdate, '' AS type, photos, description AS length
 	FROM raillines r 
 	WHERE r.todisplay != 'hide'
 	
 	UNION ALL
-	SELECT link AS link, 'A' AS object_type, title AS name, modified, 0, 
+	SELECT link AS object_id, 'A' AS object_type, title AS name, '' AS link, modified, 0, 
 		DATE_FORMAT(a.modified, '".SHORT_DATE_FORMAT."') AS fdate, '' AS type, photos, content AS length
 	FROM articles a
 	WHERE a.line_id = 0 AND a.link != ''
 	
 	UNION ALL
-	SELECT link AS link, 'R' AS object_type, title AS name, modified, 0, 
+	SELECT link AS object_id, 'R' AS object_type, title AS name, '' AS link, modified, 0, 
 		DATE_FORMAT(a.modified, '".SHORT_DATE_FORMAT."') AS fdate, '' AS type, photos, description AS length
 	FROM articles a
 	WHERE a.line_id = -1";

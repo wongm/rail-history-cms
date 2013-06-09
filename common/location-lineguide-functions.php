@@ -66,7 +66,7 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 		//echo $sortText ;
 	}
 	
-	$sql = "SELECT count(l.location_id) AS unique_name, l.location_id, l.name, r.name, r.link, l.photos, 
+	$sql = "SELECT l.location_id, l.name, l.link, r.name, r.link, l.photos, 
 		l.events, kmaccuracy, km, l.type, basic, r.line_id, length(l.description) AS description_length
 		FROM locations l
 		INNER JOIN location_types lt ON l.type = lt.type_id 
@@ -95,8 +95,8 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 	
 	for ($i  = 0; $i < $numberOfLocations; $i++)
 	{	
-		$id = stripslashes(MYSQL_RESULT($result,$i,"l.location_id"));
-		$uniqueName = (MYSQL_RESULT($result,$i,"unique_name") == 1);
+		$locationId = stripslashes(MYSQL_RESULT($result,$i,"l.location_id"));
+		$locationLink = stripslashes(MYSQL_RESULT($result,$i,"l.link"));
 		
 		if ($id == $pastid)
 		{
@@ -105,8 +105,9 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 			{
 				break;
 			}
-			$id = stripslashes(MYSQL_RESULT($result,$i,"l.location_id"));
-			$uniqueName = (MYSQL_RESULT($result,$i,"unique_name") == 1);
+			
+			$locationId = stripslashes(MYSQL_RESULT($result,$i,"l.location_id"));
+			$locationLink = stripslashes(MYSQL_RESULT($result,$i,"l.link"));
 		}
 		
 		$locationName = stripslashes(MYSQL_RESULT($result,$i,"l.name"));
@@ -139,7 +140,7 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 			$lineId = '';
 		}
 		
-		$base = getLocationUrlBase($id, $locationName, $uniqueName);
+		$base = getLocationUrlBase($locationId, $locationName, $locationLink);
 		
 		//grabs the URL for locations
 		switch ($locationType) 

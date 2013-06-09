@@ -7,7 +7,7 @@ function drawInvalidLocation($locationToFind, $index=1)
 	header("Status: 404 Not Found");
 	$pageTitle = "404 Page Not Found";
 	include_once(dirname(__FILE__) . "/../common/header.php");
-	$message = "<p class=\"error\">Error - Invalid Location!</p>\n";
+	$message = "<br clear=\"all\"><p class=\"error\">Error - Invalid Location!</p>\n";
 	drawLocationSearch($locationToFind, $index, $message);
 	include_once(dirname(__FILE__) . "/../common/footer.php");
 }
@@ -19,7 +19,7 @@ function drawDuplicateLocation($recheckresult)
 	$pageTitle = "404 Page Not Found";
 	include_once(dirname(__FILE__) . "/../common/header.php");
 	echo "<div class=\"locations\">\n";
-	echo "<p class=\"error\">Multiple locations by that name found!</p>\n";
+	echo "<br clear=\"all\"><p class=\"error\">Multiple locations by that name found!</p>\n";
 	drawLinedLocationsTable(getLocationsOnlyTable($recheckresult, 'line'), 'search');
 	echo "</div>\n";
 	include_once(dirname(__FILE__) . "/../common/footer.php");
@@ -33,6 +33,7 @@ function drawLocation($location)
 {
 	$pageTitle = "Locations - ".$location['pageTitle'];
 	$pageHeading = "Locations";
+	$canonical = getLocationCanonicalUrl($location);
 	include_once(dirname(__FILE__) . "/../common/header.php");
 	include_once(dirname(__FILE__) . "/../common/event-functions.php");
 ?>
@@ -333,9 +334,8 @@ function drawLocationSearch($locationSearch, $searchPageNumber, $message="")
 		$queryLimitSQL = sprintf(" GROUP BY l.location_id ORDER BY l.location_id, l.name ASC LIMIT %s, %s",
 			mysql_real_escape_string($index), mysql_real_escape_string($maxRecordsPerPage));
 	
-		$result = MYSQL_QUERY("SELECT l.location_id, l.name, r.name, l.type,
-			length(l.description) AS description_length, l.photos, l.events, lr.line_id, lt.basic,
-			count(l.location_id) AS unique_name ".$queryBaseSQL.$queryLimitSQL, locationDBconnect());
+		$result = MYSQL_QUERY("SELECT l.location_id, l.name, r.name, l.type, l.link, 
+			length(l.description) AS description_length, l.photos, l.events, lr.line_id, lt.basic ".$queryBaseSQL.$queryLimitSQL, locationDBconnect());
 		$numberOfRecords = MYSQL_NUM_ROWS($result);
 	
 		$resultMaxRows = MYSQL_QUERY("SELECT count(l.location_id) ".$queryBaseSQL." GROUP BY l.location_id", locationDBconnect());
@@ -546,4 +546,20 @@ function getLineLinksForLocation($branchlines)
 	return $lineLinkText;
 
 }	// end function
+
+function getLocationCanonicalUrl($location)
+{
+	if (strlen($location['locationLink']))
+	{
+		$link = $location['locationLink'];
+	}
+	else
+	{
+		$link = $location['id'];		
+	}
+	
+	return "http://www.railgeelong.com/location/$link";	
+}	// end function
+
+
 ?>

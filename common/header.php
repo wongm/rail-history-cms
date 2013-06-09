@@ -71,6 +71,9 @@ if (strlen($googleHeader))
 <meta name="author" content="Marcus Wong" />
 <meta name="description" content="A history of the railways of Geelong and District" />
 <meta name="keywords" content="railways trains history geelong victoria australia transport" />
+<?php if (strlen($canonical)) { ?>
+<link rel="canonical" href="<?php echo $canonical; ?>" />
+<?php } ?>
 <link rel="alternate" type="application/rss+xml" title="Recently updated pages" href="/rss" />
 </head>
 <body<?php echo $bodyExtra ?>>
@@ -91,7 +94,7 @@ if (function_exists('printAdminToolbox'))
 	if (zp_loggedin()) 
 	{
 		printAdminToolbox();
-		zenJavascript();
+		zp_apply_filter("theme_head");
 	}
 } ?>
 <div id="contentwrapper">

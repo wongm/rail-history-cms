@@ -403,6 +403,7 @@ function getBasicLocationForLineguide($databaseresult, $index)
 {
 	// retreive from DB
 	$location['location_id'] = MYSQL_RESULT($databaseresult,$index,"location_id");
+	$location['link'] = MYSQL_RESULT($databaseresult,$index,"link");
 	$location['name'] = stripslashes(MYSQL_RESULT($databaseresult,$index,"name"));
 	$location['line_id'] = MYSQL_RESULT($databaseresult,$index,"line_id");
 	$location['tracks'] = MYSQL_RESULT($databaseresult,$index,"tracks");
@@ -429,11 +430,11 @@ function getBasicLocationForLineguide($databaseresult, $index)
 function getFullLocationForLineguide($location)
 {
 	$url = $location['url'];
-
+	
 	// check if unique name
-	if ($location['unique_name'] == 1)
+	if (strlen($location['link']))
 	{
-		$urlbase = convertToLink($location['name']);
+		$urlbase = $location['link'];
 	}
 	else
 	{
@@ -589,13 +590,11 @@ function getLineDiagram($line, $section, $trackPage)
 	 * as well as `display` types - we only want `line` or `tracks` or `both`
 	 * order them by KM too
 	 */
-	$locationsOnRaillineSql = sprintf("SELECT *, count(l.location_id) AS unique_name
+	$locationsOnRaillineSql = sprintf("SELECT *
 		FROM locations l
 		INNER JOIN locations_raillines r ON l.location_id = r.location_id
-		LEFT OUTER JOIN locations ol ON l.name = ol.name
 		WHERE line_id = '%s' $pageBounds
 		AND l.open <= '%s' AND l.close >= '%s' AND l.display != 'map'
-		GROUP BY l.location_id
 		ORDER BY km ASC", mysql_real_escape_string($lineId),
 		mysql_real_escape_string($yearStart), mysql_real_escape_string($yearEnd));
 	$locationsOnRaillineResult = MYSQL_QUERY($locationsOnRaillineSql, locationDBconnect());

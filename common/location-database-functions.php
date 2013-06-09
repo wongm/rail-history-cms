@@ -6,6 +6,9 @@ include_once(dirname(__FILE__) . "/../common/dbConnection.php");
  */
 function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 {
+	$toFind = '';
+	$pastId = -1;
+	
 	// setup the SQL to search by
 	if ($boxToFind != '')
 	{
@@ -22,25 +25,19 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 			}
 			else
 			{
-				$toFind .= "l.name = '".mysql_real_escape_string($idToFind)."' AND ";
+				$toFind .= "l.link = '".mysql_real_escape_string($idToFind)."' AND ";
 			}
 		}
-		if ($locationToFind != '')
+		else if ($locationToFind != '')
 		{
-			$toFind .= "l.name = '".mysql_real_escape_string($locationToFind)."' AND ";
-		}		
-	}
-	
-	//if ($linelink != '')
-	{
-		// removed because it resulted in branch lines not being described if line is given in query string
-		//$toFind .= "r.link = '".mysql_real_escape_string($linelink)."' AND ";
+			$toFind .= "l.link = '".mysql_real_escape_string($locationToFind)."' AND ";
+		}
 	}
 	
 	// check for duplicates from DB
 	$locationSql = "SELECT lt.*, lr.*, l.* , r.todisplay, r.name, r.link, r.line_id, r.tracksubpage, 
 		DATE_FORMAT(open, '".SHORT_DATE_FORMAT."') AS fopen, DATE_FORMAT(close, '".SHORT_DATE_FORMAT."') 
-		AS fclose, DATE_FORMAT(l.modified, '".SHORT_DATE_FORMAT."') AS fmodified, '' AS unique_name,
+		AS fclose, DATE_FORMAT(l.modified, '".SHORT_DATE_FORMAT."') AS fmodified,
 		length(l.description) AS description_length
 		FROM locations l
 		INNER JOIN locations_raillines lr ON l.location_id = lr.location_id
@@ -52,8 +49,7 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 	$duplicateCount = MYSQL_NUM_ROWS($locationResults);
 	$locationIndex = -1;
 	
-	//print_r(mysql_fetch_assoc($locationResults));
-	
+	// validate that we don't have the same location twice
 	for ($i = 0; $i < $duplicateCount; $i++)
 	{
 		$id = MYSQL_RESULT($locationResults,$i,'location_id');
@@ -66,59 +62,15 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 	}
 	
 	// no locations found!?
-	if ($duplicateCount == 0)
+	if ($duplicateCount != 1)
 	{
 		$location['error'] = 'empty';
 		$location['locationToFind'] = $locationToFind;
 		return $location;
 	}
-	else if ($duplicateCount == 1)
+	else
 	{
-		$locationIndex = 0;
-	}
-	// found two locations by that name, probably signal box and associated station
-	elseif ($duplicateCount == 2)
-	{
-		$typeA = MYSQL_RESULT($locationResults,0,'type');
-		$typeB = MYSQL_RESULT($locationResults,1,'type');
-		
-		$idA = MYSQL_RESULT($locationResults,0,'location_id');
-		$idB = MYSQL_RESULT($locationResults,1,'location_id');
-		
-		if ($typeA == TYPE_SIGNAL_BOX AND $typeB = TYPE_STATION AND $idA != $idB AND $boxToFind != '')
-		{
-			$locationIndex = 1;
-			$duplicateCount = 1;
-		}
-		else if ($typeA == TYPE_STATION AND $typeB = TYPE_SIGNAL_BOX AND $idA != $idB AND $boxToFind == '')
-		{
-			$locationIndex = 0;
-			$duplicateCount = 1;
-		}
-		else if ($idA == $idB)
-		{
-			$locationIndex = 0;
-			$duplicateCount = 1;
-		}
-		else
-		{
-			$location['error'] = 'duplicates';
-			$location['duplicates'] = $locationResults;
-			return $location;
-		}
-			
-	}
-	else if ($duplicateCount > 1)
-	{		
-		$location['error'] = 'duplicates';
-		$location['duplicates'] = $locationResults;
-		return $location;
-	}
-	
-	// if no duplicates - spit it out!
-	if ($locationIndex >= 0)
-	{
-		$location["result"] = $locationResults;// = MYSQL_QUERY($sql, locationDBconnect());
+		$location["result"] = $locationResults;
 		
 		// set output status
 		$location["error"] = false;
@@ -130,7 +82,7 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 		
 		// collect data into an array
 		$location["id"] = MYSQL_RESULT($locationResults,0,"location_id");
-		$location["locationLink"] = convertToLink($location["name"]);
+		$location["locationLink"] = MYSQL_RESULT($locationResults,0,"link");
 		$location["uniqueId"] = $location["id"];
 		$location["display"] = MYSQL_RESULT($locationResults,0,"display");
 		$location["url"] = MYSQL_RESULT($locationResults,0,"url");
@@ -146,8 +98,8 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 		$location["closePlain"] = MYSQL_RESULT($locationResults,0,"close");
 		$location["coords"] = MYSQL_RESULT($locationResults,0,"long");
 		$location["photos"] = MYSQL_RESULT($locationResults,0,"photos");
-		$location["open"] = formatDate(MYSQL_RESULT($locationResults,0,"fopen"), $approxOpen);
-		$location["close"] = formatDate(MYSQL_RESULT($locationResults,0,"fclose"), $approxClose);
+		$location["open"] = formatDate(MYSQL_RESULT($locationResults,0,"fopen"), $location["approxOpen"]);
+		$location["close"] = formatDate(MYSQL_RESULT($locationResults,0,"fclose"), $location["approxClose"]);
 		//$location["todisplay"] = MYSQL_RESULT($locationResults,0,"r.todisplay");
 		$location["raillineDisplay"] = MYSQL_RESULT($locationResults,0,"r.todisplay");
 		$location["showLineEvents"] = substr($location["raillineDisplay"], 2, 1) == 1;
@@ -199,7 +151,6 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 		}
 		
 		// booleans to work out for a location
-		$location["hasSignalBox"] = $hasSignalBox;
 		$location["isCrossing"] = typeIsCrossing($location["type"]);
 		$location["isStation"] = typeIsStation($location["type"]);
 		$location["isSignalBox"] = ($location["type"] == TYPE_SIGNAL_BOX);
@@ -257,7 +208,7 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 			$location['branchlines'] = $branchline;
 		}
 		
-		return 	$location;
+		return $location;
 	}	// end zero result if
 }		// end function
 
@@ -294,14 +245,13 @@ function getNeighbourLocation($location, $way)
 		LIMIT 0, 1";
 	}
 	
-	$neighbourSql = "SELECT count(l.location_id) AS unique_name, l.name, l.type, l.location_id FROM locations l
+	$neighbourSql = "SELECT l.name, l.link, l.type, l.location_id 
+		FROM locations l
 		INNER JOIN locations_raillines lr ON l.location_id = lr.location_id 
 		INNER JOIN raillines r ON lr.line_id = r.line_id 
 		LEFT OUTER JOIN locations ol ON l.name = ol.name 
 		WHERE (r.link = '".mysql_real_escape_string($lineLink)."') 
 		AND ".SQL_NEXTABLE." AND ".$neighbourSqlLimit;
-		// SLOOOOOOOOW query right down, so removed, 0.2 seconds vs 2 seconds
-		///AND ol.type != '".TYPE_SIGNAL_BOX."' 
 	
 	$neighbourResult = MYSQL_QUERY($neighbourSql, locationDBconnect());
 	$neighbourLocationCount = MYSQL_NUM_ROWS($neighbourResult);
@@ -311,19 +261,14 @@ function getNeighbourLocation($location, $way)
 		$name = stripslashes(MYSQL_RESULT($neighbourResult,0,"name"));
 		$locationId = stripslashes(MYSQL_RESULT($neighbourResult,0,"location_id"));
 		$type = stripslashes(MYSQL_RESULT($neighbourResult,0,"type"));
-		$uniqueName = (MYSQL_RESULT($neighbourResult,0,"unique_name") == 1);
-		$urlBase = getLocationUrlBase($locationId, $name, $uniqueName);
+		$link = MYSQL_RESULT($neighbourResult,0,"link");
+		$urlBase = getLocationUrlBase($locationId, $name, $link);
 		$name = getLocationName($name, $type);
 		
 		// for junctions
-		if ($type == TYPE_JUNCTION OR !$uniqueName)
+		if ($type == TYPE_JUNCTION)
 		{
 			$urlBase .= '/'.$lineLink;
-		}
-		// for signal boxes
-		else if ($type == TYPE_SIGNAL_BOX)
-		{
-			$urlBase .= '/box';
 		}
 		
 		if ($way == 'back')
@@ -435,7 +380,8 @@ function getLocationDiagrams($location)
  */
 function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 {
-	$numberOfLocations = MYSQL_NUM_ROWS($resultLocations);	
+	$numberOfLocations = MYSQL_NUM_ROWS($resultLocations);
+	$pastid = -1;
 	
 	$toreturn['sorttext'] 	 = '';
 	$toreturn['headerurl'] 	 = '';
@@ -467,17 +413,12 @@ function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 		
 		$highlightName = $name = stripslashes(MYSQL_RESULT($resultLocations,$i,"l.name")); 
 		$type = stripslashes(MYSQL_RESULT($resultLocations,$i,"l.type"));
-		$uniqueName = (MYSQL_RESULT($resultLocations,$i,"unique_name") == 1);
-		$urlBase = getLocationUrlBase($id, $name, $uniqueName);
+		$link = MYSQL_RESULT($resultLocations,$i,"l.link");
+		$urlBase = getLocationUrlBase($id, $name, $link);
 		
 		if ($keyword != '')
 		{
 			$highlightName = highlight($keyword, $name);
-		}
-		
-		if ($type == TYPE_SIGNAL_BOX)
-		{
-			$urlBase .= '/box';
 		}
 		
 		// image depending on length of description
@@ -580,7 +521,7 @@ function getAssociatedLocations($id, $name, $type)
 	}
 	
 	// find possible interesting locations
-	$associatedLocationsSQL = "SELECT count(l.location_id) AS unique_name, l.location_id AS id, l.name, l.type 
+	$associatedLocationsSQL = "SELECT l.location_id AS id, l.name, l.link AS link, l.type 
 		FROM locations l
 		LEFT OUTER JOIN locations ol ON l.name = ol.name 
 		WHERE l.name LIKE ('".mysql_real_escape_string($name)."%') 
@@ -605,7 +546,6 @@ function getAssociatedLocations($id, $name, $type)
 			switch ($location['type'])
 			{
 				case TYPE_SIGNAL_BOX:
-					$bit = "/box";
 				case TYPE_STATION:
 				case TYPE_RMSP:
 				case TYPE_YARD:
@@ -621,9 +561,9 @@ function getAssociatedLocations($id, $name, $type)
 			
 			if ($title != '')
 			{
-				if ($location['unique_name'] == 1)
+				if (strlen($location['link']))
 				{
-					$toreturn[] = array(convertToLink($location['name']).$bit, $title);
+					$toreturn[] = array($location['link'], $title);
 				}
 				else
 				{
