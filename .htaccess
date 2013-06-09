@@ -51,11 +51,10 @@
   RewriteRule ^articles/(.*)/?$	   						articles-tool.php?name=$1 [L,QSA]
   RewriteRule ^articles/([A-Za-z0-9/\-_]+)/?$	   		articles-tool.php [L,QSA]
   
-  RewriteRule ^updates?$					   			updates-tool.php?updated=1 [L,QSA]
-  RewriteRule ^updates/page/([0-9]+)?$	   				updates-tool.php?updated=$1 [L,QSA]
-  RewriteRule ^updates/page/([0-9]+)/?$	   				updates-tool.php?updated=$1 [L,QSA]
-  RewriteRule ^updates/?$					   			updates-tool.php?updated=1 [L,QSA]
-  # RewriteRule ^updates/(.*)?$	   						updates-tool.php?updated=invalid [L,QSA]
+  RewriteRule ^updates?$					   			gallery/index.php?p=updates&page=1 [L,QSA]
+  RewriteRule ^updates/page/([0-9]+)?$	   				gallery/index.php?p=updates&page=$1 [L,QSA]
+  RewriteRule ^updates/page/([0-9]+)/?$	   				gallery/index.php?p=updates&page=$1 [L,QSA]
+  RewriteRule ^updates/?$					   			gallery/index.php?p=updates&page=1 [L,QSA]
 
   # depreciated pages, redirect to new ones		
   RewriteRule ^locations/updated?$					   	/updates [R=301,L]
