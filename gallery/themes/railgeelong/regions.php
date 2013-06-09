@@ -4,6 +4,7 @@ include_once("../common/dbConnection.php");
 include_once("../common/formatting-functions.php");
 include_once("../common/source-functions.php");
 include_once("../common/lineguide-functions.php");
+include_once("../common/lineguide-database-functions.php");
 
 /*
  * For regions, groupings of lineguides and articles, that all deal with a geographic area.

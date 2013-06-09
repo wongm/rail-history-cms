@@ -1,21 +1,5 @@
 <?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die();
 
-$len = strlen($pageTitle);
-
-if (is_NewsCategory())
-{
-	$pageTitle = ' - News - ' . getCurrentNewsCategory();
-}
-else
-{
-	$pageTitle = ' - News - ' . getBareNewsTitle();
-}
-
-if (substr($pageTitle, $len-2, 1) == '-')
-{
-	$pageTitle = substr($pageTitle, 0, $len-3);
-}
-
 $pageTitle = ' - '.getAlbumTitle();
 include_once('header.php');
 ?>

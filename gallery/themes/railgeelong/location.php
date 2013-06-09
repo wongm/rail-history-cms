@@ -5,10 +5,23 @@ include_once("../common/location-database-functions.php");
 include_once("../common/source-functions.php");
 include_once("../common/formatting-functions.php");
 
-$locationName = str_replace('-', ' ', $_REQUEST['name']);
-$locationBox = str_replace('-', ' ', $_REQUEST['box']);
-$locationId = str_replace('-', ' ', $_REQUEST['id']);
-$lineLink = $_REQUEST['line'];
+$locationName = '';
+$locationBox = '';
+$locationId = '';
+$lineLink = '';
+
+if (isset($_REQUEST['name'])) {
+	$locationName = str_replace(',', '', $_REQUEST['name']);
+}
+if (isset($_REQUEST['box'])) {
+	$locationBox = $_REQUEST['box'];
+}
+if (isset($_REQUEST['id'])) {
+	$locationId = str_replace(',', '', $_REQUEST['id']);
+}
+if (isset($_REQUEST['line'])) {
+	$lineLink = $_REQUEST['line'];
+}
 
 // reset bad input data
 if (!is_numeric($locationId) AND $locationId != '')

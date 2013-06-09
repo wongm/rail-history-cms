@@ -75,7 +75,7 @@ function getLine($lineToDisplay, $yearToDisplay)
 		// fix up dates for opening and closing, as well as for filtering
 		if(!is_numeric($yearToDisplay) OR $yearToDisplay == "")
 		{
-			$yearToDisplay = date(Y);
+			$yearToDisplay = date('Y');
 		}
 		
 		// normal occurance for years
@@ -96,23 +96,30 @@ function getLine($lineToDisplay, $yearToDisplay)
 		$line['closeYear'] = MYSQL_RESULT($lineResult,0,"closed");
 		
 		//special stuff for closed lines
-		if(!is_numeric($yearToDisplay) OR $_REQUEST['year'] == "")
+		if(!is_numeric($yearToDisplay) OR !isset($_REQUEST['year']) OR $_REQUEST['year'] == "")
 		{
-			if ($_REQUEST['section'] == 'safeworking')
+			if (!isset($_REQUEST['section']))
+			{
+				$line['yearEnd'] = '';
+				$line['yearStart'] = '';
+				$line['yearToDisplay'] = '';
+				$line['yearHeader'] = '';
+			}
+			elseif ($_REQUEST['section'] == 'safeworking')
 			{
 				if ($safeworkingdefault == 0)
 				{
 					$line['yearEnd'] = '0000-01-01';
 					$line['yearStart'] = '9999-12-31';
 					$line['yearToDisplay'] = 'All Locations';
-					$line['yearHeader'] = 'All Locations';	
+					$line['yearHeader'] = 'All Locations';
 				}
 				elseif ($safeworkingdefault != '9999')
 				{
 					$line['yearEnd'] = $safeworkingdefault.'-01-01';
 					$line['yearStart'] = $safeworkingdefault.'-12-31';
 					$line['yearToDisplay'] = $safeworkingdefault;
-					$line['yearHeader'] = $safeworkingdefault;	
+					$line['yearHeader'] = $safeworkingdefault;
 				}
 			}
 			elseif ($_REQUEST['section'] == 'diagram')
@@ -129,7 +136,7 @@ function getLine($lineToDisplay, $yearToDisplay)
 					$line['yearEnd'] = $trackdefault.'-01-01';
 					$line['yearStart'] = $trackdefault.'-12-31';
 					$line['yearToDisplay'] = $trackdefault;
-					$line['yearHeader'] = $trackdefault;	
+					$line['yearHeader'] = $trackdefault;
 				}
 			}
 		}

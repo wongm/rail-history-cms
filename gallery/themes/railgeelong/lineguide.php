@@ -1,23 +1,39 @@
 <?php
-include_once("../common/dbConnection.php");
-include_once("../common/lineguide-functions.php");
-include_once("../common/lineguide-database-functions.php");
-include_once("../common/event-functions.php");
-include_once("../common/source-functions.php");
-include_once("../common/formatting-functions.php");
-include_once("../common/map-functions.php");
+include_once(dirname(__FILE__) . "/../../../common/dbConnection.php");
+include_once(dirname(__FILE__) . "/../../../common/lineguide-functions.php");
+include_once(dirname(__FILE__) . "/../../../common/lineguide-database-functions.php");
+include_once(dirname(__FILE__) . "/../../../common/event-functions.php");
+include_once(dirname(__FILE__) . "/../../../common/source-functions.php");
+include_once(dirname(__FILE__) . "/../../../common/formatting-functions.php");
+include_once(dirname(__FILE__) . "/../../../common/map-functions.php");
 
-$lineToDisplay = 	$_REQUEST['line'];
-$yearToDisplay = 	$_REQUEST['year'];
-$trackPage = 		$_REQUEST['page'];
-$section= 			$_REQUEST['section'];
-$sort = 			$_REQUEST['sort'];
-$sort = str_replace('by-', '', $sort);
-$yearToDisplay = str_replace('year-', '', $yearToDisplay);
+$lineToDisplay = '';
+$yearToDisplay = '';
+$trackPage = '';
+$section = '';
+$sort = '';
+
+if (isset($_REQUEST['line'])) {
+	$lineToDisplay = $_REQUEST['line'];
+}
+if (isset($_REQUEST['year'])) {
+	$yearToDisplay = $_REQUEST['year'];
+	$yearToDisplay = str_replace('year-', '', $yearToDisplay);
+}
+if (isset($_REQUEST['page'])) {
+	$trackPage = $_REQUEST['page'];
+}
+if (isset($_REQUEST['section'])) {
+	$section= $_REQUEST['section'];
+}
+if (isset($_REQUEST['sort'])) {
+	$sort = $_REQUEST['sort'];
+	$sort = str_replace('by-', '', $sort);
+}
 
 $line = getLine($lineToDisplay, $yearToDisplay);
 
-if ($line['lineId'] == '')
+if (!isset($line['lineId']) || $line['lineId'] == '')
 {
 	draw404InvalidSubpage("lineguide", "line");
 }
@@ -44,7 +60,7 @@ else
 	// listing of locations for line
 	elseif ($section == 'locations' AND $line['showLocations'])
 	{
-		include_once("../common/location-lineguide-functions.php");
+		include_once(dirname(__FILE__) . "/../../../common/location-lineguide-functions.php");
 		drawLineguideHeaders($line, 'Locations');
 		drawAdminEditableLink("/backend/listLineLocations.php?line=".$line['lineLink'], "Edit locations");
 		echo "<h3>Locations</h3>\n";
@@ -54,13 +70,13 @@ else
 	// lineguide Google map
 	elseif ($section == 'map' AND $line['showGoogleMap'])
 	{
-		include_once("../common/aerial-functions.php");
+		include_once(dirname(__FILE__) . "/../common/aerial-functions.php");
 		$googleHeader = 'article';
 		$googleHeaderKMLscript = generateKMLScript('kml-' . $line['lineId'] . '.kml');
 
 		$pageTitle = $pageHeading = getLineName($line['lineName'])." Guide";
 		$pageTitle = "$pageTitle - Google Map";
-		include_once("../common/header.php");
+		include_once(dirname(__FILE__) . "/../common/header.php");
 		drawLineguideHeaders($line, 'Google Map');
 		
 		echo "<h3>Google Map</h3>\n";

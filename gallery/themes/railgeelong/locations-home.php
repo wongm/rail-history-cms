@@ -3,14 +3,18 @@ include_once("../common/dbConnection.php");
 include_once("../common/location-functions.php");
 include_once("../common/formatting-functions.php");
 
-$locationSearch = $_REQUEST['search'];
-$locationSearchPage = $_REQUEST['page'];
-
 /*
  * find a location by name
  */
-if($locationSearch != "")
-{
+if (isset($_REQUEST['search']))
+{	
+	$locationSearch = $_REQUEST['search'];
+	$locationSearchPage = '';	
+	
+	if (isset($_REQUEST['page'])) {
+		$locationSearchPage = $_REQUEST['page'];
+	}
+	
 	include_once("../common/location-database-functions.php");
 
 	$pageTitle = "Location search - \"$locationSearch\"";

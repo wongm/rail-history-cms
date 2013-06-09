@@ -3,14 +3,18 @@ include_once("../common/dbConnection.php");
 include_once("../common/location-functions.php");
 include_once("../common/formatting-functions.php");
 
-$locationType = $_REQUEST['type'];
-$locationSort = str_replace('by-', '', $_REQUEST['sort']);
-
 /*
  * show a listing of certain type of location
  */
-if($locationType != "")
+if(isset($_REQUEST['type']))
 {
+	$locationType = $_REQUEST['type'];
+	$locationSort = '';
+	
+	if (isset($_REQUEST['sort'])) {
+		$locationSort = str_replace('by-', '', $_REQUEST['sort']);
+	}
+	
 	switch ($locationType)
 	{
 		case 'yards':
