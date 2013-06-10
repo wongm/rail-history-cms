@@ -70,13 +70,13 @@ else
 	// lineguide Google map
 	elseif ($section == 'map' AND $line['showGoogleMap'])
 	{
-		include_once(dirname(__FILE__) . "/../common/aerial-functions.php");
+		include_once(dirname(__FILE__) . "/../../../common/aerial-functions.php");
 		$googleHeader = 'article';
 		$googleHeaderKMLscript = generateKMLScript('kml-' . $line['lineId'] . '.kml');
 
 		$pageTitle = $pageHeading = getLineName($line['lineName'])." Guide";
 		$pageTitle = "$pageTitle - Google Map";
-		include_once(dirname(__FILE__) . "/../common/header.php");
+		include_once(dirname(__FILE__) . "/../../../common/header.php");
 		drawLineguideHeaders($line, 'Google Map');
 		
 		echo "<h3>Google Map</h3>\n";

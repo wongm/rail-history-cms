@@ -98,7 +98,7 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 		$locationId = stripslashes(MYSQL_RESULT($result,$i,"l.location_id"));
 		$locationLink = stripslashes(MYSQL_RESULT($result,$i,"l.link"));
 		
-		if ($id == $pastid)
+		if ($locationId == $pastid)
 		{
 			$i++;
 			if ($i == $numberOfLocations)
