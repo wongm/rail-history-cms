@@ -537,6 +537,8 @@ function getAssociatedLocations($id, $name, $type)
 	}
 	else
 	{
+		$toreturn = array();
+		
 		for ($i = 0; $i < $associatedLocationCount; $i++)
 		{
 			$location = mysql_fetch_assoc($associatedLocationsResults);
@@ -571,9 +573,11 @@ function getAssociatedLocations($id, $name, $type)
 				}
 			}
 		}
+		
+		return $toreturn;
 	}
 	
-	return $toreturn;
+	return false;
 	
 	/*
 	echo '<br><br>';

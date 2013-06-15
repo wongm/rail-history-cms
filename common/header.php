@@ -6,6 +6,7 @@ global $editablelinkforadmin, $startTime;
 // $pageNavigation
 // $googleHeader
 // $googleHeaderKMLscript
+// $canonical
 
 // start timer
 $startTime = explode(' ',microtime());
@@ -25,11 +26,11 @@ else
 }
 
 // header stuff
-if ($pageTitle == '')
+if (!isset($pageTitle))
 {
 	$pageTitle = "Geelong and District, Past and Present";
 }
-if ($pageHeading == "")
+if (!isset($pageHeading))
 {
 	$pageHeading = $pageTitle;
 }
@@ -38,15 +39,18 @@ if (strlen($pageHeading) > 35)
 	$pageHeading = str_replace('Line Guide', '', $pageHeading);
 }
 
-//extra header items when displaying Google maps
-if ($googleHeader == 'article')
-{
-	$googleArticle = true;	
-}
+$bodyExtra = '';
+$googleArticle = false;
 
-// need bits in the body tag as well
-if (strlen($googleHeader))
+//extra header items when displaying Google maps
+if (isset($googleHeader))
 {
+	if ($googleHeader == 'article')
+	{
+		$googleArticle = true;
+	}
+	
+	// need bits in the body tag as well
 	$bodyExtra = ' onload="loadLineguideAll()" onunload="GUnload()"';
 }
 ?>
@@ -71,7 +75,7 @@ if (strlen($googleHeader))
 <meta name="author" content="Marcus Wong" />
 <meta name="description" content="A history of the railways of Geelong and District" />
 <meta name="keywords" content="railways trains history geelong victoria australia transport" />
-<?php if (strlen($canonical)) { ?>
+<?php if (isset($canonical)) { ?>
 <link rel="canonical" href="<?php echo $canonical; ?>" />
 <?php } ?>
 <link rel="alternate" type="application/rss+xml" title="Recently updated pages" href="/rss" />

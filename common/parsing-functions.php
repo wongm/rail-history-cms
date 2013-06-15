@@ -33,6 +33,8 @@ function fixParagraphs($text)
 
 function getFormattedText($text, $simple=false)
 {
+	$toreturn = '';
+	
 	// parse links
 	$description = fixParagraphs($text);
 	$description = parseLinks($description, $simple);

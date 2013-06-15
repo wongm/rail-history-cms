@@ -33,6 +33,8 @@ function getLocationImages($location)
 	}
 	$galleryResult = MYSQL_QUERY($gallerySQL, galleryDBconnect());
 	
+	$photoArray = array();
+	
 	for ($i = 0; $i < MYSQL_NUM_ROWS($galleryResult); $i++)
 	{
 		$photoArray[] = mysql_fetch_assoc($galleryResult);
