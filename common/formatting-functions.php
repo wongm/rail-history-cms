@@ -325,6 +325,9 @@ function formatDistance($km, $kmAccuracy)
  */
 function formatDate($fdate, $type)
 {
+	$dateParts = split(' ', $fdate);
+	$period = 0;
+	
 	switch ($type)
 	{
 		case 'exact':
@@ -334,39 +337,33 @@ function formatDate($fdate, $type)
 			return '<abbr title="By this date">('.$fdate.')</abbr>';
 			break;
 		case 'year':
-			$str = split(' ', $fdate);
-			if (sizeof($str) == 4) {
-				return $str[3];
-			} else {
-				return $fdate;
+			if (sizeof($dateParts) == 4) {
+				return $dateParts[3];
 			}
+			return $fdate;
 			break;
 		case 'decade':
-			$str = split(' ', $fdate);
-			$period = substr($str[3], 3, 1);
-			$str = substr($str[3], 0, 3)."0s";
-
-			if ($period == 0)
-			{
+			if (sizeof($dateParts) == 4) {
+				$period = substr($dateParts[3], 3, 1);
+				$decade = substr($dateParts[3], 0, 3)."0s";
+				
+				if ($period == 0) {
 				return $fdate;
-			}
-			else if ($period < 5)
-			{
-				return "Early $str";
-			}
-			else if ($period >= 5)
-			{
-				return "Late $str";
+				}
+				else if ($period < 5) {
+					return "Early $decade";
+				}
+				else if ($period >= 5) {
+					return "Late $decade";
+				}
 			}
 			return $fdate;
 			break;
 		case 'month':
-			$str = split(' ', $fdate);
-			if (sizeof($str) == 4) {
-				return $str[2].' '.$str[3];
-			} else {
-				return $fdate;
+			if (sizeof($dateParts) == 4) {
+				return $dateParts[2].' '.$dateParts[3];
 			}
+			return $fdate;
 			break;
 		default:
 			return $fdate;
