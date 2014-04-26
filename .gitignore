@@ -23,3 +23,7 @@ gallery/sitemap.php
 gallery/index.php
 gallery/trackback.php
 gallery/zp-data/
+backend/common/dbConnection.php
+error_log
+gallery/robots.txt
+google*.html
