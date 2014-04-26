@@ -14,13 +14,6 @@ if ($id != '')
 {
 	drawSpecific($view, $id);
 }
-elseif ($section == 'overview')
-{
-	$pageTitle = "Aerial Explorer";
-	include_once("common/header.php");
-	drawDescription();
-	include_once("common/footer.php");
-}
 elseif ($section == 'popup' OR $section == 'preset' )
 {
 	drawAllMap($center, $zoom, $types, $lines);
@@ -58,21 +51,31 @@ else
 </div>
 <?php
 	
-	include_once("common/midbar.php");?>
-<p class="error" style="margin-top: 0"><a href="<? echo $query; ?>" class="error" onClick="pl('<? echo $query; ?>'); return false;" target="_blank">Something should have popped...</a></p>
+	include_once("common/midbar.php");
+	
+	if ($section != 'overview')
+	{
+	?>
+<p class="error" clear="all" style="margin-top: 0"><a href="<? echo $query; ?>" class="error" onClick="pl('<? echo $query; ?>'); return false;" target="_blank">Something should have popped...</a></p>
 <?	
-drawDescription();
+	}
+	drawDescription();
+	
+	if ($section != 'overview')
+	{	
 ?>
 <script type="text/javascript">
 pl(<? echo '"'.$query.'"'; ?>);
 </script>	<?
+	}
+	
 	include_once("common/footer.php");
 }
 
 function drawDescription()
 {
 ?>
-<h4>Overview</h4><hr/>
+<h3>Aerial Explorer</h3>
 <p><a href="/aerial.php?section=popup" onClick="pl(this.href); return false;"><img src="/images/maps/map.jpg" class="photo-right" alt="Open the Aerial Map" title="Open the Aerial Map" /></a></p>
 <p>This section gives you an aerial view of the Geelong region, with all of the railway locations of interest overlaid upon it.</p>
 <p>For each location, a coloured marker is provided. Clicking on this marker will display the name of the location, a short rundown of the available data, and a link to the full history page.</p>
