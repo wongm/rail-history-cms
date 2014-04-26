@@ -19,3 +19,7 @@ images/frontpage/
 images/header-*.jpg
 images/geelong-region.gif
 common/dbConnection*.php
+gallery/sitemap.php
+gallery/index.php
+gallery/trackback.php
+gallery/zp-data/
