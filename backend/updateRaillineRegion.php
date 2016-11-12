@@ -15,7 +15,7 @@ if ($thisLinkzor_id > 0)
 else
 {
 	$sqlQuery = "INSERT INTO railline_region (line_id , article_id , content ) VALUES ('$thisLine_id' , '$thisArticle_id' , '$thisContent' )";
-	//$result = MYSQL_QUERY($sqlQuery);
+	$result = MYSQL_QUERY($sqlQuery);
 }
 
 Header("Location: /backend/listRaillineRegion.php");
