@@ -302,7 +302,7 @@ function formatDistance($km, $kmAccuracy)
 	}
 	elseif ($kmAccuracy == 'approx')
 	{
-		$kmonly = split('\.',$km);
+		$kmonly = explode('\.',$km);
 		if (sizeof($kmonly) > 1)
 		{
 			return '<i>'.$kmonly[0].' km</i>';
@@ -325,7 +325,7 @@ function formatDistance($km, $kmAccuracy)
  */
 function formatDate($fdate, $type)
 {
-	$dateParts = split(' ', $fdate);
+	$dateParts = explode(' ', $fdate);
 	$period = 0;
 	
 	switch ($type)

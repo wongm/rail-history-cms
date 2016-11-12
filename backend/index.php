@@ -50,9 +50,9 @@ else
 
 function fail()
 {
-	session_unregister($_SESSION['username']);
-	session_unregister($_SESSION['password']);
-	session_unregister($_SESSION['authorised']);
+	unset($_SESSION['username']);
+	unset($_SESSION['password']);
+	unset($_SESSION['authorised']);
 	session_destroy();
 	
 	$pageHeading = 'Site Management';

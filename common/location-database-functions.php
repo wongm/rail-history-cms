@@ -180,7 +180,7 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 		$location["lineId"] = MYSQL_RESULT($locationResults,0,"r.line_id");
 		$location['lineType'] = MYSQL_RESULT($locationResults,0,"lr.junctiontype");
 		$location['trackSubpage'] = MYSQL_RESULT($locationResults,0,"r.tracksubpage");
-		$location["trackSubpageCount"] = sizeof(split(';', $location["trackSubpage"]));
+		$location["trackSubpageCount"] = sizeof(explode(';', $location["trackSubpage"]));
 		
 		// next and backward locations
 		$location["nextLocation"] = getNeighbourLocation($location, 'next');
@@ -298,7 +298,7 @@ function getLocationDiagrams($location)
 	// for when a CSV string is given
 	if ($diagrams != '' AND $diagrams != '0')
 	{
-		$diagrams = split(';', $diagrams);
+		$diagrams = explode(';', $diagrams);
 		$numberOfYears = sizeof($diagrams);
 		$added = 'full-';
 	}
@@ -470,7 +470,7 @@ function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 
 function getAssociatedLocations($id, $name, $type)
 {
-	$splitName = split(' ', $name);
+	$splitName = explode(' ', $name);
 	$splitNameLength = sizeof($splitName);
 	$nameLength = strlen($name);
 	

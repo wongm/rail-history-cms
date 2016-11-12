@@ -168,7 +168,7 @@ function getLineBasicDetails($result, $j)
 	$line["lineName"] = stripslashes(MYSQL_RESULT($result,$j,"name"));
 	$line["lineLink"] = stripslashes(MYSQL_RESULT($result,$j,"link"));
 	$line["trackSubpage"] = stripslashes(MYSQL_RESULT($result,$j,"trackSubpage"));
-	$line["trackSubpageCount"] = sizeof(split(';', $line["trackSubpage"]));
+	$line["trackSubpageCount"] = sizeof(explode(';', $line["trackSubpage"]));
 	$line["lineLocations"] = MYSQL_RESULT($result,$j,"line_locations");
 	$line["todisplay"] = MYSQL_RESULT($result,$j,"todisplay");
 	$todisplay = $line["todisplay"];
