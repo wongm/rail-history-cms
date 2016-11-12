@@ -44,7 +44,6 @@ switch ($_GET['p'])
 
 $pageTitle = "Rail Geelong" . $pageTitle;
 
-require_once("functions-railgeelong.php");
 include_once('functions-gallery-formatting.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
@@ -72,7 +71,7 @@ else if ($railGeelongRSS)
 }
 else if ($newsRSS)
 {
-	printZenpageRSSHeaderLink('News', '', 'Recent news updates', null);
+	//printZenpageRSSHeaderLink('News', '', 'Recent news updates', null);
 }
 //facebook headers for image.php
 if (getImageThumb())
@@ -88,5 +87,5 @@ if (getImageThumb())
 	<div id="sitedesc">A history of the railways of Geelong and District.</div>
 	<div style="clear:both;"></div>
 </div>
-<?php printAdminToolbox(); ?>
+<?php zp_apply_filter('theme_body_close'); ?>
 <div id="contentwrapper">

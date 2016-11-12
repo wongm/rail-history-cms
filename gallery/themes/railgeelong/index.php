@@ -33,9 +33,9 @@ include_once('header.php'); ?>
 	  echo "<tr>\n";
   } ?>
     <td class="album" valign="top">
-      <div class="albumthumb"><a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?>">
+      <div class="albumthumb"><a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?>">
         <?php printAlbumThumbImage(getAlbumTitle()); ?></a></div>
-      <div class="albumtitle"><h4><a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?>">
+      <div class="albumtitle"><h4><a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?>">
         <?php printAlbumTitle(); ?></a></h4><small><?php printAlbumDate(); ?></small></div>
       <div class="desc"><?php printAlbumDesc(); ?></div>
     </td>

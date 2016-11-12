@@ -3,8 +3,6 @@
 // trick zenpage into displaying the HOME page
 //zenpage_setup_page('home');
 
-add_context(ZP_ZENPAGE_NEWS_DATE);
-
 include_once("../common/dbConnection.php");
 include_once("../common/formatting-functions.php");
 include_once("../common/updates-functions.php");
@@ -30,8 +28,12 @@ Any comments or feedback is welcomed via the <a href="/contact.php">contact form
 <hr/>
 <table id="news" class="linedTable">	
 <?php
-while (next_news() && $i < 5): ;
-	if ($i%2 == '0')
+
+add_context(ZP_ZENPAGE_NEWS_DATE);
+
+$newsCount = 0;
+while (next_news() && $newsCount < 5): ;
+	if ($newsCount%2 == '0')
 	{
 		$style = 'odd';
 	}
@@ -47,8 +49,8 @@ while (next_news() && $i < 5): ;
 	</td>
 </tr>
 <?php
-	$i++;
-  endwhile; 
+	$newsCount++;
+  endwhile;
 ?>
 </table>
 <p><a href="/news">Complete List...</a></p>
@@ -65,17 +67,17 @@ drawUpdatedPagesTable($updates['result'], true);
 <tbody>
 <?php 
 $latestalbums = query_full_array("SELECT i.filename, i.date, a.folder, a.title FROM " . prefix('images'). " i INNER JOIN " . prefix('albums'). " a ON i.albumid = a.id GROUP BY i.albumid, DATE(i.date) ORDER BY i.date DESC LIMIT 6");
-$i = 1;
 
+$albumCount = 1;
 foreach ($latestalbums as $latestalbum) {
 	
-	if (($i % 3) == 1)
+	if (($albumCount % 3) == 1)
 	{
 		echo "<tr>";
 	}
 	
 	$folderpath = "/gallery/" . $latestalbum['folder'];
-	$foldername = $latestalbum['title'];
+	$foldername = get_language_string($latestalbum['title'], null);
 	$thumbUrl = replace_filename_with_cache_thumbnail_version($latestalbum['filename']);
 	$thumbnailURL = "/gallery/cache/" . $latestalbum['folder'] . "/$thumbUrl";
 	
@@ -86,19 +88,22 @@ foreach ($latestalbums as $latestalbum) {
 	echo "	<small>". zpFormattedDate(getOption('date_format'),strtotime($latestalbum['date']))."</small>\n";
 	echo "</td>\n";
 		
-	if (($i % 3) == 0)
+	if (($albumCount % 3) == 0)
 	{
 		echo "</tr>";
 	}
 	
-	$i++;
+	$albumCount++;
 }
 ?>
 </tbody></table>
 <p><a href="/gallery/recent">Complete List...</a></p>
 <h4 style="clear:both">Coming Soon...</h4>
 <hr/>
-<?php printPageContent(); ?>
+<?php 
+
+printPageContent();
+?>
 Melbourne to Geelong and on to Warrnambool has now been covered, along with as well the various branches around Melbourne and Geelong. Geelong to Ballarat is currently in the works, with the Gheringhap to Maroona and Moriac to Wensleydale lines also partly researched.
 </div>
 <?php

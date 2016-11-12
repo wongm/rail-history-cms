@@ -7,8 +7,7 @@ include_once('header.php'); ?>
 	<div class="link"><a href="/">Home</a> &raquo; 
 		<a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 
 		<?php printParentBreadcrumb('', ' » ', ' » '); ?>
-		<a href="<?=getAlbumLinkURL();?>" title="<?=getAlbumTitle();?> Index"><?=getAlbumTitle();?></a> &raquo; 
-      	<?php printTruncatedImageTitle(true); ?>
+		<a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?> Index"><?=getAlbumTitle();?></a>
 	</div>
 	<div class="search"><?php printSearchForm(); ?></div>
   </div>
@@ -16,8 +15,8 @@ include_once('header.php'); ?>
 <?php include_once('midbar.php'); ?>
   
   <div class="topbar">
-  	<h3><?=getImageTitle();?></h3>
-  	<?php printImageDesc(true); ?>
+  	<h3><?php printMWEditableImageTitle(true);?></h3>
+  	<?php printMWEditableImageDesc(true); ?>
   </div>
   
   <table class="centeredTable">

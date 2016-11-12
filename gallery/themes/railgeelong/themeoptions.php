@@ -7,9 +7,11 @@
  * 
 */
 
+require_once(dirname(__FILE__) . '/functions.php');
+
 class ThemeOptions {
 	
-	function ThemeOptions() {
+	function __construct() {
 		setThemeOptionDefault('wongm_imagetitle_truncate_length', 64); 
 	}
 	

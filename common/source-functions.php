@@ -92,8 +92,7 @@ function getFormattedSource($result, $i)
 		}
 		$extra .= "<a href=\"$url\">$url_title</a>";
 	}
-	
-	if ($url_title != '')
+	else if ($url_title != '')
 	{
 		if ($extra != '') {
 			$extra = $extra." - ";
@@ -109,8 +108,7 @@ function getFormattedSource($result, $i)
 	// skip the link if it is just a website
 	if (strtolower($sourceName) == 'website')
 	{
-		return 
-		"<li>$extra</li>\n";
+		return "<li>$extra</li>\n";
 	}
 	else
 	{

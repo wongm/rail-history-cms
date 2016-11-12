@@ -2,13 +2,13 @@
 include_once(dirname(__FILE__) . "/dbConnection.php");
 include_once(dirname(__FILE__) . "/formatting-functions.php");
 include_once(dirname(__FILE__) . "/../gallery/themes/railgeelong/functions-search.php");
-include_once(dirname(__FILE__) . "/../gallery/themes/railgeelong/functions-railgeelong.php");
+include_once(dirname(__FILE__) . "/../gallery/themes/railgeelong/functions.php");
 
 // check this location has images to show
 function getLocationImages($location)
 {
-	$location = split(';', $location);
-	$subLocation = sizeof($location);
+	$locationbits = split(';', $location);
+	$subLocation = sizeof($locationbits);
 	
 	// for comma seperated individual images
 	if ($subLocation > 1)
@@ -16,12 +16,19 @@ function getLocationImages($location)
 		$gallerySQL = "SELECT zen_albums.folder, zen_images.filename, zen_images.title, zen_images.id 
 			FROM zen_images
 			INNER JOIN zen_albums ON zen_images.albumid = zen_albums.id 
-			WHERE ( zen_images.filename = '".mysql_real_escape_string($location[0])."' ";
+			WHERE ( zen_images.filename = '".mysql_real_escape_string(getFilename($locationbits[0]))."' ";
 		for ($i = 1; $i < $subLocation; $i++)
 		{
-			$gallerySQL .= " OR zen_images.filename = '".$location[$i]."' ";
+			$gallerySQL .= " OR zen_images.filename = '".mysql_real_escape_string(getFilename($locationbits[$i]))."' ";
 		}
 		$gallerySQL .= " ) ORDER BY zen_images.sort_order";
+	}
+	else if (strpos($location, '.jpg') > 0)
+	{
+		$gallerySQL = "SELECT zen_albums.folder, zen_images.filename, zen_images.title, zen_images.id 
+			FROM zen_images
+			INNER JOIN zen_albums ON zen_images.albumid = zen_albums.id 
+			WHERE zen_images.filename = '".mysql_real_escape_string(getFilename($location))."' ";
 	}
 	// for album in the gallery 
 	else
@@ -29,18 +36,26 @@ function getLocationImages($location)
 		$gallerySQL = "SELECT zen_albums.folder, zen_images.filename, zen_images.title, zen_images.id
 			FROM zen_images
 			INNER JOIN zen_albums ON zen_images.albumid = zen_albums.id 
-			WHERE folder = '".mysql_real_escape_string($location[0])."' ORDER BY zen_images.sort_order";
+			WHERE folder = '".mysql_real_escape_string($location)."' ORDER BY zen_images.sort_order";
 	}
+	
 	$galleryResult = MYSQL_QUERY($gallerySQL, galleryDBconnect());
 	
 	$photoArray = array();
-	
 	for ($i = 0; $i < MYSQL_NUM_ROWS($galleryResult); $i++)
 	{
 		$photoArray[] = mysql_fetch_assoc($galleryResult);
 	}
 	
 	return $photoArray;
+}
+
+function getFilename($fullpath)
+{
+	$fullpathbits = split('/', $fullpath);
+	$bitcount = sizeof($fullpathbits);
+	
+    return $fullpathbits[$bitcount - 1];
 }
 
 function printFrontpageRecent()
@@ -78,10 +93,10 @@ function drawLocationImages($locationPhotos, $path='')
 ?>
 <h4 id="photos" name="photos">Photos</h4><hr />
 <?
-	if ($originalRows > MAXIMAGES_LOCATIONPAGE) 
+	if ($originalRows > 9)
 	{
-		$moreString = MAXIMAGES_LOCATIONPAGE.' of <a href="/gallery/'.$path.'">'.$originalRows.' images found</a> displayed.';
-		$displayRows = MAXIMAGES_LOCATIONPAGE;
+		$moreString = 'Nine of <a href="/gallery/'.$path.'">'.$originalRows.' images found</a> displayed.';
+		$displayRows = 9;
 	}
 	else		
 	{
@@ -99,7 +114,7 @@ function drawLocationImages($locationPhotos, $path='')
 		$j=1;
 	}
 	
-	if ($originalRows > MAXIMAGES_LOCATIONPAGE)
+	if ($originalRows > 9)
 	{
 		$k=rand(0, ($originalRows/9));
 	}
@@ -132,8 +147,8 @@ function drawLocationImages($locationPhotos, $path='')
 			// old version
 			/*<td class="i"><a href="/gallery/<? echo $photoPath; ?>/<? echo $photoUrl; ?>.html?size=" target="new" ><img src="/gallery/cache/<? echo $photoPath; ?>/<? echo $photoUrl; ?>_150_cw150_ch150.jpg" alt="<? echo $photoTitle; ?>" title="<? echo $photoTitle; ?>" />*/
 			
-			$thumbUrl = str_replace('.jpg', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.jpg', $photoUrl);
-			$normalImageUrl = str_replace('.jpg', '_' . NORMAL_IMAGE_SIZE . '.jpg', $photoUrl);
+			$thumbUrl = str_ireplace('.jpg', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.jpg', $photoUrl);
+			$normalImageUrl = str_ireplace('.jpg', '_' . NORMAL_IMAGE_SIZE . '.jpg', $photoUrl);
 ?>
 <td class="i">
 	<a href="/gallery/cache/<? echo $photoPath; ?>/<? echo $normalImageUrl; ?>" rel="lightbox" title="<? echo $photoTitle; ?>"><img src="/gallery/cache/<? echo $photoPath; ?>/<? echo $thumbUrl; ?>" alt="<? echo $photoTitle; ?>" title="<? echo $photoTitle; ?>" /></a>

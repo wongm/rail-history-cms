@@ -18,6 +18,58 @@
 //*****************************************************************************/
 
 
+
+/*
+ * prints a pretty dodad that lists the total number of pages in a set
+ * give it the index you are up to,
+ * the total number of items,
+ * the number  to go per page,
+ * and the URL to link to
+ */
+function drawGallerySearchPageNumberLinks($index, $totalimg, $max, $url)
+{
+	$total = floor(($totalimg-1)/$max)+1;
+	$current = $index/$max;
+	$url = fixNavigationUrl($url);
+	
+	echo "<div class=\"pagelist\"\n>";
+	
+	if ($current > 3 AND $total > 7)
+	{
+		$url1 = $url."1";
+		echo "\n <a href=\"$url1\" title=\"First page\">1</a>&nbsp;"; 
+		
+		if ($current > 4)
+		{
+			echo "...&nbsp;";
+		}
+	}
+	
+	for ($i=($j=max(1, min($current-2, $total-6))); $i <= min($total, $j+6); $i++) 
+	{
+		if ($i == $current+1)
+		{
+			echo $i;
+		}
+		else
+		{
+			echo '<a href="'.$url.$i.'" title="Page '.$i.'">'.($i).'</a>';
+		}
+		echo "&nbsp;";
+	}
+	if ($i <= $total) 
+	{
+		if ($current < $total-5)
+		{
+			echo "...&nbsp;";
+		}
+		
+		echo "<a href=\"$url$total\" title=\"Last page\">" . $total . "</a>"; 
+	}
+	
+	echo "</div>";
+}	// end function
+
 function galleryPageNavigationLinks($index, $maxImagesCount, $totalimg, $url)
 {
 	$page = $index/MAXIMAGES_PERPAGE;

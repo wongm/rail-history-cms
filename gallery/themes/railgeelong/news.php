@@ -17,7 +17,7 @@ if(is_NewsArticle()) {
 <div class="topbar"><h2><?php printNewsTitle(); ?></h2></div>
 <div id="news">
 	<div class="newsarticle"> 
-		<div class="newsarticlecredit"><span class="newsarticlecredit-left"><?php printNewsDate();?> | <?php echo gettext("Comments:"); ?> <?php echo getCommentCount(); ?> | </span> <?php printNewsCategories(", ",gettext("Categories: "),"newscategories"); ?></div>
+		<div class="newsarticlecredit"><span class="newsarticlecredit-left"><?php printNewsDate();?> | </span> <?php printNewsCategories(", ",gettext("Categories: "),"newscategories"); ?></div>
 		<p><?php printNewsContent(); ?></p>
 	</div>
 <?php 
@@ -105,11 +105,6 @@ if (getOption('comment_form_articles')) { ?>
     	<h3><?php echo getNewsTitle(); ?></h3>
         <div class="newsarticlecredit">
         <p><small><?php printNewsDate();?></small></p>
-<?php
-if(is_GalleryNewsType()) {
-	echo gettext("Album:")."<a href='".getNewsAlbumURL()."' title='".getBareNewsAlbumTitle()."'> ".getNewsAlbumTitle()."</a>";
-}
-?>
 		</div>
     	<div class="newsarticlecontent"><?php echo getNewsContent(true); ?></div>
  	</div>	
