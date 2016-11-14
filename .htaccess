@@ -1,103 +1,30 @@
-# htaccess file for zenphoto
-# NOTE: Change the RewriteBase below to the absolute path to your zenphoto directory.
-
+# htaccess file version 1.4.12;
+#	Rewrite rules are now handled by PHP code
+# See the file "zenphoto-rewrite.txt" for the actual rules
+#
+# These rules redirect everything not directly accessing a file to the Zenphoto index.php script
+#
+<IfModule mod_autoindex.c>
+	IndexIgnore *
+</IfModule>
 <IfModule mod_rewrite.c>
-  Options +FollowSymlinks
   RewriteEngine On
-  
-  #### !!! Change this to the web path (eg: http://www.example.com/photos --> /photos) !!!
+
   RewriteBase /
-  ####
   
   #### standard redirect to avoid http://railgeelong.com 
   RewriteCond %{HTTP_HOST} ^railgeelong\.com$ [NC]
   RewriteRule ^(.*)$ http://www.railgeelong.com/$1 [R=301,L]
-  
-  # For maintenance
-  # RewriteCond %{REQUEST_URI} !/maintenance.php$
-  # RewriteCond %{REQUEST_URI} !/common/style.css$
-  # RewriteCond %{REQUEST_URI} !/common/(.*).js$
-  # RewriteCond %{REQUEST_URI} !/images(.*)$
-  # RewriteRule $ /maintenance.php [L] 
-	
-  # CMS related stuff, redirect to Zenphoto
-  RewriteRule ^index.php?$	   							gallery/index.php?p=home&title=home [L,QSA]
-  RewriteRule ^index.html?$	   							gallery/index.php?p=home&title=home [L,QSA]
-	
-  RewriteRule ^search?$	   								search.php [L,QSA]
-  
-  # Wordpress migration
-  RewriteRule ^news/feed/?$	   							/gallery/rss-news.php [R=301,L]
-  RewriteRule ^news/feed?$	   							/gallery/rss-news.php [R=301,L]
-  RewriteRule ^news/feed/atom?$	   							/gallery/rss-news.php [R=301,L]
-  RewriteRule ^news/feed/atom/?$	   						/gallery/rss-news.php [R=301,L]
 
-  # News related stuff, redirect to Zenphoto as CMS
-  RewriteRule ^news/?$	   								gallery/index.php?p=news [L,QSA]
-  RewriteRule ^news/([-a-zA-Z0-9]*)/?$	   				gallery/index.php?p=news&title=$1 [L,QSA]
+  RewriteRule ^gallery(/.*|)$ 				$1 [L,QSA]  
   
-  # fixes redirects to the old articles, 
-  # sends them on a 301 trip to the proper ones
-  RewriteRule locations\.php$							locations-redirect.php [L,QSA]
-  RewriteRule lineguide\.php$							lineguide-redirect.php [L,QSA]
-  RewriteRule articles\.php$							articles-redirect.php [L,QSA]
+  RewriteCond %{REQUEST_URI} !(/$|\.)
+  RewriteRule (.*) %{REQUEST_URI}/ [R=301,L]
 
-  RewriteRule ^region/?$					   			/lineguides [R,QSA]  
-  RewriteRule ^region/(.*)/?$	   						gallery/index.php?p=regions&name=$1 [L,QSA]
-  
-  RewriteRule ^articles/?$					   			articles-tool.php [L,QSA]
-  RewriteRule ^article/(.*)/?$	   						articles-tool.php?name=$1 [L,QSA]
-  # depreciated
-  RewriteRule ^articles/(.*)/?$	   						articles-tool.php?name=$1 [L,QSA]
-  RewriteRule ^articles/([A-Za-z0-9/\-_]+)/?$	   		articles-tool.php [L,QSA]
-  
-  RewriteRule ^updates?$					   			gallery/index.php?p=updates&page=1 [L,QSA]
-  RewriteRule ^updates/page/([0-9]+)?$	   				gallery/index.php?p=updates&page=$1 [L,QSA]
-  RewriteRule ^updates/page/([0-9]+)/?$	   				gallery/index.php?p=updates&page=$1 [L,QSA]
-  RewriteRule ^updates/?$					   			gallery/index.php?p=updates&page=1 [L,QSA]
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^.*$ - [L]
 
-  # depreciated pages, redirect to new ones		
-  RewriteRule ^locations/updated?$					   	/updates [R=301,L]
-  RewriteRule ^locations/updated(.*)/?$			   		/updates [R=301,L]
-    
-  # aerial
-  RewriteRule ^location/([0-9]+)/map$					   				aerial-tool.php?id=$1&view=map [L,QSA]
-  RewriteRule ^location/([0-9]+)/satellite$					   			aerial-tool.php?id=$1&view=satellite [L,QSA]
-  
-  # locations
-  RewriteRule ^locations/?=search=?$					   				gallery/index.php?p=locations&search=$1 [L,QSA]
-  RewriteRule ^locations/?=search=?$&page=([0-9]+)			   			gallery/index.php?p=locations&search=$1&page=$2[L,QSA]
-  
-  RewriteRule ^locations/([A-Za-z0-9\-_]+)/?$	   						gallery/index.php?p=locations&type=$1 [L,QSA]
-  RewriteRule ^locations/([A-Za-z0-9\-_]+)/([A-Za-z0-9\-_]+)/?$	   		gallery/index.php?p=locations&type=$1&sort=$2 [L,QSA]
-  # last fallthrough
-  
-  RewriteRule ^locations(.*)?$					  						gallery/index.php?p=locations-home [L,QSA]
-  RewriteRule ^location/?$					  							gallery/index.php?p=locations-home [L,QSA]
-  
-  RewriteRule ^location/([0-9\-_]+)/?$					   				gallery/index.php?p=location&id=$1 [L,QSA]
-  RewriteRule ^location/([0-9\-_]+)/box/?$					   			gallery/index.php?p=location&id=$1 [L,QSA]
-  RewriteRule ^location/([A-Za-z0-9\-'.,_]+)/?$	   						gallery/index.php?p=location&name=$1 [L,QSA]
-  RewriteRule ^location/([A-Za-z0-9\-'.,_]+)/box/?$						gallery/index.php?p=location&box=$1 [L,QSA]
-  RewriteRule ^location/([A-Za-z0-9\-'.,_]+)/([A-Za-z0-9\-'._]+)/?$  	gallery/index.php?p=location&name=$1&line=$2 [L,QSA]
-  # last fallthrough
-  RewriteRule ^location/(.*)?$ 											gallery/index.php?p=locations&name=$1 [L,QSA]
-  
-  RewriteRule ^lineguides/?$					   												gallery/index.php?p=lineguides [L,QSA]
-  RewriteRule ^lineguide/?$					   													gallery/index.php?p=lineguides [L,QSA]
-  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/?$	  												gallery/index.php?p=lineguide&line=$1 [L,QSA]
-  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/([A-Za-z0-9\-_]+)/?$	  								gallery/index.php?p=lineguide&line=$1&section=$2 [L,QSA]
-  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/locations/([A-Za-z0-9\-_]+)/?$	  					gallery/index.php?p=lineguide&line=$1&section=locations&sort=$2 [L,QSA]
-  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/diagram/year-([0-9\-_]+)/?$							gallery/index.php?p=lineguide&line=$1&section=diagram&year=$2 [L,QSA]
-  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/diagram/page-([A-Za-z0-9\-_]+)/?$					gallery/index.php?p=lineguide&line=$1&section=diagram&page=$2 [L,QSA]
-  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/diagram/page-([A-Za-z0-9\-_]+)/year-([0-9\-_]+)/?$	gallery/index.php?p=lineguide&line=$1&section=diagram&page=$2&year=$3 [L,QSA]
-  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/diagram/year-([0-9\-_]+)/page-([0-9\-_]+)/?$			gallery/index.php?p=lineguide&line=$1&section=diagram&year=$2&page=$3 [L,QSA]
-  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/safeworking/([A-Za-z0-9\-_]+)/?$						gallery/index.php?p=lineguide&line=$1&section=safeworking&year=$2 [L,QSA]
-  # last fallthrough
-  RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/([A-Za-z0-9\-_]+)/([A-Za-z0-9/\-_]+)/?$	  			gallery/index.php?p=lineguide&line=$1&section=$2 [L,QSA]
-	
-  # RSS feed
-  RewriteRule ^rss.php?$		rss	[R=301,L]
-  RewriteRule ^rss?$			gallery/rss-railgeelong.php [L,QSA]
-  
+  RewriteRule ^.*/?$                        index.php [L,QSA]
+
 </IfModule>
