@@ -53,16 +53,16 @@ function getLineLocationEvents($lineId, $type)
 			ORDER BY close ASC";
 	}
 	
-	$result = MYSQL_QUERY($sql, locationDBconnect());
-	$numberOfRows = MYSQL_NUM_ROWS($result);
+	$result = query_full_array($sql);
+	$numberOfRows = sizeof($result);
 	if ($numberOfRows > 0)
 	{	
 		for ($i = 0; $i < $numberOfRows; $i++)
 		{
-			$fDate = formatDate(MYSQL_RESULT($result,$i,"fdate"), MYSQL_RESULT($result,$i,"dateaccuracy"));
-			$type = MYSQL_RESULT($result,$i,"basic");
+			$fDate = formatDate($result[$i]["fdate"], $result[$i]["dateaccuracy"]);
+			$type = $result[$i]["basic"];
 			$type = str_replace('industry', '(industry)', $type);
-			$name = stripslashes(MYSQL_RESULT($result,$i,"name"));
+			$name = stripslashes($result[$i]["name"]);
 			$eventData[$i]['details'] = $name.' '.mb_strtolower($type).' '.$desc;
 			$eventData[$i]['date'] = $fDate;
 		}
@@ -81,16 +81,15 @@ function getMiscLineEvents($lineId)
 	WHERE (line = '".$lineId."') AND display != 'hide' 
 	AND (safeworking_why = 'plain') 
 	ORDER BY date ASC";
-	//	echo $sql;
-	$result = MYSQL_QUERY($sql, locationDBconnect());
-	$numberOfRows = MYSQL_NUM_ROWS($result);
+	$result = query_full_array($sql);
+	$numberOfRows = sizeof($result);
 	
 	if ($numberOfRows > 0)
 	{
 		for ($i=0; $i<$numberOfRows; $i++)
 		{	
-			$details = stripslashes(MYSQL_RESULT($result,$i,"description"));
-			$date = formatDate(MYSQL_RESULT($result,$i,"fdate"), MYSQL_RESULT($result,$i,"dateAccuracy"));
+			$details = stripslashes($result[$i]["description"]);
+			$date = formatDate($result[$i]["fdate"], $result[$i]["dateAccuracy"]);
 			$eventData[] = array($date, $details);
 		}
 	}
@@ -240,8 +239,8 @@ function getLocationLineEvents($type, $location)
 	}
 	
 	$tram = false;
-	$result = MYSQL_QUERY($sql, locationDBconnect());
-	$numberOfRows = MYSQL_NUM_ROWS($result);
+	$result = query_full_array($sql);
+	$numberOfRows = sizeof($result);
 	
 	if ($numberOfRows > 0 AND $sqlBit != '' )
 	{
@@ -249,26 +248,23 @@ function getLocationLineEvents($type, $location)
 		$j=0; // for data row for output array
 		while ($i<$numberOfRows)
 		{
-			//if ($type == 'Safeworking' )
-			//	echo "outer i = $i<br>";
+			$eventId = $result[$i]["event_id"];
+			$tracks = $result[$i]["tracks"];
+			$safeworking = stripslashes($result[$i]["safeworking"]);
+			$safeworkingType = $result[$i]["safeworking_why"];
+			$gauge = stripslashes($result[$i]["gauge"]);
+			$eventLocationName = stripslashes($result[$i]["location_name"]);
+			$startID = $result[$i]["start_location"];
+			$endID = $result[$i]["end_location"];
+			$middleID = $result[$i]["safeworking_middle"];
+			$plainDate = $result[$i]["date"];
+			$description = stripslashes($result[$i]["description"]);
+			$date = $result[$i]["fdate"];
+			$dateAccuracy = $result[$i]["dateAccuracy"];
+			$sourcedetail = $result[$i]["sourcedetail"];
 			
-			$eventId = MYSQL_RESULT($result,$i,"event_id");
-			$tracks = MYSQL_RESULT($result,$i,"tracks");
-			$safeworking = stripslashes(MYSQL_RESULT($result,$i,"safeworking"));
-			$safeworkingType = MYSQL_RESULT($result,$i,"safeworking_why");
-			$gauge = stripslashes(MYSQL_RESULT($result,$i,"gauge"));
-			$eventLocationName = stripslashes(MYSQL_RESULT($result,$i,"location_name"));
-			$startID = MYSQL_RESULT($result,$i,"start_location");
-			$endID = MYSQL_RESULT($result,$i,"end_location");
-			$middleID = MYSQL_RESULT($result,$i,"safeworking_middle");
-			$plainDate = MYSQL_RESULT($result,$i,"date");
-			$description = stripslashes(MYSQL_RESULT($result,$i,"description"));
-			$date = MYSQL_RESULT($result,$i,"fdate");
-			$dateAccuracy = MYSQL_RESULT($result,$i,"dateAccuracy");
-			$sourcedetail = MYSQL_RESULT($result,$i,"sourcedetail");
-			
-			$startLocationName = stripslashes(MYSQL_RESULT($result,$i,"start_name"));
-			$endLocationName = stripslashes(MYSQL_RESULT($result,$i,"end_name"));
+			$startLocationName = stripslashes($result[$i]["start_name"]);
+			$endLocationName = stripslashes($result[$i]["end_name"]);
 			
 			// clear null values
 			if (!is_numeric($middleID))
@@ -336,7 +332,7 @@ function getLocationLineEvents($type, $location)
 					
 					for ($x = 1; $x < $numberEventsSameDay; $x++)
 					{
-						$middleName = MYSQL_RESULT($result,$x,"end_name");
+						$middleName = $result[$x]["end_name"];
 						$details .= " - $middleName";
 					}
 					$i += $numberEventsSameDay;
@@ -356,7 +352,7 @@ function getLocationLineEvents($type, $location)
 					
 					for ($x = 1; $x < $numberEventsSameDay; $x++)
 					{
-						$middleName = MYSQL_RESULT($result,$x,"end_name");
+						$middleName = $result[$x]["end_name"];
 						$details .= " - $middleName";
 					}
 					$i += $numberEventsSameDay;
@@ -368,7 +364,7 @@ function getLocationLineEvents($type, $location)
 			elseif ($type == 'Safeworking' 
 				OR ($type == 'By Date' AND $safeworking != '' AND $safeworking != '-' AND $date != $pastdate) )
 			{
-				$nicename = stripslashes(MYSQL_RESULT($result,$i,"safeworking_type"));
+				$nicename = stripslashes($result[$i]["safeworking_type"]);
 				$numberEventsSameDay = getNumberEventsSameDay($result, $i);
 				
 				// chains together events of the same date
@@ -387,7 +383,7 @@ function getLocationLineEvents($type, $location)
 						$sqlmultilocations = " WHERE line = '".$lineId."' AND date = '".$plainDate."' ";
 					}
 					
-					$sqlmultilocations = "SELECT STARTNAME.name, ENDNAME.name, MIDDLENAME.name, 
+					$sqlmultilocations = "SELECT STARTNAME.name AS start_name, ENDNAME.name AS end_name, MIDDLENAME.name AS middle_name, 
 						STARTKM.km AS start_distance, ENDKM.km AS end_distance 
 						FROM railline_events
 						INNER JOIN locations_raillines STARTKM ON start_location = STARTKM.location_id
@@ -400,23 +396,20 @@ function getLocationLineEvents($type, $location)
 						AND (safeworking_why = 'replaced' OR safeworking_why = 'opened') AND safeworking != ''
 						GROUP BY start_location, end_location
 						ORDER BY STARTKM.km ASC";
-						
-					//echo $sqlmultilocations."<br>";
 					
-					$multiLocations = MYSQL_QUERY($sqlmultilocations, locationDBconnect());
-					$sameDate = MYSQL_NUM_ROWS($multiLocations);
+					$multiLocations = query_full_array($sqlmultilocations);
+					$sameDate = sizeof($multiLocations);
 					
-					//echo "i = $i<br>";
-					//echo "samedate = $sameDate<hr>";
+					print_r($multiLocations);
 					
 					if ($sameDate > 1)
 					{
-						$startName = stripslashes(MYSQL_RESULT($multiLocations,0,"STARTNAME.name"));
+						$startName = stripslashes($multiLocations[0]["start_name"]);
 						$details = "$nicename provided $startName";
 						
 						for ($x = 0; $x < $sameDate; $x++)
 						{
-							$middleName = stripslashes(MYSQL_RESULT($multiLocations,$x,"ENDNAME.name"));
+							$middleName = stripslashes($multiLocations[$x]["end_name"]);
 							$details = "$details - $middleName";
 						}
 						//increase by the number of date duplicates, minus one for the $i++ at the end
@@ -426,7 +419,7 @@ function getLocationLineEvents($type, $location)
 				// for specific locations AND single section split into two
 				else if ($locationID != "" AND $middleID != '0')	
 				{
-					$middle = stripslashes(MYSQL_RESULT($result,$i,"middle_name"));
+					$middle = stripslashes($result[$i]["middle_name"]);
 					
 					if ($safeworkingType == 'closed')
 					{
@@ -445,13 +438,13 @@ function getLocationLineEvents($type, $location)
 					}
 					else
 					{
-						$startDistance = MYSQL_RESULT($result,$i,"start_distance");
-						$endDistance = MYSQL_RESULT($result,$i,"end_distance");
+						$startDistance = $result[$i]["start_distance"];
+						$endDistance = $result[$i]["end_distance"];
 						
-						$middleloc = MYSQL_RESULT($result,$i,"safeworking_middle");
+						$middleloc = $result[$i]["safeworking_middle"];
 						if ($middleloc != 0)
 						{
-							$middleDistance = MYSQL_RESULT($result,$i,"middle_distance");
+							$middleDistance = $result[$i]["middle_distance"];
 						}
 						
 						if ($nicename == "Composite Electric Staff")
@@ -473,7 +466,7 @@ function getLocationLineEvents($type, $location)
 					// lineguide page, for middle locations
 					if ($middleID != 0)	
 					{
-						$middleName = stripslashes(MYSQL_RESULT($result, $i,"middle_name"));
+						$middleName = stripslashes($result[$i]["middle_name"]);
 						
 						if ($safeworkingType == 'closed' OR $safeworkingType == 'opened')
 						{
@@ -556,22 +549,22 @@ function getNumberEventsSameDay($result, $i)
 	$extraEvents = 1;
 	$skipAhead = 1;
 	
-	$type = MYSQL_RESULT($result,$i,"safeworking_why");
-	$plainDate = MYSQL_RESULT($result,$i,"date");
-	$eventId = MYSQL_RESULT($result,$i,"event_id");
-	$numberOfRows = MYSQL_NUM_ROWS($result);
+	$type = $result[$i]["safeworking_why"];
+	$plainDate = $result[$i]["date"];
+	$eventId = $result[$i]["event_id"];
+	$numberOfRows = sizeof($result);
 	
 	while ($skipAhead < ($numberOfRows-$i))
 	{
-		if ($plainDate == MYSQL_RESULT($result,$i+$skipAhead,"date")
-			AND MYSQL_RESULT($result,$i+$skipAhead,"safeworking_why") == $type
-			AND $eventId != MYSQL_RESULT($result,$i+$skipAhead,"event_id"))
+		if ($plainDate == $result[$i+$skipAhead]["date"]
+			AND $result[$i+$skipAhead]["safeworking_why"] == $type
+			AND $eventId != $result[$i+$skipAhead]["event_id"])
 		{
 			$skipAhead++;
 			$extraEvents++;
 		}
-		else if ($plainDate == MYSQL_RESULT($result,$i+$skipAhead,"date")
-			AND MYSQL_RESULT($result,$i+$skipAhead,"safeworking_why") == $type)
+		else if ($plainDate == $result[$i+$skipAhead]["date"]
+			AND $result[$i+$skipAhead]["safeworking_why"] == $type)
 		{
 			$skipAhead++;
 		}
@@ -755,16 +748,16 @@ function getLocationEvents($location)
 	$sql = "SELECT DATE_FORMAT(date, '".SHORT_DATE_FORMAT."') AS fdate, 
 		date, dateAccuracy, details, source, sourcedetail 
 		FROM location_events 
-		WHERE location = '".mysql_real_escape_string($location['id'])."' 
+		WHERE location = ".$location['id']." 
 		ORDER BY date ASC";
-	$result = MYSQL_QUERY($sql, locationDBconnect());
-	$numberOfRows = MYSQL_NUM_ROWS($result);
+	$result = query_full_array($sql);
+	$numberOfRows = sizeof($result);
 	$i=0;
 	
 	if ($numberOfRows>0) 
 	{
 		// for the opening if none listed under events
-		if ($location['openPlain'] < MYSQL_RESULT($result,$i,"date") AND $location['isCrossing'] == false AND $location['openPlain'] != DATE_UNKNOWN_OPEN)
+		if ($location['openPlain'] < $result[$i]["date"] AND $location['isCrossing'] == false AND $location['openPlain'] != DATE_UNKNOWN_OPEN)
 		{	
 			$locationevents[0]["date"] = formatDate($location['open'], $location['approxOpen']);
 			$locationevents[0]["details"] = 'Opened';
@@ -774,8 +767,8 @@ function getLocationEvents($location)
 		while ($i < $numberOfRows)
 		{	
 			// initial setup of date and details
-			$date = formatDate(MYSQL_RESULT($result,$i,"fdate"), MYSQL_RESULT($result,$i,"dateAccuracy"));
-			$details = getLocationEventDetails(stripslashes(MYSQL_RESULT($result,$i,"details")));
+			$date = formatDate($result[$i]["fdate"], $result[$i]["dateAccuracy"]);
+			$details = getLocationEventDetails(stripslashes($result[$i]["details"]));
 			
 			// asssign value to be returned
 			$locationevents[$i]["date"] = $date;

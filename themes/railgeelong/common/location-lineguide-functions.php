@@ -5,7 +5,7 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 	// depends on what class of diagram we want - line
 	if ($lineId != '')
 	{
-		$sqlSpecific = sprintf(" ( lr.line_id = %s ) AND ", mysql_real_escape_string($lineId));
+		$sqlSpecific = sprintf(" ( lr.line_id = %s ) AND ", ($lineId));
 		$pageUrl = "/lineguide/$lineName/locations";
 		$headerCell = '<th><a href="'.$pageUrl.'/by-type">Type</a></th>';
 		$headerWidth = '';
@@ -51,7 +51,7 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 			$sortorder = 'location type';
 			break;
 		case 'line':
-			$sqlorder = ' ORDER BY r.name ASC, l.name ASC ';
+			$sqlorder = ' ORDER BY linename ASC, l.name ASC ';
 			$sortorder = 'location line';
 			break;
 		case 'km':
@@ -66,7 +66,7 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 		//echo $sortText ;
 	}
 	
-	$sql = "SELECT l.location_id, l.name, l.link, r.name, r.link, l.photos, 
+	$sql = "SELECT l.location_id, l.name, l.link, r.name AS linename, r.link AS linelink, l.photos, 
 		l.events, kmaccuracy, km, l.type, basic, r.line_id, length(l.description) AS description_length
 		FROM locations l
 		INNER JOIN location_types lt ON l.type = lt.type_id 
@@ -75,8 +75,10 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 		LEFT OUTER JOIN locations ol ON l.name = ol.name 
 		WHERE ".$sqlSpecific." l.name != '' AND l.display != 'tracks' AND r.todisplay != 'hide' 
 		GROUP BY location_id ".$sqlorder;
-	$result = MYSQL_QUERY($sql, locationDBconnect());
-	$numberOfLocations = MYSQL_NUM_ROWS($result);
+	$result = query_full_array($sql);
+	$result = query_full_array($sql);
+	
+	$numberOfLocations = sizeof($result);
 	$j = 0;
 	
 	if ($numberOfLocations > 0)
@@ -95,8 +97,8 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 	
 	for ($i  = 0; $i < $numberOfLocations; $i++)
 	{	
-		$locationId = stripslashes(MYSQL_RESULT($result,$i,"l.location_id"));
-		$locationLink = stripslashes(MYSQL_RESULT($result,$i,"l.link"));
+		$locationId = stripslashes($result[$i]["location_id"]);
+		$locationLink = stripslashes($result[$i]["link"]);
 		
 		if ($locationId == $pastid)
 		{
@@ -106,20 +108,20 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 				break;
 			}
 			
-			$locationId = stripslashes(MYSQL_RESULT($result,$i,"l.location_id"));
-			$locationLink = stripslashes(MYSQL_RESULT($result,$i,"l.link"));
+			$locationId = stripslashes($result[$i]["location_id"]);
+			$locationLink = stripslashes($result[$i]["link"]);
 		}
 		
-		$locationName = stripslashes(MYSQL_RESULT($result,$i,"l.name"));
-		$lineName = stripslashes(MYSQL_RESULT($result,$i,"r.name"));
-		$lineLink = stripslashes(MYSQL_RESULT($result,$i,"r.link"));
-		$thisPhoto = stripslashes(MYSQL_RESULT($result,$i,"photos"));
-		$thisEvent = stripslashes(MYSQL_RESULT($result,$i,"events"));
-		$kmAccuracy = stripslashes(MYSQL_RESULT($result,$i,"kmaccuracy"));
-		$km = stripslashes(MYSQL_RESULT($result,$i,"km"));
-		$locationType = stripslashes(MYSQL_RESULT($result,$i,"type"));
-		$locationTypeName = stripslashes(MYSQL_RESULT($result,$i,"basic"));
-		$thisLength = getLocationDescriptionLengthImage(MYSQL_RESULT($result,$i,"description_length"));
+		$locationName = stripslashes($result[$i]["name"]);
+		$lineName = stripslashes($result[$i]["linename"]);
+		$lineLink = stripslashes($result[$i]["linelink"]);
+		$thisPhoto = stripslashes($result[$i]["photos"]);
+		$thisEvent = stripslashes($result[$i]["events"]);
+		$kmAccuracy = stripslashes($result[$i]["kmaccuracy"]);
+		$km = stripslashes($result[$i]["km"]);
+		$locationType = stripslashes($result[$i]["type"]);
+		$locationTypeName = stripslashes($result[$i]["basic"]);
+		$thisLength = getLocationDescriptionLengthImage($result[$i]["description_length"]);
 		
 		if ($locationType != TYPE_MISC)
 		{
@@ -133,7 +135,7 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 		// fix for the link to locations on more than one line
 		if($numberOfLocations > 1)
 		{
-			$lineId = stripslashes(MYSQL_RESULT($result,$i,"r.line_id"));
+			$lineId = stripslashes($result[$i]["r.line_id"]);
 		}
 		else
 		{

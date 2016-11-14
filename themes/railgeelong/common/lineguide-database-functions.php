@@ -41,7 +41,7 @@ function getLine($lineToDisplay, $yearToDisplay)
 			count(lr.location_id) AS line_locations, 'page' AS type
 			FROM raillines r
 			LEFT OUTER JOIN locations_raillines lr ON lr.line_id = r.line_id
-			WHERE r.link = '".mysql_real_escape_string($lineToDisplay)."' 
+			WHERE r.link = ".db_quote($lineToDisplay)." 
 			AND todisplay != 'hide'
 			GROUP BY lr.line_id
 		UNION ALL 
@@ -49,11 +49,11 @@ function getLine($lineToDisplay, $yearToDisplay)
 			DATE_FORMAT(a.modified, '%M %e, %Y') AS fdate, 0 AS line_locations, 'subpage' AS type
 			FROM raillines r
 			LEFT OUTER JOIN articles a ON a.line_id = r.line_id
-			WHERE r.link = '".mysql_real_escape_string($lineToDisplay)."' 
+			WHERE r.link = ".db_quote($lineToDisplay)." 
 			AND todisplay != 'hide'";
 			
-	$lineResult = MYSQL_QUERY($lineResultSQL, locationDBconnect());
-	$numberOfPageResults = MYSQL_NUM_ROWS($lineResult);
+	$lineResult = query_full_array($lineResultSQL);
+	$numberOfPageResults = sizeof($lineResult);
 	
 	if ($numberOfPageResults > 0)
 	{
@@ -64,13 +64,13 @@ function getLine($lineToDisplay, $yearToDisplay)
 		$line['regions'] = getRegionsForLine($line["lineId"]);
 		
 		// get locations details
-		$line["trackDiagramNote"] = stripslashes(MYSQL_RESULT($lineResult,0,"trackdiagramnote"));
-		$line["safeworkingDiagramNote"] = stripslashes(MYSQL_RESULT($lineResult,0,"safeworkingdiagramnote"));
-		$line["credits"] = stripslashes(MYSQL_RESULT($lineResult,0,"credits"));
-		$line["description"] = stripslashes(MYSQL_RESULT($lineResult,0,"description"));
-		$line["caption"] = stripslashes(MYSQL_RESULT($lineResult,0,"imagecaption"));
-		$line["photos"] = stripslashes(MYSQL_RESULT($lineResult,0,"photos"));
-		$line["updated"] = MYSQL_RESULT($lineResult,0,"fdate"); 
+		$line["trackDiagramNote"] = stripslashes($lineResult[0]["trackdiagramnote"]);
+		$line["safeworkingDiagramNote"] = stripslashes($lineResult[0]["safeworkingdiagramnote"]);
+		$line["credits"] = stripslashes($lineResult[0]["credits"]);
+		$line["description"] = stripslashes($lineResult[0]["description"]);
+		$line["caption"] = stripslashes($lineResult[0]["imagecaption"]);
+		$line["photos"] = stripslashes($lineResult[0]["photos"]);
+		$line["updated"] = $lineResult[0]["fdate"]; 
 		
 		// fix up dates for opening and closing, as well as for filtering
 		if(!is_numeric($yearToDisplay) OR $yearToDisplay == "")
@@ -85,15 +85,15 @@ function getLine($lineToDisplay, $yearToDisplay)
 		$line['yearToDisplay'] = $yearToDisplay;
 		
 		// stuff for diagrams
-		$line["trackDiagramTabs"] = stripslashes(MYSQL_RESULT($lineResult,0,"trackDiagramTabs"));
-		$line["safeworkingYears"] = stripslashes(MYSQL_RESULT($lineResult,0,"safeworkingyears"));
-		$line["trackYears"] = stripslashes(MYSQL_RESULT($lineResult,0,"trackyears"));
-		$line["safeworkingDefault"] = $safeworkingdefault = MYSQL_RESULT($lineResult,0,"safeworkingdefault");
-		$line["trackDefault"] = $trackdefault = MYSQL_RESULT($lineResult,0,"trackdefault");
+		$line["trackDiagramTabs"] = stripslashes($lineResult[0]["trackDiagramTabs"]);
+		$line["safeworkingYears"] = stripslashes($lineResult[0]["safeworkingyears"]);
+		$line["trackYears"] = stripslashes($lineResult[0]["trackyears"]);
+		$line["safeworkingDefault"] = $safeworkingdefault = $lineResult[0]["safeworkingdefault"];
+		$line["trackDefault"] = $trackdefault = $lineResult[0]["trackdefault"];
 		
 		//	fix up dates for opening and closing, as well as for filtering
-		$line['openYear'] = MYSQL_RESULT($lineResult,0,"opened");
-		$line['closeYear'] = MYSQL_RESULT($lineResult,0,"closed");
+		$line['openYear'] = $lineResult[0]["opened"];
+		$line['closeYear'] = $lineResult[0]["closed"];
 		
 		//special stuff for closed lines
 		if(!is_numeric($yearToDisplay) OR !isset($_REQUEST['year']) OR $_REQUEST['year'] == "")
@@ -143,9 +143,9 @@ function getLine($lineToDisplay, $yearToDisplay)
 		
 		for ($i = 0; $i < $numberOfPageResults; $i++)
 		{
-			$pageTitle = stripslashes(MYSQL_RESULT($lineResult,$i,"pagetitle"));
-			$pageLink = strToLower(stripslashes(MYSQL_RESULT($lineResult,$i,"pagelink")));
-			$pageContent = stripslashes(MYSQL_RESULT($lineResult,$i,"pagecontent"));
+			$pageTitle = stripslashes($lineResult[$i]["pagetitle"]);
+			$pageLink = strToLower(stripslashes($lineResult[$i]["pagelink"]));
+			$pageContent = stripslashes($lineResult[$i]["pagecontent"]);
 			
 			$line['pageNameArray'][] = array($pageLink, $pageTitle, $pageTitle);
 			$line['pageContentArray'][] = $pageContent;
@@ -189,11 +189,11 @@ function getRegionsForLine($lineid)
 			LEFT OUTER JOIN articles region ON region.article_id = rr.article_id
 			WHERE rr.line_id = '$lineid'";
 			
-	$regionResult = MYSQL_QUERY($regionResultSQL, locationDBconnect());
+	$regionResult = query_full_array($regionResultSQL);
 	
-	for ($i = 0; $i < MYSQL_NUM_ROWS($regionResult); $i++)
+	for ($i = 0; $i < sizeof($regionResult); $i++)
 	{
-		$regions[] = stripslashes(MYSQL_RESULT($regionResult,$i,"region.link"));
+		$regions[] = stripslashes($regionResult[$i]["region.link"]);
 	}
 	
 	return $regions;

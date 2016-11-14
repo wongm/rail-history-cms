@@ -446,23 +446,23 @@ function getFullLocationForLineguide($location)
 	{
 		$junctionsql = "SELECT * FROM raillines r
 			INNER JOIN locations_raillines lr ON lr.line_id = r.line_id
-			WHERE lr.location_id = '".mysql_real_escape_string($location['location_id'])."'";
-		$junctionresult = MYSQL_QUERY($junctionsql, locationDBconnect());
+			WHERE lr.location_id = ".($location['location_id'])."";
+		$junctionresult = query_full_array($junctionsql);
 
 		if (MYSQL_NUM_ROWS($junctionresult) > 1)
 		{
-			$linea = MYSQL_RESULT($junctionresult,0,"link");
-			$lineb = MYSQL_RESULT($junctionresult,1,"link");
-			$namea = MYSQL_RESULT($junctionresult,0,"name");
-			$nameb = MYSQL_RESULT($junctionresult,1,"name");
-			$ida = MYSQL_RESULT($junctionresult,0,"line_id");
-			$idb = MYSQL_RESULT($junctionresult,1,"line_id");
+			$linea = $junctionresult[0]["link"];
+			$lineb = $junctionresult[1]["link"];
+			$namea = $junctionresult[0]["name"];
+			$nameb = $junctionresult[1]["name"];
+			$ida = $junctionresult[0]["line_id"];
+			$idb = $junctionresult[1]["line_id"];
 
 			include_once(dirname(__FILE__) . "/../common/location-lineguide-functions.php");
 
 			if ($ida == $location['line_id'])
 			{
-				$extraPageURL = getLineguideDistanceURL(MYSQL_RESULT($junctionresult,1,"trackSubpage"), $location['km']);
+				$extraPageURL = getLineguideDistanceURL($junctionresult[1]["trackSubpage"], $location['km']);
 
 				$junctionurl =  "/lineguide/$lineb/diagram$extraPageURL/#km".$location['km'];
 				$url ='/location/'.$urlbase.'/'.$linea;
@@ -470,7 +470,7 @@ function getFullLocationForLineguide($location)
 			}
 			elseif ($idb == $location['line_id'])
 			{
-				$extraPageURL = getLineguideDistanceURL(MYSQL_RESULT($junctionresult,0,"trackSubpage"), $location['km']);
+				$extraPageURL = getLineguideDistanceURL($junctionresult[0]["trackSubpage"], $location['km']);
 
 				$junctionurl =  "/lineguide/$linea/diagram$extraPageURL/#km".$location['km'];
 				$url ='/location/'.$urlbase.'/'.$lineb;
@@ -1046,8 +1046,8 @@ function drawAllLineguideDotpoints($type)
 	WHERE todisplay != 'hide' AND link != 'off-rail'
 	GROUP BY lr.line_id
 	ORDER BY `order` ASC";
-	$result = MYSQL_QUERY($sql, locationDBconnect());
-	$numberOfRows = MYSQL_NUMROWS($result);
+	$result = query_full_array($sql);
+	$numberOfRows = sizeof($result);
 
 	if ($numberOfRows>0)
 	{
