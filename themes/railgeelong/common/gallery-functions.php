@@ -1,53 +1,45 @@
 <?php
 include_once(dirname(__FILE__) . "/dbConnection.php");
 include_once(dirname(__FILE__) . "/formatting-functions.php");
-include_once(dirname(__FILE__) . "/../gallery/themes/railgeelong/functions-search.php");
-include_once(dirname(__FILE__) . "/../gallery/themes/railgeelong/functions.php");
+include_once(dirname(__FILE__) . "/../functions-search.php");
+include_once(dirname(__FILE__) . "/../functions.php");
 
 // check this location has images to show
 function getLocationImages($location)
 {
-	$locationbits = split(';', $location);
+	$locationbits = explode(';', $location);
 	$subLocation = sizeof($locationbits);
 	
 	// for comma seperated individual images
 	if ($subLocation > 1)
 	{
-		$gallerySQL = "SELECT zen_albums.folder, zen_images.filename, zen_images.title, zen_images.id 
-			FROM zen_images
-			INNER JOIN zen_albums ON zen_images.albumid = zen_albums.id 
-			WHERE ( zen_images.filename = '".mysql_real_escape_string(getFilename($locationbits[0]))."' ";
+		$gallerySQL = "SELECT zp_albums.folder, zp_images.filename, zp_images.title, zp_images.id 
+			FROM zp_images
+			INNER JOIN zp_albums ON zp_images.albumid = zp_albums.id 
+			WHERE ( zp_images.filename = ".db_quote(getFilename($locationbits[0]))." ";
 		for ($i = 1; $i < $subLocation; $i++)
 		{
-			$gallerySQL .= " OR zen_images.filename = '".mysql_real_escape_string(getFilename($locationbits[$i]))."' ";
+			$gallerySQL .= " OR zp_images.filename = ".db_quote(getFilename($locationbits[$i]))." ";
 		}
-		$gallerySQL .= " ) ORDER BY zen_images.sort_order";
+		$gallerySQL .= " ) ORDER BY zp_images.sort_order";
 	}
 	else if (strpos($location, '.jpg') > 0)
 	{
-		$gallerySQL = "SELECT zen_albums.folder, zen_images.filename, zen_images.title, zen_images.id 
-			FROM zen_images
-			INNER JOIN zen_albums ON zen_images.albumid = zen_albums.id 
-			WHERE zen_images.filename = '".mysql_real_escape_string(getFilename($location))."' ";
+		$gallerySQL = "SELECT zp_albums.folder, zp_images.filename, zp_images.title, zp_images.id 
+			FROM zp_images
+			INNER JOIN zp_albums ON zp_images.albumid = zp_albums.id 
+			WHERE zp_images.filename = ".db_quote(getFilename($location))." ";
 	}
 	// for album in the gallery 
 	else
 	{
-		$gallerySQL = "SELECT zen_albums.folder, zen_images.filename, zen_images.title, zen_images.id
-			FROM zen_images
-			INNER JOIN zen_albums ON zen_images.albumid = zen_albums.id 
-			WHERE folder = '".mysql_real_escape_string($location)."' ORDER BY zen_images.sort_order";
+		$gallerySQL = "SELECT zp_albums.folder, zp_images.filename, zp_images.title, zp_images.id
+			FROM zp_images
+			INNER JOIN zp_albums ON zp_images.albumid = zp_albums.id 
+			WHERE folder = ".db_quote($location)." ORDER BY zp_images.sort_order";
 	}
 	
-	$galleryResult = MYSQL_QUERY($gallerySQL, galleryDBconnect());
-	
-	$photoArray = array();
-	for ($i = 0; $i < MYSQL_NUM_ROWS($galleryResult); $i++)
-	{
-		$photoArray[] = mysql_fetch_assoc($galleryResult);
-	}
-	
-	return $photoArray;
+	return query_full_array($gallerySQL);
 }
 
 function getFilename($fullpath)
@@ -60,12 +52,12 @@ function getFilename($fullpath)
 
 function printFrontpageRecent()
 {
-	$sql = "SELECT i.filename, i.id, zen_albums.folder, zen_albums.title, zen_albums.id, zen_albums.date, i.date as fdate 
-				FROM zen_images i
-				INNER JOIN zen_albums ON i.albumid = zen_albums.id 
+	$sql = "SELECT i.filename, i.id, zp_albums.folder, zp_albums.title, zp_albums.id, zp_albums.date, i.date as fdate 
+				FROM zp_images i
+				INNER JOIN zp_albums ON i.albumid = zp_albums.id 
 				LEFT JOIN
 				(
-				    select max(id) id1 from zen_images insideimage
+				    select max(id) id1 from zp_images insideimage
 				    where albumid <> 0
 				    group by albumid
 				    order by max(id) desc
