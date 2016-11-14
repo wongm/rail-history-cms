@@ -1,11 +1,11 @@
 <?php
-include_once(dirname(__FILE__) . "/../../../common/dbConnection.php");
-include_once(dirname(__FILE__) . "/../../../common/lineguide-functions.php");
-include_once(dirname(__FILE__) . "/../../../common/lineguide-database-functions.php");
-include_once(dirname(__FILE__) . "/../../../common/event-functions.php");
-include_once(dirname(__FILE__) . "/../../../common/source-functions.php");
-include_once(dirname(__FILE__) . "/../../../common/formatting-functions.php");
-include_once(dirname(__FILE__) . "/../../../common/map-functions.php");
+include_once("common/dbConnection.php");
+include_once("common/lineguide-functions.php");
+include_once("common/lineguide-database-functions.php");
+include_once("common/event-functions.php");
+include_once("common/source-functions.php");
+include_once("common/formatting-functions.php");
+include_once("common/map-functions.php");
 
 $lineToDisplay = '';
 $yearToDisplay = '';
@@ -60,7 +60,7 @@ else
 	// listing of locations for line
 	elseif ($section == 'locations' AND $line['showLocations'])
 	{
-		include_once(dirname(__FILE__) . "/../../../common/location-lineguide-functions.php");
+		include_once("common/location-lineguide-functions.php");
 		drawLineguideHeaders($line, 'Locations');
 		drawAdminEditableLink("/backend/listLineLocations.php?line=".$line['lineLink'], "Edit locations");
 		echo "<h3>Locations</h3>\n";
@@ -70,13 +70,13 @@ else
 	// lineguide Google map
 	elseif ($section == 'map' AND $line['showGoogleMap'])
 	{
-		include_once(dirname(__FILE__) . "/../../../common/aerial-functions.php");
+		include_once("common/aerial-functions.php");
 		$googleHeader = 'article';
 		$googleHeaderKMLscript = generateKMLScript('kml-' . $line['lineId'] . '.kml');
 
 		$pageTitle = $pageHeading = getLineName($line['lineName'])." Guide";
 		$pageTitle = "$pageTitle - Google Map";
-		include_once(dirname(__FILE__) . "/../../../common/header.php");
+		include_once("common/header.php");
 		drawLineguideHeaders($line, 'Google Map');
 		
 		echo "<h3>Google Map</h3>\n";

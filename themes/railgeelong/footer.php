@@ -1,6 +1,6 @@
 </div></div>
 <div id="navigation">
-<?php include_once($_SERVER["DOCUMENT_ROOT"] . "/common/nav.php"); ?>
+<?php include_once("common/nav.php"); ?>
 </div>
 <div id="footer">
 <a href="/index.php">Home</a> :: <a href="/sitemap.php">Sitemap</a> :: <a href="/copyright.php">Copyright</a> :: <a href="/contact.php">Contact</a><br/>

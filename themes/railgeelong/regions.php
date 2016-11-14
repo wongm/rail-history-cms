@@ -1,10 +1,10 @@
 <?php
 
-include_once("../common/dbConnection.php");
-include_once("../common/formatting-functions.php");
-include_once("../common/source-functions.php");
-include_once("../common/lineguide-functions.php");
-include_once("../common/lineguide-database-functions.php");
+include_once("common/dbConnection.php");
+include_once("common/formatting-functions.php");
+include_once("common/source-functions.php");
+include_once("common/lineguide-functions.php");
+include_once("common/lineguide-database-functions.php");
 
 /*
  * For regions, groupings of lineguides and articles, that all deal with a geographic area.
@@ -37,13 +37,13 @@ else
 		$caption = stripslashes(MYSQL_RESULT($article,0,"caption"));
 		$lastUpdatedDate = MYSQL_RESULT($article,0,"fdate"); 
 		
-		include_once('../common/header.php');
+		include_once('common/header.php');
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; <a href="/lineguides">Line Guides</a> &raquo; <?php echo $pageTitle?></div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
-<?php include_once('../common/midbar.php'); ?>
+<?php include_once('common/midbar.php'); ?>
 <h3><?php echo $pageTitle?></h3>
 <?php 	
 		global $editablelinkforadmin;
@@ -62,7 +62,7 @@ else
 		
 		if(showPhotos($photos))
 		{
-			include_once("../common/gallery-functions.php");
+			include_once("common/gallery-functions.php");
 			$regionPhotos = getLocationImages($photos);
 			$showPhotos = (sizeof($regionPhotos) > 0);
 			$descriptionTitles = addDescriptionTitles($descriptionTitles, 'photos');
@@ -104,7 +104,7 @@ else
 			echo $articleSources;
 		}
 		
-		include_once("../common/footer.php");
+		include_once("common/footer.php");
 	}
 	else
 	{

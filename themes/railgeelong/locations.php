@@ -1,7 +1,7 @@
 <?php 
-include_once("../common/dbConnection.php");
-include_once("../common/location-functions.php");
-include_once("../common/formatting-functions.php");
+include_once("common/dbConnection.php");
+include_once("common/location-functions.php");
+include_once("common/formatting-functions.php");
 
 /*
  * show a listing of certain type of location
@@ -44,7 +44,7 @@ if(isset($_REQUEST['type']))
 	$breadCrumbTitle = $pageTitle;
 	
 	include_once("header.php");
-	include_once('../common/location-lineguide-functions.php');
+	include_once('common/location-lineguide-functions.php');
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; <a href="/locations">Locations</a> &raquo; <?php echo $breadCrumbTitle?></div>

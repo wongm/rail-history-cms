@@ -1,8 +1,8 @@
 <?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die();
 
-include_once("../common/dbConnection.php");
-include_once("../common/updates-functions.php");
-include_once("../common/formatting-functions.php");
+include_once("common/dbConnection.php");
+include_once("common/updates-functions.php");
+include_once("common/formatting-functions.php");
 
 $pageTitle = ' - Updates';
 

@@ -1,7 +1,7 @@
 <?php
-include_once("../common/dbConnection.php");
-include_once("../common/lineguide-functions.php");
-include_once("../common/formatting-functions.php");
+include_once("common/dbConnection.php");
+include_once("common/lineguide-functions.php");
+include_once("common/formatting-functions.php");
 
 $pageTitle = "Line Guides";
 include_once("header.php");

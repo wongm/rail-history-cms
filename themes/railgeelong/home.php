@@ -3,9 +3,9 @@
 // trick zenpage into displaying the HOME page
 //zenpage_setup_page('home');
 
-include_once("../common/dbConnection.php");
-include_once("../common/formatting-functions.php");
-include_once("../common/updates-functions.php");
+include_once("common/dbConnection.php");
+include_once("common/formatting-functions.php");
+include_once("common/updates-functions.php");
 
 $pageHeading = "Welcome";
 include_once('header.php'); 
