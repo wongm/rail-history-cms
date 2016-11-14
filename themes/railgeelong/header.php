@@ -51,10 +51,10 @@ include_once('functions-gallery-formatting.php');
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <title><?php echo $pageTitle; ?></title>
-<link rel="stylesheet" type="text/css" href="/common/css/style.css" media="all" title="Normal" />
+<link rel="stylesheet" type="text/css" href="/themes/railgeelong/common/css/style.css" media="all" title="Normal" />
 <link rel="stylesheet" href="<?php echo $_zp_themeroot ?>/zen.css" type="text/css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript" src="/common/js/lightbox.js"></script>
+<script type="text/javascript" src="/themes/railgeelong/common/js/lightbox.js"></script>
 <?php zp_apply_filter('theme_head') ?>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="author" content="Marcus Wong" />
