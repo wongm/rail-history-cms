@@ -18,7 +18,7 @@ function drawUpdatedPagesTable($updatedLocations, $frontPage=false)
 <?php
 	}
 	
-	for ($i = 0; $i < MYSQL_NUM_ROWS($updatedLocations); $i++)
+	for ($i = 0; $i < sizeof($updatedLocations); $i++)
 	{	
 		if ($j%2 == '0')
 		{
@@ -29,14 +29,14 @@ function drawUpdatedPagesTable($updatedLocations, $frontPage=false)
 			$style = 'even';
 		}
 		
-		$date = MYSQL_RESULT($updatedLocations,$i,"fdate");
-		$objectid = MYSQL_RESULT($updatedLocations,$i,"object_id");
-		$locationlink = MYSQL_RESULT($updatedLocations,$i,"link");
-		$name = stripslashes(MYSQL_RESULT($updatedLocations,$i,"name"));
-		$objecttype = MYSQL_RESULT($updatedLocations,$i,"object_type");
-		$locationtype = MYSQL_RESULT($updatedLocations,$i,"type");
-		$length = MYSQL_RESULT($updatedLocations,$i,"length");
-		$events = MYSQL_RESULT($updatedLocations,$i,"events");
+		$date = $updatedLocations[$i]["fdate"];
+		$objectid = $updatedLocations[$i]["object_id"];
+		$locationlink = $updatedLocations[$i]["link"];
+		$name = stripslashes($updatedLocations[$i]["name"]);
+		$objecttype = $updatedLocations[$i]["object_type"];
+		$locationtype = $updatedLocations[$i]["type"];
+		$length = $updatedLocations[$i]["length"];
+		$events = $updatedLocations[$i]["events"];
 		
 		$itemlink = $objectid;
 		
@@ -65,7 +65,7 @@ function drawUpdatedPagesTable($updatedLocations, $frontPage=false)
 		
 		$urlText = '<a href="/'.strtolower($itemType).'/'.$itemlink.'">';
 		
-		if (showPhotos(MYSQL_RESULT($updatedLocations,$i,"photos")))
+		if (showPhotos($updatedLocations[$i]["photos"]))
 		{
 			$photosText = $urlText.'<img src="/images/photos.gif" alt="Photos" title="Photos" /></a>';
 		}
@@ -141,15 +141,15 @@ function getUpdatedPages($index, $maxRowsPerPage)
 	FROM articles a
 	WHERE a.line_id = -1";
 	
-	$sqlOrderBy = sprintf(" ORDER BY modified DESC LIMIT %s,%s", 
-		mysql_real_escape_string($index), 
-		mysql_real_escape_string($maxRowsPerPage)
+	$sqlLimitedOrderBy = sprintf(" ORDER BY modified DESC LIMIT %s,%s", 
+		($index), 
+		($maxRowsPerPage)
 		);
 	
-	$locations["result"] = $result = MYSQL_QUERY($sqlQuery.$sqlOrderBy, locationDBconnect());
-	$locations["numberOfRows"] = MYSQL_NUM_ROWS($result);
-	$resultMaxRows = MYSQL_QUERY($sqlQuery, locationDBconnect());
-	$locations["maxRows"] = MYSQL_NUM_ROWS($resultMaxRows);
+	$locations["result"] = $result = query_full_array($sqlQuery.$sqlLimitedOrderBy);
+	$locations["numberOfRows"] = db_affected_rows($result);
+	$resultMaxRows = query($sqlQuery);
+	$locations["maxRows"] = db_affected_rows($resultMaxRows);
 	
 	return $locations;
 }	// end function

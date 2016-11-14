@@ -26,9 +26,9 @@ function drawFormattedText($text)
 function fixParagraphs($text)
 {
 	// fix old crap and remove
-	$description = eregi_replace('\[\]', ' ', $text);
-	$description = eregi_replace('<br/><br/>', ' ', $description);
-	return eregi_replace('<br/>', ' ', $description);
+	$description = str_replace('[]', ' ', $text);
+	$description = str_replace('<br/><br/>', ' ', $description);
+	return str_replace('<br/>', ' ', $description);
 }
 
 function getFormattedText($text, $simple=false)
@@ -40,7 +40,7 @@ function getFormattedText($text, $simple=false)
 	$description = parseLinks($description, $simple);
 
 	// split it and start to display it
-	$description = split ("==", $description);
+	$description = explode("==", $description);
 	$size = sizeof($description);
 
 	// check for if the first part is not a heading markup, so just spit it out
@@ -76,12 +76,12 @@ function getFormattedText($text, $simple=false)
 function getParagraph($text, $simple=true)
 {
 	$toreturn = "";
-	$section = split("\n",$text);
+	$section = explode("\n",$text);
 	$sectionRows = sizeof($section);
 
 	for ($j = 0; $j < $sectionRows; $j++)
 	{
-		$section[$j] = eregi_replace("\n", "", $section[$j]);
+		$section[$j] = str_replace("\n", "", $section[$j]);
 
 		// test for HTML tags
 		if (substr(ltrim($section[$j]), 0, 1) == '<')
@@ -115,7 +115,7 @@ function getParagraph($text, $simple=true)
  */
 function getDescriptionTitles($text, $toReturn=NULL)
 {
-	$description = split ("==", $text);
+	$description = explode("==", $text);
 	$size = sizeof($description);
 	$i = 1;
 
@@ -135,7 +135,7 @@ function getDescriptionTitles($text, $toReturn=NULL)
  */
 function getDescriptionSize($text)
 {
-	$description = split ("==", $text);
+	$description = explode("==", $text);
 	$size = sizeof($description)/2;
 	return $size-1;
 }	//end function
@@ -164,7 +164,7 @@ function parseLinks($text, $simple=false)
 	$description = str_replace('}}', '[[', $description);
 
 	$description = str_replace(']]', '[[', $description);
-	$description = split ("\[\[", $description);
+	$description = explode("[[", $description);
 	$size = sizeof($description);
 
 	if($size > 1)
@@ -186,7 +186,7 @@ function parseLinks($text, $simple=false)
 				// test for optional link title
 				$description[$i] = str_replace('.html', '', $description[$i]);
 				$description[$i] = str_replace('.htm', '', $description[$i]);
-				$title = split ("\|", $description[$i]);
+				$title = explode("|", $description[$i]);
 				$title[0] = str_replace('Image:', '', $title[0]);
 				$title[0] = str_replace('image:', '', $title[0]);
 
@@ -216,7 +216,7 @@ function parseLinks($text, $simple=false)
 				$currentSection = $description[$i];
 
 				// check for line:xxx, article:yyy, region:zzz type links
-				$type = split ("\:", $currentSection);
+				$type = explode(":", $currentSection);
 
 				if (sizeof($type) > 1)
 				{
@@ -249,7 +249,7 @@ function parseLinks($text, $simple=false)
 				}
 
 				// test for optional link title
-				$title = split ("\|", $currentSection);
+				$title = explode("|", $currentSection);
 
 				// custom title found - set it
 				if (sizeof($title) > 1)

@@ -164,13 +164,13 @@ function getLine($lineToDisplay, $yearToDisplay)
 
 function getLineBasicDetails($result, $j)
 {	
-	$line["lineId"] = stripslashes(MYSQL_RESULT($result,$j,"line_id"));
-	$line["lineName"] = stripslashes(MYSQL_RESULT($result,$j,"name"));
-	$line["lineLink"] = stripslashes(MYSQL_RESULT($result,$j,"link"));
-	$line["trackSubpage"] = stripslashes(MYSQL_RESULT($result,$j,"trackSubpage"));
+	$line["lineId"] = stripslashes($result[$j]["line_id"]);
+	$line["lineName"] = stripslashes($result[$j]["name"]);
+	$line["lineLink"] = stripslashes($result[$j]["link"]);
+	$line["trackSubpage"] = stripslashes($result[$j]["trackSubpage"]);
 	$line["trackSubpageCount"] = sizeof(explode(';', $line["trackSubpage"]));
-	$line["lineLocations"] = MYSQL_RESULT($result,$j,"line_locations");
-	$line["todisplay"] = MYSQL_RESULT($result,$j,"todisplay");
+	$line["lineLocations"] = $result[$j]["line_locations"];
+	$line["todisplay"] = $result[$j]["todisplay"];
 	$todisplay = $line["todisplay"];
 	$line["showTrack"] = substr($todisplay, 4, 1) == 1;
 	$line["showSafeworking"] = substr($todisplay, 3, 1) == 1;

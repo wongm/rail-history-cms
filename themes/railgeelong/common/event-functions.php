@@ -61,7 +61,7 @@ function getLineLocationEvents($lineId, $type)
 		{
 			$fDate = formatDate(MYSQL_RESULT($result,$i,"fdate"), MYSQL_RESULT($result,$i,"dateaccuracy"));
 			$type = MYSQL_RESULT($result,$i,"basic");
-			$type = eregi_replace('industry', '(industry)', $type);
+			$type = str_replace('industry', '(industry)', $type);
 			$name = stripslashes(MYSQL_RESULT($result,$i,"name"));
 			$eventData[$i]['details'] = $name.' '.mb_strtolower($type).' '.$desc;
 			$eventData[$i]['date'] = $fDate;
@@ -299,7 +299,7 @@ function getLocationLineEvents($type, $location)
 				case 'opened':
 				case 'closed':
 					$details = $eventLocationName.' '.strtolower($safeworkingType).' '.$tracks;
-					$details = eregi_replace('industry', '(industry)', $details);
+					$details = str_replace('industry', '(industry)', $details);
 					break;
 			}
 			

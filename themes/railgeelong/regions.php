@@ -24,18 +24,18 @@ else
 {	
 	$articleSQL = "SELECT DATE_FORMAT(modified, '".SHORT_DATE_FORMAT.sprintf("') AS fdate, title, 
 		content, description, photos, article_id, caption, `link` 
-		FROM articles WHERE `link` = '%s'", mysql_real_escape_string($regionLink));
-	$article = MYSQL_QUERY($articleSQL, locationDBconnect());
+		FROM articles WHERE `link` = %s", db_quote($regionLink));
+	$article = query_full_array($articleSQL);
 	
-	if (MYSQL_NUM_ROWS($article) == '1')
+	if (sizeof($article) == 1)
 	{
-		$pageTitle = stripslashes(MYSQL_RESULT($article,0,"title"));
-		$pageContent = stripslashes(MYSQL_RESULT($article,0,"content"));
-		$pageIntro = stripslashes(MYSQL_RESULT($article,0,"description"));
-		$photos = stripslashes(MYSQL_RESULT($article,0,"photos"));
-		$regionId = stripslashes(MYSQL_RESULT($article,0,"article_id"));
-		$caption = stripslashes(MYSQL_RESULT($article,0,"caption"));
-		$lastUpdatedDate = MYSQL_RESULT($article,0,"fdate"); 
+		$pageTitle = stripslashes($article[0]["title"]);
+		$pageContent = stripslashes($article[0]["content"]);
+		$pageIntro = stripslashes($article[0]["description"]);
+		$photos = stripslashes($article[0]["photos"]);
+		$regionId = $article[0]["article_id"];
+		$caption = stripslashes($article[0]["caption"]);
+		$lastUpdatedDate = $article[0]["fdate"]; 
 		
 		include_once('common/header.php');
 ?>
@@ -129,10 +129,10 @@ function drawRegionRaillines($regionLink, $regionId)
 			LEFT OUTER JOIN articles a ON a.line_id = r.line_id
 			WHERE rr.article_id = '%s' AND todisplay != 'hide'
 			ORDER BY lineorder ASC",
-			mysql_real_escape_string($regionId), mysql_real_escape_string($regionId));
+			($regionId), ($regionId));
 						
-	$raillineResults = MYSQL_QUERY($raillineSQL, locationDBconnect());
-	$numberOfLines = MYSQL_NUM_ROWS($raillineResults);
+	$raillineResults = query_full_array($raillineSQL);
+	$numberOfLines = sizeof($raillineResults);
 	
 	// build up the dataset
 	if ($numberOfLines > 0)
@@ -147,13 +147,13 @@ function drawRegionRaillines($regionLink, $regionId)
 		// add rows to the array
 		while ($i < $numberOfLines)
 		{
-			$lineId = MYSQL_RESULT($raillineResults,$i,"line_id");
+			$lineId = $raillineResults[$i]["line_id"];
 			// check what type of item the row is
-			$rowType = MYSQL_RESULT($raillineResults,$i,"type");
-			$regionContent = parseLinks(stripslashes(MYSQL_RESULT($raillineResults,$i,"regioncontent")));
-			$pageTitle = stripslashes(MYSQL_RESULT($raillineResults,$i,"pagetitle"));
-			$pageLink = strToLower(stripslashes(MYSQL_RESULT($raillineResults,$i,"pagelink")));
-			$pageContent = stripslashes(MYSQL_RESULT($raillineResults,$i,"pagecontent"));
+			$rowType = $raillineResults[$i]["type"];
+			$regionContent = parseLinks(stripslashes($raillineResults[$i]["regioncontent"]));
+			$pageTitle = stripslashes($raillineResults[$i]["pagetitle"]);
+			$pageLink = strToLower(stripslashes($raillineResults[$i]["pagelink"]));
+			$pageContent = stripslashes($raillineResults[$i]["pagecontent"]);
 			
 			if ($rowType == "page")
 			{

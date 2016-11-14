@@ -29,9 +29,9 @@ function getObjectSources($type, $id, $credits)
 		// gets the sources for this location
 		$sql = sprintf("SELECT * FROM object_sources, sources 
 			WHERE object_sources.source_id = sources.source_id 
-			AND %s_id = '%s' ORDER BY name", mysql_real_escape_string($type), mysql_real_escape_string($id));
-		$result = MYSQL_QUERY($sql, locationDBconnect());
-		$numberOfRows = MYSQL_NUM_ROWS($result);
+			AND %s_id = %s ORDER BY name", ($type), ($id));
+		$result = query_full_array($sql);
+		$numberOfRows = sizeof($result);
 		
 		if ($numberOfRows >= 1)
 		{
@@ -49,13 +49,13 @@ function getObjectSources($type, $id, $credits)
 	if ($credits != '')
 	{
 		$credits = fixParagraphs($credits);
-		$credits = eregi_replace("\r\n", '</li><li>', $credits);
-		$credits = eregi_replace("\n", '</li><li>', $credits);
-		$credits = eregi_replace("</p><p>", '</li><li>', $credits);
-		$credits = eregi_replace("</p>\n<p>", "</li>\n<li>", $credits);
+		$credits = str_replace("\r\n", '</li><li>', $credits);
+		$credits = str_replace("\n", '</li><li>', $credits);
+		$credits = str_replace("</p><p>", '</li><li>', $credits);
+		$credits = str_replace("</p>\n<p>", "</li>\n<li>", $credits);
 		
 		$credits = "<li>".$credits."</li>\n</ul>";
-		$toreturn .= eregi_replace("<li></li>", '', $credits);
+		$toreturn .= str_replace("<li></li>", '', $credits);
 	}
 	else if ($toreturn != '')
 	{
@@ -72,13 +72,13 @@ function getObjectSources($type, $id, $credits)
  */
 function getFormattedSource($result, $i)
 {
-	$sourceName = stripslashes(MYSQL_RESULT($result,$i,"name"));
-	$extra = stripslashes(MYSQL_RESULT($result,$i,"extra"));
-	$sourceId = MYSQL_RESULT($result,$i,"source_id");
-	$date = stripslashes(MYSQL_RESULT($result,$i,"date"));
-	$page = stripslashes(MYSQL_RESULT($result,$i,"page"));
-	$url = stripslashes(MYSQL_RESULT($result,$i,"url"));
-	$url_title = stripslashes(MYSQL_RESULT($result,$i,"url_title"));	
+	$sourceName = stripslashes($result[$i]["name"]);
+	$extra = stripslashes($result[$i]["extra"]);
+	$sourceId = $result[$i]["source_id"];
+	$date = $result[$i]["date"];
+	$page = stripslashes($result[$i]["page"]);
+	$url = stripslashes($result[$i]["url"]);
+	$url_title = stripslashes($result[$i]["url_title"]);	
 	
 	if ($page != '')
 	{

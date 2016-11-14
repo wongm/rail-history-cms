@@ -15,7 +15,7 @@ function drawAdminEditableLink($link, $title)
 
 function convertToLink($text)
 {
-	return strtolower(eregi_replace(' ', '-', $text));
+	return strtolower(str_replace(' ', '-', $text));
 }
 
 function getLocationName($name, $type)
@@ -383,7 +383,7 @@ function highlight($keyword, $name)
 		$start_tag = "<span style=\"background-color: $bgcolor\">";
 		$end_tag = "</span>";
 		$highlighted_results = $start_tag . $keyword . $end_tag;
-		$highlightName = eregi_replace($keyword, $highlighted_results, $name);
+		$highlightName = str_replace($keyword, $highlighted_results, $name);
 		return $highlightName;
 	}
 	return $text;
