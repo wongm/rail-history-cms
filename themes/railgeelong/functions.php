@@ -41,9 +41,10 @@ else
 	define ('TIME_FORMAT', '%B %d, %Y %H:%M %p');
 }
 
-//zp_register_filter('checkPageValidity', 'railGeelongTheme::checkLinks');
+zp_register_filter('checkPageValidity', 'railGeelongTheme::checkLinks');
 zp_register_filter('admin_toolbox_album', 'railGeelongTheme::addAlbumLink');
 zp_register_filter('admin_toolbox_global', 'railGeelongTheme::addGlobalLink');
+zp_register_filter('getLink', 'railGeelongTheme::setCustomGalleryPath');
 
 /**
  * Plugin option handling class
@@ -51,17 +52,17 @@ zp_register_filter('admin_toolbox_global', 'railGeelongTheme::addGlobalLink');
  */
 class railGeelongTheme {
 	
+	static function setCustomGalleryPath($url, $object, $title) {
+		if ($object instanceof Album OR $object instanceof Image){
+			//echo 'is an album';
+			return "/gallery$url";
+		}
+	}
+	
 	static function checkLinks($count, $gallery_page, $page) {
     	
-    	if (isset($_GET['wongm'])) {
-            print_r($_GET);
-            echo 'checkLinks';
-//            die();
-        }
-    	
-    	
-    	
-    	
+		print_r($_GET);
+		echo 'checkLinks';
     	
     	switch ($gallery_page)
     	{

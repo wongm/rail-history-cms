@@ -1,29 +1,93 @@
-gallery/albums/
-gallery/cache/
-gallery/zp-core/
-gallery/zp-data/
-images/aerial/1945/
-images/aerial/morgans/
-images/articles/
-images/diagrams/
+
+# folders to exclude #
+######################
+/patches
+/phpdoc
+/release
+/sandbox
+/source
+/sql
+/temp
+/tests
+/zenpage
+
+# Rail Geelong content #
+################################
+
 t/
-images/thumbs/
-images/safeworking/
-images/rrl/
-images/location/
-images/region/
-images/lineguide/
-images/headers/
-images/kml/
-images/frontpage/
-images/header-*.jpg
-images/geelong-region.gif
+images/
 common/dbConnection*.php
-gallery/sitemap.php
-gallery/index.php
-gallery/trackback.php
-gallery/zp-data/
 backend/common/dbConnection.php
-error_log
-gallery/robots.txt
 google*.html
+
+# Zenphoto code #
+################################
+
+zp-core/
+index.php
+!zp-core/zenphoto-rewrite.txt
+
+# folders that should be empty #
+################################
+# /albums/
+/albums/*
+
+# /cache/
+/cache/*
+
+# /cache_html/
+/cache_html/*
+
+# /plugins/
+/plugins/gd_fonts/*
+/plugins/imagick_fonts/*
+/plugins/watermarks/*
+/plugins/*
+
+# /uploaded/
+/uploaded/*
+
+# /zp-data/
+/zp-data/*
+
+# /backup/
+/backup/*
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# Eclipse #
+###########
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+.buildpath
+
+# NetBeans #
+###########
+/nbproject/
+
+# Miscellaneous files #
+#######################
+*.bat
+*.sh
+.*
