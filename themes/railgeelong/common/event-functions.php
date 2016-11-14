@@ -347,7 +347,7 @@ function getLocationLineEvents($type, $location)
 				// chains together events of the same date
 				if ($numberEventsSameDay > 1 AND !$tram)
 				{
-					$subdetails = split(' ', $details);
+					$subdetails = explode(' ', $details);
 					$details = 'Line '.$subdetails[1].' '.$startLocationName;
 					
 					for ($x = 1; $x < $numberEventsSameDay; $x++)

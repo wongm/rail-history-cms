@@ -222,12 +222,12 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 
 function getLineguideDistanceURL($trackSubpageDistances, $currentKm)
 {
-	$diagramPageBounds = split(';',$trackSubpageDistances);
+	$diagramPageBounds = explode(';',$trackSubpageDistances);
 	$i = 1;
 	
 	foreach ($diagramPageBounds as $pageBound)
 	{
-		$pageBound = split('-',$pageBound);
+		$pageBound = explode('-',$pageBound);
 		
 		if ($currentKm < $pageBound[1])
 		{

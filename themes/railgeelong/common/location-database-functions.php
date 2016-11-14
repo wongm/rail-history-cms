@@ -337,7 +337,7 @@ function getLocationDiagrams($location)
 			}
 			else
 			{
-				$year = MYSQL_RESULT($result,$i,"year");
+				$year = $result[$i]["year"];
 			}
 			
 			$diagramData[] = array($image.'-'.$added.$year,$name.' '.$year,$year);
@@ -380,7 +380,7 @@ function getLocationDiagrams($location)
  */
 function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 {
-	$numberOfLocations = MYSQL_NUM_ROWS($resultLocations);
+	$numberOfLocations = sizeof($resultLocations);
 	$pastid = -1;
 	
 	$toreturn['sorttext'] 	 = '';
@@ -399,7 +399,7 @@ function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 	
 	for ($i = 0; $i < $numberOfLocations; $i++)
 	{
-		$id = stripslashes(MYSQL_RESULT($resultLocations,$i,"l.location_id"));
+		$id = stripslashes($resultLocations[$i]["location_id"]);
 		
 		if ($id == $pastid)
 		{
@@ -408,8 +408,11 @@ function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 			{
 				break;
 			}
-			$id = stripslashes(MYSQL_RESULT($resultLocations,$i,"l.location_id"));
+			$id = stripslashes($resultLocations[$i]["location_id"]);
 		}
+		
+		print_r($resultLocations[$i]);
+		die();
 		
 		$highlightName = $name = stripslashes(MYSQL_RESULT($resultLocations,$i,"l.name")); 
 		$type = stripslashes(MYSQL_RESULT($resultLocations,$i,"l.type"));
@@ -422,7 +425,7 @@ function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 		}
 		
 		// image depending on length of description
-		$contentLengthImage = getLocationDescriptionLengthImage(MYSQL_RESULT($resultLocations,$i,"description_length"));
+		//$contentLengthImage = getLocationDescriptionLengthImage(MYSQL_RESULT($resultLocations,$i,"description_length"));
 		$contentLengthImage = "<a href=\"/location/$urlBase\">$contentLengthImage</a>";
 			
 		// image if photos

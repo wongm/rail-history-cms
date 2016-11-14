@@ -118,7 +118,7 @@ function drawLineguideDiagramTabs($line)
 {
 	drawLineguideHeaders($line, 'Diagrams');
 	echo "<h4>Track Diagrams</h4>\n";
-	$trackDiagramTabs = split(';', $line['trackDiagramTabs']);
+	$trackDiagramTabs = explode(';', $line['trackDiagramTabs']);
 
 	for ($i = 0; $i < sizeof($trackDiagramTabs); $i++)
 	{
@@ -146,7 +146,7 @@ function drawInterestingYears($interestingYears, $yearToDisplay, $lineToDisplay,
 		$pageLink = "/page-$diagramPage";
 	}
 
-	$interestingYears = split(';', $interestingYears);
+	$interestingYears = explode(';', $interestingYears);
 	$interestingYearsLength = sizeOf($interestingYears);
 
 	if ($interestingYearsLength > '1')
@@ -402,23 +402,23 @@ function drawSpecificLine($line, $contentsHeader = 'Contents')
 function getBasicLocationForLineguide($databaseresult, $index)
 {
 	// retreive from DB
-	$location['location_id'] = MYSQL_RESULT($databaseresult,$index,"location_id");
-	$location['link'] = MYSQL_RESULT($databaseresult,$index,"link");
-	$location['name'] = stripslashes(MYSQL_RESULT($databaseresult,$index,"name"));
-	$location['line_id'] = MYSQL_RESULT($databaseresult,$index,"line_id");
-	$location['tracks'] = MYSQL_RESULT($databaseresult,$index,"tracks");
-	$location['display'] = MYSQL_RESULT($databaseresult,$index,"display");
-	$location['type'] = MYSQL_RESULT($databaseresult,$index,"type");
-	$location['image'] = MYSQL_RESULT($databaseresult,$index,"image");
-	$location['km'] = MYSQL_RESULT($databaseresult,$index,"km");
-	$location['km_accuracy'] = MYSQL_RESULT($databaseresult,$index,"kmaccuracy");
+	$location['location_id'] = $databaseresult[$index]["location_id"];
+	$location['link'] = $databaseresult[$index]["link"];
+	$location['name'] = stripslashes($databaseresult[$index]["name"]);
+	$location['line_id'] = $databaseresult[$index]["line_id"];
+	$location['tracks'] = $databaseresult[$index]["tracks"];
+	$location['display'] = $databaseresult[$index]["display"];
+	$location['type'] = $databaseresult[$index]["type"];
+	$location['image'] = $databaseresult[$index]["image"];
+	$location['km'] = $databaseresult[$index]["km"];
+	$location['km_accuracy'] = $databaseresult[$index]["kmaccuracy"];
 	$location['km_formatted'] = formatDistance($location['km'], $location['km_accuracy']);
-	$location['photo'] = MYSQL_RESULT($databaseresult,$index,"photos");
-	$location['event'] = MYSQL_RESULT($databaseresult,$index,"events");
-	$location['description_length'] = strlen(MYSQL_RESULT($databaseresult,$index,"description"));
+	$location['photo'] = $databaseresult[$index]["photos"];
+	$location['event'] = $databaseresult[$index]["events"];
+	$location['description_length'] = strlen($databaseresult[$index]["description"]);
 
 	// fix up URL link to location, done in getLocationUrlLForLineguide if required later
-	$location['url'] = MYSQL_RESULT($databaseresult,$index,"url");
+	$location['url'] = $databaseresult[$index]["url"];
 
 	return $location;
 }	//end function
@@ -449,7 +449,7 @@ function getFullLocationForLineguide($location)
 			WHERE lr.location_id = ".($location['location_id'])."";
 		$junctionresult = query_full_array($junctionsql);
 
-		if (MYSQL_NUM_ROWS($junctionresult) > 1)
+		if (sizeof($junctionresult) > 1)
 		{
 			$linea = $junctionresult[0]["link"];
 			$lineb = $junctionresult[1]["link"];
@@ -458,7 +458,7 @@ function getFullLocationForLineguide($location)
 			$ida = $junctionresult[0]["line_id"];
 			$idb = $junctionresult[1]["line_id"];
 
-			include_once(dirname(__FILE__) . "/../common/location-lineguide-functions.php");
+			include_once("location-lineguide-functions.php");
 
 			if ($ida == $location['line_id'])
 			{
@@ -571,8 +571,8 @@ function getLineDiagram($line, $section, $trackPage)
 	// fix up sub-distances if subpages have been selected and setup
 	else
 	{
-		$pageBounds = split(';',$trackSubpage);
-		$pageBounds = split('-',$pageBounds[$trackPage-1]);
+		$pageBounds = explode(';',$trackSubpage);
+		$pageBounds = explode('-',$pageBounds[$trackPage-1]);
 		if (sizeof($pageBounds) == 2)
 		{
 			$lowerBound = $pageBounds[1]-10;
@@ -594,11 +594,11 @@ function getLineDiagram($line, $section, $trackPage)
 		FROM locations l
 		INNER JOIN locations_raillines r ON l.location_id = r.location_id
 		WHERE line_id = '%s' $pageBounds
-		AND l.open <= '%s' AND l.close >= '%s' AND l.display != 'map'
-		ORDER BY km ASC", mysql_real_escape_string($lineId),
-		mysql_real_escape_string($yearStart), mysql_real_escape_string($yearEnd));
-	$locationsOnRaillineResult = MYSQL_QUERY($locationsOnRaillineSql, locationDBconnect());
-	$numberOfLocations = MYSQL_NUM_ROWS($locationsOnRaillineResult);
+		AND l.open <= %s AND l.close >= %s AND l.display != 'map'
+		ORDER BY km ASC", ($lineId),
+		db_quote($yearStart), db_quote($yearEnd));
+	$locationsOnRaillineResult = query_full_array($locationsOnRaillineSql);
+	$numberOfLocations = sizeof($locationsOnRaillineResult);
 
 	// end of error checking
 	// if error found then return it and quit drawing
@@ -608,8 +608,8 @@ function getLineDiagram($line, $section, $trackPage)
 	}
 
 	// otherwise start outputting data
-	$pastKm = MYSQL_RESULT($locationsOnRaillineResult,0,"km");
-	$nextTracks = MYSQL_RESULT($locationsOnRaillineResult,0,"tracks");
+	$pastKm = $locationsOnRaillineResult[0]["km"];
+	$nextTracks = $locationsOnRaillineResult[0]["tracks"];
 
 	/*
 	 * decides on the type of diagram to be drawn,
@@ -736,23 +736,23 @@ function getLineDiagram($line, $section, $trackPage)
 				AND RE.safeworking != ''
 				ORDER BY RE.date DESC";
 
-			$resultSafeworking = MYSQL_QUERY($sqlSafeworking, locationDBconnect());
+			$resultSafeworking = query_full_array($sqlSafeworking);
 
-			if(MYSQL_NUM_ROWS($resultSafeworking) != 0)
+			if(sizeof($resultSafeworking) == 1)
 			{
-				$nextSafeworking = MYSQL_RESULT($resultSafeworking,0,"safeworking");
-				$nextSwName = MYSQL_RESULT($resultSafeworking,0,"name");
-				$startDist = MYSQL_RESULT($resultSafeworking,0,"start_distance");
+				$nextSafeworking = $resultSafeworking[0]["safeworking"];
+				$nextSwName = $resultSafeworking[0]["name"];
+				$startDist = $resultSafeworking[0]["start_distance"];
 
-				if (MYSQL_RESULT($resultSafeworking,0,"safeworking_why") != 'closed')
+				if ($resultSafeworking[0]["safeworking_why"] != 'closed')
 				{
-					$middleloc = MYSQL_RESULT($resultSafeworking,0,"safeworking_middle");
+					$middleloc = $resultSafeworking[0]["safeworking_middle"];
 					if ($middleloc != 0)
 					{
-						$middleDist = MYSQL_RESULT($resultSafeworking,0,"middle_distance");
+						$middleDist = $resultSafeworking[0]["middle_distance"];
 					}
 				}
-				$endDist = MYSQL_RESULT($resultSafeworking,0,"end_distance");
+				$endDist = $resultSafeworking[0]["end_distance"];
 				$nextSafeworking = $nextSafeworking.'-'.$currentLocation['tracks'];
 			}
 			else
@@ -817,17 +817,16 @@ function getLineDiagramSectionTracks($line, $currentLocation, $pastTracks)
 		AND RE.date < '".$line['yearEnd']."' AND RE.line = '".$currentLocation['line_id']."' AND RE.tracks != ''
 		ORDER BY RE.date DESC";
 
-	//$sqlTracks = "SELECT * FROM railline_events WHERE start_distance <= '".$currentLocation['km']."' AND end_distance >= '".($currentLocation['km'])."' AND date < '".$yearEnd."' AND line = '".$currentLocation['line_id']."' AND tracks != '' ORDER BY date DESC";
-	$resultTracks = MYSQL_QUERY($sqlTracks, locationDBconnect());
-	$resultRows = MYSQL_NUM_ROWS($resultTracks);
+	$resultTracks = query_full_array($sqlTracks);
+	$resultRows = sizeof($resultTracks);
 
 	if ($resultRows > 0)
 	{
 		// check the the track retreived is for this segment, not for after the station in question
-		$nexteventstartkm = MYSQL_RESULT($resultTracks,0,"start_distance");
+		$nexteventstartkm = $resultTracks[0]["start_distance"];
 		if ($currentLocation['km'] >= $nexteventstartkm)
 		{
-			$tracksToDisplay = MYSQL_RESULT($resultTracks,0,"tracks");
+			$tracksToDisplay = $resultTracks[0]["tracks"];
 		}
 		else
 		{
@@ -869,11 +868,11 @@ function getLineDiagramLocationImage($line, $currentLocation, $tracksToDisplay)
 									WHERE date < '".$line['yearEnd']."'
 									AND location = '".$currentLocation['location_id']."'
 									ORDER BY date DESC";
-			$resultLocationEvents = MYSQL_QUERY($sqlLocationEvents, locationDBconnect());
+			$resultLocationEvents = query_full_array($sqlLocationEvents);
 
-			if(MYSQL_NUM_ROWS($resultLocationEvents) > 0)
+			if(sizeof($resultLocationEvents) > 0)
 			{
-				$crossingType = MYSQL_RESULT($resultLocationEvents,'0',"details");
+				$crossingType = $resultLocationEvents[0]["details"];
 
 				if (is_numeric($crossingType))
 				{
@@ -905,26 +904,26 @@ function getLineDiagramLocationImage($line, $currentLocation, $tracksToDisplay)
 	{
 		if ($yearHeader != 'All Locations')
 		{
-			$yearLimitedResult = MYSQL_QUERY("SELECT * FROM location_years
+			$yearLimitedResult = query_full_array("SELECT * FROM location_years
 											WHERE `location` = '".$currentLocation['location_id']."'
 											AND `year` <= '".$line['yearEnd']."'
-											ORDER BY year DESC", locationDBconnect());
+											ORDER BY year DESC");
 
 			// check it isn't a default image
 			if (substr($currentLocation['image'],1,1) != '-')
 			{
 				// for particular year
-				if(MYSQL_NUM_ROWS($yearLimitedResult) > 0)
+				if(sizeof($yearLimitedResult) > 0)
 				{
-					$yearImage = '-'.MYSQL_RESULT($yearLimitedResult,'0',"year");
+					$yearImage = '-'.$yearLimitedResult[0]["year"];
 				}
 				// more than one year, but none found (pick pic from location opening)
 				else
 				{
-					$yearAllResults = MYSQL_QUERY("SELECT * FROM location_years
-											WHERE location = '".$currentLocation['location_id']."'", locationDBconnect());
+					$yearAllResults = query_full_array("SELECT * FROM location_years
+											WHERE location = '".$currentLocation['location_id']."'");
 
-					if (MYSQL_NUM_ROWS($yearAllResults) > 0)
+					if (sizeof($yearAllResults) > 0)
 					{
 						$yearImage = '-open';
 					}
