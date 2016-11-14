@@ -8,7 +8,7 @@ include_once("header.php");
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; Line Guides</div>
-	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php include_once('midbar.php'); ?>
 <h3>Introduction to the line guides</h3>
@@ -32,7 +32,7 @@ include_once("header.php");
 <p>Choose a line on the map to the right, or a link from below to start.</p>
 
 <h4 style="clear:both;" >The lines...</h4><hr/>
-<?
+<?php
 drawAllLineguideDotpoints(false);
 include_once("footer.php");
 ?>

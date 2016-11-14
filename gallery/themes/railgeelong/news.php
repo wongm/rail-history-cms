@@ -5,7 +5,7 @@ include_once('header.php');
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; <a href="/news">News</a></div>
-	<div class="search"><? printSearchForm(); ?></div>
+	<div class="search"><?php printSearchForm(); ?></div>
 </div>
 <?php 
 
@@ -119,6 +119,6 @@ if (getOption('comment_form_articles')) { ?>
 } 
 ?>
 </div>
-<?
+<?php
 include_once('footer.php'); 
 ?>

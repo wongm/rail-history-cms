@@ -10,7 +10,7 @@ include_once("common/header.php");
 	$thisKmaccuracy = addslashes($_REQUEST['thisKmAccuracyField']);
 
 ?>
-<?
+<?php
 $sql = "DELETE FROM locations_raillines WHERE line_id = '$thisLine_id' AND  location_id = '$thisLocation_id'";
 $result = MYSQL_QUERY($sql);
 
@@ -20,19 +20,19 @@ Record  has been deleted from database. Here is the deleted record :-<br><br>
 <table>
 <tr height="30">
 	<td align="right"><b>Line_id : </b></td>
-	<td><? echo $thisLine_id; ?></td>
+	<td><?php echo $thisLine_id; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Location_id : </b></td>
-	<td><? echo $thisLocation_id; ?></td>
+	<td><?php echo $thisLocation_id; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Km : </b></td>
-	<td><? echo $thisKm; ?></td>
+	<td><?php echo $thisKm; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Kmaccuracy : </b></td>
-	<td><? echo $thisKmaccuracy; ?></td>
+	<td><?php echo $thisKmaccuracy; ?></td>
 </tr>
 </table>
 

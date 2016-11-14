@@ -5,7 +5,7 @@ include_once('header.php'); ?>
 
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; 
-		<a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 
+		<a href="<?php echo getGalleryIndexURL();?>" title="Gallery Index"><?php echo getGalleryTitle();?></a> &raquo; 
       	<?php printParentBreadcrumb('', ' » ', ' » '); ?>
       	<?php echo getAlbumTitle();?></div>
 	<div class="search"><?php printSearchForm(); ?></div>
@@ -41,11 +41,11 @@ include_once('header.php'); ?>
   global $_zp_current_album;
 ?>
     <td class="album" valign="top">
-      <div class="albumthumb"><a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?>">
+      <div class="albumthumb"><a href="<?php echo getAlbumURL();?>" title="<?php echo getAlbumTitle();?>">
         <?php printAlbumThumbImage(getAlbumTitle()); ?></a></div>
       <div class="albumtitle">
-      	<h4><a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?>"><?php printAlbumTitle(); ?></a></h4>
-        <small><?php printAlbumDate(); ?><br/><? if(function_exists(printHitCounter)) { printHitCounter($_zp_current_album); } ?></small></div>
+      	<h4><a href="<?php echo getAlbumURL();?>" title="<?php echo getAlbumTitle();?>"><?php printAlbumTitle(); ?></a></h4>
+        <small><?php printAlbumDate(); ?><br/><?php if(function_exists(printHitCounter)) { printHitCounter($_zp_current_album); } ?></small></div>
       <div class="albumdesc"><?php printAlbumDesc(); ?></div>
     </td>
   <?php if ($i == 2)
@@ -82,12 +82,12 @@ include_once('header.php'); ?>
   global $_zp_current_image;
 ?>
   <td class="image" valign="top">
-      <div class="imagethumb"><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>">
+      <div class="imagethumb"><a href="<?php echo getImageURL();?>" title="<?php echo getImageTitle();?>">
        <?php printImageThumb(getImageTitle()); ?></a></div>
       <div class="imagetitle">
-      	<h4><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
+      	<h4><a href="<?php echo getImageURL();?>" title="<?php echo getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
 		<?php echo printImageDescWrapped(); ?>
-        <small><?php printImageDate(); ?><br/><? if(function_exists(printHitCounter)) { printHitCounter($_zp_current_image); } ?></small>
+        <small><?php printImageDate(); ?><br/><?php if(function_exists(printHitCounter)) { printHitCounter($_zp_current_image); } ?></small>
       </div>
     </td>  
   <?php 

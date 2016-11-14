@@ -38,43 +38,43 @@ else if ($numberOfRows>0) {
 ?>
 <fieldset>
 <form name="railline_eventsUpdateForm" method="POST" action="updateRaillineEvents.php">
-<input type="hidden" name="thisLinkField" value="<? echo $thisLink; ?>">
-<input type="hidden" name="thisEvent_idField" value="<? echo $thisEvent_id; ?>">
+<input type="hidden" name="thisLinkField" value="<?php echo $thisLink; ?>">
+<input type="hidden" name="thisEvent_idField" value="<?php echo $thisEvent_id; ?>">
 
 <table cellspacing="2" cellpadding="2" border="0" width="100%">
 	<tr valign="top" height="20">
 		<td align="right"> <b> Event ID :  </b> </td>
-		<td><? echo $thisEvent_id; ?></td> 
+		<td><?php echo $thisEvent_id; ?></td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Line :  </b> </td>
 		<td> <select name="thisLineField">
-<? drawLineNameSelectFields($thisLine); ?>	
+<?php drawLineNameSelectFields($thisLine); ?>	
    	 	</select></td>
    	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Date :  </b> </td>
-		<td> <input type="text" name="thisDateField" size="20" value="<? echo $thisDate; ?>">  </td> 
+		<td> <input type="text" name="thisDateField" size="20" value="<?php echo $thisDate; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Approx? :  </b> </td>
 		<td> <select name="thisApproxField">
-<? drawApproxTimeFields($thisApprox); ?>
+<?php drawApproxTimeFields($thisApprox); ?>
 		</select></td> 
 	</tr>
 	
 	<tr valign="top" height="20">
 		<td align="right"> <b> Display :  </b> </td>
 		<td> <select name="thisDisplayField">
-		<option <? if ($thisDisplay == 'yes'){echo selected;} ?> value="Yes">Yes</option>
-		<option <? if ($thisDisplay == 'hide'){echo selected;} ?> value="Hide">Hide</option></select></td> 
+		<option <?php if ($thisDisplay == 'yes'){echo selected;} ?> value="Yes">Yes</option>
+		<option <?php if ($thisDisplay == 'hide'){echo selected;} ?> value="Hide">Hide</option></select></td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right">EITHER</td>
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Description :  </b> </td>
-		<td> <input type="text" name="thisDescriptionField" id="thisDescriptionField" size="50" value="<? echo $thisDescription; ?>">  </td> 
+		<td> <input type="text" name="thisDescriptionField" id="thisDescriptionField" size="50" value="<?php echo $thisDescription; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right">OR</td>
@@ -84,7 +84,7 @@ else if ($numberOfRows>0) {
 	<tr valign="top" height="20">
 		<td align="right"> <b> Start Location:  </b> </td>
 		<td> <select name="thisStart_locationField">
-<? drawLocationNameSelectFields($thisStartLocation)	; ?>		
+<?php drawLocationNameSelectFields($thisStartLocation)	; ?>		
 		</select></td>
 	</tr>
 	
@@ -92,20 +92,20 @@ else if ($numberOfRows>0) {
 	<tr valign="top" height="20">
 		<td align="right"> <b> End Location:  </b> </td>
 		<td> <select name="thisEnd_locationField">
-<? drawLocationNameSelectFields($thisEndLocation)	; ?>		
+<?php drawLocationNameSelectFields($thisEndLocation)	; ?>		
 		</select></td>	
 	</tr>	
 	
 	<tr valign="top" height="20">
 		<td align="right"> <b> Tracks :  </b> </td>
-		<td> <input type="text" name="thisTracksField" size="20" value="<? echo $thisTracks; ?>">  </td> 
+		<td> <input type="text" name="thisTracksField" size="20" value="<?php echo $thisTracks; ?>">  </td> 
 	</tr>
 	
 	<!--Safeworking Type field-->
 	<tr valign="top" height="20">
 		<td align="right"> <b> Safeworking :  </b> </td>
 		<td> <select name="thisSafeworkingField">
-	<? drawSafeworkingNameSelectFields($thisSafeworking); ?>
+	<?php drawSafeworkingNameSelectFields($thisSafeworking); ?>
 		</select></td>
 	</tr>
 
@@ -113,21 +113,21 @@ else if ($numberOfRows>0) {
 	<tr valign="top" height="20">
 		<td align="right"> <b> Middle Location (optional) :  </b> </td>
 		<td> <select name="thisSafeworkingMiddleField">
-		<? drawLocationNameSelectFields($thisSafeworkingMiddle)	; ?>		
+		<?php drawLocationNameSelectFields($thisSafeworkingMiddle)	; ?>		
 		</select></td>	
 	</tr>
 	
 	<tr valign="top" height="20">
 		<td align="right"> <b> Reason For Above? :  </b> </td>
 		<td><select name="thisSafeworkingWhyField">
-<? drawSafeworkingWhyFields($thisSafeworkingWhy); ?>
+<?php drawSafeworkingWhyFields($thisSafeworkingWhy); ?>
 		</select></td>
 	</tr>
 
 	<tr valign="top" height="20">
 		<td align="right"> <b> Gauge :  </b> </td>
 		<td><select name="thisGaugeField">
-<? drawGaugeFields($thisGaugeWhy); ?>
+<?php drawGaugeFields($thisGaugeWhy); ?>
 		</select></td>
 	</tr>
 

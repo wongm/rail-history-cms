@@ -42,46 +42,46 @@ else if ($numberOfRows>0) {
 <form name="articlesUpdateForm" method="POST" action="updateArticles.php">
 
 <table cellspacing="2" cellpadding="2" border="0" width="100%">
-<input type="hidden" name="thisIdField" value="<? echo $thisId; ?>">
+<input type="hidden" name="thisIdField" value="<?php echo $thisId; ?>">
 	<tr valign="top" height="20">
 		<td align="right"> <b> Id :  </b> </td>
-		<td><? echo $thisId; ?></td> 
+		<td><?php echo $thisId; ?></td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Title :  </b> </td>
-		<td> <input type="text" name="thisTitleField" size="40" value="<? echo $thisTitle; ?>">  </td> 
+		<td> <input type="text" name="thisTitleField" size="40" value="<?php echo $thisTitle; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Link :  </b> </td>
-		<td> <input type="text" name="thisLinkField" size="40" value="<? echo $thisLink; ?>">  </td> 
+		<td> <input type="text" name="thisLinkField" size="40" value="<?php echo $thisLink; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Description :  </b> </td>
 		<td> 
-		<textarea name="thisDescriptionField" id="thisDescriptionField" wrap="VIRTUAL" cols="80" rows="5"><? echo $thisDescription; ?></textarea>
+		<textarea name="thisDescriptionField" id="thisDescriptionField" wrap="VIRTUAL" cols="80" rows="5"><?php echo $thisDescription; ?></textarea>
 		</td> 
 	</tr>
 	
 	<tr valign="top" height="20">
 		<td align="right"> <b> Line (optional):  </b> </td>
 		<td> <select name="thisLineField">
-<? drawLineNameSelectFields($thisLine); ?>	
-<option value="-1" <? if ($thisLine == -1) { echo 'selected'; } ?>>[REGION] (region<>line map)</option>	
+<?php drawLineNameSelectFields($thisLine); ?>	
+<option value="-1" <?php if ($thisLine == -1) { echo 'selected'; } ?>>[REGION] (region<>line map)</option>	
    	 	</select></td>
    	 </tr>
     
     <tr valign="top" height="20">
 		<td align="right"> <b> Gallery folder :  </b> </td>
 		<td> 
-		<input type="text" name="thisPhotosField" size="40" value="<?=$thisPhotos?>">  <br>
+		<input type="text" name="thisPhotosField" size="40" value="<?php echo $thisPhotos?>">  <br>
 		<small>Eg: 'LINE-NAME/LOCATION-NAME'</small> 
 		</td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Lead image caption :  </b> </td>
 		<td> 
-		<input type="text" name="thisCaptionField" size="83" value="<? echo $thisCaption; ?>"><br>
-		<small>For image at top of article page, file needs to be at "/images/header-LINELINK-<? echo $thisLink; ?>.jpg"</small> 
+		<input type="text" name="thisCaptionField" size="83" value="<?php echo $thisCaption; ?>"><br>
+		<small>For image at top of article page, file needs to be at "/images/header-LINELINK-<?php echo $thisLink; ?>.jpg"</small> 
 		</td> 
 	</tr>
 	
@@ -91,7 +91,7 @@ else if ($numberOfRows>0) {
 		<form>
 		<script type="text/javascript" src="js_quicktags.js"></script>
 		<script type="text/javascript">edToolbar();</script>
-		<textarea name="thisContentField" id="thisContentField" wrap="VIRTUAL" cols="100" rows="30"><? echo $thisContent; ?></textarea>
+		<textarea name="thisContentField" id="thisContentField" wrap="VIRTUAL" cols="100" rows="30"><?php echo $thisContent; ?></textarea>
 		<script type="text/javascript">var edCanvas = document.getElementById('thisContentField');</script>
 		</form>
 		</td>
@@ -108,7 +108,7 @@ else if ($numberOfRows>0) {
 </form>
 </fieldset>
 
-<? drawObjectSources('article', $thisId); ?>
+<?php drawObjectSources('article', $thisId); ?>
 
 <?php
 include_once("common/footer.php");

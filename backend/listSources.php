@@ -24,7 +24,7 @@ if ($numberOfRows>0) {
   		 $('#mainmenu > ul').tabs();
   	});
 </script>
-<?  		
+<?php  		
 		echo '<p class="messagebox" id="fade-message">Source "<i>'.stripslashes($updated).'</i>" has been updated</p>';
 	}
 	
@@ -37,7 +37,7 @@ if ($numberOfRows>0) {
 		<th>Short</th>
 		<th>Name</th>
 	</TR>
-<?
+<?php
 	while ($i<$numberOfRows)
 	{
 
@@ -49,18 +49,18 @@ if ($numberOfRows>0) {
 	$thisDetails = stripSlashes(MYSQL_RESULT($result,$i,"details"));
 
 ?>
-	<TR class="<? echo $bgColor; ?>">
-		<TD><a href="editSources.php?id=<? echo $thisSource_id; ?>"><? echo $thisShort; ?></a></TD>
-		<TD><? echo $thisName; ?></TD>
-		<TD><a href="confirmDeleteSources.php?id=<? echo $thisSource_id; ?>">Delete</a></TD>
+	<TR class="<?php echo $bgColor; ?>">
+		<TD><a href="editSources.php?id=<?php echo $thisSource_id; ?>"><?php echo $thisShort; ?></a></TD>
+		<TD><?php echo $thisName; ?></TD>
+		<TD><a href="confirmDeleteSources.php?id=<?php echo $thisSource_id; ?>">Delete</a></TD>
 	</TR>
-<?
+<?php
 		$i++;
 
 	} // end while loop
 ?>
 </TABLE>
-<?
+<?php
 } // end of if numberOfRows > 0 
  ?>
 

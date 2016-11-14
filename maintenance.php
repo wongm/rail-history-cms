@@ -34,11 +34,11 @@ $end = date("h:00a", $file + (24*60*60)+(30*60));
 ?>
 <h3 class="intro">Rail Geelong - hopefully everything you ever wanted to know about the history of the railways of Geelong and District, and then some.</h3>
 <h3 class="intro" align="center"><font color="red">Sorry, the site is currently offline for maintenance.</font></h3>
-<h4 class="intro" align="center">Work started on <?=$start?> and should hopefully be complete with a few hours, hopefully by <?=$end?> at the latest.</h4>
+<h4 class="intro" align="center">Work started on <?php echo $start?> and should hopefully be complete with a few hours, hopefully by <?php echo $end?> at the latest.</h4>
 </div>
 <div id="footer">
-Last updated <?=$start?>
-<br/>Copyright 2005 - <?=date('Y') ?> © Marcus Wong except where otherwise noted.
+Last updated <?php echo $start?>
+<br/>Copyright 2005 - <?php echo date('Y') ?> © Marcus Wong except where otherwise noted.
 </div>
 </td></tr>
 </table>

@@ -5,15 +5,15 @@
 </ul>
 <ul class="sitemenu">
 	<li class="lead"><a href="/lineguides">Line Guides</a></li>
-<? 
+<?php 
 
 global $pageNavigation;
 
 $regions = array(
 		array('geelong', 'Geelong Region'), 
 		array('melbourne', 'Melbourne Region'), 
-		array('south-west', 'South West Victoria'), 
-		array('western', 'Western Victoria'));
+		array('south-west', 'South West Victoria'));//, 
+		//array('western', 'Western Victoria'));
 
 foreach ($regions as $region)
 {

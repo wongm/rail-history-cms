@@ -70,9 +70,9 @@ include_once("common/header.php");
 ?>
 <table width="100%">
 <tr><td>
-	<h2><a href="/backend/editLocations.php?location=<?=$thisLocationId?>">Return to editing!</a></h2><BR />
-	<a href="<?=$_SERVER['HTTP_REFERER']?>">Add another location</a><BR />
-	<a href="/location/<?=$thisLocationId?>">View location</a>
+	<h2><a href="/backend/editLocations.php?location=<?php echo $thisLocationId?>">Return to editing!</a></h2><BR />
+	<a href="<?php echo $_SERVER['HTTP_REFERER']?>">Add another location</a><BR />
+	<a href="/location/<?php echo $thisLocationId?>">View location</a>
 </td></tr>
 </table>
 <?php

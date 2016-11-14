@@ -13,8 +13,8 @@ $endTime = explode(' ',microtime());
 $endTime = $endTime[1] + $endTime[0];
 $generation = round($endTime - $startTime, 3);
 ?>
-Page Generation: <?=$generation?> seconds.<br/>
-<?
+Page Generation: <?php echo $generation?> seconds.<br/>
+<?php
 global $editablelinkforadmin;
 if ($editablelinkforadmin)
 {
@@ -31,7 +31,7 @@ if ($lastUpdatedDate != '')
 	echo "Last updated $lastUpdatedDate<br/>\n";
 }
 ?>
-Copyright 2005 - <?=date('Y') ?> &copy; <a href="http://wongm.com">Marcus Wong</a> except where otherwise noted.
+Copyright 2005 - <?php echo date('Y') ?> &copy; <a href="http://wongm.com">Marcus Wong</a> except where otherwise noted.
 </div>
 </div>
 <script type="text/javascript">

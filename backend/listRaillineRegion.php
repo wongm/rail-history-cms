@@ -18,7 +18,7 @@ if ($numberOfRows>0)
 		<th>Line</th>
 		<th>Region</th>
 	</TR>
-<?
+<?php
 	while ($i<$numberOfRows)
 	{
 
@@ -29,19 +29,19 @@ if ($numberOfRows>0)
 	$thisArticle_id = MYSQL_RESULT($result,$i,"articles.title");
 
 ?>
-	<TR class="<? echo $bgColor; ?>">
-		<TD><? echo $thisLine_id; ?></TD>
-		<TD><? echo $thisArticle_id; ?></TD>
-	<TD><a href="editRaillineRegion.php?id=<? echo $thisLinkzor_id; ?>">Edit</a></TD>
-	<TD><a href="confirmDeleteRaillineRegion.php?id=<? echo $thisLinkzor_id; ?>">Delete</a></TD>
+	<TR class="<?php echo $bgColor; ?>">
+		<TD><?php echo $thisLine_id; ?></TD>
+		<TD><?php echo $thisArticle_id; ?></TD>
+	<TD><a href="editRaillineRegion.php?id=<?php echo $thisLinkzor_id; ?>">Edit</a></TD>
+	<TD><a href="confirmDeleteRaillineRegion.php?id=<?php echo $thisLinkzor_id; ?>">Delete</a></TD>
 	</TR>
-<?
+<?php
 		$i++;
 
 	} // end while loop
 ?>
 </TABLE>
-<?
+<?php
 } // end of if numberOfRows > 0 
  ?>
 

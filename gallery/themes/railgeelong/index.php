@@ -4,7 +4,7 @@ include_once('header.php'); ?>
 
 	<div id="headbar">
 		<div class="link"><a href="/">Home</a> &raquo; Gallery</div>
-		<div class="search"><? printSearchForm(); ?></div>
+		<div class="search"><?php printSearchForm(); ?></div>
 	</div>
 	
 <?php include_once('midbar.php'); ?>
@@ -17,10 +17,10 @@ include_once('header.php'); ?>
   <?php if(hasNextPage() || hasPrevPage())
   {	?>
   <table class="nextables"><tr><td>
-    <?php if (hasPrevPage()) { ?> <a class="prev" href="<?=getPrevPageURL();?>" title="Previous Page"><span>&laquo;</span> Previous</a> <?php } ?>
-    <?php if (hasNextPage()) { ?> <a class="next" href="<?=getNextPageURL();?>" title="Next Page">Next <span>&raquo;</span></a><?php } ?>
+    <?php if (hasPrevPage()) { ?> <a class="prev" href="<?php echo getPrevPageURL();?>" title="Previous Page"><span>&laquo;</span> Previous</a> <?php } ?>
+    <?php if (hasNextPage()) { ?> <a class="next" href="<?php echo getNextPageURL();?>" title="Next Page">Next <span>&raquo;</span></a><?php } ?>
   </td></tr></table>
-  <? } ?>
+  <?php } ?>
   
   <table class="centeredTable">
   
@@ -33,9 +33,9 @@ include_once('header.php'); ?>
 	  echo "<tr>\n";
   } ?>
     <td class="album" valign="top">
-      <div class="albumthumb"><a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?>">
+      <div class="albumthumb"><a href="<?php echo getAlbumURL();?>" title="<?php echo getAlbumTitle();?>">
         <?php printAlbumThumbImage(getAlbumTitle()); ?></a></div>
-      <div class="albumtitle"><h4><a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?>">
+      <div class="albumtitle"><h4><a href="<?php echo getAlbumURL();?>" title="<?php echo getAlbumTitle();?>">
         <?php printAlbumTitle(); ?></a></h4><small><?php printAlbumDate(); ?></small></div>
       <div class="desc"><?php printAlbumDesc(); ?></div>
     </td>
@@ -62,12 +62,12 @@ include_once('header.php'); ?>
   <?php if(hasNextPage() || hasPrevPage())
   {	?>
   <table class="nextables"><tr><td>
-    <?php if (hasPrevPage()) { ?> <a class="prev" href="<?=getPrevPageURL();?>" title="Previous Page"><span>&laquo;</span> Previous</a> <?php } ?>
-    <?php if (hasNextPage()) { ?> <a class="next" href="<?=getNextPageURL();?>" title="Next Page">Next <span>&raquo;</span></a><?php } ?>
+    <?php if (hasPrevPage()) { ?> <a class="prev" href="<?php echo getPrevPageURL();?>" title="Previous Page"><span>&laquo;</span> Previous</a> <?php } ?>
+    <?php if (hasNextPage()) { ?> <a class="next" href="<?php echo getNextPageURL();?>" title="Next Page">Next <span>&raquo;</span></a><?php } ?>
   </td></tr></table>
 <div class="pages">
   <?php $url = str_replace('2', '', getPageURL(2));
   drawGalleryPageNumberLinks($url); ?>
 </div>
-  <? } ?>
+  <?php } ?>
 <?php include_once('footer.php'); ?>

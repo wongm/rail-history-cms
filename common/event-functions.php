@@ -1,4 +1,4 @@
-<?
+<?php
 /*
  * draws a table of all of the events for a line
  * it gets called multiple times to draw events of different ypes
@@ -648,7 +648,7 @@ function drawEventsTable($dataarray)
 	{	
 ?>
 <table class="linedTable">
-<?	
+<?php 
 	$i=0;
 	$j=0;
 	while ($i<$numberOfRows)
@@ -665,18 +665,18 @@ function drawEventsTable($dataarray)
 		if ($dataarray[$i]['details'] != '')
 		{
 ?>
-<tr <? echo $style; ?> valign="top">
-	<td class="date"><? echo $dataarray[$i]['date']; ?></td>
-	<td><? echo $dataarray[$i]['details'];	?></td>
+<tr <?php echo $style; ?> valign="top">
+	<td class="date"><?php echo $dataarray[$i]['date']; ?></td>
+	<td><?php echo $dataarray[$i]['details'];	?></td>
 </tr>
-<?
+<?php
 			$j++;
 		}
 		$i++;
 	}	//end while
 ?>
 </table>
-<?	} //end if
+<?php } //end if
 	//end function
 }
 

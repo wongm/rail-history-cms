@@ -157,46 +157,46 @@ else
 	</ul>
 </td>
 <td valign="top">
-	<p align="right"><a href="/location/<?=$thisLocationId?>">View location</a></p>
+	<p align="right"><a href="/location/<?php echo $thisLocationId?>">View location</a></p>
 </td></tr>
 </table>
 
 <form name="locationsUpdateForm" method="POST" action="updateLocations.php">
-<input type="hidden" name="thisLineField" value="<? echo $thisLine; ?>">
-<input type="hidden" name="thisKmField" value="<? echo $thisKm; ?>">
+<input type="hidden" name="thisLineField" value="<?php echo $thisLine; ?>">
+<input type="hidden" name="thisKmField" value="<?php echo $thisKm; ?>">
 <fieldset id="general"><legend>General</legend>
 <table cellspacing="5" cellpadding="2" border="0" width="100%">
 	<tr valign="top" height="20">
 		<td align="right"> <b> Location ID :  </b> </td>
-		<td><? echo $thisLocationId; ?></td> 
-		<input type="hidden" name="thisLocation_idField" value="<? echo $thisLocationId; ?>">
+		<td><?php echo $thisLocationId; ?></td> 
+		<input type="hidden" name="thisLocation_idField" value="<?php echo $thisLocationId; ?>">
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Name :  </b> </td>
-		<td> <input type="text" name="thisNameField" size="30" value="<? echo $thisName; ?>">  </td> 
+		<td> <input type="text" name="thisNameField" size="30" value="<?php echo $thisName; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Link (for page URL):  </b> </td>
-		<td> <input type="text" name="thisLinkField" size="30" value="<? echo $thisLink; ?>">  </td> 
+		<td> <input type="text" name="thisLinkField" size="30" value="<?php echo $thisLink; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Location Type :  </b> </td>
 		<td> <select name="thisTypeField">
-<? drawLocationTypeFields($thisType); ?>
+<?php drawLocationTypeFields($thisType); ?>
 		</select></td>
 	</tr>
 		<tr valign="top" height="20">
 		<td align="right"> <b> Open :  </b> </td>
-		<td> <input type="text" name="thisOpenField" size="15" value="<? echo $thisOpen; ?>">
+		<td> <input type="text" name="thisOpenField" size="15" value="<?php echo $thisOpen; ?>">
 		<select name="thisOpenAccuracyField">
-<? drawApproxTimeFields($thisOpenAccuracy); ?>
+<?php drawApproxTimeFields($thisOpenAccuracy); ?>
 		</select></td>
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Close :  </b> </td>
-		<td> <input type="text" name="thisCloseField" size="15" value="<? echo $thisClose; ?>">
+		<td> <input type="text" name="thisCloseField" size="15" value="<?php echo $thisClose; ?>">
 		<select name="thisCloseAccuracyField">
-<? drawApproxTimeFields($thisCloseAccuracy); ?>
+<?php drawApproxTimeFields($thisCloseAccuracy); ?>
 		</select></td>
 	</tr>
 	
@@ -204,44 +204,44 @@ else
     <tr valign="top" height="20">
 		<td align="right"> <b> <abbr title="effects whether a gap is left in a lineguide diagram or not, and what side">Tracks</abbr> :  </b> </td>
 		<td><select name="thisTracksField">
-		<option <? if ($thisTracks == '1'){echo selected;} ?> value="1">Normal</option>
-		<option <? if ($thisTracks == '0'){echo selected;} ?> value="0">No Gap (Top)</option>
-		<option <? if ($thisTracks == '9'){echo selected;} ?> value="9">No Gap (Bottom)</option>
-		<option <? if ($thisTracks == '2'){echo selected;} ?> value="2">2</option>
+		<option <?php if ($thisTracks == '1'){echo selected;} ?> value="1">Normal</option>
+		<option <?php if ($thisTracks == '0'){echo selected;} ?> value="0">No Gap (Top)</option>
+		<option <?php if ($thisTracks == '9'){echo selected;} ?> value="9">No Gap (Bottom)</option>
+		<option <?php if ($thisTracks == '2'){echo selected;} ?> value="2">2</option>
 		</select></td> 
-		<!--<input type="text" name="thisTracksField" size="30" value="<? echo $thisTracks; ?>"> -->
+		<!--<input type="text" name="thisTracksField" size="30" value="<?php echo $thisTracks; ?>"> -->
 	</tr>
 	
 	<tr valign="top" height="20">
 		<td align="right"> <b> <abbr title="String for the images to be used for the lineguide diagam">Images</abbr> (<abbr title="Defaults to the name of the location">optional</abbr>):  </b> </td>
-		<td> <input type="text" name="thisImageField" size="30" value="<?=$thisImage?>">  </td> 
+		<td> <input type="text" name="thisImageField" size="30" value="<?php echo $thisImage?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> <abbr title="effects if displayed on lineguide diagram. extra option to hide lineguide images on location page">Display</abbr> :  </b> </td>
 		<td><select name="thisDisplayField">
-<? drawLocationDisplayTypeFields($thisDisplay); ?>		
+<?php drawLocationDisplayTypeFields($thisDisplay); ?>		
 		</select></td>
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> <abbr title="Can have text name of line; or line_id; if a junction">Redirect page</abbr> :  </b> </td>
-		<td> <input type="text" name="thisUrlField" size="30" value="<? echo $thisUrl; ?>">  </td> 
+		<td> <input type="text" name="thisUrlField" size="30" value="<?php echo $thisUrl; ?>">  </td> 
 	</tr>
 <tr valign="top" height="20"><td align="left" colspan=2><hr>Own page details</td></tr>	
 
 	<tr valign="top" height="20">
 		<td align="right"> <b> <abbr title="Comma separated year values">Diagrams</abbr> :  </b> </td>
-		<td> <input type="text" name="thisDiagramsField" size="60" value="<? echo $thisDiagrams; ?>">  
+		<td> <input type="text" name="thisDiagramsField" size="60" value="<?php echo $thisDiagrams; ?>">  
 		<br><small>For where a 'full' diagram needs to be displayed on a page, not just the little lineguide ones. 
-		<br>Images need to located in "/t/<?=$thisImage?>-full-[YEAR].gif"</small></td> 
+		<br>Images need to located in "/t/<?php echo $thisImage?>-full-[YEAR].gif"</small></td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Co-ordinates :  </b> </td>
-		<td> <input type="text" name="thisCoordsField" size="60" value="<? echo $thisCoOrds; ?>"> 
-		<br><small><a href="editAerial.php?locationtoset=<?=$thisLocationId?>" onClick="pl('editAerial.php?locationtoset=<?=$thisLocationId?>'); return false;" >Edit in new window?</a></small> </td> 
+		<td> <input type="text" name="thisCoordsField" size="60" value="<?php echo $thisCoOrds; ?>"> 
+		<br><small><a href="editAerial.php?locationtoset=<?php echo $thisLocationId?>" onClick="pl('editAerial.php?locationtoset=<?php echo $thisLocationId?>'); return false;" >Edit in new window?</a></small> </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Gallery album :  </b> </td>
-		<td><input type="text" name="thisPhotosField" size="60" value="<? echo $thisPhotos; ?>">
+		<td><input type="text" name="thisPhotosField" size="60" value="<?php echo $thisPhotos; ?>">
 		<br><small>The folder located inside /gallery/albums/ - no need for leading or trailing "/"</small></td> 
 	</tr>
 	<tr valign="top" height="20">
@@ -250,14 +250,14 @@ else
 			<form>
 			<script type="text/javascript" src="js_quicktags.js"></script>
 			<script type="text/javascript">edToolbar();</script>
-			<textarea name="thisDescriptionField" id="thisDescriptionField" wrap="VIRTUAL" cols="100" rows="30"><? echo $thisDescription; ?></textarea>
+			<textarea name="thisDescriptionField" id="thisDescriptionField" wrap="VIRTUAL" cols="100" rows="30"><?php echo $thisDescription; ?></textarea>
 			<script type="text/javascript">var edCanvas = document.getElementById('thisDescriptionField');</script>
 			</form>
 		</td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Credits :  </b> </td>
-		<td> <textarea name="thisCreditsField" wrap="VIRTUAL" cols="80" rows="8"><? echo $thisCredits; ?></textarea></td> 
+		<td> <textarea name="thisCreditsField" wrap="VIRTUAL" cols="80" rows="8"><?php echo $thisCredits; ?></textarea></td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"><b>Show updated :  </b></td>
@@ -269,11 +269,11 @@ else
 </form>
 </fieldset><br>
 
-<? drawHeadbar($thisKm, $thisLine); ?>
+<?php drawHeadbar($thisKm, $thisLine); ?>
 
 <br><fieldset id="lines"><legend>Railway Lines</legend>
 <table cellspacing="1" cellpadding="5" width="80%" border="0">
-<? /* 
+<?php /* 
 		start looping though all railway lines for this location
 		grab all railway lines for this location
 	*/
@@ -299,54 +299,54 @@ else
 				<fieldset><table cellspacing="2" cellpadding="2">
 					<tr valign="top" height="20">
 						<td align="right"> <b> Line :  </b> </td>
-						<td width="220"><?=$thisLocalReadOnlyLineName?></td>
+						<td width="220"><?php echo $thisLocalReadOnlyLineName?></td>
 						<td align="left" rowspan="3">
-							<a href="editLocationsRaillines.php?line=<?=$thisLocalReadOnlyLine?>&location=<?=$thisLocationId?>">Edit!</a><br>
-							<a href="confirmDeleteLocationsRaillines.php?line=<?=$thisLocalReadOnlyLine?>&location=<?=$thisLocationId?>">Delete!</a>
+							<a href="editLocationsRaillines.php?line=<?php echo $thisLocalReadOnlyLine?>&location=<?php echo $thisLocationId?>">Edit!</a><br>
+							<a href="confirmDeleteLocationsRaillines.php?line=<?php echo $thisLocalReadOnlyLine?>&location=<?php echo $thisLocationId?>">Delete!</a>
 						</td>
 					</tr>
 				    <tr valign="top" height="20">
 						<td align="right"> <b> Km :  </b> </td>
-						<td><? echo $thisLocalReadOnlyKm; ?></td> 
+						<td><?php echo $thisLocalReadOnlyKm; ?></td> 
 					</tr>
 					<tr valign="top" height="20">
 						<td align="right"> <b> KM Accuracy :  </b> </td>
-						<td><?=$thisLocalReadOnlyKmAccuracy?></td>
+						<td><?php echo $thisLocalReadOnlyKmAccuracy?></td>
 					</tr>
 					<tr valign="top" height="20">
 						<td align="right"> <b> Type :  </b> </td>
-						<td><?=$thisLocalReadOnlyType?></td>
+						<td><?php echo $thisLocalReadOnlyType?></td>
 					</tr>
 				</fieldset></table>
 			</td></tr>
-<?			}
+<?php 		}
 		}			
 		?>
 			<tr><td>
 				<fieldset>
-				<form name="locations_raillinesEnterForm" method="POST" action="<?=$_SERVER['REQUEST_URI']?>#lines">
+				<form name="locations_raillinesEnterForm" method="POST" action="<?php echo $_SERVER['REQUEST_URI']?>#lines">
 				<input type="hidden" name="formType" value="newLocationsRaillines">
-				<input type="hidden" name="thisLocation_idField" value="<? echo $thisLocationId; ?>">
+				<input type="hidden" name="thisLocation_idField" value="<?php echo $thisLocationId; ?>">
 	
 				<table cellspacing="2" cellpadding="2" border="0">
 					<tr valign="top" height="20">
 					<td align="right"> <b> Line :  </b> </td>
 					<td width="220"> <select name="thisLine_idField" id="thisLine_idField">
-<? drawLineNameSelectFields($thisLine_id); ?>	
+<?php drawLineNameSelectFields($thisLine_id); ?>	
 				    </select></td>
 				    <td align="right" rowspan="2">
 						<input type="submit" name="submitEnterLocationsRaillinesForm" value="Enter Line">
 					</td></tr>
 					<tr valign="top" height="20">
 						<td align="right"> <b> Km :  </b> </td>
-						<td> <input type="text" name="thisKmField" size="8" value="<? echo $thisKm; ?>">
+						<td> <input type="text" name="thisKmField" size="8" value="<?php echo $thisKm; ?>">
 						<select name="thisKmAccuracyField">
-<? drawApproxDistanceFields() ?>	
+<?php drawApproxDistanceFields() ?>	
 						</select></td></tr>
 					<tr valign="top" height="20">
 						<td align="right"> <b> Type :  </b> </td>
 						<td><select name="thisJunctionTypeField">
-<? drawRaillineTypeFields() ?>	
+<?php drawRaillineTypeFields() ?>	
 						</select></td>
 					</tr>
 				</table>
@@ -371,7 +371,7 @@ else
 <fieldset id="years"><legend>Important Years</legend>
 <table class="linedTable">
 <tr><th>Year</th><th align='left'>Delete?</th></tr>
-<?
+<?php
 // gets the impiortant years for this location
 
 $sql2 = "SELECT * FROM location_years WHERE `location` = '".$thisLocationId."' ORDER BY year ASC";
@@ -394,11 +394,11 @@ if ($numberOfRows2>0)
 		{ 
 			$bgColor = "even";
 		} ?>
-<tr class="<? echo $bgColor; ?>">
-	<td ALIGN='CENTER' class="date"><? echo $year; ?></td>
-	<td><a href="confirmDeleteLocationYears.php?yearField=<? echo $yearID; ?>">Delete?</a></td>
+<tr class="<?php echo $bgColor; ?>">
+	<td ALIGN='CENTER' class="date"><?php echo $year; ?></td>
+	<td><a href="confirmDeleteLocationYears.php?yearField=<?php echo $yearID; ?>">Delete?</a></td>
 </tr>
-<?
+<?php
 	} // end for loop
 } //end if
 else
@@ -408,9 +408,9 @@ else
 ?>
 </table>
 <br/>
-<form name="location_yearsEnterForm" method="POST" action="<?=$_SERVER['REQUEST_URI']?>#years">
+<form name="location_yearsEnterForm" method="POST" action="<?php echo $_SERVER['REQUEST_URI']?>#years">
 <input type="hidden" name="formType" value="newLocationYears">
-<input type="hidden" name="thisNewYearLocationField" value="<? echo $thisLocationId; ?>">
+<input type="hidden" name="thisNewYearLocationField" value="<?php echo $thisLocationId; ?>">
 <input type="text" name="thisNewYearField" size="30" value="">
 <input type="submit" name="submitEnterLocation_yearsForm" value="Enter New Location Year">
 </form>
@@ -431,7 +431,7 @@ else
 <fieldset id="edit"><legend>Edit Events</legend>
 <table class="linedTable">
 <tr><th>Date</th><th>Event</th><th>Edit</th><th>Delete</th></tr>
-<?
+<?php
 $sql = "SELECT date, details, event_id, added, modified, source FROM location_events WHERE location_events.location = '".$thisLocationId."' ORDER BY date ASC";
 $result = MYSQL_QUERY($sql);
 $numberOfRows = MYSQL_NUM_ROWS($result);
@@ -499,12 +499,12 @@ if ($numberOfRows>0)
 						break;
 				}
 			}	?>
-<tr class="<? echo $bgColor; ?>">
-	<td class="date"><? echo $date; ?></td>
-	<td><? echo $details; ?></td>
-	<TD><a href="editLocationEvents.php?eventid=<? echo $thisEvent_id; ?>">Edit</a></TD>
-	<TD><a href="confirmDeleteLocationEvents.php?eventid=<? echo $thisEvent_id; ?>">Delete</a></TD>
-</tr>	<?
+<tr class="<?php echo $bgColor; ?>">
+	<td class="date"><?php echo $date; ?></td>
+	<td><?php echo $details; ?></td>
+	<TD><a href="editLocationEvents.php?eventid=<?php echo $thisEvent_id; ?>">Edit</a></TD>
+	<TD><a href="confirmDeleteLocationEvents.php?eventid=<?php echo $thisEvent_id; ?>">Delete</a></TD>
+</tr>	<?php
 	} // end for loop
 } //end if
 else
@@ -522,11 +522,11 @@ else
 
 <fieldset id="add"><legend>Add Events</legend>
 
-<form name="location_eventsEnterForm" method="POST" action="<?=$_SERVER['REQUEST_URI']?>#add">
+<form name="location_eventsEnterForm" method="POST" action="<?php echo $_SERVER['REQUEST_URI']?>#add">
 <input type="hidden" name="formType" value="newLocationEvents">
-<input type="hidden" name="thisLocationField" value="<? echo $thisLocationId; ?>">
+<input type="hidden" name="thisLocationField" value="<?php echo $thisLocationId; ?>">
 <table>
-<? drawAddNewLocationEvent(); ?>
+<?php drawAddNewLocationEvent(); ?>
 </table>	
 <input type="submit" name="submitEnterLocation_eventsForm" value="Enter New Location Event">
 </form></fieldset>
@@ -537,9 +537,9 @@ else
 
 
 
-<? drawObjectSources('location', $thisLocationId); ?>
+<?php drawObjectSources('location', $thisLocationId); ?>
 
-<? drawHeadbar($thisKm, $thisLine); ?>
+<?php drawHeadbar($thisKm, $thisLine); ?>
 
 <?php
 }	// end zero result if

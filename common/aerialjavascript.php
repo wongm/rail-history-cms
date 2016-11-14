@@ -1,4 +1,4 @@
-<? include_once("dbConnection.php");
+<?php include_once("dbConnection.php");
 //PHP SCRIPT: getlocations.php
 Header("content-type: application/x-javascript");	
 
@@ -95,13 +95,13 @@ var center;
 var mapzoom;
 var geoXml;
 var bounds;
-<?	// set up the inital values if given as params
+<?php // set up the inital values if given as params
 
 if ($types != '' OR $lines != '')
 {	?>
 function initialcustom()
 {	
-<?
+<?php
 	$typesarray = split(',', $types);
 	$linesarray = split(',', $lines);
 	
@@ -114,31 +114,31 @@ function initialcustom()
 	document.getElementById('s').checked = true;
 	numbers = numbers+'15,37,';
 	types = types+"s,";		
-	<?
+	<?php
 				break;	
 			case 'i':	/*	industry	*/	?>	
 	document.getElementById('i').checked = true;
 	numbers = numbers+'30,';
 	types = types+"i,";		
-	<?
+	<?php
 				break;	
 			case 'b':	/*	signal boxes	*/	?>		
 	document.getElementById('b').checked = true;
 	numbers = numbers+'29,';
 	types = types+"b,";		
-	<?
+	<?php
 				break;	
 			case 'r':	/*	roads	*/		?>	
 	document.getElementById('r').checked = true;
 	numbers = numbers+'1,2,3,4,5,6,7,8,9,10,11,12,13,14,';
 	types = types+"r,";	
-	<?
+	<?php
 				break;	
 			case 'm':	/*	misc	*/		?>
 	document.getElementById('m').checked = true
 	numbers = numbers+'27,31,33,34,36,';
 	types = types+"m,";	
-	<?
+	<?php
 				break;
 			default:
 		}	// end switch
@@ -146,17 +146,17 @@ function initialcustom()
 	/* end of for loop */	?>
 	types = (types+",").replace(',,','');	
 	numbers = (numbers+",").replace(',,','');	
-	<?
+	<?php
 	
 	// get the lines we want
 	for ($j = 0; $j < sizeOf($linesarray);  $j++)
 	{	?>
-	document.getElementById('<? echo $linesarray[$j]; ?>').checked = true;
-	lines=lines+<? echo $linesarray[$j]; ?>+",";	<?
+	document.getElementById('<?php echo $linesarray[$j]; ?>').checked = true;
+	lines=lines+<?php echo $linesarray[$j]; ?>+",";	<?php
 	}	/* end for loop */	?>
 	lines = (lines+",").replace(',,','');
 }
-	<?	// end javascript 'initialcustom()' function
+	<?php // end javascript 'initialcustom()' function
 }		// end php 'returnlocations($lineId)' function
 
 // for use with the map used on a tab of the lineguide
@@ -168,7 +168,7 @@ function loadLineguideAll() {
 	selectAll(document.getElementById("customtypes"), 'all');
 	
 	bounds = new GLatLngBounds();
-	//geoXml = new GGeoXml("/images/kml/kml-<?=$lineId;?>.kml", function() {
+	//geoXml = new GGeoXml("/images/kml/kml-<?php echo $lineId;?>.kml", function() {
 	geoXml = new GGeoXml("http://www.vicsig.net/infrastructure/lineguide/kml/werribee.kml", function() {
 		if (geoXml.loadedCorrectly()) {
 		//	geoXml.gotoDefaultViewport(map);
@@ -196,11 +196,11 @@ function loadLineguideAll() {
         
         GEvent.addListener(map, "moveend", function() {
          	center = map.getCenter();
-          	updatecustom('<?=$lineLink?>', <?=$lineId?>);
+          	updatecustom('<?php echo $lineLink?>', <?php echo $lineId?>);
         });
 		GEvent.addListener(map, "zoomend", function() {
          	mapzoom = map.getZoom();
-          	updatecustom('<?=$lineLink?>', <?=$lineId?>);
+          	updatecustom('<?php echo $lineLink?>', <?php echo $lineId?>);
         });
 		
 		center = map.getCenter();
@@ -210,7 +210,7 @@ function loadLineguideAll() {
 		alert('Sorry! Your browser is not compatible with Google Maps. Please upgrade your browser to a more recent version to use this feature.');
 	}
 }
-<?
+<?php
 }
 // end code for tab of the lineguide
 	
@@ -228,11 +228,11 @@ if ($lineId == '')
 ?>
 function loadExplorerAll(long, lat, zoom) {
 	var marker, point, html, bounds;
-<? 
+<?php 
 if ($types == '' AND $lines == '') { ?>
 	selectAll(document.getElementById("customlines"), 'all');
 	selectAll(document.getElementById("customtypes"), 'all');
-<?	} ?>
+<?php } ?>
 	if (GBrowserIsCompatible()) {
         map = new GMap2(document.getElementById("map"));
        	bounds = new GLatLngBounds();
@@ -241,31 +241,31 @@ if ($types == '' AND $lines == '') { ?>
 		map.addControl(new GMapTypeControl());
 		map.addControl(new GScaleControl());
 		map.addMapType(G_SATELLITE_MAP);
-<?	// decide on type of markers
+<?php // decide on type of markers
 	if ($types != '' OR $lines != '')	{	?>
 		initialcustom();
 		drawcustom();
-<?	} else {	?>
+<?php } else {	?>
 		for (var i = 0; i < loc[0].length; i++) {
 			point = new GLatLng(loc[0][i], loc[1][i]);
 			bounds.extend(point);
 			marker = createMarker(point, loc[3][i], getInfoxboxText(i));
 			map.addOverlay(marker);
 		}
-<?	}	
+<?php }	
 	// end markers IF
 	
 	// NOW set the view and zoom options
 	// via link, so based on params given...
 	if (long != "" AND lat != "" AND zoom != "") {	?>
 		map.setCenter(new GLatLng(long, lat), zoom, G_SATELLITE_MAP);
-<?	}
+<?php }
 	// set default view
 	else
 	{	?>
 		map.setZoom(map.getBoundsZoomLevel(bounds));
         map.setCenter(bounds.getCenter());
-<?	}	?>
+<?php }	?>
 		GEvent.addListener(map, "moveend", function() {
          	center = map.getCenter();
           	updatecustom('aerial', 'all');
@@ -282,6 +282,6 @@ if ($types == '' AND $lines == '') { ?>
 		alert('Sorry! Your browser is not compatible with Google Maps. Please upgrade your browser to a more recent version to use this feature.');
 	}
 }
-<?	
+<?php 
 } // end don't display "loadExplorerAll()" function if
 ?>

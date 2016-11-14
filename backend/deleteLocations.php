@@ -32,7 +32,7 @@ include_once("../common/header.php");
 	$thisModified = addslashes($_REQUEST['thisModifiedField']);
 
 ?>
-<?
+<?php
 $sql = "DELETE FROM locations WHERE location_id = '$thisLocation_id'";
 $result = MYSQL_QUERY($sql);
 
@@ -42,107 +42,107 @@ Record  has been deleted from database. Here is the deleted record :-<br><br>
 <table>
 <tr height="30">
 	<td align="right"><b>Location_id : </b></td>
-	<td><? echo $thisLocation_id; ?></td>
+	<td><?php echo $thisLocation_id; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Name : </b></td>
-	<td><? echo $thisName; ?></td>
+	<td><?php echo $thisName; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Suburb : </b></td>
-	<td><? echo $thisSuburb; ?></td>
+	<td><?php echo $thisSuburb; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Line_old : </b></td>
-	<td><? echo $thisLine_old; ?></td>
+	<td><?php echo $thisLine_old; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Tracks : </b></td>
-	<td><? echo $thisTracks; ?></td>
+	<td><?php echo $thisTracks; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Type : </b></td>
-	<td><? echo $thisType; ?></td>
+	<td><?php echo $thisType; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Image : </b></td>
-	<td><? echo $thisImage; ?></td>
+	<td><?php echo $thisImage; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Lx_type : </b></td>
-	<td><? echo $thisLx_type; ?></td>
+	<td><?php echo $thisLx_type; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Url : </b></td>
-	<td><? echo $thisUrl; ?></td>
+	<td><?php echo $thisUrl; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Diagrams : </b></td>
-	<td><? echo $thisDiagrams; ?></td>
+	<td><?php echo $thisDiagrams; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Display : </b></td>
-	<td><? echo $thisDisplay; ?></td>
+	<td><?php echo $thisDisplay; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Status : </b></td>
-	<td><? echo $thisStatus; ?></td>
+	<td><?php echo $thisStatus; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Description : </b></td>
-	<td><? echo $thisDescription; ?></td>
+	<td><?php echo $thisDescription; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Credits : </b></td>
-	<td><? echo $thisCredits; ?></td>
+	<td><?php echo $thisCredits; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Open : </b></td>
-	<td><? echo $thisOpen; ?></td>
+	<td><?php echo $thisOpen; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>OpenAccuracy : </b></td>
-	<td><? echo $thisOpenAccuracy; ?></td>
+	<td><?php echo $thisOpenAccuracy; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Close : </b></td>
-	<td><? echo $thisClose; ?></td>
+	<td><?php echo $thisClose; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>CloseAccuracy : </b></td>
-	<td><? echo $thisCloseAccuracy; ?></td>
+	<td><?php echo $thisCloseAccuracy; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Long : </b></td>
-	<td><? echo $thisLong; ?></td>
+	<td><?php echo $thisLong; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Lat : </b></td>
-	<td><? echo $thisLat; ?></td>
+	<td><?php echo $thisLat; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Km_old : </b></td>
-	<td><? echo $thisKm_old; ?></td>
+	<td><?php echo $thisKm_old; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Kmaccuracy_old : </b></td>
-	<td><? echo $thisKmaccuracy_old; ?></td>
+	<td><?php echo $thisKmaccuracy_old; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Events : </b></td>
-	<td><? echo $thisEvents; ?></td>
+	<td><?php echo $thisEvents; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Photos : </b></td>
-	<td><? echo $thisPhotos; ?></td>
+	<td><?php echo $thisPhotos; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Added : </b></td>
-	<td><? echo $thisAdded; ?></td>
+	<td><?php echo $thisAdded; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Modified : </b></td>
-	<td><? echo $thisModified; ?></td>
+	<td><?php echo $thisModified; ?></td>
 </tr>
 </table>
 

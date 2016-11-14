@@ -10,7 +10,7 @@ include_once("common/header.php");
 	$thisDetails = addslashes($_REQUEST['thisDetailsField']);
 
 ?>
-<?
+<?php
 $sql = "DELETE FROM sources WHERE source_id = '$thisSource_id'";
 $result = MYSQL_QUERY($sql);
 
@@ -20,19 +20,19 @@ Record  has been deleted from database. Here is the deleted record :-<br><br>
 <table>
 <tr height="30">
 	<td align="right"><b>Source_id : </b></td>
-	<td><? echo $thisSource_id; ?></td>
+	<td><?php echo $thisSource_id; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Short : </b></td>
-	<td><? echo $thisShort; ?></td>
+	<td><?php echo $thisShort; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Name : </b></td>
-	<td><? echo $thisName; ?></td>
+	<td><?php echo $thisName; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Details : </b></td>
-	<td><? echo $thisDetails; ?></td>
+	<td><?php echo $thisDetails; ?></td>
 </tr>
 </table>
 

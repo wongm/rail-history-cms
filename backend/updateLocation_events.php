@@ -58,34 +58,34 @@ Record  has been updated in the database. Here is the updated information :- <br
 <table>
 <tr height="30">
 	<td align="right"><b>Event_id : </b></td>
-	<td><? echo $thisEvent_id; ?></td>
+	<td><?php echo $thisEvent_id; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Location : </b></td>
-	<td><? echo $thisLocation; ?></td>
+	<td><?php echo $thisLocation; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Date : </b></td>
-	<td><? echo $thisDate; ?></td>
+	<td><?php echo $thisDate; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Date Approx : </b></td>
-	<td><? echo $thisApprox; ?></td>
+	<td><?php echo $thisApprox; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Details : </b></td>
-	<td><? echo $thisDetails; ?></td>
+	<td><?php echo $thisDetails; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Source : </b></td>
-	<td><? echo $thisSource; ?></td>
+	<td><?php echo $thisSource; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Source Details : </b></td>
-	<td><? echo $thisSourceDetails; ?></td>
+	<td><?php echo $thisSourceDetails; ?></td>
 </tr>
 </table>
-<a href="editLocations.php?location=<? echo $thisLocation; ?>">Go Back!</a>
+<a href="editLocations.php?location=<?php echo $thisLocation; ?>">Go Back!</a>
 
 <?php
 include_once("common/footer.php");

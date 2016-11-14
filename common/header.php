@@ -60,13 +60,13 @@ if (isset($googleHeader))
 <title>Rail Geelong - <?php echo $pageTitle;?></title>
 <link rel="stylesheet" type="text/css" href="/common/css/style.css" media="all" title="Normal" />
 <?php if ($googleArticle) { ?>
-<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=<?=GOOGLE_KEY?>" type="text/javascript"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=<?php echo GOOGLE_KEY?>" type="text/javascript"></script>
 <?php echo $googleHeaderKMLscript ?>
 <?php } else if ($googleHeader) { ?>
 <link rel="stylesheet" type="text/css" href="/common/css/aerialstyle.css" />
-<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=<?=GOOGLE_KEY?>" type="text/javascript"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=<?php echo GOOGLE_KEY?>" type="text/javascript"></script>
 <script src="/common/js/aerialfunctions.js" type="text/javascript"></script></head>
-<script src="/common/aerialjavascript.php?lineguide=<?=$line["lineId"]; ?>&link=<?=$line["lineLink"]; ?>" type="text/javascript"></script>
+<script src="/common/aerialjavascript.php?lineguide=<?php echo $line["lineId"]; ?>&link=<?php echo $line["lineLink"]; ?>" type="text/javascript"></script>
 <?php } ?>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="/common/js/lightbox.js"></script>

@@ -34,29 +34,29 @@ else if ($numberOfRows>0) {
 	<tr valign="top" height="20">
 		<td align="right"> <b> Location :  </b> </td>
 		<td> <select name="thisLocation_idField">
-<? drawLocationNameSelectFields($thisLocation_id); ?>
+<?php drawLocationNameSelectFields($thisLocation_id); ?>
 		</select></td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Line :  </b> </td>
 		<td> <select name="thisLine_idField">
-<? drawLineNameSelectFields($thisLine_id); ?>
+<?php drawLineNameSelectFields($thisLine_id); ?>
     	</select></td>
     </tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Km :  </b> </td>
-		<td> <input type="text" name="thisKmField" size="20" value="<? echo $thisKm; ?>">  </td> 
+		<td> <input type="text" name="thisKmField" size="20" value="<?php echo $thisKm; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> KM Accuracy :  </b> </td>
 		<td><select name="thisKmAccuracyField">
-<? drawApproxDistanceFields($thisKmAccuracy); ?>
+<?php drawApproxDistanceFields($thisKmAccuracy); ?>
 		</select></td>
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Type :  </b> </td>
 		<td><select name="thisJunctionTypeField">
-<? drawRaillineTypeFields($thisJunctionType) ?>	
+<?php drawRaillineTypeFields($thisJunctionType) ?>	
 		</select></td>
 	</tr>
 </table>

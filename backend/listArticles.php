@@ -34,7 +34,7 @@ if ($numberOfRows>0)
 		<th>Description</th>
 		<th>Content</th>
 	</TR>
-<?
+<?php
 	while ($i<$numberOfRows)
 	{
 		if (($i%2)==0) { $bgColor = "odd"; } else { $bgColor = "even"; }
@@ -45,21 +45,21 @@ if ($numberOfRows>0)
 		$thisDescription = stripslashes(MYSQL_RESULT($result,$i,"description"));
 		$thisContent = stripslashes(MYSQL_RESULT($result,$i,"content"));
 ?>
-	<TR class="<? echo $bgColor; ?>">
-		<TD><a href="editArticles.php?id=<? echo $thisId; ?>" style="white-space: nowrap" alt="<? echo $thisLink; ?>" title="<? echo $thisLink; ?>">
+	<TR class="<?php echo $bgColor; ?>">
+		<TD><a href="editArticles.php?id=<?php echo $thisId; ?>" style="white-space: nowrap" alt="<?php echo $thisLink; ?>" title="<?php echo $thisLink; ?>">
 			<?php echo $thisTitle ?>
 		</a></TD>
-		<TD><? echo $thisDescription; ?></TD>
-		<TD><? if($thisContent != '') { echo 'Yes'; } ?></TD>
-		<TD><a href="confirmDeleteArticles.php?id=<? echo $thisId; ?>">Delete</a></TD>
+		<TD><?php echo $thisDescription; ?></TD>
+		<TD><?php if($thisContent != '') { echo 'Yes'; } ?></TD>
+		<TD><a href="confirmDeleteArticles.php?id=<?php echo $thisId; ?>">Delete</a></TD>
 	</TR>
-<?
+<?php
 		$i++;
 
 	} // end while loop
 ?>
 </TABLE>
-<?
+<?php
 } // end of if numberOfRows > 0 
 
 include_once("common/footer.php");

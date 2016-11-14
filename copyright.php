@@ -3,11 +3,11 @@ include_once("common/formatting-functions.php");
 $pageTitle = 'Copyright';
 include_once("common/header.php");?>
 <div id="headbar">
-	<div class="link"><a href="/">Home</a> &raquo; <? echo $pageTitle; ?></div>
-	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+	<div class="link"><a href="/">Home</a> &raquo; <?php echo $pageTitle; ?></div>
+	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php include_once("common/midbar.php"); ?>
-<h3><? echo $pageTitle; ?></h3>
+<h3><?php echo $pageTitle; ?></h3>
 <div id="copyright">
 <p>All content on this site is the copyright of the author Marcus Wong unless otherwise noted.</p>
 <p>Sources of information used in the creation of this site are listed on the <a href="/sources.php">Sources</a> page.</p>
@@ -21,6 +21,6 @@ include_once("common/header.php");?>
 <p>Linking to pages on this site is welcomed. Links to photographs should be to the page that contains them, not to the image itself.</p>
 <p>Inquiries about the extension of this research is welcomed.</p>
 </div>
-<?
+<?php
 include_once("common/footer.php");
 ?>

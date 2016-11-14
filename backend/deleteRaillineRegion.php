@@ -9,7 +9,7 @@ include_once("common/header.php");
 	$thisArticle_id = addslashes($_REQUEST['thisArticle_idField']);
 
 ?>
-<?
+<?php
 $sql = "DELETE FROM railline_region WHERE linkzor_id = '$thisLinkzor_id'";
 $result = MYSQL_QUERY($sql);
 
@@ -19,15 +19,15 @@ Record  has been deleted from database. Here is the deleted record :-<br><br>
 <table>
 <tr height="30">
 	<td align="right"><b>Linkzor_id : </b></td>
-	<td><? echo $thisLinkzor_id; ?></td>
+	<td><?php echo $thisLinkzor_id; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Line_id : </b></td>
-	<td><? echo $thisLine_id; ?></td>
+	<td><?php echo $thisLine_id; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Article_id : </b></td>
-	<td><? echo $thisArticle_id; ?></td>
+	<td><?php echo $thisArticle_id; ?></td>
 </tr>
 </table>
 

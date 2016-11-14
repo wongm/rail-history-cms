@@ -2,7 +2,7 @@
 include_once("common/dbConnection.php");
 include_once("common/header.php");
 ?>
-<?
+<?php
 $initStartLimit = 0;
 $limitPerPage = 1000;
 
@@ -42,13 +42,13 @@ $numberOfRows = MYSQL_NUM_ROWS($result);
 
 
 ?>
-<?
+<?php
 if ($numberOfRows==0) {  
 ?>
 
 Sorry. No records found !!
 
-<?
+<?php
 }
 else if ($numberOfRows>0) {
 
@@ -57,35 +57,35 @@ else if ($numberOfRows>0) {
 
 
 <br>
-<?
+<?php
 if ($_REQUEST['startLimit'] != "")
 {
 ?>
 
-<a href="<? echo  $_SERVER['PHP_SELF']; ?>?startLimit=<? echo $previousStartLimit; ?>&limitPerPage=<? echo $limitPerPage; ?>&sortBy=<? echo $sortBy; ?>&sortOrder=<? echo $sortOrder; ?>">Previous <? echo $limitPerPage; ?> Results</a>....
-<? } ?>
-<?
+<a href="<?php echo  $_SERVER['PHP_SELF']; ?>?startLimit=<?php echo $previousStartLimit; ?>&limitPerPage=<?php echo $limitPerPage; ?>&sortBy=<?php echo $sortBy; ?>&sortOrder=<?php echo $sortOrder; ?>">Previous <?php echo $limitPerPage; ?> Results</a>....
+<?php } ?>
+<?php
 if ($numberOfRows == $limitPerPage)
 {
 ?>
-<a href="<? echo $_SERVER['PHP_SELF']; ?>?startLimit=<? echo $nextStartLimit; ?>&limitPerPage=<? echo $limitPerPage; ?>&sortBy=<? echo $sortBy; ?>&sortOrder=<? echo $sortOrder; ?>">Next <? echo $limitPerPage; ?> Results</a>
-<? } ?>
+<a href="<?php echo $_SERVER['PHP_SELF']; ?>?startLimit=<?php echo $nextStartLimit; ?>&limitPerPage=<?php echo $limitPerPage; ?>&sortBy=<?php echo $sortBy; ?>&sortOrder=<?php echo $sortOrder; ?>">Next <?php echo $limitPerPage; ?> Results</a>
+<?php } ?>
 
 <br><br>
 <TABLE CELLSPACING="0" CELLPADDING="3" BORDER="0" WIDTH="100%">
 	<TR>
 		<TD>
-			<a href="<? echo $PHP_SELF; ?>?sortBy=suburb_id&sortOrder=<? echo $newSortOrder; ?>&startLimit=<? echo $startLimit; ?>&rows=<? echo $limitPerPage; ?>">
+			<a href="<?php echo $PHP_SELF; ?>?sortBy=suburb_id&sortOrder=<?php echo $newSortOrder; ?>&startLimit=<?php echo $startLimit; ?>&rows=<?php echo $limitPerPage; ?>">
 				<B>Suburb_id</B>
 			</a>
 </TD>
 		<TD>
-			<a href="<? echo $PHP_SELF; ?>?sortBy=name&sortOrder=<? echo $newSortOrder; ?>&startLimit=<? echo $startLimit; ?>&rows=<? echo $limitPerPage; ?>">
+			<a href="<?php echo $PHP_SELF; ?>?sortBy=name&sortOrder=<?php echo $newSortOrder; ?>&startLimit=<?php echo $startLimit; ?>&rows=<?php echo $limitPerPage; ?>">
 				<B>Name</B>
 			</a>
 </TD>
 	</TR>
-<?
+<?php
 	while ($i<$numberOfRows)
 	{
 
@@ -95,13 +95,13 @@ if ($numberOfRows == $limitPerPage)
 	$thisName = MYSQL_RESULT($result,$i,"name");
 
 ?>
-	<TR class="<? echo $bgColor; ?>">
-		<TD><? echo $thisSuburb_id; ?></TD>
-		<TD><? echo $thisName; ?></TD>
-	<TD><a href="editSuburbs.php?suburb_idField=<? echo $thisSuburb_id; ?>">Edit</a></TD>
-	<TD><a href="confirmDeleteSuburbs.php?suburb_idField=<? echo $thisSuburb_id; ?>">Delete</a></TD>
+	<TR class="<?php echo $bgColor; ?>">
+		<TD><?php echo $thisSuburb_id; ?></TD>
+		<TD><?php echo $thisName; ?></TD>
+	<TD><a href="editSuburbs.php?suburb_idField=<?php echo $thisSuburb_id; ?>">Edit</a></TD>
+	<TD><a href="confirmDeleteSuburbs.php?suburb_idField=<?php echo $thisSuburb_id; ?>">Delete</a></TD>
 	</TR>
-<?
+<?php
 		$i++;
 
 	} // end while loop
@@ -110,22 +110,22 @@ if ($numberOfRows == $limitPerPage)
 
 
 <br>
-<?
+<?php
 if ($_REQUEST['startLimit'] != "")
 {
 ?>
 
-<a href="<? echo  $_SERVER['PHP_SELF']; ?>?startLimit=<? echo $previousStartLimit; ?>&limitPerPage=<? echo $limitPerPage; ?>&sortBy=<? echo $sortBy; ?>&sortOrder=<? echo $sortOrder; ?>">Previous <? echo $limitPerPage; ?> Results</a>....
-<? } ?>
-<?
+<a href="<?php echo  $_SERVER['PHP_SELF']; ?>?startLimit=<?php echo $previousStartLimit; ?>&limitPerPage=<?php echo $limitPerPage; ?>&sortBy=<?php echo $sortBy; ?>&sortOrder=<?php echo $sortOrder; ?>">Previous <?php echo $limitPerPage; ?> Results</a>....
+<?php } ?>
+<?php
 if ($numberOfRows == $limitPerPage)
 {
 ?>
-<a href="<? echo $_SERVER['PHP_SELF']; ?>?startLimit=<? echo $nextStartLimit; ?>&limitPerPage=<? echo $limitPerPage; ?>&sortBy=<? echo $sortBy; ?>&sortOrder=<? echo $sortOrder; ?>">Next <? echo $limitPerPage; ?> Results</a>
-<? } ?>
+<a href="<?php echo $_SERVER['PHP_SELF']; ?>?startLimit=<?php echo $nextStartLimit; ?>&limitPerPage=<?php echo $limitPerPage; ?>&sortBy=<?php echo $sortBy; ?>&sortOrder=<?php echo $sortOrder; ?>">Next <?php echo $limitPerPage; ?> Results</a>
+<?php } ?>
 
 <br><br>
-<?
+<?php
 } // end of if numberOfRows > 0 
  ?>
 

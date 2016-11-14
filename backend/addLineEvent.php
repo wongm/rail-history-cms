@@ -10,10 +10,10 @@ include_once("common/header.php");
 	<tr valign="top" height="20">
 		<td align="right"> <b> Line :  </b> </td>
 		<td> <select name="thisLineField">
-<? drawLineNameSelectFields(); ?>
+<?php drawLineNameSelectFields(); ?>
     	</select></td>
     </tr>
-<? drawAddNewRailineEvent(); ?>
+<?php drawAddNewRailineEvent(); ?>
 </table>
 
 <input type="submit" name="submitEnterRailline_eventsForm" value="Enter New Rail Line Event">

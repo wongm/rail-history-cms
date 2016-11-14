@@ -7,7 +7,7 @@ include_once("common/header.php");
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; Sitemap</div>
-	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php include_once("common/midbar.php"); ?>
 <h3>Sitemap</h3>
@@ -18,7 +18,7 @@ include_once("common/header.php");
 <li><a href="/news">News</a></li>
 <li><a href="/updates">Updates</a></li>
 <li><a href="/aerial.php?section=overview">Aerial Explorer</a></li>
-<?
+<?php
 // get regions
 $articles = MYSQL_QUERY("SELECT * FROM articles WHERE line_id = '-1'");
 $numberOfRows = MYSQL_NUMROWS($articles);
@@ -47,7 +47,7 @@ drawAllLineguideDotpoints('sitemap');
 <li><a href="/locations/yards">Yards</a></li>
 <li><a href="/locations/misc">Miscellaneous</a></li>
 </ul></li>
-<?
+<?php
 // get all articles
 $articles = MYSQL_QUERY("SELECT * FROM articles WHERE link != '' AND `line_id` = '0'");
 $numberOfRows = MYSQL_NUMROWS($articles);
@@ -55,13 +55,13 @@ if ($numberOfRows>0)
 {?>
 <li><a href="articles.php">Articles Listing</a>
 <ul>
-<?	
+<?php 
 	for ($i = 0; $i < MYSQL_NUM_ROWS($articles); $i++)
 	{
 		echo '<li><a href="/articles/'.stripslashes(MYSQL_RESULT($articles,$i,"link")).'">'.stripslashes(MYSQL_RESULT($articles,$i,"title")).'</a></li>';
 	}?>
 </ul></li>
-<?	
+<?php 
 }
 ?>
 <li><a href="/gallery/">Gallery</a>
@@ -73,6 +73,6 @@ if ($numberOfRows>0)
 <li><a href="/sources.php">Sources</a></li>
 <li><a href="/sitemap.php">Sitemap</a></li>
 </ul></div>
-<?
+<?php
 include_once("common/footer.php");
 ?>

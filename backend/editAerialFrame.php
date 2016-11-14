@@ -1,4 +1,4 @@
-<? 	include_once("common/dbConnection.php");
+<?php 	include_once("common/dbConnection.php");
 	$thisId = addslashes($_REQUEST['locationField']);
 	$thisPoint = addslashes($_REQUEST['pointField']); 
 	$force = addslashes($_REQUEST['force']); 
@@ -7,7 +7,7 @@
 <head>
 <title>Location Formzor</title>
 </head>
-<body>	<?
+<body>	<?php
 // check for non empty name and point, and not already set
 if ($thisId != '' AND $thisPoint != '')
 {
@@ -18,12 +18,12 @@ if ($thisId != '' AND $thisPoint != '')
 	{
 		echo '<p></p>'; ?>
 <form name="pointUpdateForm" method="POST" action="editAerialFrame.php">
-<label for="submitPointUpdateForm">Overwrite <? echo $thisName; ?> (<? echo $thisId; ?>) </label>
+<label for="submitPointUpdateForm">Overwrite <?php echo $thisName; ?> (<?php echo $thisId; ?>) </label>
 <input type="submit" name="submitPointUpdateForm" value="Overwrite?" />
-<input type="hidden" name="pointField" id="pointField" value="<? echo $thisPoint; ?>"/>
-<input type="hidden" name="locationField" id="locationField" value="<? echo $thisId; ?>"/>
+<input type="hidden" name="pointField" id="pointField" value="<?php echo $thisPoint; ?>"/>
+<input type="hidden" name="locationField" id="locationField" value="<?php echo $thisId; ?>"/>
 <input type="hidden" name="force" id="force" value="true"/>
-</form>	<?
+</form>	<?php
 	}
 	else
 	{
@@ -46,20 +46,20 @@ function drawForm($message)
 	$locationtoset = addslashes($_REQUEST['locationtoset']);
 ?>
 <form name="pointUpdateForm" method="POST" action="editAerialFrame.php">	
-<?
+<?php
 if ($message != '')	
 {	
 ?>
-<b><font color="red"><? echo $message; ?></font></b>	<? } ?>
+<b><font color="red"><?php echo $message; ?></font></b>	<?php } ?>
 <b> Point :  </b>
 <input type="text" name="pointField" id="pointField" size="30"/>
 
 <b> Location :  </b>
 <select name="locationField">
-<? drawLocationNameSelectFields($locationtoset, true); ?>		
+<?php drawLocationNameSelectFields($locationtoset, true); ?>		
 </select>
 <input type="submit" name="submitPointUpdateForm" value="GO" />
 </form>
-<? 
+<?php 
 }	// end functions
 ?>

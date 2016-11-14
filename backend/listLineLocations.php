@@ -26,8 +26,8 @@ $pageTitle = 'Update '.$thisLineName.' Line Locations';
 include_once("common/header.php");
 drawEditLineHeadbar($lineLink);
 ?>
-<a href="addLocation.php?line=<? echo $lineLink; ?>">Add locations</a><br><br>
-<?
+<a href="addLocation.php?line=<?php echo $lineLink; ?>">Add locations</a><br><br>
+<?php
 if ($numberOfRows == 0)
 {
 	echo '<p>No records found!</p>';  
@@ -121,33 +121,33 @@ for ($i = 0; $i < $numberOfRows; $i++)
 	}	
 	
 	?>
-<tr class=<? echo $style; ?>>
-	<td align="center"><? echo $thisLocation_id ?></td>
-	<td align="left"><a href="editLocations.php?location=<? echo $thisLocation_id; ?>"><? echo $thisName ?></a></td>
-	<td align="left"><abbr title="<? echo $thisTypeFull; ?>"><? echo $thisType; ?></abbr></td>
-	<td><? if ($thisImg != ''){?><abbr title="<? echo $thisImg; ?>">Img</abbr><? }?></td>
-	<td><? if ($thisLink != ''){?><abbr title="<? echo $thisLink; ?>">Link</abbr><? }?></td>
-	<td><? echo $thisDisplay; ?></td>
-	<td><? if ($thisDescription != ''){?>Y<? }?></td>
-	<td><? if($thisOpenAccuracy != 'exact'){echo '~';} echo $thisOpen; ?></td>
-	<td><? if($thisCloseAccuracy != 'exact'){echo '~';} echo $thisClose; ?></td>
-	<td><? echo $thisCoOrds; ?></td>
-	<td><? echo $thisPhotos; ?></td>
-	<td><? echo $thisEvents; ?></td>
-	<td><? echo $thisKm; ?></td>
-	<td><a href="confirmDeleteLocations.php?location=<? echo $thisLocation_id; ?>">D</a></td>
+<tr class=<?php echo $style; ?>>
+	<td align="center"><?php echo $thisLocation_id ?></td>
+	<td align="left"><a href="editLocations.php?location=<?php echo $thisLocation_id; ?>"><?php echo $thisName ?></a></td>
+	<td align="left"><abbr title="<?php echo $thisTypeFull; ?>"><?php echo $thisType; ?></abbr></td>
+	<td><?php if ($thisImg != ''){?><abbr title="<?php echo $thisImg; ?>">Img</abbr><?php }?></td>
+	<td><?php if ($thisLink != ''){?><abbr title="<?php echo $thisLink; ?>">Link</abbr><?php }?></td>
+	<td><?php echo $thisDisplay; ?></td>
+	<td><?php if ($thisDescription != ''){?>Y<?php }?></td>
+	<td><?php if($thisOpenAccuracy != 'exact'){echo '~';} echo $thisOpen; ?></td>
+	<td><?php if($thisCloseAccuracy != 'exact'){echo '~';} echo $thisClose; ?></td>
+	<td><?php echo $thisCoOrds; ?></td>
+	<td><?php echo $thisPhotos; ?></td>
+	<td><?php echo $thisEvents; ?></td>
+	<td><?php echo $thisKm; ?></td>
+	<td><a href="confirmDeleteLocations.php?location=<?php echo $thisLocation_id; ?>">D</a></td>
 </tr>
-<?
+<?php
 } // end for loop
 ?>
 </TABLE>
 
-<? include_once("common/footer.php"); 
+<?php include_once("common/footer.php"); 
 
 function drawHeader()
 {
 ?>
-<tr bgcolor="<? echo $bgColor; ?>">
+<tr bgcolor="<?php echo $bgColor; ?>">
 		<th>ID</th>
 		<th>Name</th>
 		<th>Type</th>
@@ -163,6 +163,6 @@ function drawHeader()
 		<th>KM</th>
 		<th><abbr title="Delete!">D</abbr></th>
 </tr>
-<?
+<?php
 }	// end function
 ?>

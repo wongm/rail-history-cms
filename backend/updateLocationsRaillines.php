@@ -11,7 +11,7 @@ include_once("common/header.php");
 	$thisJunctionType = addslashes($_REQUEST['thisJunctionTypeField']);
 
 ?>
-<?
+<?php
 echo $sql = "UPDATE locations_raillines 
 	SET line_id = '$thisLine_id' , location_id = '$thisLocation_id' , km = '$thisKm' , 
 	kmaccuracy = '$thisKmAccuracy', junctiontype = '$thisJunctionType' 
@@ -24,23 +24,23 @@ Record  has been updated in the database. Here is the updated information :- <br
 <table>
 <tr height="30">
 	<td align="right"><b>Line ID : </b></td>
-	<td><? echo $thisLine_id; ?></td>
+	<td><?php echo $thisLine_id; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Location ID : </b></td>
-	<td><? echo $thisLocation_id; ?></td>
+	<td><?php echo $thisLocation_id; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>KM : </b></td>
-	<td><? echo $thisKm; ?></td>
+	<td><?php echo $thisKm; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>KM accuracy : </b></td>
-	<td><? echo $thisKmAccuracy; ?></td>
+	<td><?php echo $thisKmAccuracy; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Junction type : </b></td>
-	<td><? echo $thisJunctionType; ?></td>
+	<td><?php echo $thisJunctionType; ?></td>
 </tr>
 </table>
 <br><br><a href="listLocationsRaillines.php">Go Back to List All Records</a>

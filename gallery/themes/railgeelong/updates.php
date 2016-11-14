@@ -20,7 +20,7 @@ if ($updatedPages["numberOfRows"] > 0)
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; <a href="/updates">Updates</a></div>
-	<div class="search"><? printSearchForm(); ?></div>
+	<div class="search"><?php printSearchForm(); ?></div>
 </div>
 <?php 
 	include_once("midbar.php");

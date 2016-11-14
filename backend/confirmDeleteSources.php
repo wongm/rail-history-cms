@@ -30,25 +30,25 @@ else if ($numberOfRows>0) {
 <table>
 <tr height="30">
 	<td align="right"><b>Source_id : </b></td>
-	<td><? echo $thisSource_id; ?></td>
+	<td><?php echo $thisSource_id; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Short : </b></td>
-	<td><? echo $thisShort; ?></td>
+	<td><?php echo $thisShort; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Name : </b></td>
-	<td><? echo $thisName; ?></td>
+	<td><?php echo $thisName; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Details : </b></td>
-	<td><? echo $thisDetails; ?></td>
+	<td><?php echo $thisDetails; ?></td>
 </tr>
 </table>
 
 <h3>If you are sure you want to delete the above record, please press the delete button below.</h3><br><br>
 <form name="sourcesEnterForm" method="POST" action="deleteSources.php">
-<input type="hidden" name="thisSource_idField" value="<? echo $thisSource_id; ?>">
+<input type="hidden" name="thisSource_idField" value="<?php echo $thisSource_id; ?>">
 <input type="submit" name="submitConfirmDeleteSourcesForm" value="Delete  from Sources">
 <input type="button" name="cancel" value="Go Back" onClick="javascript:history.back();">
 </form>

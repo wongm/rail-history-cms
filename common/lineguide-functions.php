@@ -16,12 +16,12 @@ function drawLineguideHeaders($line, $section='')
 	include_once(dirname(__FILE__) . "/../common/header.php");
 	?>
 <div id="headbar">
-	<div class="link"><a href="/">Home</a> &raquo; <a href="/lineguides">Line Guides</a> &raquo; <a href="/lineguide/<?=$line['lineLink'] ?>"><?=getLineName($line['lineName']) ?></a></div>
-	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+	<div class="link"><a href="/">Home</a> &raquo; <a href="/lineguides">Line Guides</a> &raquo; <a href="/lineguide/<?php echo $line['lineLink'] ?>"><?php echo getLineName($line['lineName']) ?></a></div>
+	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php include_once(dirname(__FILE__) . "/../common/midbar.php"); ?>
 <div id="lineguide">
-<?
+<?php
 }
 
 function drawLineguideFooters($line, $section='')
@@ -154,31 +154,31 @@ function drawInterestingYears($interestingYears, $yearToDisplay, $lineToDisplay,
 ?>
 <form name="pickYearForm" method="get" action="/lineguide.php">
 <table class="lineyears"><tr>
-<?
+<?php
 
 	for ($i = 0; $i<$interestingYearsLength; $i++)
 	{
 ?>
-	<td><a href="/lineguide/<? echo $lineToDisplay.'/'.$section.$pageLink.'/year-'.$interestingYears[$i].'">'.$interestingYears[$i].'</a>';?></td>
-<?
+	<td><a href="/lineguide/<?php echo $lineToDisplay.'/'.$section.$pageLink.'/year-'.$interestingYears[$i].'">'.$interestingYears[$i].'</a>';?></td>
+<?php
 	}	// end while
 ?>
-	<td><a href="/lineguide/<? echo $lineToDisplay.'/'.$section.$pageLink.'">Reset View</a>';?></td>
-	<td><label for="year">Year? </label><input type="text" name="year" id="year" size="4" onclick="highlight(this);" value="<? echo $yearToDisplay;?>" />
+	<td><a href="/lineguide/<?php echo $lineToDisplay.'/'.$section.$pageLink.'">Reset View</a>';?></td>
+	<td><label for="year">Year? </label><input type="text" name="year" id="year" size="4" onclick="highlight(this);" value="<?php echo $yearToDisplay;?>" />
 	<input type="submit" value="Go!" /></td>
 </tr></table>
-<?
+<?php
 	if ($pageLink != '')
 	{
 ?>
-<input type="hidden" id="page" name="page" value="<?=$diagramPage?>" />
-<?
+<input type="hidden" id="page" name="page" value="<?php echo $diagramPage?>" />
+<?php
 	}
 ?>
-<input type="hidden" id="line" name="line" value="<? echo $lineToDisplay;?>" />
-<input type="hidden" id="section" name="section" value="<? echo $_REQUEST['section'];?>" />
+<input type="hidden" id="line" name="line" value="<?php echo $lineToDisplay;?>" />
+<input type="hidden" id="section" name="section" value="<?php echo $_REQUEST['section'];?>" />
 </form>
-<?
+<?php
 	}	// end zero years if
 }		// end function
 
@@ -224,21 +224,21 @@ function drawLineDiagram($diagramdata)
 	$numberOfRows =  sizeof($diagramdata);
 ?>
 <table class="diagram" border="0" cellspacing="0" cellpadding="0">
-<?
+<?php
 
 	for ($i = 0; $i < $numberOfRows; $i++)
 	{
 ?>
 <tr>
-	<?=$diagramdata[$i][0]."\n";?>
-	<?=$diagramdata[$i][1]."\n";?>
-	<?=$diagramdata[$i][2]."\n";?>
+	<?php echo $diagramdata[$i][0]."\n";?>
+	<?php echo $diagramdata[$i][1]."\n";?>
+	<?php echo $diagramdata[$i][2]."\n";?>
 </tr>
-<?
+<?php
 	}	// end for loop
 ?>
 </table>
-<?
+<?php
 
 }	// end function
 
@@ -268,7 +268,7 @@ function drawSafeworkingLegend()
 <td><img src="/images/safeworking/tablet-square.gif" height="20" width="20" alt="" /></td><td>Tablet Working</td></tr>
 </table>
 <a href="/safeworking.php">What do they mean?</a>
-<?	}	//end function
+<?php }	//end function
 
 
 // for use on lineguide pages
@@ -370,8 +370,8 @@ function drawSpecificLine($line, $contentsHeader = 'Contents')
 		for ($i = 0; $i < sizeof($descriptionTabs); $i++)
 		{
 ?>
-	<li><?=$descriptionTabs[$i]?></li>
-<?
+	<li><?php echo $descriptionTabs[$i]?></li>
+<?php
 		}
 		if ($showPhotos)
 		{
@@ -970,8 +970,8 @@ function getLineDiagramLocationImage($line, $currentLocation, $tracksToDisplay)
 function drawLineguideEventsSection($line)
 {
 ?>
-Events by Type :: <a href="/lineguide/<?=$line['lineLink']?>/events-by-date">Events by Date</a>
-<?
+Events by Type :: <a href="/lineguide/<?php echo $line['lineLink']?>/events-by-date">Events by Date</a>
+<?php
 	drawEventsTable(getMiscLineEvents($line['lineId']), 1);
 
 	// override to check misc events
@@ -1057,8 +1057,8 @@ function drawAllLineguideDotpoints($type)
 		{
 			$line = getLineBasicDetails($result, $j);
 ?>
-<li><a href="/lineguide/<?=$line["lineLink"];?>"><?=getLineName($line["lineName"]); ?></a>
-<?
+<li><a href="/lineguide/<?php echo $line["lineLink"];?>"><?php echo getLineName($line["lineName"]); ?></a>
+<?php
 			if ($type == 'sitemap')
 			{
 				$itemsToDisplay = getLineguidePages($line);
@@ -1067,8 +1067,8 @@ function drawAllLineguideDotpoints($type)
 				for ($i = 0; $i < sizeof($itemsToDisplay); $i++)
 				{
 ?>
-<li><a href="/lineguide/<? echo $line["lineLink"]; ?>/<? echo $itemsToDisplay[$i][0]; ?>" ><? echo $itemsToDisplay[$i][1]; ?></a></li>
-<?
+<li><a href="/lineguide/<?php echo $line["lineLink"]; ?>/<?php echo $itemsToDisplay[$i][0]; ?>" ><?php echo $itemsToDisplay[$i][1]; ?></a></li>
+<?php
 				}
 
 				echo "</ul></li>\n";

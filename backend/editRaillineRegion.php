@@ -21,19 +21,19 @@ if ($numberOfRows>0) {
 <a href="listRaillineRegion.php">Return</a>
 <form name="railline_regionUpdateForm" method="POST" action="updateRaillineRegion.php">
 <fieldset>
-<input type="hidden" name="thisLinkzor_idField" value="<? echo $thisLinkzor_id; ?>">
+<input type="hidden" name="thisLinkzor_idField" value="<?php echo $thisLinkzor_id; ?>">
 
 <table cellspacing="2" cellpadding="2" border="0" width="100%">
 	<tr valign="top" height="20">
 		<td align="right"> <b> Line :  </b> </td>
 		<td width="220"> <select name="thisLine_idField" id="thisLine_idField">
-<? drawLineNameSelectFields($thisLine_id); ?>	
+<?php drawLineNameSelectFields($thisLine_id); ?>	
 		</select></td>
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Region link :  </b> </td>
 		<td width="220"> <select name="thisArticle_idField" id="thisLine_idField">
-<? drawRegionSelectFields($thisArticle_id); ?>	
+<?php drawRegionSelectFields($thisArticle_id); ?>	
 		</select></td>
 	</tr>
 	
@@ -43,7 +43,7 @@ if ($numberOfRows>0) {
 		<form>
 		<script type="text/javascript" src="js_quicktags.js"></script>
 		<script type="text/javascript">edToolbar();</script>
-		<textarea name="thisContentField" id="thisContentField" wrap="VIRTUAL" cols="100" rows="10"><? echo $thisContent; ?></textarea>
+		<textarea name="thisContentField" id="thisContentField" wrap="VIRTUAL" cols="100" rows="10"><?php echo $thisContent; ?></textarea>
 		<script type="text/javascript">var edCanvas = document.getElementById('thisContentField');</script>
 		</form>
 		</td>

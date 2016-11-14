@@ -27,19 +27,19 @@ A new record has been inserted in the database. Here is the information that has
 <table>
 <tr height="30">
 	<td align="right"><b>Type_id : </b></td>
-	<td><? echo $thisType_id; ?></td>
+	<td><?php echo $thisType_id; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Basic : </b></td>
-	<td><? echo $thisBasic; ?></td>
+	<td><?php echo $thisBasic; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>More : </b></td>
-	<td><? echo $thisMore; ?></td>
+	<td><?php echo $thisMore; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Specific : </b></td>
-	<td><? echo $thisSpecific; ?></td>
+	<td><?php echo $thisSpecific; ?></td>
 </tr>
 </table>
 

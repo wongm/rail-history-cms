@@ -28,7 +28,7 @@ session_start();
 <meta name="description" content="Rail Geelong Homepage" />
 <meta name="keywords" content="railways trains geelong victoria" />
 
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<?=GOOGLE_KEY?>" type="text/javascript"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<?php echo GOOGLE_KEY?>" type="text/javascript"></script>
 <script type="text/javascript">
 
     //<![CDATA[
@@ -73,7 +73,7 @@ session_start();
 </head>
 <!-- start body -->
 <body onload="load()" onunload="GUnload()">
-<?
+<?php
 if ($locationtoset == '')
 {
 ?>
@@ -84,7 +84,7 @@ if ($locationtoset == '')
 </td></tr>
 <tr><td width="140"></td>
 <td id="big" valign="top">
-<?
+<?php
 }
 else
 {
@@ -92,9 +92,9 @@ else
 }
 ?>
 <div id="content">
-<div align="center"><iframe id="update" name="update" width="95%" height="40px" src="editAerialFrame.php?locationtoset=<?=$locationtoset?>"></iframe></div>
+<div align="center"><iframe id="update" name="update" width="95%" height="40px" src="editAerialFrame.php?locationtoset=<?php echo $locationtoset?>"></iframe></div>
 <div id="map" style="width: 95%; margin: auto; height: 800px"></div>
-<?
+<?php
 // footer
 
 if ($locationtoset == '')
@@ -107,6 +107,6 @@ else
 </div></div>
 </body>
 </html>
-<?	
+<?php 
 }
 ?>

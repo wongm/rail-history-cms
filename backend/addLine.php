@@ -18,7 +18,7 @@ include_once("common/header.php");
 	<tr valign="top" height="20">
 		<td align="right"> <b> Start Location:  </b> </td>
 		<td> <select name="thisStartlocationField">
-<? drawLocationNameSelectFields($thisStartlocation)	; ?>		
+<?php drawLocationNameSelectFields($thisStartlocation)	; ?>		
 		</select></td>
 	</tr>
 	
@@ -26,49 +26,49 @@ include_once("common/header.php");
 	<tr valign="top" height="20">
 		<td align="right"> <b> End Location:  </b> </td>
 		<td> <select name="thisEndlocationField">
-<? drawLocationNameSelectFields($thisEndlocation)	; ?>		
+<?php drawLocationNameSelectFields($thisEndlocation)	; ?>		
 		</select></td>
 	</tr>
 	
 	<tr valign="top" height="20">
 		<td align="right"> <b> Opened :  </b> </td>
-		<td> <input type="text" name="thisOpenedField" size="30" value="<? echo $thisOpened; ?>">  </td> 
+		<td> <input type="text" name="thisOpenedField" size="30" value="<?php echo $thisOpened; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> <abbr title="'9999-01-01' for still open">Closed</abbr> :  </b> </td>
-		<td> <input type="text" name="thisClosedField" size="30" value="<? echo $thisClosed; ?>">  </td> 
+		<td> <input type="text" name="thisClosedField" size="30" value="<?php echo $thisClosed; ?>">  </td> 
 	</tr>
 	
 	<tr valign="top" height="20">
 		<td align="right"> <b> <abbr title="CSVs - years to show in lineguide track diagram">Track Years</abbr> :  </b> </td>
-		<td> <input type="text" name="thisTrackyearsField" size="30" value="<? echo $thisTrackyears; ?>">  </td> 
+		<td> <input type="text" name="thisTrackyearsField" size="30" value="<?php echo $thisTrackyears; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> <abbr title="'9999' to default to now, '0' to show all">(Default)</abbr>    </b> </td>
-		<td> <input type="text" name="thisTrackdefaultField" size="30" value="<? echo $thisTrackdefault; ?>">  </td> 
+		<td> <input type="text" name="thisTrackdefaultField" size="30" value="<?php echo $thisTrackdefault; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> <abbr title="CSVs - years to show in lineguide safeworking diagram">Safeworking Years</abbr> :  </b> </td>
-		<td> <input type="text" name="thisSafeworkingyearsField" size="30" value="<? echo $thisSafeworkingyears; ?>">  </td> 
+		<td> <input type="text" name="thisSafeworkingyearsField" size="30" value="<?php echo $thisSafeworkingyears; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> <abbr title="'9999' to default to now, '0' to show all">(Default)</abbr>    </b> </td>
-		<td> <input type="text" name="thisSafeworkingdefaultField" size="30" value="<? echo $thisSafeworkingdefault; ?>">  </td> 
+		<td> <input type="text" name="thisSafeworkingdefaultField" size="30" value="<?php echo $thisSafeworkingdefault; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> <abbr title="Tabs to show on lineguide page">Display</abbr> :  </b> </td>
 		<td><select name="thisTodisplayField">
-<? drawLineDisplayTypeFields($thisTodisplay); ?>
+<?php drawLineDisplayTypeFields($thisTodisplay); ?>
 		</select></td>
 	</tr>
 	
 	<tr valign="top" height="20">
 		<td align="right"> <b> Description :  </b> </td>
-		<td> <textarea name="thisDescriptionField" wrap="VIRTUAL" cols="80" rows="8"><? echo $thisDescription; ?></textarea></td> 
+		<td> <textarea name="thisDescriptionField" wrap="VIRTUAL" cols="80" rows="8"><?php echo $thisDescription; ?></textarea></td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Credits :  </b> </td>
-		<td> <textarea name="thisCreditsField" wrap="VIRTUAL" cols="80" rows="8"><? echo $thisCredits; ?></textarea></td> 
+		<td> <textarea name="thisCreditsField" wrap="VIRTUAL" cols="80" rows="8"><?php echo $thisCredits; ?></textarea></td> 
 	</tr>
 </table>
 

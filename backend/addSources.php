@@ -20,7 +20,7 @@ include_once("common/header.php");
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Details :  </b> </td>
-		<td> <textarea name="thisDetailsField" wrap="VIRTUAL" cols="80" rows="8"><? echo $thisDescription; ?></textarea></td> 
+		<td> <textarea name="thisDetailsField" wrap="VIRTUAL" cols="80" rows="8"><?php echo $thisDescription; ?></textarea></td> 
 	</tr>
 </table>
 

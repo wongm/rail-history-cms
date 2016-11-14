@@ -8,7 +8,7 @@ include_once("common/header.php");
 	$type = addslashes($_REQUEST['type']);
 
 ?>
-<?
+<?php
 $sql = "DELETE FROM object_sources WHERE linkzor_id = '$id'";
 $result = MYSQL_QUERY($sql);
 

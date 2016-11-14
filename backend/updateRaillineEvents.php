@@ -36,42 +36,42 @@ Record  has been updated in the database. Here is the updated information :- <br
 <table>
 <tr height="30">
 	<td align="right"><b>Event_id : </b></td>
-	<td><? echo $thisEvent_id; ?></td>
+	<td><?php echo $thisEvent_id; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Line : </b></td>
-	<td><? echo $thisLine; ?></td>
+	<td><?php echo $thisLine; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Date : </b></td>
-	<td><? echo $thisDate; ?></td>
+	<td><?php echo $thisDate; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Date Approx : </b></td>
-	<td><? echo $thisApprox; ?></td>
+	<td><?php echo $thisApprox; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Start_location : </b></td>
-	<td><? echo $thisStart_location; ?></td>
+	<td><?php echo $thisStart_location; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>End_location : </b></td>
-	<td><? echo $thisEnd_location; ?></td>
+	<td><?php echo $thisEnd_location; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Tracks : </b></td>
-	<td><? echo $thisTracks; ?></td>
+	<td><?php echo $thisTracks; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Safeworking : </b></td>
-	<td><? echo $thisSafeworking; ?></td>
+	<td><?php echo $thisSafeworking; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Gauge : </b></td>
-	<td><? echo $thisGauge; ?></td>
+	<td><?php echo $thisGauge; ?></td>
 </tr>
 </table>
-<a href="editLineEvents.php?line=<? echo $thisLink; ?>">Go Back!</a>
+<a href="editLineEvents.php?line=<?php echo $thisLink; ?>">Go Back!</a>
 
 <?php
 

@@ -260,8 +260,8 @@ if(!function_exists('mail')) {
     echo('<p><strong class="error">Warning!</strong> It seems that the <abbr><span class="abbr" title="PHP Hypertext Preprocessor">PHP</span></abbr> <strong>mail()</strong> function isn&#8217;t enabled on your server. Sorry, but to use this plugin this function must be enabled. Please contact your web hosting provider to ask if they will enable this function for your domain. Optionally, should your web hosting provider deny your request, you may want to try this <a href="http://mikecherim.com/experiments/php_email_protector.php">PHP Email Protector</a> script.</p>');
 } ?>
    <form id="gb_form" method="post" action="<?php echo(''.htmlentities($_SERVER["PHP_SELF"]).''); ?>#results">
-   <input type="hidden" name="referer" id="referer" value="<? echo str_replace("=", "=3D", str_replace("&", "&amp;", $_SERVER["HTTP_REFERER"])); ?>" />
-   <input type="hidden" name="ipaddress" id="ipaddress" value="<? echo $_SERVER['REMOTE_ADDR']; ?>" />
+   <input type="hidden" name="referer" id="referer" value="<?php echo str_replace("=", "=3D", str_replace("&", "&amp;", $_SERVER["HTTP_REFERER"])); ?>" />
+   <input type="hidden" name="ipaddress" id="ipaddress" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
 <!-- Form Intro -->
    <fieldset id="formwrap">
       <legend id="mainlegend" style="cursor:help;" title="Note: Code and markup will be removed from all fields!">Contact <?php echo(''.$me_or_us.''); ?>
@@ -273,12 +273,12 @@ if($showprivacy == "yes") {
 }
 ?> 
 <!-- Required Info -->
-     <? /*   <fieldset>
+     <?php /*   <fieldset>
        <legend>Contact info:</legend> */ 
        echo '<table><tr><td>Referer: </td><td>'.$_SERVER["HTTP_REFERER"].'</td></tr>';
        ?>
         <tr><td><label for="name">Name: </label></td><td> <input tabindex="<?php echo(''.$tab_name.''); ?>" class="med" type="text" name="name" id="name" size="35" maxlength="40" value="" /></td></tr>
-<? 
+<?php 
 
 /*      </fieldset>
 <!-- Optional Info -->
@@ -307,7 +307,7 @@ echo('          <option value="'.$gb_opts.'">'.$gb_opts.'</option>'."\n");
        <legend>Comments:</legend>*/?>
         <tr><td><label for="message">Message: </label></td><td><textarea tabindex="<?php echo(''.$tab_message.''); ?>" class="textbox" rows="12" cols="60" name="message" id="message"></textarea></td></tr>
         <tr><td><label for="email">Email address <br/>(optional): </label></td><td><input tabindex="<?php echo(''.$tab_email.''); ?>" class="med" type="text" name="email" id="email" size="35" maxlength="40" value=""<?php echo(''.$x_or_h_in.''); ?>>
-<? 	/*        </fieldset>
+<?php 	/*        </fieldset>
     
 <!-- Required anti spam confirmation -->
       <fieldset>
@@ -324,7 +324,7 @@ echo('          <option value="'.$gb_opts.'">'.$gb_opts.'</option>'."\n");
        </div>
 <!-- Special anti-spam form id field -->
         <input type="hidden" name="GB<?php echo(''.$form_id.''); ?>" id="GB<?php echo(''.$form_id.''); ?>" alt="Form ID Field" value="GB<?php echo(''.$form_id.''); ?>"<?php echo(''.$x_or_h_in.''); ?>>
-    <? /*  </fieldset>
+    <?php /*  </fieldset>
 <!-- Form Buttons -->
       <fieldset>
        <legend>Time to send it to <?php echo(''.$me_or_us.''); ?>:</legend> */ ?>
@@ -345,7 +345,7 @@ if(@$showcredit == "yes") {
       echo('          <!--B'.$build.'-->'."\n");
 }
 ?>      </fieldset>
-  <? /*    </fieldset>	*/  ?>
+  <?php /*    </fieldset>	*/  ?>
   </form>
   
   

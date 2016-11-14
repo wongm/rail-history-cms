@@ -17,7 +17,7 @@ include_once("common/header.php");
 	<tr valign="top" height="20">
 		<td align="right"> <b> Description :  </b> </td>
 		<td> 
-		<textarea name="thisDescriptionField" id="thisDescriptionField" wrap="VIRTUAL" cols="80" rows="5"><? echo $thisDescription; ?></textarea>
+		<textarea name="thisDescriptionField" id="thisDescriptionField" wrap="VIRTUAL" cols="80" rows="5"><?php echo $thisDescription; ?></textarea>
 		</td> 
 	</tr>
 	
@@ -25,7 +25,7 @@ include_once("common/header.php");
 		<td align="right"> <b> Line (optional):  </b> </td>
 		<td> <select name="thisLineField">
 			<option value="-1"  >[REGION]</option>
-<? drawLineNameSelectFields()	; ?>		
+<?php drawLineNameSelectFields()	; ?>		
 		</select></td>
 	</tr>
     
@@ -40,7 +40,7 @@ include_once("common/header.php");
 		<form>
 		<script type="text/javascript" src="js_quicktags.js"></script>
 		<script type="text/javascript">edToolbar();</script>
-		<textarea name="thisContentField" id="thisContentField" wrap="VIRTUAL" cols="80" rows="30"><? echo $thisContent; ?></textarea>
+		<textarea name="thisContentField" id="thisContentField" wrap="VIRTUAL" cols="80" rows="30"><?php echo $thisContent; ?></textarea>
 		<script type="text/javascript">var edCanvas = document.getElementById('thisContentField');</script>
 		</form>
 		</td>

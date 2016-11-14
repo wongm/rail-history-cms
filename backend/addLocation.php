@@ -17,7 +17,7 @@ drawEditLineHeadbar($thisLineLink);
 	<tr valign="top" height="20">
 		<td align="right"> <b> Line :  </b> </td>
 		<td> <select name="thisLineField">
-<? drawLineNameSelectFields($thisLineLink); ?>	
+<?php drawLineNameSelectFields($thisLineLink); ?>	
 		</select></td>
 	</tr>
     <tr valign="top" height="20">
@@ -27,14 +27,14 @@ drawEditLineHeadbar($thisLineLink);
 	<tr valign="top" height="20">
 		<td align="right"> <b> KM Accuracy :  </b> </td>
 		<td><select name="thisKmAccuracyField">
-<? drawApproxDistanceFields(); ?>
+<?php drawApproxDistanceFields(); ?>
 		</select></td>
 	</tr>
     
 	<tr valign="top" height="20">
 		<td align="right"> <b> Location Type :  </b> </td>
 		<td> <select name="thisTypeField">
-<? drawLocationTypeFields(''); ?>	
+<?php drawLocationTypeFields(''); ?>	
 		</select></td>
 	</tr>
 </table>

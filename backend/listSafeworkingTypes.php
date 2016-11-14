@@ -9,7 +9,7 @@ $result = MYSQL_QUERY($sql);
 $numberOfRows = MYSQL_NUM_ROWS($result);
 ?>
 <a href="enterNewSafeworkingTypes.php">Add new safeworking type</a><br><br>
-<?
+<?php
 if ($numberOfRows>0) {
 
 	$i=0;
@@ -21,7 +21,7 @@ if ($numberOfRows>0) {
 	<th>Link</th>
 	<th>Details</th>
 </TR>
-<?
+<?php
 	while ($i<$numberOfRows)
 	{
 
@@ -33,20 +33,20 @@ if ($numberOfRows>0) {
 	$thisDetails = stripslashes(MYSQL_RESULT($result,$i,"details"));
 
 ?>
-	<TR class="<? echo $bgColor; ?>">
-		<TD><? echo $thisSafeworking_id; ?></TD>
-		<TD style="white-space: nowrap"><a href="editSafeworking_types.php?safeworking_idField=<? echo $thisSafeworking_id; ?>"><? echo $thisName; ?></a></TD>
-		<TD><? echo $thisLink; ?></TD>
-		<TD><? echo $thisDetails; ?></TD>
-		<TD><a href="confirmDeleteSafeworking_types.php?safeworking_idField=<? echo $thisSafeworking_id; ?>">Delete</a></TD>
+	<TR class="<?php echo $bgColor; ?>">
+		<TD><?php echo $thisSafeworking_id; ?></TD>
+		<TD style="white-space: nowrap"><a href="editSafeworking_types.php?safeworking_idField=<?php echo $thisSafeworking_id; ?>"><?php echo $thisName; ?></a></TD>
+		<TD><?php echo $thisLink; ?></TD>
+		<TD><?php echo $thisDetails; ?></TD>
+		<TD><a href="confirmDeleteSafeworking_types.php?safeworking_idField=<?php echo $thisSafeworking_id; ?>">Delete</a></TD>
 	</TR>
-<?
+<?php
 		$i++;
 
 	} // end while loop
 ?>
 </TABLE>
-<?
+<?php
 
 } // end of if numberOfRows > 0 
  ?>

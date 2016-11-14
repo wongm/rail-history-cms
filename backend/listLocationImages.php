@@ -23,7 +23,7 @@ if ($numberOfRows>0)
 		<th align="left">Name</th>
 		<th width="350px"></th>
 	</TR>
-<?
+<?php
 	for ($i = 0; $i < $numberOfRows; $i++)
 	{
 		if (($i%2)==0) { $bgColor = "odd"; } else { $bgColor = "even"; }
@@ -52,17 +52,17 @@ if ($numberOfRows>0)
 		if ($display)
 		{
 ?>
-	<TR class="<? echo $bgColor; ?>">
-		<TD align="center"><?=$id ?></TD>
-		<TD><a href="editLocations.php?location=<? echo $id; ?>"><?=$name ?></a></td>
-		<td><a href="/location/<?=$id ?>/" alt="View"><?=$image ?></a></td>
+	<TR class="<?php echo $bgColor; ?>">
+		<TD align="center"><?php echo $id ?></TD>
+		<TD><a href="editLocations.php?location=<?php echo $id; ?>"><?php echo $name ?></a></td>
+		<td><a href="/location/<?php echo $id ?>/" alt="View"><?php echo $image ?></a></td>
 	</TR>
-<?
+<?php
 		}	// end if
 	} 		// end while loop
 }			// end if
 ?>
 </TABLE>
-<?
+<?php
 include_once("common/footer.php");
 ?>

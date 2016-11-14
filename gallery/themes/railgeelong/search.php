@@ -26,8 +26,8 @@ else
 }
 ?>
 <div id="headbar">
-	<div class="link"><a href="/">Home</a> &raquo; <a href="/gallery/">Gallery</a> &raquo; <a href="<?=SEARCH_URL_PATH?>">Search</a></div>
-	<div class="search"><? printSearchForm(); ?></div>
+	<div class="link"><a href="/">Home</a> &raquo; <a href="/gallery/">Gallery</a> &raquo; <a href="<?php echo SEARCH_URL_PATH?>">Search</a></div>
+	<div class="search"><?php printSearchForm(); ?></div>
 </div>
 <?php include_once('midbar.php'); ?>
 <?php echo $leadingIntroText; ?>

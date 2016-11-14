@@ -8,13 +8,13 @@ include_once("common/header.php");
 	<tr valign="top" height="20">
 		<td align="right"> <b> Line :  </b> </td>
 		<td> <select name="thisLine_idField" id="thisLine_idField">
-<? drawLineNameSelectFields(); ?>	
+<?php drawLineNameSelectFields(); ?>	
 		</select></td>
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Region link :  </b> </td>
 		<td> <select name="thisArticle_idField" id="thisLine_idField">
-<? drawRegionSelectFields(); ?>	
+<?php drawRegionSelectFields(); ?>	
 		</select></td>
 	</tr>
 	<tr valign="top" height="20">
@@ -23,7 +23,7 @@ include_once("common/header.php");
 		<form>
 		<script type="text/javascript" src="js_quicktags.js"></script>
 		<script type="text/javascript">edToolbar();</script>
-		<textarea name="thisContentField" id="thisContentField" wrap="VIRTUAL" cols="100" rows="30"><? echo $thisContent; ?></textarea>
+		<textarea name="thisContentField" id="thisContentField" wrap="VIRTUAL" cols="100" rows="30"><?php echo $thisContent; ?></textarea>
 		<script type="text/javascript">var edCanvas = document.getElementById('thisContentField');</script>
 		</form>
 		</td>

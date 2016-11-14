@@ -4,7 +4,7 @@ include_once("common/header.php");
 ?>
 <table class="centeredTable">
 <tr><td>
-<?
+<?php
 
 
 if ($_SESSION['authorised'])
@@ -36,7 +36,7 @@ if ($_SESSION['authorised'])
 <a href="listLocationImages.php?type=images">Locations with images</a><br>
 <a href="listLocationImages.php?type=required">Locations without images</a><br>
 <a href="listLocationImages.php">All locations</a>
-<?
+<?php
 }	// end authorised if statement
 else
 {
@@ -46,4 +46,4 @@ else
 </td></tr>
 </table>
 
-<? include_once("common/footer.php"); ?>
+<?php include_once("common/footer.php"); ?>

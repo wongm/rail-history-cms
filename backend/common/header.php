@@ -54,7 +54,7 @@ $pageHeading = substr($pageHeading, 0, 40)
 <div id="header">
 <h1><a href="/backend/admin.php" alt="Admin Home" title="Admin Home">RG</a> - <?php echo $pageHeading; ?></h1>
 <div id="user_info"><p>
-<?
+<?php
 if ($localhost)
 {
 	echo '<a href="/phpmyadmin" target="_blank">phpMyAdmin</a> &nbsp; | &nbsp; ';

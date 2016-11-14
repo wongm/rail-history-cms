@@ -104,22 +104,22 @@ function printEXIFData()
 		}
 	?>
 <p class="exif">
-Taken with a <?=$result['EXIFModel'] ?><br/>
-Date: <?=$dateLink;?><br/>
-Exposure Time: <?=$result['EXIFExposureTime'] ?><br/>
-Aperture Value: <?=$result['EXIFFNumber'] ?><br/>
-Focal Length: <?=$result['EXIFFocalLength'] ?><br/>
-<?=$hitCounterText.$ratingsText?>
+Taken with a <?php echo $result['EXIFModel'] ?><br/>
+Date: <?php echo $dateLink;?><br/>
+Exposure Time: <?php echo $result['EXIFExposureTime'] ?><br/>
+Aperture Value: <?php echo $result['EXIFFNumber'] ?><br/>
+Focal Length: <?php echo $result['EXIFFocalLength'] ?><br/>
+<?php echo $hitCounterText.$ratingsText?>
 </p>
-<?
+<?php
 	}
 	else
 	{
 ?>
 <p class="exif">
-<?=$hitCounterText.$ratingsText; ?>
+<?php echo $hitCounterText.$ratingsText; ?>
 </p>
-<?
+<?php
 	}	// end if
 }		// end function
 
@@ -131,8 +131,8 @@ function drawNewsNextables()
 	if($next OR $prev) {
 	?>
 <table class="pagelist"><tr><td>
-  <?php if($prev) { ?><a class="prev" href="<?=$prev['link'];?>" title="<?=$prev['title']?>"><span>&laquo;</span> <?=$prev['title']?></a> <? } ?>
-  <?php if($next) { ?><a class="next" href="<?=$next['link'];?>" title="<?=$next['title']?>"><?=$next['title']?> <span>&raquo;</span></a> <? } ?>
+  <?php if($prev) { ?><a class="prev" href="<?php echo $prev['link'];?>" title="<?php echo $prev['title']?>"><span>&laquo;</span> <?php echo $prev['title']?></a> <?php } ?>
+  <?php if($next) { ?><a class="next" href="<?php echo $next['link'];?>" title="<?php echo $next['title']?>"><?php echo $next['title']?> <span>&raquo;</span></a> <?php } ?>
 </td></tr></table>
   <?php }
 }
@@ -145,8 +145,8 @@ function drawNewsFrontpageNextables()
 	if($next OR $prev) {
 	?>
 <table class="pagelist"><tr><td>
-  <?php if($prev) { ?><a class="prev" href="<?="http://".$_SERVER['HTTP_HOST'].$prev;?>" title="Previous page"><span>&laquo;</span> Previous page</a> <? } ?>
-  <?php if($next) { ?><a class="next" href="<?="http://".$_SERVER['HTTP_HOST'].$next;?>" title="Next page">Next page <span>&raquo;</span></a> <? } ?>
+  <?php if($prev) { ?><a class="prev" href="<?php echo "http://".$_SERVER['HTTP_HOST'].$prev;?>" title="Previous page"><span>&laquo;</span> Previous page</a> <?php } ?>
+  <?php if($next) { ?><a class="next" href="<?php echo "http://".$_SERVER['HTTP_HOST'].$next;?>" title="Next page">Next page <span>&raquo;</span></a> <?php } ?>
 </td></tr></table>
   <?php }
 }
@@ -183,9 +183,9 @@ function drawWongmGridAlbums($numberOfItems)
 		global $_zp_current_album;
 ?>
 <td class="album" valign="top">
-	<div class="albumthumb"><a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?>">
+	<div class="albumthumb"><a href="<?php echo getAlbumURL();?>" title="<?php echo getAlbumTitle();?>">
 	<?php printAlbumThumbImage(getAlbumTitle()); ?></a></div>
-	<div class="albumtitle"><h4><a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?>">
+	<div class="albumtitle"><h4><a href="<?php echo getAlbumURL();?>" title="<?php echo getAlbumTitle();?>">
 	<?php printAlbumTitle(); ?></a></h4><small><?php printAlbumDate(); ?><?php printHitCounter($_zp_current_album, true); ?></small></div>
 	<div class="albumdesc"><?php printAlbumDesc(); ?></div>
 </td>
@@ -209,7 +209,7 @@ function drawWongmGridAlbums($numberOfItems)
 	endwhile;
 ?>
 </table>
-<?
+<?php
 }	/// end function
 
 
@@ -287,11 +287,11 @@ function drawWongmGridImages($numberOfItems)
 		global $_zp_current_image;
 ?>
 <td class="image">
-	<div class="imagethumb"><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>">
-		<img src="<? echo getImageThumb() ?>" title="<?=getImageTitle();?>" alt="<?=getImageTitle();?>" />
+	<div class="imagethumb"><a href="<?php echo getImageURL();?>" title="<?php echo getImageTitle();?>">
+		<img src="<?php echo getImageThumb() ?>" title="<?php echo getImageTitle();?>" alt="<?php echo getImageTitle();?>" />
 	</a></div>
 	<div class="imagetitle">
-		<h4><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
+		<h4><a href="<?php echo getImageURL();?>" title="<?php echo getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
 		<?php echo printImageDescWrapped(); ?>
 		<small><?php printImageDate(); ?><?php printHitCounter($_zp_current_image, true); ?></small><?php echo $albumLinkHtml; ?>
 	</div>
@@ -314,7 +314,7 @@ function drawWongmGridImages($numberOfItems)
 		}
 	} ?>
 </table>
-<?
+<?php
 }	// end function
 
 /*
@@ -374,7 +374,7 @@ function drawIndexAlbums($type=null, $site=null)
 	}
  ?>
 </table>
-<?
+<?php
 }
 
 /*
@@ -397,7 +397,7 @@ function drawWongmAlbumRow()
 		<h4><a href="<?php echo htmlspecialchars(getAlbumURL());?>" title="<?php echo gettext('View album:'); ?> <?php echo strip_tags(getAlbumTitle());?>"><?php printAlbumTitle(); ?></a></h4>
 		<p><small><?php printAlbumDate(""); ?><?php printHitCounter($_zp_current_album, true); ?></small></p>
 		<p><?php printAlbumDesc(); ?></p>
-<? 	if (zp_loggedin())
+<?php 	if (zp_loggedin())
 	{
 		echo "<p>";
 		echo printLinkHTML($zf . '/zp-core/admin-edit.php?page=edit&album=' . urlencode(getAlbumURL()), gettext("Edit details"), NULL, NULL, NULL);
@@ -406,7 +406,7 @@ function drawWongmAlbumRow()
 ?>
 	</td>
 </tr>
-<?
+<?php
 
 }	// end function
 

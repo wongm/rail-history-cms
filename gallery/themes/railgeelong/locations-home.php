@@ -32,7 +32,7 @@ else
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; Locations</div>
-	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php include_once('midbar.php'); ?>
 <h3>Introduction to the locations database</h3>
@@ -45,7 +45,7 @@ else
 <li><a href='/locations/yards'>Yards</a></li>
 <li><a href='/locations/misc'>Miscellaneous</a></li></ul>
 </div>
-<?
+<?php
 	drawLocationSearchBox();
 ?>
 <h4>About the Location listings</h4>
@@ -58,7 +58,7 @@ else
 <img src="/images/rank2.gif" alt="Beginning" title="Beginning" />Beginning<br/><br/>
 <img src="/images/rank1.gif" alt="Basic" title="Basic" />Basic<br/><br/>
 I recommend having a look at the page on <a href="/location/south-geelong">South Geelong</a> for an example of a detailed page.  ;-)</p>
-<?
+<?php
 	include_once("footer.php");
 }
 ?>

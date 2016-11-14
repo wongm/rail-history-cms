@@ -38,11 +38,11 @@ function drawLocation($location)
 	include_once(dirname(__FILE__) . "/../common/event-functions.php");
 ?>
 <div id="headbar">
-	<div class="link"><a href="/">Home</a> &raquo; <a href="/locations">Locations</a> &raquo; <?=$location['pageTitle']?></div>
-	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+	<div class="link"><a href="/">Home</a> &raquo; <a href="/locations">Locations</a> &raquo; <?php echo $location['pageTitle']?></div>
+	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php include_once(dirname(__FILE__) . "/../common/midbar.php"); ?>
-<h3 id="top"><?=$location['pageTitle']?></h3>
+<h3 id="top"><?php echo $location['pageTitle']?></h3>
 <?php
 	// working out if dot points section shown or not
 	$dotpoints = 0;
@@ -256,9 +256,9 @@ function drawLocationNeighbourBar($nextLocation, $backLocation)
 	{
 ?>
 <div class="pagelist">
-	<?=$backLocation; ?><?=$nextLocation;?>
+	<?php echo $backLocation; ?><?php echo $nextLocation;?>
 </div>
-<?
+<?php
 	}
 }	// end function
 
@@ -275,7 +275,7 @@ function drawLocationDiagrams($diagramData)
 ?>
 <h4 id="diagrams">Diagrams</h4><hr />
 <p>NOTE: Diagrams are not to scale.</p>
-<?	if ($numberOfRows > 1)
+<?php if ($numberOfRows > 1)
 	{
 		drawDiagramTabs($diagramData);
 	}
@@ -284,12 +284,12 @@ function drawLocationDiagrams($diagramData)
 	elseif ($numberOfRows == 1)
 	{
 ?>
-<p><img src="/t/<? echo $diagramData[0][0].'.gif'; ?>" alt="<? echo $name.' '.$diagramData[0][1]; ?>" title="<? echo $name.' '.$diagramData[0][1]; ?>" /></p>
-<?
+<p><img src="/t/<?php echo $diagramData[0][0].'.gif'; ?>" alt="<?php echo $name.' '.$diagramData[0][1]; ?>" title="<?php echo $name.' '.$diagramData[0][1]; ?>" /></p>
+<?php
 	}	// end if
 	?>
 <p><a href="#top" class="credit">Top</a></p>
-<?
+<?php
 }	// end function
 
 
@@ -303,7 +303,7 @@ function drawLocationSearchBox()
 <input type="submit" value="Search" />
 </p>
 </form>
-<?
+<?php
 } //end function
 
 
@@ -348,7 +348,7 @@ function drawLocationSearch($locationSearch, $searchPageNumber, $message="")
 	?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; <a href="/locations">Locations</a> &raquo; Location search</div>
-	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php
 	include_once(dirname(__FILE__) . "/../common/midbar.php");
@@ -404,18 +404,18 @@ function drawLocationDataTable($location)
 	}
 ?>
 <div class="datatable">
-<?
+<?php
 	if ($typeToDisplay == 'Miscellaneous')
 	{
 ?>
 	<b>Type: </b><a href="/locations/misc">Miscellaneous</a><br/>
-<?
+<?php
 	}
 	else
 	{
 ?>
-	<b><?=$typeToDisplay?></b><br/>
-<?
+	<b><?php echo $typeToDisplay?></b><br/>
+<?php
 		if (sizeof($branchlines) > 0)
 		{
 			$lineLinkText = getLineLinksForLocation($branchlines);
@@ -425,8 +425,8 @@ function drawLocationDataTable($location)
 		else
 		{
 ?>
-	<b>Line: </b><a href="/lineguide/<?=$lineLink?>"><?=$lineName?></a><br/>
-<?
+	<b>Line: </b><a href="/lineguide/<?php echo $lineLink?>"><?php echo $lineName?></a><br/>
+<?php
 		}
 		
 		if (!$hideKm)
@@ -437,9 +437,9 @@ function drawLocationDataTable($location)
 				$extraPageBounds = getLineguideDistanceURL($location['trackSubpage'], $location['km']);
 			}
 ?>
-	<b>Distance from Melbourne: </b><?=formatDistance($km, $kmAccuracy)?><?=$lineLinkText['distance'];?><br/>
-	<b>Track Diagram: </b><a href="/lineguide/<?=$lineLink?>/diagram<?=$extraPageBounds.$extraUrlYear?>/#km<?=$km?>">View</a><br/>
-<?
+	<b>Distance from Melbourne: </b><?php echo formatDistance($km, $kmAccuracy)?><?php echo $lineLinkText['distance'];?><br/>
+	<b>Track Diagram: </b><a href="/lineguide/<?php echo $lineLink?>/diagram<?php echo $extraPageBounds.$extraUrlYear?>/#km<?php echo $km?>">View</a><br/>
+<?php
 		}
 	}	// end 'Miscellaneous' if statement
 
@@ -447,29 +447,29 @@ function drawLocationDataTable($location)
 	{
 ?>
 	<b>Google Maps: </b>
-		<a href="/location/<?=$id?>/satellite" onClick="p(this.href); return false;">Satellite</a>&nbsp;/&nbsp;
-		<a href="/location/<?=$id?>/map" onClick="p(this.href); return false;">Map</a><br/>
-<?
+		<a href="/location/<?php echo $id?>/satellite" onClick="p(this.href); return false;">Satellite</a>&nbsp;/&nbsp;
+		<a href="/location/<?php echo $id?>/map" onClick="p(this.href); return false;">Map</a><br/>
+<?php
 	}
 
 	if (!$isCrossing AND $openPlain != DATE_UNKNOWN_OPEN)
 	{
 ?>
-	<b>Opened: </b><?=formatDate($open, $approxOpen)?><br/>
-<?
+	<b>Opened: </b><?php echo formatDate($open, $approxOpen)?><br/>
+<?php
 	}
 
 	if(!$isCrossing  AND !$stillOpen)
 	{
 ?>
-	<b>Closed: </b><?=formatDate($close, $approxClose)?><br/>
-<?
+	<b>Closed: </b><?php echo formatDate($close, $approxClose)?><br/>
+<?php
 	}
 	/*
 ?>
 	<b>Previous location: </b><?php echo $backLocation; ?><br/>
 	<b>Next location: </b><?php echo $nextLocation; ?><br/>
-<?	*/
+<?php */
 	global $editablelinkforadmin;
 	if ($editablelinkforadmin)
 	{
@@ -477,7 +477,7 @@ function drawLocationDataTable($location)
 	}
 ?>
 </div>
-<?
+<?php
 
 }	// end function
 

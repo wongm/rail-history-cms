@@ -79,7 +79,7 @@ function galleryPageNavigationLinks($index, $maxImagesCount, $totalimg, $url)
 	{
 		?>
 <table class="nextables"><tr id="pagelinked"><td>
-	<?
+	<?php
 	
 	if ($index > 0)
 	{	
@@ -88,8 +88,8 @@ function galleryPageNavigationLinks($index, $maxImagesCount, $totalimg, $url)
 			$index = 1;
 		}
 ?>
-<a class="prev" href="<? echo $url.($page) ?>" title="Previous Page"><span>&laquo;</span> Previous</a>
-<?
+<a class="prev" href="<?php echo $url.($page) ?>" title="Previous Page"><span>&laquo;</span> Previous</a>
+<?php
 	}
 ?>
 	</td><td>
@@ -100,12 +100,12 @@ function galleryPageNavigationLinks($index, $maxImagesCount, $totalimg, $url)
 <?php
 	if ($totalimg == MAXIMAGES_PERPAGE )
 	{	?>
-<a class="next" href="<? echo $url.($page+2) ?>" title="Next Page">Next <span>&raquo;</span></a>
-	<?
+<a class="next" href="<?php echo $url.($page+2) ?>" title="Next Page">Next <span>&raquo;</span></a>
+	<?php
 	}
 		?>
 </td></tr></table>
-	<?
+	<?php
 	}
 } // end function
 
@@ -199,9 +199,9 @@ function drawImageGallery($galleryResult, $type='')
 				}
 				
 				// for when URL rewrite is on
-				/* <a href="/gallery/<? echo $photoPath; ?>/<? echo $photoUrl; ?>.html" target="new" ><img src="/gallery/cache/<? echo $photoPath; ?>/<? echo $photoUrl; ?>_<?php echo $thumbsize; ?>.jpg" alt="<? echo $photoTitle; ?>" title="<? echo $photoTitle; ?>" /></a>*/
+				/* <a href="/gallery/<?php echo $photoPath; ?>/<?php echo $photoUrl; ?>.html" target="new" ><img src="/gallery/cache/<?php echo $photoPath; ?>/<?php echo $photoUrl; ?>_<?php echo $thumbsize; ?>.jpg" alt="<?php echo $photoTitle; ?>" title="<?php echo $photoTitle; ?>" /></a>*/
 				// non rewrite
-				/* <a href="/gallery/index.php?album=<? echo $photoPath; ?>&amp;image=<? echo $photoUrl; ?>"><img src="/gallery/cache/<? echo $photoPath; ?>/<? echo $photoUrl; ?>_<?php echo $thumbsize; ?>.jpg" alt="<? echo $photoTitle; ?>" title="<? echo $photoTitle; ?>" /></a> */
+				/* <a href="/gallery/index.php?album=<?php echo $photoPath; ?>&amp;image=<?php echo $photoUrl; ?>"><img src="/gallery/cache/<?php echo $photoPath; ?>/<?php echo $photoUrl; ?>_<?php echo $thumbsize; ?>.jpg" alt="<?php echo $photoTitle; ?>" title="<?php echo $photoTitle; ?>" /></a> */
 				
 				$imagePageLink = GALLERY_PATH."/$photoPath/$photoUrl.html";
 				$albumPageLink = GALLERY_PATH."/$photoPath/";
@@ -209,18 +209,18 @@ function drawImageGallery($galleryResult, $type='')
 				$thumbUrl = replace_filename_with_cache_thumbnail_version($photoUrl);
 				$imageUrl = GALLERY_PATH."/cache/$photoPath/$thumbUrl";
 ?>
-<td class="i" <?=$style ?>>
-	<a href="<?=$imagePageLink?>">
-		<img src="<?=$imageUrl ?>" alt="<? echo $photoAltTag; ?>" title="<? echo $photoAltTag; ?>" />
+<td class="i" <?php echo $style ?>>
+	<a href="<?php echo $imagePageLink?>">
+		<img src="<?php echo $imageUrl ?>" alt="<?php echo $photoAltTag; ?>" title="<?php echo $photoAltTag; ?>" />
 	</a>
 	<div class="imagetitle">
-		<h4><a href="<?=$imagePageLink; ?>"><?=$photoTitle; ?></a></h4>
+		<h4><a href="<?php echo $imagePageLink; ?>"><?php echo $photoTitle; ?></a></h4>
 		<?php echo $photoDesc; ?>	
-		<small><?=$photoDate?><?=$photoStatsText?></small><br/>
-		In Album: <a href="<?=$albumPageLink; ?>"><?=$photoAlbumTitle; ?></a>
+		<small><?php echo $photoDate?><?php echo $photoStatsText?></small><br/>
+		In Album: <a href="<?php echo $albumPageLink; ?>"><?php echo $photoAlbumTitle; ?></a>
 	</div>
 </td>
-<?
+<?php
 				$j++;
 				$i++;
 		
@@ -247,16 +247,16 @@ function drawImageOrAlbumSearchForm()
 	?>
 <h4>Search For:</h4>
 <div class="album">
-<form name="SearchForm" id="SearchForm" method="get" action="<?=GALLERY_PATH?>/search/"><p>
-<input type="text" name="search" id="search" size="40" value="<?=$search?>" />
+<form name="SearchForm" id="SearchForm" method="get" action="<?php echo GALLERY_PATH?>/search/"><p>
+<input type="text" name="search" id="search" size="40" value="<?php echo $search?>" />
 <input type="submit" value="Search" /><br/>
-<table><tr><td><label for="type2">Albums: </label></td><td><input type="radio" name="type" id="type" value="albums" <?=$albumChecked?>/></td>
-<td><label for="type1">Images: </label></td><td><input type="radio" name="type" id="type" value="images" <?=$imageChecked?>/></td></tr></table>
+<table><tr><td><label for="type2">Albums: </label></td><td><input type="radio" name="type" id="type" value="albums" <?php echo $albumChecked?>/></td>
+<td><label for="type1">Images: </label></td><td><input type="radio" name="type" id="type" value="images" <?php echo $imageChecked?>/></td></tr></table>
 </form>
 </div>
 <h4>Recent Uploads:</h4>
-<p><a href="<?=UPDATES_URL_PATH?>">View recently uploaded photos</a></p>
-<?
+<p><a href="<?php echo UPDATES_URL_PATH?>">View recently uploaded photos</a></p>
+<?php
 
 }
 
@@ -440,10 +440,10 @@ function drawAlbums($galleryResult, $error = false, $search = false)
 					$photoDesc = 'Description: '.$photoDesc;
 				}
 ?>
-<td class="i"><a href="<?=GALLERY_PATH ?>/<? echo $photoPath; ?>/"><img src="<?=$photoUrl ?>" alt="<? echo $photoAlbumTitle; ?>" title="<? echo $photoAlbumTitle; ?>" /></a>
-	<br/><div class="imagetitle"><h4><a href="<?=GALLERY_PATH ?>/<? echo $photoPath; ?>/"><? echo $photoAlbumTitle; ?></a></h4>
-	<small><?=$albumDate?></small></div></td>
-<?
+<td class="i"><a href="<?php echo GALLERY_PATH ?>/<?php echo $photoPath; ?>/"><img src="<?php echo $photoUrl ?>" alt="<?php echo $photoAlbumTitle; ?>" title="<?php echo $photoAlbumTitle; ?>" /></a>
+	<br/><div class="imagetitle"><h4><a href="<?php echo GALLERY_PATH ?>/<?php echo $photoPath; ?>/"><?php echo $photoAlbumTitle; ?></a></h4>
+	<small><?php echo $albumDate?></small></div></td>
+<?php
 				$j++;
 				$i++;
 			

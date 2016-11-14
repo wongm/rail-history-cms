@@ -30,7 +30,7 @@ $types = $_REQUEST["types"];
 <link rel="stylesheet" type="text/css" href="/common/css/style.css" media="all" title="Normal" />
 <link rel="stylesheet" type="text/css" href="/common/css/aerialstyle.css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<?=GOOGLE_KEY?>" type="text/javascript"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<?php echo GOOGLE_KEY?>" type="text/javascript"></script>
 <script src="/common/js/functions.js" type="text/javascript"></script>
 <script src="/common/js/aerialfunctions.js" type="text/javascript"></script></head>
 <script type="text/javascript">
@@ -220,7 +220,7 @@ function getIcon(t) {
 <a href="#" onclick="selectAll(this.parentNode,'all')" alt="Select All" title="Select All">[A]</a> <a href="#" onclick="selectAll(this.parentNode,'none')" alt="Unselect All" title="Unselect All">[N]</a>
 </form>
 
-<form name="customlines" id="customlines"><?	
+<form name="customlines" id="customlines"><?php 
 $result = MYSQL_QUERY("SELECT * FROM raillines WHERE todisplay != 'hide' ORDER BY name", locationDBconnect());
 $numberOfRows = MYSQL_NUMROWS($result);
 if ($numberOfRows>0) 
@@ -229,8 +229,8 @@ if ($numberOfRows>0)
 	{
 		$thisLine_id = stripslashes(MYSQL_RESULT($result,$i,"line_id"));
 		$thisName = stripslashes(MYSQL_RESULT($result,$i,"name"));	?>
-<label for="<? echo $thisLine_id?>"><? echo $thisName?>: </label><input onclick="update()" type="checkbox" name="<? echo $thisLine_id?>" id="<? echo $thisLine_id?>" />
-<?	} // end while loop
+<label for="<?php echo $thisLine_id?>"><?php echo $thisName?>: </label><input onclick="update()" type="checkbox" name="<?php echo $thisLine_id?>" id="<?php echo $thisLine_id?>" />
+<?php } // end while loop
 }	?>
 <a href="#" onclick="selectAll(this.parentNode,'all')" alt="Select All" title="Select All">[A]</a> <a href="#" onclick="selectAll(this.parentNode,'none')" alt="Unselect All" title="Unselect All">[N]</a>
 </form>

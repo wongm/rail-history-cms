@@ -31,23 +31,23 @@ drawSourceHelpText();
 <form name="sourcesUpdateForm" method="POST" action="updateSources.php">
 
 <table cellspacing="2" cellpadding="2" border="0" width="100%">
-<input type="hidden" name="thisSource_idField" value="<? echo $thisSource_id; ?>">
+<input type="hidden" name="thisSource_idField" value="<?php echo $thisSource_id; ?>">
 
 	<tr valign="top" height="20">
 		<td align="right"> <b> Source_id :  </b> </td>
-		<td><? echo $thisSource_id; ?></td> 
+		<td><?php echo $thisSource_id; ?></td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Short :  </b> </td>
-		<td> <textarea name="thisShortField" wrap="VIRTUAL" cols="80" rows="1"><? echo $thisShort; ?></textarea>  </td> 
+		<td> <textarea name="thisShortField" wrap="VIRTUAL" cols="80" rows="1"><?php echo $thisShort; ?></textarea>  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Name :  </b> </td>
-		<td> <textarea type="text" name="thisNameField" wrap="VIRTUAL" cols="80" rows="1"><? echo $thisName; ?></textarea>  </td> 
+		<td> <textarea type="text" name="thisNameField" wrap="VIRTUAL" cols="80" rows="1"><?php echo $thisName; ?></textarea>  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Details :  </b> </td>
-		<td> <textarea type="text" name="thisDetailsField" wrap="VIRTUAL" cols="80" rows="5"><? echo $thisDetails; ?></textarea>  </td> 
+		<td> <textarea type="text" name="thisDetailsField" wrap="VIRTUAL" cols="80" rows="5"><?php echo $thisDetails; ?></textarea>  </td> 
 	</tr>
 </table>
 

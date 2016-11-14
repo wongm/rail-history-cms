@@ -5,20 +5,20 @@
 	
 	drawRaillineTypeFields($type)
 	
-	<? drawLineNameSelectFields($currentLineId); ?>
-	<? drawLocationNameSelectFields($currentLocationId)	; ?>
-	<? drawSourcesSelectFields($currentSourceId); ?>
-	<? drawApproxDistanceFields($thisKmAccuracy); ?>
-	<? drawApproxTimeFields($thisApprox); ?>
-	<? drawLocationDisplayTypeFields($thisDisplay); ?>
-	<? drawLineDisplayTypeFields($thisDisplay); ?>
-	<? drawLocationTypeFields($thisType); ?>
-	<? drawLocationLxEventFields($thisDetails); ?>
-	<? drawAddNewRailineEvent(); ?>
-	<? drawAddNewLocationEvent(); ?>
-	<? drawSafeworkingWhyFields($thisSafeworkingWhy); ?>
-	<? drawSafeworkingNameSelectFields($thisSafeworking); ?>
-	<? drawGaugeFields($thisGauge); ?>
+	<?php drawLineNameSelectFields($currentLineId); ?>
+	<?php drawLocationNameSelectFields($currentLocationId)	; ?>
+	<?php drawSourcesSelectFields($currentSourceId); ?>
+	<?php drawApproxDistanceFields($thisKmAccuracy); ?>
+	<?php drawApproxTimeFields($thisApprox); ?>
+	<?php drawLocationDisplayTypeFields($thisDisplay); ?>
+	<?php drawLineDisplayTypeFields($thisDisplay); ?>
+	<?php drawLocationTypeFields($thisType); ?>
+	<?php drawLocationLxEventFields($thisDetails); ?>
+	<?php drawAddNewRailineEvent(); ?>
+	<?php drawAddNewLocationEvent(); ?>
+	<?php drawSafeworkingWhyFields($thisSafeworkingWhy); ?>
+	<?php drawSafeworkingNameSelectFields($thisSafeworking); ?>
+	<?php drawGaugeFields($thisGauge); ?>
 	
 	
 	
@@ -41,9 +41,9 @@ function drawSourceHelpText()
 function drawRaillineTypeFields($type)
 {
 	?>
-		<option <? if ($type == 'main'){echo selected;} ?> value="main">Main</option>
-		<option <? if ($type == 'branch'){echo selected;} ?> value="branch">Branch</option>
-<?
+		<option <?php if ($type == 'main'){echo selected;} ?> value="main">Main</option>
+		<option <?php if ($type == 'branch'){echo selected;} ?> value="branch">Branch</option>
+<?php
 }	// end function	
 
 function drawHeadbar($thisKm, $thisLine)
@@ -74,52 +74,52 @@ function drawHeadbar($thisKm, $thisLine)
 	?>
 <!-- next / back links -->
 <div class="pagelist">
-	<div class="prev"><? echo $back; ?></div>
-	<div class="next"><? echo $next; ?></div>
+	<div class="prev"><?php echo $back; ?></div>
+	<div class="next"><?php echo $next; ?></div>
 </div>
-<?
+<?php
 	}
 }	// end function
 
 function drawLocationTabDisplayFields($tabdisplay, $lineName)
 {
 	?>
-<label><input type="checkbox" <? if (substr($tabdisplay, 4, 1) == 1) { echo 'checked="yes"'; } ?> name="showTrack" /> Track diagram
+<label><input type="checkbox" <?php if (substr($tabdisplay, 4, 1) == 1) { echo 'checked="yes"'; } ?> name="showTrack" /> Track diagram
 	<small>(exact type depends on options selected below)</small></label><br>
-<label><input type="checkbox" <? if (substr($tabdisplay, 3, 1) == 1) { echo 'checked="yes"'; } ?> name="showSafeworking" /> Safeworking diagram</label><br>
-<label><input type="checkbox" <? if (substr($tabdisplay, 2, 1) == 1) { echo 'checked="yes"'; } ?> name="showEvents" /> Events</label><br>
-<label><input type="checkbox" <? if (substr($tabdisplay, 1, 1) == 1) { echo 'checked="yes"'; } ?> name="showLocations" /> Locations</label><br>
-<label><input type="checkbox" <? if (file_exists($_SERVER['DOCUMENT_ROOT'].'/images/kml-'.$lineName.'.kml')) { echo 'checked="yes"'; } ?> /> Google map
-	<small>(user can't change, requires existance of "/images/kml/kml-<?=$lineName?>.kml")</small></label><br>
-<label><input type="checkbox" <? if ($tabdisplay == 'hide' ) { echo 'checked="yes"'; } ?> name="hideAll" /> Hide line and all locations</label>
-<?
+<label><input type="checkbox" <?php if (substr($tabdisplay, 3, 1) == 1) { echo 'checked="yes"'; } ?> name="showSafeworking" /> Safeworking diagram</label><br>
+<label><input type="checkbox" <?php if (substr($tabdisplay, 2, 1) == 1) { echo 'checked="yes"'; } ?> name="showEvents" /> Events</label><br>
+<label><input type="checkbox" <?php if (substr($tabdisplay, 1, 1) == 1) { echo 'checked="yes"'; } ?> name="showLocations" /> Locations</label><br>
+<label><input type="checkbox" <?php if (file_exists($_SERVER['DOCUMENT_ROOT'].'/images/kml-'.$lineName.'.kml')) { echo 'checked="yes"'; } ?> /> Google map
+	<small>(user can't change, requires existance of "/images/kml/kml-<?php echo $lineName?>.kml")</small></label><br>
+<label><input type="checkbox" <?php if ($tabdisplay == 'hide' ) { echo 'checked="yes"'; } ?> name="hideAll" /> Hide line and all locations</label>
+<?php
 }
 
 function drawGaugeFields($thisGauge)
 {
 	?>
-		<option <? if ($thisGauge == 'bg'){echo selected;} ?> value="bg">BG</option>
-		<option <? if ($thisGauge == 'sg'){echo selected;} ?> value="sg">SG</option>
-		<option <? if ($thisGauge == 'dg'){echo selected;} ?> value="dg">DG</option>
-		<option <? if ($thisGauge == 'ng'){echo selected;} ?> value="ng">NG</option>
+		<option <?php if ($thisGauge == 'bg'){echo selected;} ?> value="bg">BG</option>
+		<option <?php if ($thisGauge == 'sg'){echo selected;} ?> value="sg">SG</option>
+		<option <?php if ($thisGauge == 'dg'){echo selected;} ?> value="dg">DG</option>
+		<option <?php if ($thisGauge == 'ng'){echo selected;} ?> value="ng">NG</option>
 		<option value="bg">BG</option>
-<?
+<?php
 }
 
 
 function drawSafeworkingWhyFields($thisSafeworkingWhy)
 {
 	?>
-		<option <? if ($thisSafeworkingWhy == 'replaced'){echo selected;} ?> value="replaced">New replaced old</option>
-		<option <? if ($thisSafeworkingWhy == 'block'){echo selected;} ?> value="block">Block point opened</option>
-		<option <? if ($thisSafeworkingWhy == 'station'){echo selected;} ?> value="station">Station opened</option>
-		<option <? if ($thisSafeworkingWhy == 'closed'){echo selected;} ?> value="closed">Location closed</option>
-		<option <? if ($thisSafeworkingWhy == 'singled'){echo selected;} ?> value="singled">Singled line (non-SW)</option>
-		<option <? if ($thisSafeworkingWhy == 'opened'){echo selected;} ?> value="opened">Opened line (non-SW)</option>
-		<option <? if ($thisSafeworkingWhy == 'downgrade'){echo selected;} ?> value="downgrade">Downgrade</option>
-		<option <? if ($thisSafeworkingWhy == 'plain'){echo selected;} ?> value="plain">[Show plain]</option>
+		<option <?php if ($thisSafeworkingWhy == 'replaced'){echo selected;} ?> value="replaced">New replaced old</option>
+		<option <?php if ($thisSafeworkingWhy == 'block'){echo selected;} ?> value="block">Block point opened</option>
+		<option <?php if ($thisSafeworkingWhy == 'station'){echo selected;} ?> value="station">Station opened</option>
+		<option <?php if ($thisSafeworkingWhy == 'closed'){echo selected;} ?> value="closed">Location closed</option>
+		<option <?php if ($thisSafeworkingWhy == 'singled'){echo selected;} ?> value="singled">Singled line (non-SW)</option>
+		<option <?php if ($thisSafeworkingWhy == 'opened'){echo selected;} ?> value="opened">Opened line (non-SW)</option>
+		<option <?php if ($thisSafeworkingWhy == 'downgrade'){echo selected;} ?> value="downgrade">Downgrade</option>
+		<option <?php if ($thisSafeworkingWhy == 'plain'){echo selected;} ?> value="plain">[Show plain]</option>
 		<option value="replaced"></option>
-<?
+<?php
 }
 
 function drawSafeworkingNameSelectFields($thisSafeworking)
@@ -150,8 +150,8 @@ function drawSafeworkingNameSelectFields($thisSafeworking)
 				$selected = '';
 			}
 		?>
-			<option <? echo $selected; ?> value="<? echo $thisType?>"><? echo $thisName.' ('.$thisType.')'?></option>
-		<?
+			<option <?php echo $selected; ?> value="<?php echo $thisType?>"><?php echo $thisName.' ('.$thisType.')'?></option>
+		<?php
 		} // end while loop
 	}
 }
@@ -160,32 +160,32 @@ function drawLocationLxEventFields($thisDetails)
 {
 ?>
 		<option selected value=""></option>
-		<option <? if ($thisDetails == '8'){echo selected;} ?> value="8">Crossing</option>
-		<option <? if ($thisDetails == '9'){echo selected;} ?> value="9">Flashing lights</option>
-		<option <? if ($thisDetails == '10'){echo selected;} ?> value="10">Boom barriers</option>
-		<option <? if ($thisDetails == '11'){echo selected;} ?> value="11">BB and BG</option>
-		<option <? if ($thisDetails == '12'){echo selected;} ?> value="12">BG</option>
-		<option <? if ($thisDetails == '13'){echo selected;} ?> value="13">Hand gates</option>
-		<option <? if ($thisDetails == '14'){echo selected;} ?> value="14">CC</option>
-		<option <? if ($thisDetails == '38'){echo selected;} ?> value="38">Interlocked gates</option>
-		<option <? if ($thisDetails == '39'){echo selected;} ?> value="39">Wicket Gates</option>
-		<option <? if ($thisDetails == '1'){echo selected;} ?> value="1">Underpass</option>
-		<option <? if ($thisDetails == '2'){echo selected;} ?> value="2">Overpass</option>
-		<option <? if ($thisDetails == '3'){echo selected;} ?> value="3">Subway</option>
-		<option <? if ($thisDetails == '4'){echo selected;} ?> value="4">Footbridge</option>	
-<?
+		<option <?php if ($thisDetails == '8'){echo selected;} ?> value="8">Crossing</option>
+		<option <?php if ($thisDetails == '9'){echo selected;} ?> value="9">Flashing lights</option>
+		<option <?php if ($thisDetails == '10'){echo selected;} ?> value="10">Boom barriers</option>
+		<option <?php if ($thisDetails == '11'){echo selected;} ?> value="11">BB and BG</option>
+		<option <?php if ($thisDetails == '12'){echo selected;} ?> value="12">BG</option>
+		<option <?php if ($thisDetails == '13'){echo selected;} ?> value="13">Hand gates</option>
+		<option <?php if ($thisDetails == '14'){echo selected;} ?> value="14">CC</option>
+		<option <?php if ($thisDetails == '38'){echo selected;} ?> value="38">Interlocked gates</option>
+		<option <?php if ($thisDetails == '39'){echo selected;} ?> value="39">Wicket Gates</option>
+		<option <?php if ($thisDetails == '1'){echo selected;} ?> value="1">Underpass</option>
+		<option <?php if ($thisDetails == '2'){echo selected;} ?> value="2">Overpass</option>
+		<option <?php if ($thisDetails == '3'){echo selected;} ?> value="3">Subway</option>
+		<option <?php if ($thisDetails == '4'){echo selected;} ?> value="4">Footbridge</option>	
+<?php
 }
 
 function drawLineDisplayTypeFields($thisTodisplay)
 {
 	?>
-		<option <? if ($thisTodisplay == 'both'){echo selected;} ?> value="both">All</option>
-		<option <? if ($thisTodisplay == 'nosafeevent'){echo selected;} ?> value="nosafeevent">Diagram Only</option>
-		<option <? if ($thisTodisplay == 'diagramonly'){echo selected;} ?> value="diagramonly">Diagram and Events Only</option>
-		<option <? if ($thisTodisplay == 'safeworkingonly'){echo selected;} ?> value="safeworking">Safeworking and Events Only</option>
-		<option <? if ($thisTodisplay == 'none'){echo selected;} ?> value="none">None</option>
-		<option <? if ($thisTodisplay == 'hide'){echo selected;} ?> value="hide">Hide - Don't show any</option>
-<?
+		<option <?php if ($thisTodisplay == 'both'){echo selected;} ?> value="both">All</option>
+		<option <?php if ($thisTodisplay == 'nosafeevent'){echo selected;} ?> value="nosafeevent">Diagram Only</option>
+		<option <?php if ($thisTodisplay == 'diagramonly'){echo selected;} ?> value="diagramonly">Diagram and Events Only</option>
+		<option <?php if ($thisTodisplay == 'safeworkingonly'){echo selected;} ?> value="safeworking">Safeworking and Events Only</option>
+		<option <?php if ($thisTodisplay == 'none'){echo selected;} ?> value="none">None</option>
+		<option <?php if ($thisTodisplay == 'hide'){echo selected;} ?> value="hide">Hide - Don't show any</option>
+<?php
 }			
 	
 
@@ -218,8 +218,8 @@ function drawLineNameSelectFields($currentLineId)
 				$selected = '';
 			}
 		?>
-		<option value="<? echo $thisLoopLine_id?>" <? echo $selected?> ><? echo $thisName?></option>
-	<?	
+		<option value="<?php echo $thisLoopLine_id?>" <?php echo $selected?> ><?php echo $thisName?></option>
+	<?php 
 
 		} 	// end while loop
 	}		// end if
@@ -265,8 +265,8 @@ function drawLocationNameSelectFields($currentLocationId, $google=false)
 				$selected = '';
 			}
 ?>
-		<option <?=$selected?> value="<?=$thisLocation_id?>"><?=$thisName?> (<?=$thisLocation_id?>)</option>
-<?
+		<option <?php echo $selected?> value="<?php echo $thisLocation_id?>"><?php echo $thisName?> (<?php echo $thisLocation_id?>)</option>
+<?php
 		} // end while loop
 	} //end if
 }
@@ -299,8 +299,8 @@ function drawSourcesSelectFields($currentSourceId)
 				$selected = '';
 			}
 	?>
-		<option <?=$selected?> value="<? echo $thisSourceId?>" ><? echo $thisName?></option>
-	<?
+		<option <?php echo $selected?> value="<?php echo $thisSourceId?>" ><?php echo $thisName?></option>
+	<?php
 		} // end while loop
 	}
 }	// end function
@@ -309,32 +309,32 @@ function drawSourcesSelectFields($currentSourceId)
 function drawApproxDistanceFields($thisKmAccuracy)
 {
 	?>
-		<option <? if ($thisKmAccuracy == 'exact'){echo selected;} ?> value="exact">Exact</option>
-		<option <? if ($thisKmAccuracy == 'approx'){echo selected;} ?> value="approx">Approx</option>
-		<option <? if ($thisKmAccuracy == 'hide'){echo selected;} ?> value="hide">Hide</option>
-<?
+		<option <?php if ($thisKmAccuracy == 'exact'){echo selected;} ?> value="exact">Exact</option>
+		<option <?php if ($thisKmAccuracy == 'approx'){echo selected;} ?> value="approx">Approx</option>
+		<option <?php if ($thisKmAccuracy == 'hide'){echo selected;} ?> value="hide">Hide</option>
+<?php
 }	// end function	
 
 function drawApproxTimeFields($thisApprox)
 {
 	?>
 		<option selected value="exact">Exact</option>
-		<option <? if ($thisApprox == 'approx'){echo selected;} ?> value="approx">Approx</option>
-		<option <? if ($thisApprox == 'decade'){echo selected;} ?> value="decade">Decade</option>
-		<option <? if ($thisApprox == 'year'){echo selected;} ?> value="year">Year Only</option>
-		<option <? if ($thisApprox == 'month'){echo selected;} ?> value="month">Year and Month</option>
-<?
+		<option <?php if ($thisApprox == 'approx'){echo selected;} ?> value="approx">Approx</option>
+		<option <?php if ($thisApprox == 'decade'){echo selected;} ?> value="decade">Decade</option>
+		<option <?php if ($thisApprox == 'year'){echo selected;} ?> value="year">Year Only</option>
+		<option <?php if ($thisApprox == 'month'){echo selected;} ?> value="month">Year and Month</option>
+<?php
 }	// end function		
 
 function drawLocationDisplayTypeFields($thisDisplay)
 {
 ?>		
-		<option <? if ($thisDisplay == 'both'){echo selected;} ?> value="both">Everywhere [Default]</option>
-		<option <? if ($thisDisplay == 'map'){echo selected;} ?> value="map">Except Lineguide</option>
-		<option <? if ($thisDisplay == 'tracks'){echo selected;} ?> value="tracks">Only Lineguide</option>
-		<option <? if ($thisDisplay == 'none'){echo selected;} ?> value="none">Hide diagrams on own page</option>
-		<option <? if ($thisDisplay == 'line'){echo selected;} ?> value="line">Depreciated (line linker)</option>
-<?
+		<option <?php if ($thisDisplay == 'both'){echo selected;} ?> value="both">Everywhere [Default]</option>
+		<option <?php if ($thisDisplay == 'map'){echo selected;} ?> value="map">Except Lineguide</option>
+		<option <?php if ($thisDisplay == 'tracks'){echo selected;} ?> value="tracks">Only Lineguide</option>
+		<option <?php if ($thisDisplay == 'none'){echo selected;} ?> value="none">Hide diagrams on own page</option>
+		<option <?php if ($thisDisplay == 'line'){echo selected;} ?> value="line">Depreciated (line linker)</option>
+<?php
 }	// end function		
 
 function drawLocationTypeFields($thisType)
@@ -368,8 +368,8 @@ function drawLocationTypeFields($thisType)
 				$selected = '';
 			}
 ?>
-		<option value="<? echo $thisType_id?>" <? echo $selected?> ><? echo $thisBasic?> - <? echo $thisMore?> - <? echo $thisSpecific?></option>
-<?
+		<option value="<?php echo $thisType_id?>" <?php echo $selected?> ><?php echo $thisBasic?> - <?php echo $thisMore?> - <?php echo $thisSpecific?></option>
+<?php
 		} // end while loop
 	}
 }	// end function		
@@ -390,14 +390,14 @@ function drawAddNewRailineEvent()
 	<tr valign="top" height="20">
 		<td align="right"> <b> Approx? :  </b> </td>
 		<td> <select name="thisApproxField">
-<? drawApproxTimeFields(); ?> 
+<?php drawApproxTimeFields(); ?> 
 		</select></td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Display :  </b> </td>
 		<td> <select name="thisDisplayField">
-		<option <? if ($thisDisplay == 'yes'){echo selected;} ?> value="Yes">Yes</option>
-		<option <? if ($thisDisplay == 'hide'){echo selected;} ?> value="Hide">Hide</option></select></td> 
+		<option <?php if ($thisDisplay == 'yes'){echo selected;} ?> value="Yes">Yes</option>
+		<option <?php if ($thisDisplay == 'hide'){echo selected;} ?> value="Hide">Hide</option></select></td> 
 	</tr>
 	
 	<tr valign="top" height="20">
@@ -406,7 +406,7 @@ function drawAddNewRailineEvent()
 	
 	<tr valign="top" height="20">
 		<td align="right"> <b> Description :  </b> </td>
-		<td> <input type="text" name="thisDescriptionField" size="50" value="<? echo $thisDescription; ?>">  </td> 
+		<td> <input type="text" name="thisDescriptionField" size="50" value="<?php echo $thisDescription; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right">OR</td>
@@ -416,7 +416,7 @@ function drawAddNewRailineEvent()
 	<tr valign="top" height="20">
 		<td align="right"> <b> Start Location:  </b> </td>
 		<td> <select name="thisStart_locationField">
-<? drawLocationNameSelectFields()	; ?>	
+<?php drawLocationNameSelectFields()	; ?>	
 		</select></td>
 	</tr>
 	
@@ -424,7 +424,7 @@ function drawAddNewRailineEvent()
 	<tr valign="top" height="20">
 		<td align="right"> <b> End Location:  </b> </td>
 		<td> <select name="thisEnd_locationField">
-<? drawLocationNameSelectFields()	; ?>	
+<?php drawLocationNameSelectFields()	; ?>	
 		</select></td>
 	</tr>
 	
@@ -465,8 +465,8 @@ function drawAddNewRailineEvent()
 				$selected = '';
 			}
 		?>
-			<option <? echo $selected; ?> value="<? echo $thisType?>"><? echo $thisName.' ('.$thisType.')'?></option>
-		<?
+			<option <?php echo $selected; ?> value="<?php echo $thisType?>"><?php echo $thisName.' ('.$thisType.')'?></option>
+		<?php
 			
 		} // end while loop
 }?>
@@ -476,23 +476,23 @@ function drawAddNewRailineEvent()
 	<tr valign="top" height="20">
 		<td align="right"> <b> Middle Location (optional) :  </b> </td>
 		<td> <select name="thisSafeworkingMiddleField">
-<? drawLocationNameSelectFields()	; ?>	
+<?php drawLocationNameSelectFields()	; ?>	
 		</select></td>
 	</tr>
 	
 <tr valign="top" height="20">
 	<td align="right"> <b> Reason For Above? :  </b> </td>
 	<td><select name="thisSafeworkingWhyField">
-<? drawSafeworkingWhyFields($thisSafeworkingWhy); ?>
+<?php drawSafeworkingWhyFields($thisSafeworkingWhy); ?>
 </tr>
 
 	<tr valign="top" height="20">
 		<td align="right"> <b> Gauge :  </b> </td>
 		<td><select name="thisGaugeField">
-<? drawGaugeFields($thisGauge); ?>
+<?php drawGaugeFields($thisGauge); ?>
 		</select></td>
 	</tr>
-<?
+<?php
 }	// end function
 
 
@@ -508,9 +508,9 @@ function  drawAddNewLocationEvent()
 		<td align="right"> <b> Approx? :  </b> </td>
 		<td> <select name="thisApproxField">
 		<option selected value="exact">Exact</option>
-		<option <? if ($thisApprox == 'approx'){echo selected;} ?> value="approx">Approx</option>
-		<option <? if ($thisApprox == 'year'){echo selected;} ?> value="year">Year Only</option>
-		<option <? if ($thisApprox == 'month'){echo selected;} ?> value="month">Year and Month</option></select></td> 
+		<option <?php if ($thisApprox == 'approx'){echo selected;} ?> value="approx">Approx</option>
+		<option <?php if ($thisApprox == 'year'){echo selected;} ?> value="year">Year Only</option>
+		<option <?php if ($thisApprox == 'month'){echo selected;} ?> value="month">Year and Month</option></select></td> 
 </tr>
 <tr valign="top" height="20">
 	<td align="right"> <b> Details :  </b> </td>
@@ -521,36 +521,36 @@ function  drawAddNewLocationEvent()
 		<b>Replaces Details!</b> </td>
 		<td><select name="thisLxDetailsField">
 		<option selected value=""></option>
-		<option <? if ($thisDetails == '8'){echo selected;} ?> value="8">Crossing</option>
-		<option <? if ($thisDetails == '9'){echo selected;} ?> value="9">Flashing lights</option>
-		<option <? if ($thisDetails == '10'){echo selected;} ?> value="10">Boom barriers</option>
-		<option <? if ($thisDetails == '11'){echo selected;} ?> value="11">BB and BG</option>
-		<option <? if ($thisDetails == '12'){echo selected;} ?> value="12">BG</option>
-		<option <? if ($thisDetails == '13'){echo selected;} ?> value="13">Hand gates</option>
-		<option <? if ($thisDetails == '14'){echo selected;} ?> value="14">CC</option>
-		<option <? if ($thisDetails == '38'){echo selected;} ?> value="38">Interlocked gates</option>
-		<option <? if ($thisDetails == '39'){echo selected;} ?> value="39">Wicket Gates</option>
-		<option <? if ($thisDetails == '1'){echo selected;} ?> value="1">Underpass</option>
-		<option <? if ($thisDetails == '2'){echo selected;} ?> value="2">Overpass</option>
-		<option <? if ($thisDetails == '3'){echo selected;} ?> value="3">Subway</option>
-		<option <? if ($thisDetails == '4'){echo selected;} ?> value="4">Footbridge</option></select></td> 
+		<option <?php if ($thisDetails == '8'){echo selected;} ?> value="8">Crossing</option>
+		<option <?php if ($thisDetails == '9'){echo selected;} ?> value="9">Flashing lights</option>
+		<option <?php if ($thisDetails == '10'){echo selected;} ?> value="10">Boom barriers</option>
+		<option <?php if ($thisDetails == '11'){echo selected;} ?> value="11">BB and BG</option>
+		<option <?php if ($thisDetails == '12'){echo selected;} ?> value="12">BG</option>
+		<option <?php if ($thisDetails == '13'){echo selected;} ?> value="13">Hand gates</option>
+		<option <?php if ($thisDetails == '14'){echo selected;} ?> value="14">CC</option>
+		<option <?php if ($thisDetails == '38'){echo selected;} ?> value="38">Interlocked gates</option>
+		<option <?php if ($thisDetails == '39'){echo selected;} ?> value="39">Wicket Gates</option>
+		<option <?php if ($thisDetails == '1'){echo selected;} ?> value="1">Underpass</option>
+		<option <?php if ($thisDetails == '2'){echo selected;} ?> value="2">Overpass</option>
+		<option <?php if ($thisDetails == '3'){echo selected;} ?> value="3">Subway</option>
+		<option <?php if ($thisDetails == '4'){echo selected;} ?> value="4">Footbridge</option></select></td> 
 	</tr>
 <tr valign="top" height="20">
 	<td align="right"> <b> Diagram Changed :  </b> </td>
 	<td> <input type="checkbox" name="thisDiagramField" >  </td> 
 </tr>
-<?
+<?php
 }
 
 function drawEditLineHeadbar($lineLink)
 {
 	?>
 <div class="headbar">
-<a href="editLines.php?line=<? echo $lineLink; ?>">Details</a> :: 
-<a href="listLineLocations.php?line=<? echo $lineLink; ?>">Locations</a> :: 
-<a href="listLineEvents.php?line=<? echo $lineLink; ?>">Events</a>
+<a href="editLines.php?line=<?php echo $lineLink; ?>">Details</a> :: 
+<a href="listLineLocations.php?line=<?php echo $lineLink; ?>">Locations</a> :: 
+<a href="listLineEvents.php?line=<?php echo $lineLink; ?>">Events</a>
 </div>
-<?
+<?php
 }
 
 
@@ -573,7 +573,7 @@ function drawObjectSources($type, $objectID)
 	<th align='left'>Edit?</th>
 	<th align='left'>Delete?</th>
 </tr>
-<?
+<?php
 // gets the sources for this location
 $sql3 = "SELECT * FROM object_sources, sources WHERE object_sources.source_id = sources.source_id AND `".$type."_id` = '".$objectID."'";
 $result3 = MYSQL_QUERY($sql3);
@@ -604,15 +604,15 @@ if ($numberOfRows3>0)
 		if (($i3%2)==0) { $bgColor = "odd"; } else { $bgColor = "even"; }
 		
 		?>
-<tr class="<? echo $bgColor; ?>">
-	<td ALIGN='CENTER'><? echo $sourceName; ?></td>
-	<td><? echo $extra; ?> </td>
-	<td><? echo $page; ?> </td>
-	<td><? echo $date; ?> </td>
-	<td><? echo $url; ?> </td>
-	<td><a href="editObjectSources.php?type=<?=$type?>&id=<? echo $uniqueId; ?>">Edit?</a></td>
-	<td><a href="confirmDeleteObjectSources.php?type=<?=$type?>&id=<? echo $uniqueId; ?>">Delete?</a></td>
-</tr>	<?
+<tr class="<?php echo $bgColor; ?>">
+	<td ALIGN='CENTER'><?php echo $sourceName; ?></td>
+	<td><?php echo $extra; ?> </td>
+	<td><?php echo $page; ?> </td>
+	<td><?php echo $date; ?> </td>
+	<td><?php echo $url; ?> </td>
+	<td><a href="editObjectSources.php?type=<?php echo $type?>&id=<?php echo $uniqueId; ?>">Edit?</a></td>
+	<td><a href="confirmDeleteObjectSources.php?type=<?php echo $type?>&id=<?php echo $uniqueId; ?>">Delete?</a></td>
+</tr>	<?php
 	} // end for loop
 } //end if
 else
@@ -628,7 +628,7 @@ else
 <table>
 <tr><td><b> Source :  </b></td><td>
 <select name="thisSourceIdField">	
-<? drawSourcesSelectFields(''); ?>
+<?php drawSourcesSelectFields(''); ?>
 </select></td></tr>
 <tr><td><b>Extra : </b></td><td><input type="text" name="thisExtraField" size="30"></td></tr>
 <tr><td><b>URL : </b></td><td><input type="text" name="thisURLField" size="30"></td></tr>
@@ -636,12 +636,12 @@ else
 <tr><td><b>Page : </b></td><td><input type="text" name="thisPageField" size="30"></td></tr>
 <tr><td><b>Date : </b></td><td><input type="text" name="thisDateField" size="30"></td></tr>
 </table>
-<input type="hidden" name="thisObjectIdField" value="<? echo $objectID; ?>">
-<input type="hidden" name="type" value="<?=$type?>">
-<input type="submit" name="submitObjectSourcesForm" value="Enter New <?=$niceName?> Source">
+<input type="hidden" name="thisObjectIdField" value="<?php echo $objectID; ?>">
+<input type="hidden" name="type" value="<?php echo $type?>">
+<input type="submit" name="submitObjectSourcesForm" value="Enter New <?php echo $niceName?> Source">
 </form>
 </fieldset>
-<?
+<?php
 
 } /// end function
 
@@ -680,8 +680,8 @@ function drawRegionSelectFields($currentRegionId)
 				$selected = '';
 			}
 ?>
-		<option <?=$selected?> value="<?=$thisRegion_id?>"><?=$thisName?> (<?=$thisRegion_id?>)</option>
-<?
+		<option <?php echo $selected?> value="<?php echo $thisRegion_id?>"><?php echo $thisName?> (<?php echo $thisRegion_id?>)</option>
+<?php
 		} // end while loop
 	} //end if
 }

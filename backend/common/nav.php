@@ -36,19 +36,19 @@ else if ($numberOfRows>0)
 		}
 		$thisDisplay = stripslashes(MYSQL_RESULT($result,$i,"todisplay"));		
 ?>
-<li class="menu"><a href="/backend/editLines.php?line=<? echo $thisLineLink; ?>"><? echo $thisName; ?></a></li>
-<? 
+<li class="menu"><a href="/backend/editLines.php?line=<?php echo $thisLineLink; ?>"><?php echo $thisName; ?></a></li>
+<?php 
 	if ($multipleLocationOnLine)
 	{
 ?>
-<small><a href="/backend/listLineLocations.php?line=<? echo $thisLineLink; ?>">Locations</a></small>
-<?	
+<small><a href="/backend/listLineLocations.php?line=<?php echo $thisLineLink; ?>">Locations</a></small>
+<?php 
 	}
 	if ($showevents)
 	{	
 ?>
-<small><a href="/backend/listLineEvents.php?line=<? echo $thisLineLink; ?>">Events</a></small>
-<?	}	
+<small><a href="/backend/listLineEvents.php?line=<?php echo $thisLineLink; ?>">Events</a></small>
+<?php }	
 
 	$extras = MYSQL_QUERY("SELECT * FROM articles WHERE `line_id` = '".$thisLineId."'", backendDBconnect());
 	$extrasLength = MYSQL_NUM_ROWS($extras);
@@ -66,7 +66,7 @@ else if ($numberOfRows>0)
 </ul>
 
 <ul class="sitemenu">
-<?	
+<?php 
 	} 	// end for loop
 }		// end if
 ?>

@@ -92,7 +92,7 @@ function drawLocationImages($locationPhotos, $path='')
 	{	
 ?>
 <h4 id="photos" name="photos">Photos</h4><hr />
-<?
+<?php
 	if ($originalRows > 9)
 	{
 		$moreString = 'Nine of <a href="/gallery/'.$path.'">'.$originalRows.' images found</a> displayed.';
@@ -103,9 +103,9 @@ function drawLocationImages($locationPhotos, $path='')
 		$moreString = '<a href="/gallery/'.$path.'">'.$displayRows.' images found</a>.';
 	}
 ?>
-<p><?=$moreString?> Click them to enlarge.</p>
+<p><?php echo $moreString?> Click them to enlarge.</p>
 <table class="centeredTable">
-<?
+<?php
 	$i=0;
 	$j=0;
 	
@@ -140,20 +140,20 @@ function drawLocationImages($locationPhotos, $path='')
 			$photoTitle = $locationPhotos[$k]['title'];
 			$photoId = $locationPhotos[$k]['id'];
 			// for when URL rewrite is on
-			/* <td><a href="/gallery/<? echo $photoPath; ?>/<? echo $photoUrl; ?>.html" target="new" ><img src="/gallery/cache/<? echo $photoPath; ?>/<? echo $photoUrl; ?>_<?php echo thumbsize; ?>.jpg" alt="<? echo $photoTitle; ?>" title="<? echo $photoTitle; ?>" /></a>*/
+			/* <td><a href="/gallery/<?php echo $photoPath; ?>/<?php echo $photoUrl; ?>.html" target="new" ><img src="/gallery/cache/<?php echo $photoPath; ?>/<?php echo $photoUrl; ?>_<?php echo thumbsize; ?>.jpg" alt="<?php echo $photoTitle; ?>" title="<?php echo $photoTitle; ?>" /></a>*/
 			// non rewrite
-			/* <a href="/gallery/index.php?album=<? echo $photoPath; ?>&amp;image=<? echo $photoUrl; ?>&size=" target="new" ><img src="/gallery/cache/<? echo $photoPath; ?>/<? echo $photoUrl; ?>_<?php echo thumbsize; ?>.jpg" alt="<? echo $photoTitle; ?>" title="<? echo $photoTitle; ?>" /></a> */
+			/* <a href="/gallery/index.php?album=<?php echo $photoPath; ?>&amp;image=<?php echo $photoUrl; ?>&size=" target="new" ><img src="/gallery/cache/<?php echo $photoPath; ?>/<?php echo $photoUrl; ?>_<?php echo thumbsize; ?>.jpg" alt="<?php echo $photoTitle; ?>" title="<?php echo $photoTitle; ?>" /></a> */
 			
 			// old version
-			/*<td class="i"><a href="/gallery/<? echo $photoPath; ?>/<? echo $photoUrl; ?>.html?size=" target="new" ><img src="/gallery/cache/<? echo $photoPath; ?>/<? echo $photoUrl; ?>_150_cw150_ch150.jpg" alt="<? echo $photoTitle; ?>" title="<? echo $photoTitle; ?>" />*/
+			/*<td class="i"><a href="/gallery/<?php echo $photoPath; ?>/<?php echo $photoUrl; ?>.html?size=" target="new" ><img src="/gallery/cache/<?php echo $photoPath; ?>/<?php echo $photoUrl; ?>_150_cw150_ch150.jpg" alt="<?php echo $photoTitle; ?>" title="<?php echo $photoTitle; ?>" />*/
 			
 			$thumbUrl = str_ireplace('.jpg', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.jpg', $photoUrl);
 			$normalImageUrl = str_ireplace('.jpg', '_' . NORMAL_IMAGE_SIZE . '.jpg', $photoUrl);
 ?>
 <td class="i">
-	<a href="/gallery/cache/<? echo $photoPath; ?>/<? echo $normalImageUrl; ?>" rel="lightbox" title="<? echo $photoTitle; ?>"><img src="/gallery/cache/<? echo $photoPath; ?>/<? echo $thumbUrl; ?>" alt="<? echo $photoTitle; ?>" title="<? echo $photoTitle; ?>" /></a>
-	<p><?=$photoTitle ?></p></td>
-<?		$j++;
+	<a href="/gallery/cache/<?php echo $photoPath; ?>/<?php echo $normalImageUrl; ?>" rel="lightbox" title="<?php echo $photoTitle; ?>"><img src="/gallery/cache/<?php echo $photoPath; ?>/<?php echo $thumbUrl; ?>" alt="<?php echo $photoTitle; ?>" title="<?php echo $photoTitle; ?>" /></a>
+	<p><?php echo $photoTitle ?></p></td>
+<?php 	$j++;
 			$i++;
 			$k = $k+(rand(1, ($original/7)));
 	
@@ -161,12 +161,12 @@ function drawLocationImages($locationPhotos, $path='')
 		$j=0;
 ?>
 </tr>
-<?
+<?php
 		}	//end while for rows
 		?>
 </table>
 <p><a href="#top" class="credit">Top</a></p>
-<?	}		// end if
+<?php }		// end if
 	return;	
 	
 }	//end function

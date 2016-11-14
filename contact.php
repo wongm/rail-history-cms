@@ -4,8 +4,8 @@ include_once("common/formatting-functions.php");
 include_once("common/header.php"); 
 ?>
 <div id="headbar">
-	<div class="link"><a href="/">Home</a> &raquo; <? echo $pageTitle; ?></div>
-	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+	<div class="link"><a href="/">Home</a> &raquo; <?php echo $pageTitle; ?></div>
+	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php include_once("common/midbar.php"); ?>
 <h3>Contact Me</h3>

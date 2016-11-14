@@ -54,25 +54,25 @@ else if ($numberOfRows>0) {
 <table>
 <tr height="30">
 	<td align="right"><b>Location ID : </b></td>
-	<td><? echo $thisLocation_id; ?></td>
+	<td><?php echo $thisLocation_id; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Name : </b></td>
-	<td><? echo $thisName; ?></td>
+	<td><?php echo $thisName; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Added : </b></td>
-	<td><? echo $thisAdded; ?></td>
+	<td><?php echo $thisAdded; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Modified : </b></td>
-	<td><? echo $thisModified; ?></td>
+	<td><?php echo $thisModified; ?></td>
 </tr>
 </table>
 
 <h3>If you are sure you want to delete the above record, please press the delete button below.</h3><br><br>
 <form name="locationsEnterForm" method="POST" action="deleteLocations.php">
-<input type="hidden" name="thisLocation_idField" value="<? echo $thisLocation_id; ?>">
+<input type="hidden" name="thisLocation_idField" value="<?php echo $thisLocation_id; ?>">
 <input type="submit" name="submitConfirmDeleteLocationsForm" value="Delete  from Locations">
 <input type="button" name="cancel" value="Go Back" onClick="javascript:history.back();">
 </form>

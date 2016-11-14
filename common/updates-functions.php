@@ -15,7 +15,7 @@ function drawUpdatedPagesTable($updatedLocations, $frontPage=false)
 	<th class="t">Photos</th>
 	<th class="t">History</th>
 </tr>
-<?
+<?php
 	}
 	
 	for ($i = 0; $i < MYSQL_NUM_ROWS($updatedLocations); $i++)
@@ -79,21 +79,21 @@ function drawUpdatedPagesTable($updatedLocations, $frontPage=false)
 		{
 			$j++;
 ?>
-<tr class="<? echo $style; ?>">
-<?php if ($frontPage) { ?><td class="d"><? echo $date; ?></td><?php } ?>
-	<td align="left"><?=$urlText?><?=$name; ?></a></td>
-	<td><?=$itemType ?></td>
-<?php if (!$frontPage) { ?><td class="d"><? echo $date; ?></td><?php } ?>
-	<td><?=$photosText ?></td>
-	<td><?=getLocationDescriptionLengthImage($length, $events) ?></td>
+<tr class="<?php echo $style; ?>">
+<?php if ($frontPage) { ?><td class="d"><?php echo $date; ?></td><?php } ?>
+	<td align="left"><?php echo $urlText?><?php echo $name; ?></a></td>
+	<td><?php echo $itemType ?></td>
+<?php if (!$frontPage) { ?><td class="d"><?php echo $date; ?></td><?php } ?>
+	<td><?php echo $photosText ?></td>
+	<td><?php echo getLocationDescriptionLengthImage($length, $events) ?></td>
 </tr>
-<?		}
+<?php 	}
 		
 		$pastId = $objectid;
 	}	// end for loop
 ?>
 </table>
-<?
+<?php
 }	// end function
 
 function drawPageOfUpdated($updatedPages)
@@ -105,7 +105,7 @@ function drawPageOfUpdated($updatedPages)
 	$nextPageUrl = '/updates/page/';
 ?>
 <h3>Updated content</h3>
-<p>Pages most recently created, expanded and updated appear first<?=$extraBit?></p>
+<p>Pages most recently created, expanded and updated appear first<?php echo $extraBit?></p>
 <?php
 	drawUpdatedPagesTable($updatedPages["result"]);
 	drawNextAndBackLinks($updatedPages['index'], $updatedPages["maxRows"], $maxRowsPerPage, $nextPageUrl, true);

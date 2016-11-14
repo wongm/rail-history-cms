@@ -52,7 +52,7 @@ include_once('functions-gallery-formatting.php');
 <head>
 <title><?php echo $pageTitle; ?></title>
 <link rel="stylesheet" type="text/css" href="/common/css/style.css" media="all" title="Normal" />
-<link rel="stylesheet" href="<?= $_zp_themeroot ?>/zen.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo $_zp_themeroot ?>/zen.css" type="text/css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="/common/js/lightbox.js"></script>
 <?php zp_apply_filter('theme_head') ?>

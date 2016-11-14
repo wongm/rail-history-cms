@@ -33,22 +33,22 @@ else if ($numberOfRows>0) {
 <table cellspacing="2" cellpadding="2" border="0" width="100%">
 	<tr valign="top" height="20">
 		<td align="right"> <b> Safeworking_id :  </b> </td>
-		<td> <input type="text" name="thisSafeworking_idField" size="20" value="<? echo $thisSafeworking_id; ?>">  </td> 
+		<td> <input type="text" name="thisSafeworking_idField" size="20" value="<?php echo $thisSafeworking_id; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Name :  </b> </td>
-		<td> <input type="text" name="thisNameField" size="40" value="<? echo $thisName; ?>">  </td> 
+		<td> <input type="text" name="thisNameField" size="40" value="<?php echo $thisName; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Link :  </b> </td>
-		<td> <input type="text" name="thisLinkField" size="40" value="<? echo $thisLink; ?>">  </td> 
+		<td> <input type="text" name="thisLinkField" size="40" value="<?php echo $thisLink; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Details :  </b> </td>
 		<td> <form>
 		<script type="text/javascript" src="js_quicktags.js"></script>
 		<script type="text/javascript">edToolbar();</script>
-		<textarea name="thisDetailsField"" id="thisDetailsField"" wrap="VIRTUAL" cols="100" rows="30"><? echo stripslashes($thisDetails); ?></textarea>
+		<textarea name="thisDetailsField"" id="thisDetailsField"" wrap="VIRTUAL" cols="100" rows="30"><?php echo stripslashes($thisDetails); ?></textarea>
 		<script type="text/javascript">var edCanvas = document.getElementById('thisDescriptionField');</script>
 		</form></td> 
 	</tr>

@@ -48,67 +48,67 @@ A new record has been inserted in the database. Here is the information that has
 <table>
 <tr height="30">
 	<td align="right"><b>Line_id : </b></td>
-	<td><? echo $thisLine_id; ?></td>
+	<td><?php echo $thisLine_id; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Name : </b></td>
-	<td><? echo $thisName; ?></td>
+	<td><?php echo $thisName; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Link : </b></td>
-	<td><? echo $thisLink; ?></td>
+	<td><?php echo $thisLink; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Startlocation : </b></td>
-	<td><? echo $thisStartlocation; ?></td>
+	<td><?php echo $thisStartlocation; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Endlocation : </b></td>
-	<td><? echo $thisEndlocation; ?></td>
+	<td><?php echo $thisEndlocation; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Opened : </b></td>
-	<td><? echo $thisOpened; ?></td>
+	<td><?php echo $thisOpened; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Closed : </b></td>
-	<td><? echo $thisClosed; ?></td>
+	<td><?php echo $thisClosed; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Kmstart : </b></td>
-	<td><? echo $thisKmstart; ?></td>
+	<td><?php echo $thisKmstart; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Kmend : </b></td>
-	<td><? echo $thisKmend; ?></td>
+	<td><?php echo $thisKmend; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Description : </b></td>
-	<td><? echo $thisDescription; ?></td>
+	<td><?php echo $thisDescription; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Credits : </b></td>
-	<td><? echo $thisCredits; ?></td>
+	<td><?php echo $thisCredits; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Trackyears : </b></td>
-	<td><? echo $thisTrackyears; ?></td>
+	<td><?php echo $thisTrackyears; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Trackdefault : </b></td>
-	<td><? echo $thisTrackdefault; ?></td>
+	<td><?php echo $thisTrackdefault; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Safeworkingyears : </b></td>
-	<td><? echo $thisSafeworkingyears; ?></td>
+	<td><?php echo $thisSafeworkingyears; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Safeworkingdefault : </b></td>
-	<td><? echo $thisSafeworkingdefault; ?></td>
+	<td><?php echo $thisSafeworkingdefault; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Todisplay : </b></td>
-	<td><? echo $thisTodisplay; ?></td>
+	<td><?php echo $thisTodisplay; ?></td>
 </tr>
 </table>
 

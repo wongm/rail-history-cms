@@ -1,4 +1,4 @@
-<? 
+<?php 
 $pageTitle = 'SQL Bits';
 include_once("common/header.php"); ?>
 
@@ -6,7 +6,7 @@ include_once("common/header.php"); ?>
 <p>Fixes up the distances for each start / end location for safeworking or duplication events. <br>You need to do this after adding new events, or the lineguide won't notice them.</p>
 <a href="sqlbits.php?line-safeworking=true">Go!</a><br>
 <div class="results">
-<?
+<?php
 
 
 
@@ -41,7 +41,7 @@ if($_REQUEST['line-safeworking'] == true)
 <p>Set photo to 0 if blank.</p>
 <a href="sqlbits.php?123=true">Go!</a><br>
 <div class="results">
-<?
+<?php
 
 if($_REQUEST['123'] == true)
 {
@@ -71,7 +71,7 @@ if($_REQUEST['123'] == true)
 <p>Cleanup zenphoto - checks for orphaned images that were deleted as files, and deletes from DB. Prevents all kind of weird 'next image not found' errors when clicking though albums. Also move captions when you move images between folders.</p>
 <a href="sqlbits.php?zenclean=true">Go!</a><br>
 <div class="results">
-<?
+<?php
 
 if($_REQUEST['zenclean'] == true)
 {
@@ -158,7 +158,7 @@ if($_REQUEST['zenclean'] == true)
 It looks for images with default titles (from filename) and sets the caption based on the already existing image in database.</p>
 <a href="sqlbits.php?zencaptionsbackup=true">Go!</a><br>
 <div class="results">
-<?
+<?php
 
 if($_REQUEST['zencaptionsbackup'] == true)
 {
@@ -195,7 +195,7 @@ if($_REQUEST['zencaptionsbackup'] == true)
 <p>Transfers location / lineguide photo album fields into the zenphoto database from the location database.</p>
 <a href="sqlbits.php?zenlocation=true">Go!</a><br>
 <div class="results">
-<?
+<?php
 
 if($_REQUEST['zenlocation'] == true)
 {
@@ -254,7 +254,7 @@ if($_REQUEST['zenlocation'] == true)
 You will then need to run the Zenphoto location / lineguide mapping importer to get it back into the zenphoto database.</p>
 <a href="sqlbits.php?zenupdategenerator=true">Go!</a><br>
 <div class="results">
-<?
+<?php
 
 if($_REQUEST['zenupdategenerator'] == true)
 {
@@ -333,7 +333,7 @@ if($_REQUEST['zenupdategenerator'] == true)
 }	?>
 </div>
 
-<? include_once("common/footer.php"); 
+<?php include_once("common/footer.php"); 
 
 ?>
 

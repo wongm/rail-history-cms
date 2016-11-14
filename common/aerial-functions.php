@@ -7,7 +7,7 @@ function drawLineguideGoogleMap($line)
 	getTabs($line["lineLink"], $line["lineId"]);
 ?>
 <div name="map" id="map" style="position: relative; height: 600px; background:#222; color:#222;"></div>
-<?		
+<?php 	
 }	// end function	
 
 function drawAllMap($center, $zoom, $types, $lines)
@@ -39,12 +39,12 @@ function drawAllMap($center, $zoom, $types, $lines)
 <meta name="keywords" content="railways trains geelong victoria" />
 <link rel="stylesheet" type="text/css" href="/common/css/style.css" media="all" title="Normal" />
 <link rel="stylesheet" type="text/css" href="/common/css/aerialstyle.css" />
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<?=GOOGLE_KEY?>" type="text/javascript"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<?php echo GOOGLE_KEY?>" type="text/javascript"></script>
 <script src="/common/js/functions.js" type="text/javascript"></script>
 <script src="/common/js/aerialfunctions.js" type="text/javascript"></script></head>
-<script src="/common/aerialjavascript.php?lines=<? echo $lines; ?>&types=<? echo $types; ?>" type="text/javascript"></script>
-<body style="width: 98%; height: 100%; margin: 1%; padding: 0;" onload="loadExplorerAll(<?=$center.",".$zoom; ?>)" onunload="GUnload()">
-<? getTabs('lines'); ?>
+<script src="/common/aerialjavascript.php?lines=<?php echo $lines; ?>&types=<?php echo $types; ?>" type="text/javascript"></script>
+<body style="width: 98%; height: 100%; margin: 1%; padding: 0;" onload="loadExplorerAll(<?php echo $center.",".$zoom; ?>)" onunload="GUnload()">
+<?php getTabs('lines'); ?>
 <div name="map" id="map" style="position: absolute; width: 98%; height: 85%;"></div>
 </body>
 </html>
@@ -69,25 +69,25 @@ function getTabs($lineLink, $lineId='all')
 		$updatecustomText = "'$lineLink', $lineId";
 	}
 		?>
-<div><? /* div for tabs */?>
+<div><?php /* div for tabs */?>
 <ul id="maintab" class="shadetabs">
-<? 
+<?php 
 if($lineLink == 'lines') // for aerial explorer
 { ?>
 <li class="selected"><a href="#" rel="intro">Intro</a></li>
 <li><a href="#" rel="types">Location Types</a></li>
 <li><a href="#" rel="lines">Rail Lines</a></li>
-<? }
+<?php }
 else// for lineguide map
 {	?>
 <li><a href="#" rel="types">Location Types</a></li>
-<? } ?>
-<li><a href="#" rel="link" onclick="updatecustom(<?=$updatecustomText?>)" >Link to View</a></li>
+<?php } ?>
+<li><a href="#" rel="link" onclick="updatecustom(<?php echo $updatecustomText?>)" >Link to View</a></li>
 </ul>
 </div>
 
 <div class="tabcontentstyle">
-<?
+<?php
 if($lineLink == 'lines') // for aerial explorer
 { ?>
 <div id="intro" class="tabcontent">
@@ -103,12 +103,12 @@ Click on the icons to view more details of the location. The tabs along the top 
 <label for="r">Bridges and Crossings: </label><input type="checkbox" id="r" name="r" /> 
 <label for="m">Other: </label><input type="checkbox" id="m" name="m" />
 <a href="#" onclick="selectAll(this.parentNode,'all')" alt="Select All" title="Select All">[A]</a> <a href="#" onclick="selectAll(this.parentNode,'none')" alt="Unselect All" title="Unselect All">[N]</a>
-</form></td><td><a href="#" onclick="updatecustom(<?=$updatecustomText?>,'draw')"><b>Update</b></a>
+</form></td><td><a href="#" onclick="updatecustom(<?php echo $updatecustomText?>,'draw')"><b>Update</b></a>
 </td></tr></table>
-</div><? /* end lines tab */ ?>
+</div><?php /* end lines tab */ ?>
 <div id="lines" class="tabcontent">
 <div id="tabtitle2">Rail Lines</div>
-<table><tr><td><form name="customlines" id="customlines"><?	
+<table><tr><td><form name="customlines" id="customlines"><?php 
 $result = MYSQL_QUERY("SELECT * FROM raillines WHERE todisplay != 'hide' ORDER BY name", locationDBconnect());
 $numberOfRows = MYSQL_NUMROWS($result);
 if ($numberOfRows>0) 
@@ -117,18 +117,18 @@ if ($numberOfRows>0)
 	{
 		$thisLine_id = stripslashes(MYSQL_RESULT($result,$i,"line_id"));
 		$thisName = stripslashes(MYSQL_RESULT($result,$i,"name"));	?>
-<label for="<? echo $thisLine_id?>"><? echo $thisName?>: </label><input type="checkbox" name="<? echo $thisLine_id?>" id="<? echo $thisLine_id?>" />
-<?	} // end while loop
+<label for="<?php echo $thisLine_id?>"><?php echo $thisName?>: </label><input type="checkbox" name="<?php echo $thisLine_id?>" id="<?php echo $thisLine_id?>" />
+<?php } // end while loop
 }	?>
 <a href="#" onclick="selectAll(this.parentNode,'all')" alt="Select All" title="Select All">[A]</a> <a href="#" onclick="selectAll(this.parentNode,'none')" alt="Unselect All" title="Unselect All">[N]</a>
-</form></td><td><a href="#" onclick="updatecustom(<?=$updatecustomText?>,'draw')"><b>Update</b></a>
+</form></td><td><a href="#" onclick="updatecustom(<?php echo $updatecustomText?>,'draw')"><b>Update</b></a>
 </td></tr></table>
-</div><? /* end custom map tab */ ?>
+</div><?php /* end custom map tab */ ?>
 <div id="link" class="tabcontent">
 <div id="tabtitle3">Link to View</div>
 <input id="directlink" name="directlink" type="text" size="120" value="http://railgeelong.com/aerial.php" onclick="highlight(this);" />
 </div>
-<? }
+<?php }
 else	// for lineguide map
 {	?>
 <div id="types" class="tabcontent">
@@ -140,25 +140,25 @@ else	// for lineguide map
 <label for="r">Bridges and Crossings: </label><input type="checkbox" id="r" name="r" /> 
 <label for="m">Other: </label><input type="checkbox" id="m" name="m" />
 <a href="#" onclick="selectAll(this.parentNode,'all')" alt="Select All" title="Select All">[A]</a> <a href="#" onclick="selectAll(this.parentNode,'none')" alt="Unselect All" title="Unselect All">[N]</a>
-</form></td><td><a href="#" onclick="updatecustom(<?=$updatecustomText?>,'draw')"><b>Update</b></a>
+</form></td><td><a href="#" onclick="updatecustom(<?php echo $updatecustomText?>,'draw')"><b>Update</b></a>
 </td></tr></table>
-</div><? /* end lines tab */ ?>
+</div><?php /* end lines tab */ ?>
 <div id="link" class="tabcontent">
 <div id="tabtitle1">Link to View</div>
-<input id="directlink" name="directlink" type="text" size="120" value="http://www.railgeelong.com/lineguide/<?=$lineLink;?>/map/" onclick="highlight(this);" />
+<input id="directlink" name="directlink" type="text" size="120" value="http://www.railgeelong.com/lineguide/<?php echo $lineLink;?>/map/" onclick="highlight(this);" />
 </div>
-<? } ?>
+<?php } ?>
 
-<? /* fixes which tab is open */ ?>
+<?php /* fixes which tab is open */ ?>
 <script type="text/javascript">
 initializetabcontent("maintab")
-<? if($lineLink == 'lines')
-{	?>expandtab('maintab', 0)<?	}
+<?php if($lineLink == 'lines')
+{	?>expandtab('maintab', 0)<?php }
 else
-{	?>expandtab('maintab', 0)<?	}	?>
+{	?>expandtab('maintab', 0)<?php }	?>
 </script>
-</div><? /* end tabs div */	?>
-<? } 	// end function
+</div><?php /* end tabs div */	?>
+<?php } 	// end function
 
 /*
  *
@@ -204,12 +204,12 @@ function drawSpecific($view, $id)
 <meta name="description" content="Rail Geelong Homepage" />
 <meta name="keywords" content="railways trains geelong victoria" />
 <link rel="stylesheet" type="text/css" href="/common/css/style.css" media="all" title="Normal" />
-<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=<?=GOOGLE_KEY_3?>&sensor=false"></script>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_KEY_3?>&sensor=false"></script>
 <script type="text/javascript">
-<? /* google map function - single location */ ?>
+<?php /* google map function - single location */ ?>
 var map, marker, infowindow;
 function initialize() {
-	var locationLatlng = new google.maps.LatLng(<? echo $coords; ?>);
+	var locationLatlng = new google.maps.LatLng(<?php echo $coords; ?>);
 	var mapOptions = {
 		zoom: 15,
 		center: locationLatlng,

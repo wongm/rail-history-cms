@@ -9,7 +9,7 @@ $numberOfRows = MYSQL_NUM_ROWS($result);
 
 ?>
 <a href="enterNewLocationTypes.php">Add new location type</a><br><br>
-<?
+<?php
 
 if ($numberOfRows>0) {
 
@@ -22,7 +22,7 @@ if ($numberOfRows>0) {
 		<th>More</th>
 		<th>Specific</th>
 	</TR>
-<?
+<?php
 	while ($i<$numberOfRows)
 	{
 		if (($i%2)==0) { $bgColor = "odd"; } else { $bgColor = "even"; }
@@ -33,20 +33,20 @@ if ($numberOfRows>0) {
 		$thisSpecific = MYSQL_RESULT($result,$i,"specific");
 		$thisUrl = "/t/1-$thisType_id.gif"
 ?>
-	<TR class="<? echo $bgColor; ?>">
-		<TD><? echo $thisType_id; ?></TD>
-		<TD><? echo $thisBasic; ?></TD>
-		<TD><? echo $thisMore; ?></TD>
-		<TD><? echo $thisSpecific; ?></TD>
-		<TD><img src="<? echo $thisUrl; ?>" /></TD>
+	<TR class="<?php echo $bgColor; ?>">
+		<TD><?php echo $thisType_id; ?></TD>
+		<TD><?php echo $thisBasic; ?></TD>
+		<TD><?php echo $thisMore; ?></TD>
+		<TD><?php echo $thisSpecific; ?></TD>
+		<TD><img src="<?php echo $thisUrl; ?>" /></TD>
 	</TR>
-<?
+<?php
 		$i++;
 
 	} // end while loop
 ?>
 </TABLE>
-<?
+<?php
 } // end of if numberOfRows > 0 
  
 include_once("common/footer.php");

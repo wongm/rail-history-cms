@@ -28,7 +28,7 @@ else if ($numberOfRows>0)
 ?>
 <a href="#add">Add events</a><br><br>
 <fieldset><legend>Edit Events</legend>
-<?
+<?php
 
 $sql = "SELECT * FROM railline_events WHERE line = ".$thisLine_id." ORDER BY date ASC";
 $result = MYSQL_QUERY($sql);
@@ -39,7 +39,7 @@ if ($numberOfRows==0) {
 
 Sorry. No records found !!
 
-<?
+<?php
 }
 else if ($numberOfRows>0) {
 
@@ -58,7 +58,7 @@ else if ($numberOfRows>0) {
 <th width="3"><abbr title="Midle location?">M</abbr></th>
 <th>Why</th>
 </TR>
-<?
+<?php
 	while ($i<$numberOfRows)
 	{
 
@@ -85,14 +85,14 @@ else if ($numberOfRows>0) {
 		}
 
 ?>
-	<TR class="<? echo $bgColor; ?>">
-		<TD><a href="editRaillineEvents.php?event=<? echo $thisEvent_id; ?>&line=<? echo $_REQUEST['line']; ?> "><? echo $thisDate; ?></a></TD>
-		<TD><? echo $thisApprox; ?></TD>
-		<TD><? echo $thisDisplay; ?></TD>
-<? 	if ($thisDescription != '')
+	<TR class="<?php echo $bgColor; ?>">
+		<TD><a href="editRaillineEvents.php?event=<?php echo $thisEvent_id; ?>&line=<?php echo $_REQUEST['line']; ?> "><?php echo $thisDate; ?></a></TD>
+		<TD><?php echo $thisApprox; ?></TD>
+		<TD><?php echo $thisDisplay; ?></TD>
+<?php 	if ($thisDescription != '')
 {	?>
-		<TD colspan="7"><? echo $thisDescription; ?></TD>
-<?	}
+		<TD colspan="7"><?php echo $thisDescription; ?></TD>
+<?php }
 	else
 	{	
 		$thisStart_location = stripslashes(MYSQL_RESULT($result,$i,"start_location"));
@@ -100,17 +100,17 @@ else if ($numberOfRows>0) {
 		$thisEnd_location = stripslashes(MYSQL_RESULT($result,$i,"end_location"));
 		$thisEndName = stripslashes(MYSQL_RESULT(MYSQL_QUERY("SELECT name FROM locations WHERE location_id = '".$thisEnd_location."'"),0,"name"));
 ?>		
-		<TD><? echo $thisStartName; ?></TD>
-		<TD><? echo $thisEndName; ?></TD>
-		<TD><? echo $thisTracks; ?></TD>
-		<TD><abbr title="<? echo $thisSafeworking; ?>"><? echo substr($thisSafeworking, 0, 4); ?></abbr></TD>
-		<TD><? echo $thisGauge; ?></TD>
-		<TD><? echo $thisMiddle; ?></TD>
-		<TD><abbr title="<? echo $thisWhy; ?>"><? echo substr($thisWhy, 0, 4); ?></abbr></TD>
-<? 	}	?>		
-		<TD><a href="confirmDeleteRaillineEvents.php?event=<? echo $thisEvent_id; ?>&line=<? echo $_REQUEST['line']; ?>">Delete</a></TD>
+		<TD><?php echo $thisStartName; ?></TD>
+		<TD><?php echo $thisEndName; ?></TD>
+		<TD><?php echo $thisTracks; ?></TD>
+		<TD><abbr title="<?php echo $thisSafeworking; ?>"><?php echo substr($thisSafeworking, 0, 4); ?></abbr></TD>
+		<TD><?php echo $thisGauge; ?></TD>
+		<TD><?php echo $thisMiddle; ?></TD>
+		<TD><abbr title="<?php echo $thisWhy; ?>"><?php echo substr($thisWhy, 0, 4); ?></abbr></TD>
+<?php 	}	?>		
+		<TD><a href="confirmDeleteRaillineEvents.php?event=<?php echo $thisEvent_id; ?>&line=<?php echo $_REQUEST['line']; ?>">Delete</a></TD>
 	</TR>
-<?
+<?php
 		$i++;
 
 	} // end while loop
@@ -119,7 +119,7 @@ else if ($numberOfRows>0) {
 
 
 
-<?
+<?php
 } // end of if numberOfRows > 0 
  ?>
 </fieldset><br><br>
@@ -133,11 +133,11 @@ else if ($numberOfRows>0) {
 
 <fieldset id="add"><legend>Add Events</legend>
 <form name="railline_eventsEnterForm" method="POST" action="insertNewRaillineEvents.php">
-<input type="hidden" name="thisLineField" value="<? echo $thisLine_id; ?>">
-<input type="hidden" name="thisLinkField" value="<? echo $thisLink; ?>">
+<input type="hidden" name="thisLineField" value="<?php echo $thisLine_id; ?>">
+<input type="hidden" name="thisLinkField" value="<?php echo $thisLink; ?>">
 
 <table cellspacing="2" cellpadding="2" border="0" width="100%">
-<? drawAddNewRailineEvent(); ?>
+<?php drawAddNewRailineEvent(); ?>
 </table>
 
 <input type="submit" name="submitEnterRailline_eventsForm" value="Enter New Rail Line Event">

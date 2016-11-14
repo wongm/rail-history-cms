@@ -76,14 +76,14 @@ for ($i = 0; $i < MYSQL_NUM_ROWS($updatedLocations); $i++)
 			$j++;
 ?>
 <item>
-	<title><?="$path - $name"; ?></title>
-	<link><![CDATA[<?=$urlText; ?>]]></link>
-	<description><![CDATA[<?=$desc ?>]]></description>
-	<category><?=$path ?></category>
-	<guid><![CDATA[<?=$urlText; ?>]]></guid>
-	<pubDate><? echo $date; ?></pubDate>
+	<title><?php echo "$path - $name"; ?></title>
+	<link><![CDATA[<?php echo $urlText; ?>]]></link>
+	<description><![CDATA[<?php echo $desc ?>]]></description>
+	<category><?php echo $path ?></category>
+	<guid><![CDATA[<?php echo $urlText; ?>]]></guid>
+	<pubDate><?php echo $date; ?></pubDate>
 </item>
-<?		}
+<?php 	}
 		
 		$pastId = $id;
 	}	// end for loop

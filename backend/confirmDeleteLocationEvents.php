@@ -35,39 +35,39 @@ else if ($numberOfRows>0) {
 <table>
 <tr height="30">
 	<td align="right"><b>Event_id : </b></td>
-	<td><? echo $thisEvent_id; ?></td>
+	<td><?php echo $thisEvent_id; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Location : </b></td>
-	<td><? echo $thisLocation; ?></td>
+	<td><?php echo $thisLocation; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Date : </b></td>
-	<td><? echo $thisDate; ?></td>
+	<td><?php echo $thisDate; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Added : </b></td>
-	<td><? echo $thisAdded; ?></td>
+	<td><?php echo $thisAdded; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Modified : </b></td>
-	<td><? echo $thisModified; ?></td>
+	<td><?php echo $thisModified; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Details : </b></td>
-	<td><? echo $thisDetails; ?></td>
+	<td><?php echo $thisDetails; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Source : </b></td>
-	<td><? echo $thisSource; ?></td>
+	<td><?php echo $thisSource; ?></td>
 </tr>
 </table>
 
 <h3>If you are sure you want to delete the above record, please press the delete button below.</h3><br><br>
-<form name="location_eventsEnterForm" method="POST" action="editLocations.php?location=<?=$thisLocation?>#edit">
+<form name="location_eventsEnterForm" method="POST" action="editLocations.php?location=<?php echo $thisLocation?>#edit">
 <input type="hidden" name="formType" value="deleteLocationEvents">
-<input type="hidden" name="thisEvent_idField" value="<? echo $thisEvent_id; ?>">
-<input type="hidden" name="thisLocationField" value="<? echo $thisLocation; ?>">
+<input type="hidden" name="thisEvent_idField" value="<?php echo $thisEvent_id; ?>">
+<input type="hidden" name="thisLocationField" value="<?php echo $thisLocation; ?>">
 <input type="submit" name="submitConfirmDeleteLocation_eventsForm" value="Delete  from Location_events">
 <input type="button" name="cancel" value="Go Back" onClick="javascript:history.back();">
 </form>

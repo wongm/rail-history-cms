@@ -46,57 +46,57 @@ else if ($numberOfRows>0) {
 <table cellspacing="2" cellpadding="2" border="0" width="100%">
 	<tr valign="top" height="20">
 		<td align="right"> <b> Event ID :  </b> </td>
-		<td><? echo $thisEvent_id; ?> <input type="hidden" name="thisEvent_idField"value="<? echo $thisEvent_id; ?>">  </td> 
+		<td><?php echo $thisEvent_id; ?> <input type="hidden" name="thisEvent_idField"value="<?php echo $thisEvent_id; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Location :  </b> </td>
 		<td> <select name="thisLocationField">
-<? drawLocationNameSelectFields($thisLocation)	; ?>	
+<?php drawLocationNameSelectFields($thisLocation)	; ?>	
 		</select></td>
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Date :  </b> </td>
-		<td> <input type="text" name="thisDateField" size="20" value="<? echo $thisDate; ?>">  </td> 
+		<td> <input type="text" name="thisDateField" size="20" value="<?php echo $thisDate; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Approx? :  </b> </td>
 		<td> <select name="thisApproxField">
-<? drawApproxTimeFields($thisApprox); ?>
+<?php drawApproxTimeFields($thisApprox); ?>
 		</select></td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Diagram Changed :  </b> </td>
-		<td> <input type="checkbox" name="thisDiagramField" <? echo $thisDiagram; ?> >  </td> 
+		<td> <input type="checkbox" name="thisDiagramField" <?php echo $thisDiagram; ?> >  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Added :  </b> </td>
-		<td> <input type="text" name="thisAddedField" size="21" value="<? echo $thisAdded; ?>">  </td> 
+		<td> <input type="text" name="thisAddedField" size="21" value="<?php echo $thisAdded; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Modified :  </b> </td>
-		<td> <input type="text" name="thisModifiedField" size="21" value="<? echo $thisModified; ?>">  </td> 
+		<td> <input type="text" name="thisModifiedField" size="21" value="<?php echo $thisModified; ?>">  </td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Details :  </b> </td>
-		<td> <textarea name="thisDetailsField" wrap="VIRTUAL" cols="50" rows="4"><? echo $thisDetails; ?></textarea></td> 
+		<td> <textarea name="thisDetailsField" wrap="VIRTUAL" cols="50" rows="4"><?php echo $thisDetails; ?></textarea></td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> LX Updates :  </b><br>
 		<b>Replaces Details!</b> </td>
 		<td><select name="thisLxDetailsField">
-<? drawLocationLxEventFields($thisDetails); ?>
+<?php drawLocationLxEventFields($thisDetails); ?>
 		</select></td> 
 	</tr>
 	
 	<tr valign="top" height="20">
 		<td align="right"> <b> Source :  </b> </td>
 		<td> <select name="thisSourceField">
-<? drawSourcesSelectFields($thisSource); ?>
+<?php drawSourcesSelectFields($thisSource); ?>
 		</select></td>
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Source Details :  </b> </td>
-		<td> <input type="text" name="thisSourceDetailsField" size="20" value="<? echo $thisSourceDetails; ?>">  </td> 
+		<td> <input type="text" name="thisSourceDetailsField" size="20" value="<?php echo $thisSourceDetails; ?>">  </td> 
 	</tr>
 </table>
 

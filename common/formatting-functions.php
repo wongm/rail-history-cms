@@ -73,13 +73,13 @@ function drawAllArticles($type)
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; Articles</div>
-	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php
 	include_once("common/midbar.php");
 ?>
-<h3><?=$pageTitle?></h3>
-<?	
+<h3><?php echo $pageTitle?></h3>
+<?php 
 	$articles = MYSQL_QUERY("SELECT * FROM articles WHERE link != '' AND `line_id` = '0'", locationDBconnect());
 
 	for ($i = 0; $i < MYSQL_NUM_ROWS($articles); $i++)
@@ -95,7 +95,7 @@ function drawDiagramTabs($diagramData)
 ?>
 <div class="centeredTable">
 <ul id="maintab" class="shadetabs">
-<?
+<?php
 	// draw the tabs headers for all diagram tabs
 	for ($i = 0; $i < sizeof($diagramData); $i++)
 	{
@@ -106,32 +106,32 @@ function drawDiagramTabs($diagramData)
 			$selected = '';
 		}
 ?>
-	<li<?=$selected ?>><a href="#year<? echo $diagramData[$i][2]; ?>" rel="year<? echo $diagramData[$i][2]; ?>" ><? echo $diagramData[$i][2]; ?></a></li>
-<?	}
+	<li<?php echo $selected ?>><a href="#year<?php echo $diagramData[$i][2]; ?>" rel="year<?php echo $diagramData[$i][2]; ?>" ><?php echo $diagramData[$i][2]; ?></a></li>
+<?php }
 ?>
 </ul>
 <div class="tabcontentstyle">
-<?
+<?php
 	// draw the diagram tabs themselves
 	for ($i = 0; $i < sizeof($diagramData); $i++)
 	{
 ?>
-<div id="year<? echo $diagramData[$i][2]; ?>" name="year<? echo $diagramData[$i][2]; ?>" class="tabcontent">
-	<div id="tabtitle<? echo $i; ?>" ><br/><h5><? echo $diagramData[$i][2]; ?></h5> <a href="#diagrams" class="credit">Back to Year Listing</a></div>
-	<img src="/t/<? echo $diagramData[$i][0].'.gif'; ?>" alt="<? echo $name.' '.$diagramData[$i][1]; ?>" title="<? echo $name.' '.$diagramData[$i][1]; ?>" />
+<div id="year<?php echo $diagramData[$i][2]; ?>" name="year<?php echo $diagramData[$i][2]; ?>" class="tabcontent">
+	<div id="tabtitle<?php echo $i; ?>" ><br/><h5><?php echo $diagramData[$i][2]; ?></h5> <a href="#diagrams" class="credit">Back to Year Listing</a></div>
+	<img src="/t/<?php echo $diagramData[$i][0].'.gif'; ?>" alt="<?php echo $name.' '.$diagramData[$i][1]; ?>" title="<?php echo $name.' '.$diagramData[$i][1]; ?>" />
 </div>
-<?
+<?php
 	}
 ?>
 </div>
-<?
+<?php
 	/* fixes which tab is open */
 ?>
 <script type="text/javascript">
 initializetabcontent("maintab")
 </script>
 </div>
-<? 	/* end tabs div */
+<?php 	/* end tabs div */
 
 } // end function
 
@@ -204,7 +204,7 @@ function drawNextAndBackLinks($index, $totalimg, $max, $url, $includePageNumberL
 	if ($index > 0 OR $totalimg >= $max)
 	{	?>
 <div class="pagelist"><ul class="pagelist">
-<?
+<?php
 		if ($index > 0)
 		{
 			if ($index - $max < 0)
@@ -212,8 +212,8 @@ function drawNextAndBackLinks($index, $totalimg, $max, $url, $includePageNumberL
 				$index = $max;
 			}
 ?>
-<li class="prev"><a href="<? echo $url.($page) ?>" title="Previous Page"><span>&laquo;</span> Previous</a></li>
-<?
+<li class="prev"><a href="<?php echo $url.($page) ?>" title="Previous Page"><span>&laquo;</span> Previous</a></li>
+<?php
 		}
 		if ($includePageNumberLinks)
 		{
@@ -223,12 +223,12 @@ function drawNextAndBackLinks($index, $totalimg, $max, $url, $includePageNumberL
 		if ( ($totalimg - $index) >= $max)
 		{
 ?>
-<li class="next"><a href="<? echo $url.($page+2) ?>" title="Next Page">Next <span>&raquo;</span></a></li>
-<?
+<li class="next"><a href="<?php echo $url.($page+2) ?>" title="Next Page">Next <span>&raquo;</span></a></li>
+<?php
 		}
 ?>
 </ul></div>
-<?
+<?php
 	}
 } // end function
 
@@ -453,40 +453,40 @@ function drawLinedLocationsTable($locationData, $displayType)
 ?>
 <table class="linedTable" id="locationTable">
 <tr>
-<?
+<?php
 		// need a base URL
 		if ($locationData['pageurl'] != '')
 		{
 			// one off for the actual link
 ?>
-	<th<?=$locationData['headerstyle'][0]?> align="left">
-		<a href="<?=$locationData['pageurl'] ?>/<?=$locationData['headerurl'][0]?>"><?=$locationData['headertitle'][0]?></a>
+	<th<?php echo $locationData['headerstyle'][0]?> align="left">
+		<a href="<?php echo $locationData['pageurl'] ?>/<?php echo $locationData['headerurl'][0]?>"><?php echo $locationData['headertitle'][0]?></a>
 	</th>
-<?
+<?php
 			for ($r = 1; $r <= $numberOfColummns; $r++)
 			{
 	?>
-	<th<?=$locationData['headerstyle'][$r]?>>
-		<a href="<?=$locationData['pageurl'] ?>/<?=$locationData['headerurl'][$r]?>"><?=$locationData['headertitle'][$r]?></a>
+	<th<?php echo $locationData['headerstyle'][$r]?>>
+		<a href="<?php echo $locationData['pageurl'] ?>/<?php echo $locationData['headerurl'][$r]?>"><?php echo $locationData['headertitle'][$r]?></a>
 	</th>
-<?
+<?php
 			}
 		}
 		else
 		{
 			// one off for the actual link
 ?>
-	<th<?=$locationData['headerstyle'][0];?> align="left">
-		<?=$locationData['headertitle'][0];?>
+	<th<?php echo $locationData['headerstyle'][0];?> align="left">
+		<?php echo $locationData['headertitle'][0];?>
 	</th>
 <?php
 			for ($r = 1; $r <= $numberOfColummns; $r++)
 			{
 	?>
-	<th<?=$locationData['headerstyle'][$r]?>>
-		<?=$locationData['headertitle'][$r]?>
+	<th<?php echo $locationData['headerstyle'][$r]?>>
+		<?php echo $locationData['headertitle'][$r]?>
 	</th>
-<?
+<?php
 			}
 			
 			echo "</tr>";
@@ -512,8 +512,8 @@ function drawLinedLocationsTable($locationData, $displayType)
 
 		echo "<tr class=\"$style\">\n";
 ?>
-	<td align="left"><a href="<? echo $locationData[$i][$numberOfColummns+1].'">'.$locationData[$i][$numberOfColummns].'</a>';?></td>
-<?
+	<td align="left"><a href="<?php echo $locationData[$i][$numberOfColummns+1].'">'.$locationData[$i][$numberOfColummns].'</a>';?></td>
+<?php
 		for ($c = 0; $c < $numberOfColummns; $c++)
 		{
 			echo "<td>".$locationData[$i][$c]."</td>\n";
@@ -621,8 +621,8 @@ function drawHeadbarSearchBox($title="Search")
 ?>
 <form id="search_form" action="/search" method="get">
 	<input autocomplete="off" id="search_input" value="" size="10" name="q" />
-	<input type="submit" id="search_submit" class="pushbutton" value="<?=$title?>" />
+	<input type="submit" id="search_submit" class="pushbutton" value="<?php echo $title?>" />
 </form>
-<?
+<?php
 }
 ?>

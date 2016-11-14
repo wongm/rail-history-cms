@@ -40,12 +40,12 @@ else
 		include_once('../common/header.php');
 ?>
 <div id="headbar">
-	<div class="link"><a href="/">Home</a> &raquo; <a href="/lineguides">Line Guides</a> &raquo; <?=$pageTitle?></div>
-	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+	<div class="link"><a href="/">Home</a> &raquo; <a href="/lineguides">Line Guides</a> &raquo; <?php echo $pageTitle?></div>
+	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php include_once('../common/midbar.php'); ?>
-<h3><?=$pageTitle?></h3>
-<?		
+<h3><?php echo $pageTitle?></h3>
+<?php 	
 		global $editablelinkforadmin;
 		if ($editablelinkforadmin)
 		{
@@ -189,8 +189,8 @@ function drawRegionRaillines($regionLink, $regionId)
 			for ($j = 0; $j < sizeof($itemstodisplay); $j++)
 			{
 ?>
-<li><a href="/lineguide/<?=$lineArray[$i]['lineLink']; ?>/<?=$itemstodisplay[$j][0]; ?>" ><?=$itemstodisplay[$j][1]; ?></a></li>
-<?		
+<li><a href="/lineguide/<?php echo $lineArray[$i]['lineLink']; ?>/<?php echo $itemstodisplay[$j][0]; ?>" ><?php echo $itemstodisplay[$j][1]; ?></a></li>
+<?php 	
 			}	
 			echo "</ul></td>\n";
 			echo "<td class=\"regionContent\">" . $lineArray[$i]['regionContent'] . "</td></tr>\n";

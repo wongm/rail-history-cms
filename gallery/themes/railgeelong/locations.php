@@ -47,11 +47,11 @@ if(isset($_REQUEST['type']))
 	include_once('../common/location-lineguide-functions.php');
 ?>
 <div id="headbar">
-	<div class="link"><a href="/">Home</a> &raquo; <a href="/locations">Locations</a> &raquo; <?=$breadCrumbTitle?></div>
-	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+	<div class="link"><a href="/">Home</a> &raquo; <a href="/locations">Locations</a> &raquo; <?php echo $breadCrumbTitle?></div>
+	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php include_once('midbar.php'); ?>
-<h3>Locations database: <?=$breadCrumbTitle?></h3>
+<h3>Locations database: <?php echo $breadCrumbTitle?></h3>
 <?php
 	drawLinedLocationsTable(getLocationsTable('', '', $sql, $locationType, $locationSort), 'type');
 	include_once("footer.php");

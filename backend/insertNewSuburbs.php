@@ -8,7 +8,7 @@ include_once("common/header.php");
 	$thisName = addslashes($_REQUEST['thisNameField']);
 
 ?>
-<?
+<?php
 $sqlQuery = "INSERT INTO suburbs (name ) VALUES ('$thisName' )";
 $result = MYSQL_QUERY($sqlQuery);
 
@@ -21,11 +21,11 @@ A new record has been inserted in the database. Here is the information that has
 <table>
 <tr height="30">
 	<td align="right"><b>Suburb_id : </b></td>
-	<td><? echo $thisSuburb_id; ?></td>
+	<td><?php echo $thisSuburb_id; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Name : </b></td>
-	<td><? echo $thisName; ?></td>
+	<td><?php echo $thisName; ?></td>
 </tr>
 </table>
 

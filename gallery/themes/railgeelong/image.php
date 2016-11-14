@@ -5,9 +5,9 @@ include_once('header.php'); ?>
 
   <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; 
-		<a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; 
+		<a href="<?php echo getGalleryIndexURL();?>" title="Gallery Index"><?php echo getGalleryTitle();?></a> &raquo; 
 		<?php printParentBreadcrumb('', ' » ', ' » '); ?>
-		<a href="<?=getAlbumURL();?>" title="<?=getAlbumTitle();?> Index"><?=getAlbumTitle();?></a>
+		<a href="<?php echo getAlbumURL();?>" title="<?php echo getAlbumTitle();?> Index"><?php echo getAlbumTitle();?></a>
 	</div>
 	<div class="search"><?php printSearchForm(); ?></div>
   </div>
@@ -21,9 +21,9 @@ include_once('header.php'); ?>
   
   <table class="centeredTable">
 	  <tr><td class="imageDisplay">
-        <a href="<?=getFullImageURL();?>" rel="lightbox" title="<?=getImageTitle();?>">
+        <a href="<?php echo getFullImageURL();?>" rel="lightbox" title="<?php echo getImageTitle();?>">
         <?php printDefaultSizedImage(getImageTitle()); ?></a><br/>
-        <a href="<?=getFullImageURL();?>" rel="lightbox" title="<?=getImageTitle();?>">View full size photo (<?=getFullWidth()?>px by <?=getFullHeight()?>px)</a><br/>
+        <a href="<?php echo getFullImageURL();?>" rel="lightbox" title="<?php echo getImageTitle();?>">View full size photo (<?php echo getFullWidth()?>px by <?php echo getFullHeight()?>px)</a><br/>
       </td></tr>
   </table>
 <?php 
@@ -31,15 +31,15 @@ if(function_exists("printEXIFData")) { printEXIFData(); } ?>
 <?php if (hasPrevImage() or hasNextImage()) { ?>    
   <div class="pagelist"><table><tr id="thumbnav"><td>
     <?php if (hasPrevImage()) { ?>
-    <a class="prev" href="<?=getPrevImageURL();?>" title="Previous Image"><span>&laquo;</span> Previous</a>
+    <a class="prev" href="<?php echo getPrevImageURL();?>" title="Previous Image"><span>&laquo;</span> Previous</a>
     </td><td>
-    <a class="next" href="<?=getPrevImageURL();?>" title="<?=getPrevImageTitle();?>"><img src="<?=getPrevImageThumb();?>" alt="<?=getPrevImageTitle();?>" /></a>
+    <a class="next" href="<?php echo getPrevImageURL();?>" title="<?php echo getPrevImageTitle();?>"><img src="<?php echo getPrevImageThumb();?>" alt="<?php echo getPrevImageTitle();?>" /></a>
     <?php } else { echo "</td><td>"; } ?>
     </td><td>
     <?php if (hasNextImage()) { ?>
-    <a class="prev" href="<?=getNextImageURL();?>" title="<?=getNextImageTitle();?>"><img src="<?=getNextImageThumb();?>" alt="<?=getNextImageTitle();?>"/></a>
+    <a class="prev" href="<?php echo getNextImageURL();?>" title="<?php echo getNextImageTitle();?>"><img src="<?php echo getNextImageThumb();?>" alt="<?php echo getNextImageTitle();?>"/></a>
     </td><td>
-    <a class="next" href="<?=getNextImageURL();?>" title="Next Image">Next <span>&raquo;</span></a>
+    <a class="next" href="<?php echo getNextImageURL();?>" title="Next Image">Next <span>&raquo;</span></a>
     <?php } else { echo "</td><td>"; } ?>
   </td></tr></table></div>
 <?php } 

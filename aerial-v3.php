@@ -47,7 +47,7 @@ else
 	?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; Aerial Explorer</div>
-	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php
 	
@@ -56,8 +56,8 @@ else
 	if ($section != 'overview')
 	{
 	?>
-<p class="error" clear="all" style="margin-top: 0"><a href="<? echo $query; ?>" class="error" onClick="pl('<? echo $query; ?>'); return false;" target="_blank">Something should have popped...</a></p>
-<?	
+<p class="error" clear="all" style="margin-top: 0"><a href="<?php echo $query; ?>" class="error" onClick="pl('<?php echo $query; ?>'); return false;" target="_blank">Something should have popped...</a></p>
+<?php 
 	}
 	drawDescription();
 	
@@ -65,8 +65,8 @@ else
 	{	
 ?>
 <script type="text/javascript">
-pl(<? echo '"'.$query.'"'; ?>);
-</script>	<?
+pl(<?php echo '"'.$query.'"'; ?>);
+</script>	<?php
 	}
 	
 	include_once("common/footer.php");
@@ -87,7 +87,6 @@ function drawDescription()
 <p><a href="http://maps.google.com/">Google Maps</a> requires a recent Javascript capable browser for use. As a consequence users with older browsers may not be able to access this section of the site. Upgrading your browser to a newer version will fix this. If you are still having problems please ensure you have Javascript turned on in your browser to view this section.</p>
 <p>Users on slower (eg: non broadband) internet connections may find this section very slow to load, this is due to the large number of images being downloaded for viewing. Switching to the 'Map" display option in the top corner may speed loading times. Other than than you will just need to be patient.</p>
 <p>For users still not able to use this feature, all location histories are still accessable via the links in the <a href="/locations.php">sidebar</a>.</p>
-<?
+<?php
 }	// end function
-
 ?>

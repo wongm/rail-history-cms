@@ -6,8 +6,8 @@ $pageTitle = " - $breadcrumb";
 include_once('header.php'); 
 ?>
 <div id="headbar">
-	<div class="link"><a href="/">Home</a> &raquo; <a href="<?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; <a href="/gallery/recent"><?php echo $breadcrumb; ?></a></div>
-	<div class="search"><? printSearchForm(); ?></div>
+	<div class="link"><a href="/">Home</a> &raquo; <a href="<?php echo getGalleryIndexURL();?>" title="Gallery Index"><?php echo getGalleryTitle();?></a> &raquo; <a href="/gallery/recent"><?php echo $breadcrumb; ?></a></div>
+	<div class="search"><?php printSearchForm(); ?></div>
 </div>
 <?php include_once('midbar.php'); ?>
 <div class="topbar">
@@ -26,13 +26,13 @@ include_once('header.php');
 	global $_zp_current_image;
 ?>
 	<td class="image" valign="top">
-			<div class="imagethumb"><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>">
+			<div class="imagethumb"><a href="<?php echo getImageURL();?>" title="<?php echo getImageTitle();?>">
 			 <?php printImageThumb(getImageTitle()); ?></a></div>
 			<div class="imagetitle">
-				<h4><a href="<?=getImageURL();?>" title="<?=getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
+				<h4><a href="<?php echo getImageURL();?>" title="<?php echo getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
 		<?php echo printImageDescWrapped(); ?>
 				<p>In album: <a href="<?php echo getAlbumURL();?>" title="View parent album"><?php echo getAlbumTitleForPhotostreamImage(); ?></a></p>
-				<small><?php printImageDate(); ?><br/><? if(function_exists(printHitCounter)) { printHitCounter($_zp_current_image); } ?></small>
+				<small><?php printImageDate(); ?><br/><?php if(function_exists(printHitCounter)) { printHitCounter($_zp_current_image); } ?></small>
 			</div>
 		</td>
 	<?php 

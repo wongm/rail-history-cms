@@ -10,10 +10,10 @@ include_once("common/header.php");
 	<tr valign="top" height="20">
 		<td align="right"> <b> Location :  </b> </td>
 		<td> <select name="thisLocationField">
-<?	drawLocationNameSelectFields(); ?>
+<?php drawLocationNameSelectFields(); ?>
 		</select></td>
 	</tr>
-<? drawAddNewLocationEvent(); ?>
+<?php drawAddNewLocationEvent(); ?>
 </table>
 
 <input type="submit" name="submitEnterLocation_eventsForm" value="Enter Location Event">

@@ -14,8 +14,8 @@ $votePromptText = "Cast your vote";
 include_once('header.php');
 ?>
 <div id="headbar">
-	<div class="link"><?=getGalleryIndexURL();?>" title="Gallery Index"><?=getGalleryTitle();?></a> &raquo; <a href="<?=DO_RATINGS_URL_PATH?>">Rate my photos</a></div>
-	<div class="search"><? printSearchForm(); ?></div>
+	<div class="link"><?php echo getGalleryIndexURL();?>" title="Gallery Index"><?php echo getGalleryTitle();?></a> &raquo; <a href="<?php echo DO_RATINGS_URL_PATH?>">Rate my photos</a></div>
+	<div class="search"><?php printSearchForm(); ?></div>
 </div>
 <?php 
 
@@ -105,28 +105,28 @@ if (isset($_POST['option']))
 <div class="topbar"><h3>Results</h3></div>
 <table class="indexalbums"><tr class="album">
 <td class="albumthumb">
-	<a href="<?=$urlImagePage?>" target="new">
-	<img src="<?=$urlThumbnailImage?>" title="<?=$alt?>" alt="<?=$alt?>" /></a>
+	<a href="<?php echo $urlImagePage?>" target="new">
+	<img src="<?php echo $urlThumbnailImage?>" title="<?php echo $alt?>" alt="<?php echo $alt?>" /></a>
 </td><td class="albumdesc">
-	<h4>Option <?=$option?> - <?=$resultWinner['title']?></h4>
-	<p><small><?=zpFormattedDate(getOption('date_format'), strtotime($resultWinner['date']));?></small></p>
-	<p>Album: <?=$resultWinner['albumtitle']?></p>
-	<p><i><?=$resultText?></i></p>
-	<p><a href="<?=RATINGS_URL_PATH?>">See the highest rated photos</a></p>
+	<h4>Option <?php echo $option?> - <?php echo $resultWinner['title']?></h4>
+	<p><small><?php echo zpFormattedDate(getOption('date_format'), strtotime($resultWinner['date']));?></small></p>
+	<p>Album: <?php echo $resultWinner['albumtitle']?></p>
+	<p><i><?php echo $resultText?></i></p>
+	<p><a href="<?php echo RATINGS_URL_PATH?>">See the highest rated photos</a></p>
 </td></tr></table>
-<?
+<?php
 	} 	// end successful submit
 }		// end any submit
 ?>
-<div class="topbar"><h3><?=$votePromptText?></h3></div>
-<?
+<div class="topbar"><h3><?php echo $votePromptText?></h3></div>
+<?php
 $imageOptions = array(getRandomImages(), getRandomImages());
 $titleOptions = array('A', 'B');
 $reverseOptions = array($imageOptions[0], $imageOptions[1], $imageOptions[0]);
 $i = 0;
 ?>
 <table class="indexalbums">
-<?
+<?php
 
 // draw out the image options
 foreach ($imageOptions as $random)
@@ -148,7 +148,7 @@ foreach ($imageOptions as $random)
 ?>
 <tr class="album">
 <td class="albumthumb">
-<?
+<?php
 	echo "<form method=\"post\" action=\"" . DO_RATINGS_URL_PATH . "\" id=\"dorating\">\n";
 	echo "<input id=\"option\" name=\"option\" type=\"hidden\" value=\"$title\" />\n";
 	echo "<input id=\"image\" name=\"image\" type=\"hidden\" value=\"$optionA\" />\n";
@@ -165,32 +165,32 @@ foreach ($imageOptions as $random)
 	}
 	echo "</form>\n";
 ?>
-<h4><?=$imageTitle?></h4>
-<p><small><?=$date; ?></small></p>
-<p>Album: <?=$albumTitle ?></p>
+<h4><?php echo $imageTitle?></h4>
+<p><small><?php echo $date; ?></small></p>
+<p>Album: <?php echo $albumTitle ?></p>
 </td><td class="albumdesc">
-<?
+<?php
 	echo "<p><img src=\"" . htmlspecialchars(getDefaultSizedImage()) . "\" alt=\" $alt \" title=\" $alt \" /></p>";
 	$i++;
 ?>
 </td></tr>
-<?
+<?php
 	if ($i == 1)
 	{
 ?>
 <tr class="album"><td class="albumthumb">
-<?
+<?php
 echo "<form method=\"post\" action=\"" . DO_RATINGS_URL_PATH . "\" id=\"dorating\">\n";
 echo "<input class=\"button\" type=\"submit\" value=\"Neither\" />\n";
 echo "</form>\n";
 ?>
 </td><td class="albumdesc"><p>I can't decide - give me 2 new photos</p></td></tr>
-<?
+<?php
 	}
 }
 ?>
 </table>
-<?
+<?php
 include_once('footer.php'); 
 
 function calculateScore($ratings_win, $ratings_view)

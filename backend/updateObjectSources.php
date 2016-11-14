@@ -32,19 +32,19 @@ Record has been updated in the database. Here is the updated information :- <br>
 <table>
 <tr height="30">
 	<td align="right"><b>LinkzorId : </b></td>
-	<td><? echo $thisLinkzorId; ?></td>
+	<td><?php echo $thisLinkzorId; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>LocationId : </b></td>
-	<td><? echo $thisObjectId; ?></td>
+	<td><?php echo $thisObjectId; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>SourceId : </b></td>
-	<td><? echo $thisSourceId; ?></td>
+	<td><?php echo $thisSourceId; ?></td>
 </tr>
 <tr height="30">
 	<td align="right"><b>Extra : </b></td>
-	<td><? echo $thisExtra; ?></td>
+	<td><?php echo $thisExtra; ?></td>
 </tr>
 </table>
 <br><br><a href="listLocation_sources.php">Go Back to List All Records</a>

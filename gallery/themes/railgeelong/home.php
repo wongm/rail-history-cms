@@ -12,7 +12,7 @@ include_once('header.php');
 ?>
 <div id="headbar">
 	<div class="link">Welcome</div>
-	<div class="search"><? drawHeadbarSearchBox(); ?></div>
+	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php include_once('midbar.php'); ?>
 <div id="frontpage">
@@ -42,7 +42,7 @@ while (next_news() && $newsCount < 5): ;
 		$style = 'even';
 	}
 	?>
-<tr class="<? echo $style; ?>">
+<tr class="<?php echo $style; ?>">
 	<td class="d" valign="top"><?php printNewsDate();?></td>
 	<td><h4><?php echo getNewsTitle(); ?></h4>
 		<?php echo getNewsContent(true); ?>
