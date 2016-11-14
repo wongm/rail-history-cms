@@ -6,7 +6,11 @@ include_once("common/formatting-functions.php");
 
 $pageTitle = ' - Updates';
 
-$pageNumber = $_REQUEST['page'];
+$pageNumber = 1;
+if($_REQUEST['page'] > 0)
+{
+	$pageNumber = $_REQUEST['page'];
+}
 $maxRowsPerPage = 50;
 $index = ($pageNumber*$maxRowsPerPage)-$maxRowsPerPage;
 $updatedPages = getUpdatedPages($index, $maxRowsPerPage);
