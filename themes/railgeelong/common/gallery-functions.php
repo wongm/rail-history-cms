@@ -44,31 +44,10 @@ function getLocationImages($location)
 
 function getFilename($fullpath)
 {
-	$fullpathbits = split('/', $fullpath);
+	$fullpathbits = explode('/', $fullpath);
 	$bitcount = sizeof($fullpathbits);
 	
     return $fullpathbits[$bitcount - 1];
-}
-
-function printFrontpageRecent()
-{
-	$sql = "SELECT i.filename, i.id, zp_albums.folder, zp_albums.title, zp_albums.id, zp_albums.date, i.date as fdate 
-				FROM zp_images i
-				INNER JOIN zp_albums ON i.albumid = zp_albums.id 
-				LEFT JOIN
-				(
-				    select max(id) id1 from zp_images insideimage
-				    where albumid <> 0
-				    group by albumid
-				    order by max(id) desc
-				    limit ".FRONT_PAGE_MAX_IMAGES."
-				) t ON id1 = i.id
-				WHERE id1 is not null or albumid = 0 
-				ORDER BY i.id DESC
-				LIMIT 0,".FRONT_PAGE_MAX_IMAGES;
-	$galleryResult = MYSQL_QUERY($sql, galleryDBconnect());	
-	
-	drawAlbums($galleryResult);
 }
 
 /*
