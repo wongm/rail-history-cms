@@ -411,9 +411,6 @@ function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 			$id = stripslashes($resultLocations[$i]["location_id"]);
 		}
 		
-		print_r($resultLocations[$i]);
-		die();
-		
 		$highlightName = $name = stripslashes(MYSQL_RESULT($resultLocations,$i,"l.name")); 
 		$type = stripslashes(MYSQL_RESULT($resultLocations,$i,"l.type"));
 		$link = MYSQL_RESULT($resultLocations,$i,"l.link");
