@@ -66,30 +66,6 @@ function getPageBreadcrumbs($pageTitle)
 	return $toreturn;
 }
 
-function drawAllArticles($type)
-{
-	$pageTitle = ucfirst($type).'s Listing';
-	include_once("common/header.php");
-?>
-<div id="headbar">
-	<div class="link"><a href="/">Home</a> &raquo; Articles</div>
-	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
-</div>
-<?php
-	include_once("common/midbar.php");
-?>
-<h3><?php echo $pageTitle?></h3>
-<?php 
-	$articles = MYSQL_QUERY("SELECT * FROM articles WHERE link != '' AND `line_id` = '0'", locationDBconnect());
-
-	for ($i = 0; $i < MYSQL_NUM_ROWS($articles); $i++)
-	{
-		echo '<h4><a href="/'.$type.'/'.stripslashes(MYSQL_RESULT($articles,$i,"link")).'">'.stripslashes(MYSQL_RESULT($articles,$i,"title")).'</a></h4>';
-		echo '<p class="details">'.stripslashes(MYSQL_RESULT($articles,$i,"description")).'</p>';
-	}
-	include_once("common/footer.php");
-}
-
 function drawDiagramTabs($diagramData)
 {
 ?>

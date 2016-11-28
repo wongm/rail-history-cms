@@ -41,6 +41,9 @@
 	
 	#RewriteRule ^location/([0-9]+)/map$					   					aerial-tool.php?id=$1&view=map [L,QSA]
 	#RewriteRule ^location/([0-9]+)/satellite$					   			aerial-tool.php?id=$1&view=satellite [L,QSA]
+	
+	RewriteRule ^articles/?$					   			index.php?p=articles [L,QSA]
+	RewriteRule ^article/(.*)/?$	   						index.php?p=articles&name=$1 [L,QSA]
 
 	#### Rewrite rules for search
 	RewriteRule ^%SEARCH%/*$															index.php?p=search [L,QSA]
