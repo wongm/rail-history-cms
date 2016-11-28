@@ -35,7 +35,7 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 	}
 	
 	// check for duplicates from DB
-	$locationSql = "SELECT lt.*, lr.*, l.* , r.todisplay, r.name, r.link, r.line_id, r.tracksubpage, 
+	$locationSql = "SELECT lt.*, lr.*, l.* , lr.kmAccuracy, r.todisplay, r.name AS linename, r.link, r.line_id, r.tracksubpage, 
 		DATE_FORMAT(open, '".SHORT_DATE_FORMAT."') AS fopen, DATE_FORMAT(close, '".SHORT_DATE_FORMAT."') 
 		AS fclose, DATE_FORMAT(l.modified, '".SHORT_DATE_FORMAT."') AS fmodified,
 		length(l.description) AS description_length
@@ -87,10 +87,10 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 		$location["display"] = $locationResults[0]["display"];
 		$location["url"] = $locationResults[0]["url"];
 		$location["description"] = stripslashes($locationResults[0]["description"]);
-		$location["credits"] = stripslashes($locationResults[0]["l.credits"]);
+		$location["credits"] = stripslashes($locationResults[0]["credits"]);
 		$location["image"] = $locationResults[0]["image"];
 		$location["diagrams"] = $locationResults[0]["diagrams"];
-		$location["typeToDisplay"] = $locationResults[0]["lt.basic"];
+		$location["typeToDisplay"] = $locationResults[0]["basic"];
 		$location["approxOpen"] = $locationResults[0]["openAccuracy"];
 		$location["approxClose"] = $locationResults[0]["closeAccuracy"];
 		$location["stillOpen"] = $locationResults[0]["close"] > date('Y-m-d');
@@ -101,7 +101,7 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 		$location["open"] = formatDate($locationResults[0]["fopen"], $location["approxOpen"]);
 		$location["close"] = formatDate($locationResults[0]["fclose"], $location["approxClose"]);
 		//$location["todisplay"] = $locationResults[0]["r.todisplay");
-		$location["raillineDisplay"] = $locationResults[0]["r.todisplay"];
+		$location["raillineDisplay"] = $locationResults[0]["todisplay"];
 		$location["showLineEvents"] = substr($location["raillineDisplay"], 2, 1) == 1;
 		$location["updated"] = $locationResults[0]["fmodified"];
 		
@@ -129,11 +129,11 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 		}
 		
 		// get stations and signal boxes with the same name as this one
-		$location["associatedLocations"] = getAssociatedLocations($location["id"], $location["name"], $location["type"]);
+		$location["associatedLocations"] = getAssociatedLocations($location["id"], $location["name"], $location["type"], $location["locationLink"]);
 		$location["hasAssociatedLocations"] = (bool)$location["associatedLocations"];
 		
 		// setup distances
-		$location["kmAccuracy"] = $locationResults[0]["lr.kmAccuracy"];
+		$location["kmAccuracy"] = $locationResults[0]["kmAccuracy"];
 		if ($location["kmAccuracy"] == 'exact')
 		{
 			$location["exactKm"] =  true;
@@ -174,12 +174,12 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 		// for locations on multiple lines
 		$location["requestedLineLink"] = $requestedLineLink;
 		$location["numberoflines"] = $numberoflines = sizeof($locationResults);
-		$location["km"] = $locationResults[0]["lr.km"];
-		$location["lineName"] = $locationResults[0]["r.name"];
-		$location["lineLink"] = $locationResults[0]["r.link"];
-		$location["lineId"] = $locationResults[0]["r.line_id"];
-		$location['lineType'] = $locationResults[0]["lr.junctiontype"];
-		$location['trackSubpage'] = $locationResults[0]["r.tracksubpage"];
+		$location["km"] = $locationResults[0]["km"];
+		$location["lineName"] = $locationResults[0]["linename"];
+		$location["lineLink"] = $locationResults[0]["link"];
+		$location["lineId"] = $locationResults[0]["line_id"];
+		$location['lineType'] = $locationResults[0]["junctiontype"];
+		$location['trackSubpage'] = $locationResults[0]["tracksubpage"];
 		$location["trackSubpageCount"] = sizeof(explode(';', $location["trackSubpage"]));
 		
 		// next and backward locations
@@ -192,13 +192,13 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 			for ($i = 0; $i < $numberoflines; $i++)
 			{
 				// add check for locations like South Geelong, a junction with a signal box by same name
-				if ($location["id"] == $locationResults[1]["l.location_id"])
+				if ($location["id"] == $locationResults[1]["location_id"])
 				{
-					$branchline[$i]['link'] = $locationResults[1]["r.link"];
-					$branchline[$i]['name'] = $locationResults[1]["r.name"];
-					$branchline[$i]['lineId'] = $locationResults[1]["r.line_id"];
-					$branchline[$i]['km'] = $locationResults[1]["lr.km"];
-					$branchline[$i]['type'] = $locationResults[1]["lr.junctiontype"];
+					$branchline[$i]['link'] = $locationResults[1]["link"];
+					$branchline[$i]['name'] = $locationResults[1]["linename"];
+					$branchline[$i]['lineId'] = $locationResults[1]["line_id"];
+					$branchline[$i]['km'] = $locationResults[1]["km"];
+					$branchline[$i]['type'] = $locationResults[1]["junctiontype"];
 				}
 				else
 				{
@@ -467,7 +467,7 @@ function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 }	// end function
 
 
-function getAssociatedLocations($id, $name, $type)
+function getAssociatedLocations($id, $name, $type, $link)
 {
 	$splitName = explode(' ', $name);
 	$splitNameLength = sizeof($splitName);
@@ -543,7 +543,7 @@ function getAssociatedLocations($id, $name, $type)
 			$bit = '';
 			
 			// only want to show stations and signal boxes
-			switch ($location['type'])
+			switch ($type)
 			{
 				case TYPE_SIGNAL_BOX:
 				case TYPE_STATION:
@@ -561,7 +561,7 @@ function getAssociatedLocations($id, $name, $type)
 			
 			if ($title != '')
 			{
-				if (strlen($location['link']))
+				if (strlen($link))
 				{
 					$toreturn[] = array($associatedLocationsResults[$i]['link'], $title);
 				}
