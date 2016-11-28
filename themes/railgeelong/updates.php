@@ -7,7 +7,7 @@ include_once("common/formatting-functions.php");
 $pageTitle = ' - Updates';
 
 $pageNumber = 1;
-if($_REQUEST['page'] > 0)
+if(isset($_REQUEST['page']) && $_REQUEST['page'] > 0)
 {
 	$pageNumber = $_REQUEST['page'];
 }
