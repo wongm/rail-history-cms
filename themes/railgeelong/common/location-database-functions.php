@@ -392,15 +392,14 @@ function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 	{
 		$toreturn['headertitle'] = array('Updated', 'Line', 'Type', 'Photos', 'Events', 'History', 'Location');
 	}
-	else if ($displaytype == 'search' OR $displaytype == 'line')
+	else if ($displaytype == 'search')
 	{
-		$toreturn['headertitle'] = array('Line', 'Type', 'Photos', 'Events', 'History', 'Location');
+		$toreturn['headertitle'] = array('Location', 'Type', 'Photos', 'Events', 'History', 'Line');
 	}
 	
 	for ($i = 0; $i < $numberOfLocations; $i++)
 	{
 		$id = stripslashes($resultLocations[$i]["location_id"]);
-		
 		if ($id == $pastid)
 		{
 			$i++;
@@ -411,22 +410,22 @@ function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 			$id = stripslashes($resultLocations[$i]["location_id"]);
 		}
 		
-		$highlightName = $name = stripslashes(MYSQL_RESULT($resultLocations,$i,"l.name")); 
-		$type = stripslashes(MYSQL_RESULT($resultLocations,$i,"l.type"));
-		$link = MYSQL_RESULT($resultLocations,$i,"l.link");
+		$highlightedLocationName = $name = stripslashes($resultLocations[$i]["name"]); 		
+		$type = stripslashes($resultLocations[$i]["type"]);
+		$link = $resultLocations[$i]["link"];
 		$urlBase = getLocationUrlBase($id, $name, $link);
 		
 		if ($keyword != '')
 		{
-			$highlightName = highlight($keyword, $name);
+			$highlightedLocationName = highlight($keyword, $name);
 		}
 		
 		// image depending on length of description
-		//$contentLengthImage = getLocationDescriptionLengthImage(MYSQL_RESULT($resultLocations,$i,"description_length"));
+		//$contentLengthImage = getLocationDescriptionLengthImage($resultLocations[$i]["description_length"]);
 		$contentLengthImage = "<a href=\"/location/$urlBase\">$contentLengthImage</a>";
 			
 		// image if photos
-		if (showPhotos(MYSQL_RESULT($resultLocations,$i,"l.photos")))
+		if (showPhotos($resultLocations[$i]["photos"]))
 		{
 			$galleryLinkImage = '<a href="/location/'.$urlBase.'/#photos"><img src="/images/photos.gif" alt="Photos" title="Photos" /></a>';
 		}
@@ -436,7 +435,7 @@ function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 		}
 		
 		// image if events
-		if (MYSQL_RESULT($resultLocations,$i,"l.events") == '1')
+		if ($resultLocations[$i]["events"] == '1')
 		{
 			$eventLinkImage = '<a href="/location/'.$urlBase.'/#events"><img src="/images/events.gif" alt="Events" title="Events" /></a>';
 		}
@@ -445,19 +444,19 @@ function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 			$eventLinkImage = '';
 		}
 		
-		$lineid = MYSQL_RESULT($resultLocations,$i,"lr.line_id"); 
-		$line = stripslashes(MYSQL_RESULT($resultLocations,$i,"r.name")); 
-		$locationTypeid = MYSQL_RESULT($resultLocations,$i,"l.type"); 
-		$locationTypeName = stripslashes(MYSQL_RESULT($resultLocations,$i,"lt.basic"));
+		$lineid = $resultLocations[$i]["line_id"]; 
+		$linename = stripslashes($resultLocations[$i]["linename"]); 
+		$locationTypeid = $resultLocations[$i]["type"]; 
+		$locationTypeName = stripslashes($resultLocations[$i]["basic"]);
 			
-		if ($displaytype == 'search' OR $displaytype == 'line')
+		if ($displaytype == 'search')
 		{
-			$toreturn[] = array($line, $locationTypeName, $galleryLinkImage, $eventLinkImage, $contentLengthImage, $highlightName, "/location/$urlBase");
+			$toreturn[] = array($locationTypeName, $galleryLinkImage, $eventLinkImage, $contentLengthImage, $linename, $highlightedLocationName, "/location/$urlBase");
 		}
 		else if ($displaytype == 'updated')
 		{
-			$updated = MYSQL_RESULT($resultLocations,$j,"l.fdate"); 
-			$toreturn[] = array($updated, $line, $locationTypeName, $galleryLinkImage, $eventLinkImage, $contentLengthImage, $highlightName, "/location/$urlBase");
+			$updated = $resultLocations[$j]["fdate"]; 
+			$toreturn[] = array($updated, $linename, $locationTypeName, $galleryLinkImage, $eventLinkImage, $contentLengthImage, $highlightedLocationName, "/location/$urlBase");
 		}
 		
 		$j++;

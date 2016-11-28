@@ -19,7 +19,7 @@ if (isset($_REQUEST['search']))
 
 	$pageTitle = "Location search - \"$locationSearch\"";
 	include_once("header.php");
-	drawLocationSearch($locationSearch, $locationSearchPage);
+	drawLocationSearch($locationSearch, 1, $locationSearchPage);
 	include_once("footer.php");
 }
 /*

@@ -329,17 +329,17 @@ function drawLocationSearch($locationSearch, $searchPageNumber, $message="")
 		INNER JOIN location_types lt ON lt.type_id = l.type
 		LEFT OUTER JOIN locations ol ON l.name = ol.name
 		WHERE r.todisplay != 'hide'  AND l.name != '' AND l.display != 'tracks' AND l.type != 18
-		AND ".SQL_NEXTABLE." AND l.name like '%s'", mysql_real_escape_string("%$locationSearch%"));
+		AND ".SQL_NEXTABLE." AND l.name like %s", db_quote("%$locationSearch%"));
 	
 		$queryLimitSQL = sprintf(" GROUP BY l.location_id ORDER BY l.location_id, l.name ASC LIMIT %s, %s",
-			mysql_real_escape_string($index), mysql_real_escape_string($maxRecordsPerPage));
+			($index), ($maxRecordsPerPage));
 	
-		$result = MYSQL_QUERY("SELECT l.location_id, l.name, r.name, l.type, l.link, 
-			length(l.description) AS description_length, l.photos, l.events, lr.line_id, lt.basic ".$queryBaseSQL.$queryLimitSQL, locationDBconnect());
-		$numberOfRecords = MYSQL_NUM_ROWS($result);
+		$result = query_full_array("SELECT l.location_id, l.name AS name, r.name AS linename, l.type, l.link, 
+			length(l.description) AS description_length, l.photos, l.events, lr.line_id, lt.basic ".$queryBaseSQL.$queryLimitSQL);
+		$numberOfRecords = sizeof($result);
 	
-		$resultMaxRows = MYSQL_QUERY("SELECT count(l.location_id) ".$queryBaseSQL." GROUP BY l.location_id", locationDBconnect());
-		$totalNumberOfRecords = MYSQL_NUM_ROWS($resultMaxRows);
+		$resultMaxRows = query_full_array("SELECT l.location_id ".$queryBaseSQL." GROUP BY l.location_id");
+		$totalNumberOfRecords = sizeof($resultMaxRows);
 	}
 	else
 	{
@@ -351,7 +351,7 @@ function drawLocationSearch($locationSearch, $searchPageNumber, $message="")
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php
-	include_once(dirname(__FILE__) . "/../common/midbar.php");
+	include_once("midbar.php");
 
 	if ($numberOfRecords > 0)
 	{
@@ -370,7 +370,7 @@ function drawLocationSearch($locationSearch, $searchPageNumber, $message="")
 	}
 	else
 	{
-		include_once(dirname(__FILE__) . "/../common/location-lineguide-functions.php");
+		include_once("location-lineguide-functions.php");
 		
 		// display number of results
 		$extraBit = ', locations '.drawNumberCurrentDisplayedRecords($maxRecordsPerPage,$numberOfRecords,$searchPageNumber);

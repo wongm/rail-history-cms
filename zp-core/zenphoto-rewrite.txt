@@ -28,6 +28,8 @@
     RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/diagram/year-([0-9\-_]+)/page-([0-9\-_]+)/?$			index.php?p=lineguide&line=$1&section=diagram&year=$2&page=$3 [L,QSA]
     RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/safeworking/([A-Za-z0-9\-_]+)/?$						index.php?p=lineguide&line=$1&section=safeworking&year=$2 [L,QSA]
 	
+	RewriteRule ^locations/(.*)$                     									index.php?p=locations-home [L,QSA]
+	
 	RewriteRule ^location/([0-9\-_]+)/?$					   				index.php?p=location&id=$1 [L,QSA]
 	RewriteRule ^location/([0-9\-_]+)/box/?$					   			index.php?p=location&id=$1 [L,QSA]
 	RewriteRule ^location/([A-Za-z0-9\-'.,_]+)/?$	   						index.php?p=location&name=$1 [L,QSA]
