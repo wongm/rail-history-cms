@@ -1,6 +1,6 @@
 <?php
 
-include_once(dirname(__FILE__) . "/../common/dbConnection.php");
+include_once("dbConnection.php");
 
 function parseDescriptionForMap($description)
 {

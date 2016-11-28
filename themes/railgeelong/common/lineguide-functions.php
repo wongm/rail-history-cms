@@ -1,6 +1,6 @@
 <?php
 
-include_once(dirname(__FILE__) . "/../common/lineguide-database-functions.php");
+include_once("lineguide-database-functions.php");
 
 function drawLineguideHeaders($line, $section='')
 {
@@ -13,13 +13,13 @@ function drawLineguideHeaders($line, $section='')
 		$googleHeader = true;
 	}
 	
-	include_once(dirname(__FILE__) . "/../common/header.php");
+	include_once("header.php");
 	?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; <a href="/lineguides">Line Guides</a> &raquo; <a href="/lineguide/<?php echo $line['lineLink'] ?>"><?php echo getLineName($line['lineName']) ?></a></div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
-<?php include_once(dirname(__FILE__) . "/../common/midbar.php"); ?>
+<?php include_once("midbar.php"); ?>
 <div id="lineguide">
 <?php
 }
@@ -43,7 +43,7 @@ function drawLineguideFooters($line, $section='')
 	global $pageNavigation;
 	$pageNavigation = getLineguideNavigation($line);
 	
-	include_once(dirname(__FILE__) . "/../common/footer.php");
+	include_once("footer.php");
 }
 
 function drawSafeworkingDiagram($line, $section)
@@ -331,7 +331,7 @@ function drawSpecificLine($line, $contentsHeader = 'Contents')
 	// check to see if photos will be shown
 	if (showPhotos($line['photos']))
 	{
-		include_once(dirname(__FILE__) . "/../common/gallery-functions.php");
+		include_once("gallery-functions.php");
 		$linePhotos = getLocationImages($line['photos']);
 		$showPhotos = (sizeof($linePhotos) > 0);
 	}

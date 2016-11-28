@@ -165,10 +165,10 @@ function draw404InvalidSubpage($pageUrlRoot, $subpage='subpage')
 	header("Status: 404 Not Found");
 
 	$pageTitle = "404 Page Not Found";
-	include_once(dirname(__FILE__) . "/../common//header.php");
+	include_once("header.php");
 	echo "<p class=\"error\">Error - Invalid $subpage!</p>\n";
 	echo "<a href=\"/$pageUrlRoot\">Return</a>";
-	include_once(dirname(__FILE__) . "/../common//footer.php");
+	include_once("footer.php");
 	return;
 }
 
