@@ -46,6 +46,9 @@
 	
 	RewriteRule ^articles/?$					   			index.php?p=articles [L,QSA]
 	RewriteRule ^article/(.*)/?$	   						index.php?p=articles&name=$1 [L,QSA]
+	
+	#### Rail Geelong legacy
+	RewriteRule ^(.*)\.php$                     					index.php?p=$1 [L,QSA]
 
 	#### Rewrite rules for search
 	RewriteRule ^%SEARCH%/*$															index.php?p=search [L,QSA]
