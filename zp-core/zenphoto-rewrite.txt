@@ -15,8 +15,9 @@
 	RewriteRule ^gallery/(.*)$                     										index.php?album=$1 [L,QSA]
 	RewriteRule ^lineguides/(.*)$                     									index.php?p=lineguides [L,QSA]
 	RewriteRule ^region/(.*)/$                     										index.php?p=regions&name=$1 [L,QSA]
-	RewriteRule ^updates(.*)$                     										index.php?p=updates [L,QSA]
-	RewriteRule ^updates/%PAGE%/(.*)$                     								index.php?p=updates&page=$1 [L,QSA]
+	
+	RewriteRule ^updates/?$                     										index.php?p=updates [L,QSA]
+	RewriteRule ^updates/%PAGE%/(.*)/$                     								index.php?p=updates&page=$1 [L,QSA]
 	
 	RewriteRule ^lineguide/?$					   										index.php?p=lineguides [L,QSA]
     RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/?$	  										index.php?p=lineguide&line=$1 [L,QSA]
