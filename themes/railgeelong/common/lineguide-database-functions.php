@@ -85,7 +85,7 @@ function getLine($lineToDisplay, $yearToDisplay)
 		$line['yearToDisplay'] = $yearToDisplay;
 		
 		// stuff for diagrams
-		$line["trackDiagramTabs"] = stripslashes($lineResult[0]["trackDiagramTabs"]);
+		$line["trackDiagramTabs"] = stripslashes($lineResult[0]["trackdiagramtabs"]);
 		$line["safeworkingYears"] = stripslashes($lineResult[0]["safeworkingyears"]);
 		$line["trackYears"] = stripslashes($lineResult[0]["trackyears"]);
 		$line["safeworkingDefault"] = $safeworkingdefault = $lineResult[0]["safeworkingdefault"];
@@ -163,11 +163,11 @@ function getLine($lineToDisplay, $yearToDisplay)
 }	// end function
 
 function getLineBasicDetails($result, $j)
-{	
+{
 	$line["lineId"] = stripslashes($result[$j]["line_id"]);
 	$line["lineName"] = stripslashes($result[$j]["name"]);
 	$line["lineLink"] = stripslashes($result[$j]["link"]);
-	$line["trackSubpage"] = stripslashes($result[$j]["trackSubpage"]);
+	$line["trackSubpage"] = stripslashes($result[$j]["tracksubpage"]);
 	$line["trackSubpageCount"] = sizeof(explode(';', $line["trackSubpage"]));
 	$line["lineLocations"] = $result[$j]["line_locations"];
 	$line["todisplay"] = $result[$j]["todisplay"];
@@ -193,7 +193,7 @@ function getRegionsForLine($lineid)
 	
 	for ($i = 0; $i < sizeof($regionResult); $i++)
 	{
-		$regions[] = stripslashes($regionResult[$i]["region.link"]);
+		$regions[] = stripslashes($regionResult[$i]["link"]);
 	}
 	
 	return $regions;
