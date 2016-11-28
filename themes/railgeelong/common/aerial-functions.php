@@ -109,14 +109,14 @@ Click on the icons to view more details of the location. The tabs along the top 
 <div id="lines" class="tabcontent">
 <div id="tabtitle2">Rail Lines</div>
 <table><tr><td><form name="customlines" id="customlines"><?php 
-$result = MYSQL_QUERY("SELECT * FROM raillines WHERE todisplay != 'hide' ORDER BY name", locationDBconnect());
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = query_full_array("SELECT * FROM raillines WHERE todisplay != 'hide' ORDER BY name");
+$numberOfRows = sizeof($result);
 if ($numberOfRows>0) 
 {
 	for ($i = 0;$i<$numberOfRows; $i++)
 	{
-		$thisLine_id = stripslashes(MYSQL_RESULT($result,$i,"line_id"));
-		$thisName = stripslashes(MYSQL_RESULT($result,$i,"name"));	?>
+		$thisLine_id = stripslashes($result[$i]["line_id"]);
+		$thisName = stripslashes($result[$i]["name"]);	?>
 <label for="<?php echo $thisLine_id?>"><?php echo $thisName?>: </label><input type="checkbox" name="<?php echo $thisLine_id?>" id="<?php echo $thisLine_id?>" />
 <?php } // end while loop
 }	?>
@@ -178,20 +178,20 @@ function drawSpecific($view, $id)
 		INNER JOIN location_types lt ON lt.type_id = l.type 
 		WHERE location_id = '".$id."'";
 		
-	$result = MYSQL_QUERY($sql, locationDBconnect());
+	$result = query_full_array($sql);
 	
-	if (MYSQL_NUM_ROWS($result) == 0)
+	if (sizeof($result) == 0)
 	{
 		echo '<p class="error">Error - Invalid Location!</p>';
 	}
 	else	// start zero result if
 	{
-		$name = stripslashes(MYSQL_RESULT($result,0,"name")); 
-		$typeName = stripslashes(MYSQL_RESULT($result,0,"basic"));
-		$coords = stripslashes(MYSQL_RESULT($result,0,"long")); 
-		$photos = stripslashes(MYSQL_RESULT($result,0,"photos")); 
-		$events = stripslashes(MYSQL_RESULT($result,0,"events")); 
-		$length = strlen((MYSQL_RESULT($result,0,"description")));	?>
+		$name = stripslashes($result[0]["name"]); 
+		$typeName = stripslashes($result[0]["basic"]);
+		$coords = stripslashes($result[0]["long"]); 
+		$photos = stripslashes($result[0]["photos"]); 
+		$events = stripslashes($result[0]["events"]); 
+		$length = strlen(($result[0]["description"]));	?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html height="100%" xmlns="http://www.w3.org/1999/xhtml">
