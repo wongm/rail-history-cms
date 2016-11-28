@@ -5,15 +5,16 @@ include_once("common/formatting-functions.php");
 include_once("common/source-functions.php");
 include_once("common/map-functions.php");
 	
-$link = $_REQUEST['name'];
 
-if ($link == '')
+
+if (!isset($_REQUEST['name']))
 {
 	drawAllArticles('article');
 }
 // for a specific article
 else
 {
+	$link = $_REQUEST['name'];
 	$link = str_replace('/', '', $link);
 	$article = query_full_array("SELECT *, DATE_FORMAT(modified, '%M %e, %Y') AS fdate FROM articles WHERE `link` = '$link'");
 	
