@@ -32,15 +32,16 @@ Any comments or feedback is welcomed via the <a href="/contact.php">contact form
 add_context(ZP_ZENPAGE_NEWS_DATE);
 
 $newsCount = 0;
-while (next_news() && $newsCount < 5): ;
-	if ($newsCount%2 == '0')
-	{
-		$style = 'odd';
-	}
-	else
-	{
-		$style = 'even';
-	}
+if (function_exists('next_news')) {
+	while (next_news() && $newsCount < 5): ;
+		if ($newsCount%2 == '0')
+		{
+			$style = 'odd';
+		}
+		else
+		{
+			$style = 'even';
+		}
 	?>
 <tr class="<?php echo $style; ?>">
 	<td class="d" valign="top"><?php printNewsDate();?></td>
@@ -49,8 +50,9 @@ while (next_news() && $newsCount < 5): ;
 	</td>
 </tr>
 <?php
-	$newsCount++;
-  endwhile;
+		$newsCount++;
+	endwhile;
+}
 ?>
 </table>
 <p><a href="/news">Complete List...</a></p>
