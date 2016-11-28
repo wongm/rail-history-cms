@@ -71,6 +71,7 @@ if (isset($googleHeader))
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="/themes/railgeelong/common/js/lightbox.js"></script>
 <script type="text/javascript" src="/themes/railgeelong/common/js/functions.js"></script>
+<?php zp_apply_filter('theme_head') ?>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="author" content="Marcus Wong" />
 <meta name="description" content="A history of the railways of Geelong and District" />
@@ -81,24 +82,11 @@ if (isset($googleHeader))
 <link rel="alternate" type="application/rss+xml" title="Recently updated pages" href="/rss" />
 </head>
 <body<?php echo $bodyExtra ?>>
+<?php zp_apply_filter('theme_body_close'); ?>
 <div id="container">
 <div id="header">
 	<div id="sitename"><h1><a href="/" title="Home">Rail Geelong</a></h1></div>
 	<div id="sitedesc">A history of the railways of Geelong and District.</div>
 	<div style="clear:both;"></div>
 </div>
-<?php 
-// hack in stuff for zenphoto generated pages
-if (function_exists('printAdminToolbox'))
-{
-	global $editablelinkforadmin;
-	$editablelinkforadmin = zp_loggedin();
-		
-	//assume this function exists
-	if (zp_loggedin()) 
-	{
-		printAdminToolbox();
-		zp_apply_filter("theme_head");
-	}
-} ?>
 <div id="contentwrapper">
