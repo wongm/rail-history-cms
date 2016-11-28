@@ -14,14 +14,14 @@ else
 switch ($_GET['p'])
 {
 	case 'news':
-		$pageTitle = " - News";
-		$pageHeading = $pageTitle;
+		$localPageTitle = " - News";
+		$pageHeading = $localPageTitle;
 		$newsRSS = true;
 		break;
 		
 	case 'home':
-		$pageTitle = " - Welcome";
-		$pageHeading = $pageTitle;
+		$localPageTitle = " - Welcome";
+		$pageHeading = $localPageTitle;
 		$railGeelongRSS = true;
 		break;
 		
@@ -31,18 +31,18 @@ switch ($_GET['p'])
 	case 'lineguides':
 	case 'lineguide':
 	case 'regions':
-		$pageTitle = " - $pageTitle";
-		$pageHeading = $pageTitle;
+		$localPageTitle = " - $pageTitle";
+		$pageHeading = $localPageTitle;
 		$railGeelongRSS = true;
 		break;
 
 	default:
-		$pageTitle = " - Gallery" . $pageTitle;
+		$localPageTitle = " - Gallery" . $pageTitle;
 		$pageHeading = " - Gallery";
 		$galleryRSS = true;
 }
 
-$pageTitle = "Rail Geelong" . $pageTitle;
+$localPageTitle = "Rail Geelong" . $localPageTitle;
 
 include_once('functions-gallery-formatting.php');
 ?>
@@ -50,7 +50,7 @@ include_once('functions-gallery-formatting.php');
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<title><?php echo $pageTitle; ?></title>
+<title><?php echo $localPageTitle; ?></title>
 <link rel="stylesheet" type="text/css" href="/themes/railgeelong/common/css/style.css" media="all" title="Normal" />
 <link rel="stylesheet" href="<?php echo $_zp_themeroot ?>/zen.css" type="text/css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
