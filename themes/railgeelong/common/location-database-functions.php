@@ -192,13 +192,13 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 			for ($i = 0; $i < $numberoflines; $i++)
 			{
 				// add check for locations like South Geelong, a junction with a signal box by same name
-				if ($location["id"] == $locationResults[1]["location_id"])
+				if ($location["id"] == $locationResults[$i]["location_id"])
 				{
-					$branchline[$i]['link'] = $locationResults[1]["link"];
-					$branchline[$i]['name'] = $locationResults[1]["linename"];
-					$branchline[$i]['lineId'] = $locationResults[1]["line_id"];
-					$branchline[$i]['km'] = $locationResults[1]["km"];
-					$branchline[$i]['type'] = $locationResults[1]["junctiontype"];
+					$branchline[$i]['link'] = $locationResults[$i]["link"];
+					$branchline[$i]['name'] = $locationResults[$i]["linename"];
+					$branchline[$i]['lineId'] = $locationResults[$i]["line_id"];
+					$branchline[$i]['km'] = $locationResults[$i]["km"];
+					$branchline[$i]['type'] = $locationResults[$i]["junctiontype"];
 				}
 				else
 				{
