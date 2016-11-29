@@ -9,6 +9,8 @@
 //
 //******************************************************************************
 
+require_once('common/functions-gallery-formatting.php');
+
 // for searching by date links in the EXIF info box
 DEFINE ('DATE_SEARCH', false);
 //DEFINE ('ARCHIVE_URL_PATH', "/gallery/archive");
@@ -41,8 +43,6 @@ else
 	define ('TIME_FORMAT', '%B %d, %Y %H:%M %p');
 }
 
-zp_register_filter('checkPageValidity', 'railGeelongTheme::checkLinks');
-zp_register_filter('admin_toolbox_album', 'railGeelongTheme::addAlbumLink');
 zp_register_filter('admin_toolbox_global', 'railGeelongTheme::addGlobalLink');
 zp_register_filter('getLink', 'railGeelongTheme::setCustomGalleryPath');
 
@@ -54,29 +54,7 @@ class railGeelongTheme {
 	
 	static function setCustomGalleryPath($url, $object, $title) {
 		if ($object instanceof Album OR $object instanceof Image){
-			//echo 'is an album';
 			return "/gallery$url";
-		}
-	}
-	
-	static function checkLinks($count, $gallery_page, $page) {
-    	
-		print_r($_GET);
-		echo 'checkLinks';
-    	
-    	switch ($gallery_page)
-    	{
-        	case 'lineguide.php':
-        	case 'lineguides.php':
-        	case 'location.php':
-        	case 'locations.php':
-        	case 'locations-home.php':
-        	case 'popular.php':
-        	case 'ratings.php':
-        	case 'recent.php':
-        	case 'regions.php':
-        	case 'updates.php':
-        	    return true;
 		}
 	}
     
