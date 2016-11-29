@@ -1,4 +1,4 @@
-<?php require_once("dbConnection.php");
+<?php require_once("definitions.php");
 
 function parseToXML($htmlStr) 
 { 

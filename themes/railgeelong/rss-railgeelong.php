@@ -6,7 +6,7 @@ require_once(dirname(__FILE__)."/".ZENFOLDER . "/template-functions.php");
 require_once(ZENFOLDER . "/class-rss.php");
 startRSSCache();
 
-require_once("common/dbConnection.php");
+require_once("common/definitions.php");
 require_once("common/updates-functions.php");
 require_once("common/formatting-functions.php");
 

@@ -1,5 +1,5 @@
  <?php $pageTitle = "Contact Me";
-require_once("common/dbConnection.php");
+require_once("common/definitions.php");
 require_once("common/formatting-functions.php");
 require_once("common/header.php"); 
 ?>

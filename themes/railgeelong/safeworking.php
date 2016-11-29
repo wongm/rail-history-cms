@@ -1,7 +1,7 @@
  <?php $pageTitle = "Safeworking";
 require_once("common/header.php");
 require_once("common/formatting-functions.php");
-require_once("common/dbConnection.php");
+require_once("common/definitions.php");
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; <a href="/articles/">Articles</a> &raquo; <?php echo $pageTitle?></div>

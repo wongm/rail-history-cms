@@ -10,38 +10,7 @@
 //******************************************************************************
 
 require_once('common/functions-gallery-formatting.php');
-
-// for searching by date links in the EXIF info box
-DEFINE ('DATE_SEARCH', false);
-//DEFINE ('ARCHIVE_URL_PATH', "/gallery/archive");
-DEFINE ('SEARCH_URL_PATH', "/gallery/page/search");
-DEFINE ('UPDATES_URL_PATH', "/gallery/recent");
-//DEFINE ('EVERY_ALBUM_PATH', "/gallery/everything");
-DEFINE ('CONTACT_URL_PATH', "/contact.php");
-//DEFINE ('RANDOM_ALBUM_PATH', "/gallery/random");
-DEFINE ('GALLERY_PATH', '/gallery');
-
-DEFINE ('COPYRIGHT', '<p>All photographs copyright Marcus Wong unless otherwise noted.</p>');
-
-if ($_zp_options != '')
-	{
-	// dynamic from the DB
-	define ('MAXIMAGES_PERPAGE', $_zp_options['images_per_page']);
-	define ('MAXALBUMS_PERPAGE', $_zp_options['albums_per_page']);
-	define ('THUMBNAIL_IMAGE_SIZE', $_zp_options['thumb_size']);
-	define ('NORMAL_IMAGE_SIZE', 640);
-	define ('TIME_FORMAT', $_zp_options['date_format']);
-}
-else
-{
-	define ('MAXIMAGES_PERPAGE', 24);
-	define ('MAXALBUMS_PERPAGE', 24);
-	define ('THUMBNAIL_IMAGE_SIZE', 250);
-	define ('NORMAL_IMAGE_SIZE', 640);
-	define ('MAXIMAGES_LOCATIONPAGE', 9);
-	DEFINE ('GALLERY_PATH', '/gallery');
-	define ('TIME_FORMAT', '%B %d, %Y %H:%M %p');
-}
+require_once('common/definitions.php');
 
 zp_register_filter('admin_toolbox_global', 'railGeelongTheme::addGlobalLink');
 zp_register_filter('getLink', 'railGeelongTheme::setCustomGalleryPath');

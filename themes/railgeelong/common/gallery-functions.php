@@ -1,5 +1,5 @@
 <?php
-require_once("dbConnection.php");
+require_once("definitions.php");
 require_once("formatting-functions.php");
 require_once("functions-search.php");
 

@@ -1,4 +1,4 @@
-<?php require_once("dbConnection.php");
+<?php require_once("definitions.php");
 //PHP SCRIPT: getlocations.php
 Header("content-type: application/x-javascript");	
 

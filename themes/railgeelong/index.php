@@ -3,7 +3,7 @@
 // trick zenpage into displaying the HOME page
 //zenpage_setup_page('home');
 
-require_once("common/dbConnection.php");
+require_once("common/definitions.php");
 require_once("common/formatting-functions.php");
 require_once("common/updates-functions.php");
 

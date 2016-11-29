@@ -1,5 +1,5 @@
 <?php
-require_once("common/dbConnection.php");
+require_once("common/definitions.php");
 require_once("common/lineguide-functions.php");
 require_once("common/lineguide-database-functions.php");
 require_once("common/event-functions.php");
