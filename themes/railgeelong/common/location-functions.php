@@ -38,7 +38,7 @@ function drawLocation($location)
 	include_once("event-functions.php");
 ?>
 <div id="headbar">
-	<div class="link"><a href="/">Home</a> &raquo; <a href="/locations">Locations</a> &raquo; <?php echo $location['pageTitle']?></div>
+	<div class="link"><a href="/">Home</a> &raquo; <a href="/locations/">Locations</a> &raquo; <?php echo $location['pageTitle']?></div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php include_once("midbar.php"); ?>
@@ -231,7 +231,7 @@ function drawLocation($location)
 
 		foreach ($location['associatedLocations'] as $associatedLocation)
 		{
-			echo "<li><a href=\"/location/".$associatedLocation[0]."\">".$associatedLocation[1]."</a></li>\n";
+			echo "<li><a href=\"/location/".$associatedLocation[0]."/\">".$associatedLocation[1]."</a></li>\n";
 		}
 
 		echo "</ul>\n";
@@ -347,7 +347,7 @@ function drawLocationSearch($locationSearch, $searchPageNumber, $message="")
 	}
 	?>
 <div id="headbar">
-	<div class="link"><a href="/">Home</a> &raquo; <a href="/locations">Locations</a> &raquo; Location search</div>
+	<div class="link"><a href="/">Home</a> &raquo; <a href="/locations/">Locations</a> &raquo; Location search</div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php
@@ -447,8 +447,8 @@ function drawLocationDataTable($location)
 	{
 ?>
 	<b>Google Maps: </b>
-		<a href="/location/<?php echo $id?>/satellite" onClick="p(this.href); return false;">Satellite</a>&nbsp;/&nbsp;
-		<a href="/location/<?php echo $id?>/map" onClick="p(this.href); return false;">Map</a><br/>
+		<a href="/location/<?php echo $id?>/satellite/" onClick="p(this.href); return false;">Satellite</a>&nbsp;/&nbsp;
+		<a href="/location/<?php echo $id?>/map/" onClick="p(this.href); return false;">Map</a><br/>
 <?php
 	}
 
@@ -558,7 +558,7 @@ function getLocationCanonicalUrl($location)
 		$link = $location['id'];		
 	}
 	
-	return "http://www.railgeelong.com/location/$link";	
+	return "http://www.railgeelong.com/location/$link/";	
 }	// end function
 
 

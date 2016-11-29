@@ -4,7 +4,7 @@ $pageTitle = ' - '.getAlbumTitle();
 include_once('header.php');
 ?>
 <div id="headbar">
-	<div class="link"><a href="/">Home</a> &raquo; <a href="/news">News</a></div>
+	<div class="link"><a href="/">Home</a> &raquo; <a href="/news/">News</a></div>
 	<div class="search"><?php printSearchForm(); ?></div>
 </div>
 <?php 

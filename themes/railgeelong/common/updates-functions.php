@@ -63,7 +63,7 @@ function drawUpdatedPagesTable($updatedLocations, $frontPage=false)
 				break;
 		}
 		
-		$urlText = '<a href="/'.strtolower($itemType).'/'.$itemlink.'">';
+		$urlText = '<a href="/'.strtolower($itemType).'/'.$itemlink.'/">';
 		
 		if (showPhotos($updatedLocations[$i]["photos"]))
 		{

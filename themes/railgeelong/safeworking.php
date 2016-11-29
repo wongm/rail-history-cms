@@ -4,7 +4,7 @@ include_once("common/formatting-functions.php");
 include_once("common/dbConnection.php");
 ?>
 <div id="headbar">
-	<div class="link"><a href="/">Home</a> &raquo; <a href="/articles">Articles</a> &raquo; <?php echo $pageTitle?></div>
+	<div class="link"><a href="/">Home</a> &raquo; <a href="/articles/">Articles</a> &raquo; <?php echo $pageTitle?></div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php include_once("midbar.php"); ?>

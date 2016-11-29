@@ -273,11 +273,11 @@ function getNeighbourLocation($location, $way)
 		
 		if ($way == 'back')
 		{
-			return '<a class="prev" href="/location/'.$urlBase.'" alt="Previous Location" title="Previous Location" >&laquo; '.$name.'</a>'; 
+			return '<a class="prev" href="/location/'.$urlBase.'/" alt="Previous Location" title="Previous Location" >&laquo; '.$name.'</a>'; 
 		}
 		else
 		{
-			return '<a class="next" href="/location/'.$urlBase.'" alt="Next Location" title="Next Location">'.$name.' &raquo;</a>'; 
+			return '<a class="next" href="/location/'.$urlBase.'/" alt="Next Location" title="Next Location">'.$name.' &raquo;</a>'; 
 		}
 	}
 }
@@ -422,7 +422,7 @@ function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 		
 		// image depending on length of description
 		//$contentLengthImage = getLocationDescriptionLengthImage($resultLocations[$i]["description_length"]);
-		$contentLengthImage = "<a href=\"/location/$urlBase\">$contentLengthImage</a>";
+		$contentLengthImage = "<a href=\"/location/$urlBase/\">$contentLengthImage</a>";
 			
 		// image if photos
 		if (showPhotos($resultLocations[$i]["photos"]))
@@ -451,12 +451,12 @@ function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 			
 		if ($displaytype == 'search')
 		{
-			$toreturn[] = array($locationTypeName, $galleryLinkImage, $eventLinkImage, $contentLengthImage, $linename, $highlightedLocationName, "/location/$urlBase");
+			$toreturn[] = array($locationTypeName, $galleryLinkImage, $eventLinkImage, $contentLengthImage, $linename, $highlightedLocationName, "/location/$urlBase/");
 		}
 		else if ($displaytype == 'updated')
 		{
 			$updated = $resultLocations[$j]["fdate"]; 
-			$toreturn[] = array($updated, $linename, $locationTypeName, $galleryLinkImage, $eventLinkImage, $contentLengthImage, $highlightedLocationName, "/location/$urlBase");
+			$toreturn[] = array($updated, $linename, $locationTypeName, $galleryLinkImage, $eventLinkImage, $contentLengthImage, $highlightedLocationName, "/location/$urlBase/");
 		}
 		
 		$j++;

@@ -148,7 +148,7 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 		switch ($locationType) 
 		{
 			case TYPE_JUNCTION:	
-				$locationUrl = "/location/$base/$lineLink";
+				$locationUrl = "/location/$base/$lineLink/";
 				break;
 			case TYPE_STATION:
 			case TYPE_RMSP:
@@ -156,7 +156,7 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 			case TYPE_INDUSTRY:
 			case TYPE_YARD:
 			case TYPE_CROSSING_LOOP:
-				$locationUrl = "/location/$base";
+				$locationUrl = "/location/$base/";
 				break;
 			default:
 				$locationUrl = '';
@@ -166,7 +166,7 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 		// fallback setting of URL
 		if (($thisPhoto != '0' OR $thisEvent == 1 OR $thisLength != '') AND $locationUrl == '')
 		{
-			$locationUrl = '/location/'.$base;
+			$locationUrl = '/location/'.$base.'/';
 		}
 		
 		// only show ones with URL set

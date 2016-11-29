@@ -39,7 +39,7 @@ else
 		include_once("header.php");
 ?>
 <div id="headbar">
-	<div class="link"><a href="/">Home</a> &raquo; <a href="/articles">Articles</a> &raquo; <?php echo $pageTitle?></div>
+	<div class="link"><a href="/">Home</a> &raquo; <a href="/articles/">Articles</a> &raquo; <?php echo $pageTitle?></div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php include_once("midbar.php"); ?>

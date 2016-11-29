@@ -16,7 +16,7 @@ function drawLineguideHeaders($line, $section='')
 	include_once("header.php");
 	?>
 <div id="headbar">
-	<div class="link"><a href="/">Home</a> &raquo; <a href="/lineguides">Line Guides</a> &raquo; <a href="/lineguide/<?php echo $line['lineLink'] ?>"><?php echo getLineName($line['lineName']) ?></a></div>
+	<div class="link"><a href="/">Home</a> &raquo; <a href="/lineguides/">Line Guides</a> &raquo; <a href="/lineguide/<?php echo $line['lineLink'] ?>/"><?php echo getLineName($line['lineName']) ?></a></div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php include_once("midbar.php"); ?>
@@ -204,11 +204,11 @@ function drawLocationTitle($thisUrl, $id, $thisName, $thisPhoto)
 	{
 		if ($info != '')
 		{
-			return '<table><tr>'.$info.'<td><b><a href="/location/'.$base.'">'.$thisName.'</a></b></td></tr></table>';
+			return '<table><tr>'.$info.'<td><b><a href="/location/'.$base.'/">'.$thisName.'</a></b></td></tr></table>';
 		}
 		else
 		{
-			return '<b><a href="/location/'.$base.'">'.$thisName.'</a></b>';
+			return '<b><a href="/location/'.$base.'/">'.$thisName.'</a></b>';
 		}
 	}
 	else
@@ -460,7 +460,7 @@ function getFullLocationForLineguide($location)
 				$extraPageURL = getLineguideDistanceURL($junctionresult[1]["trackSubpage"], $location['km']);
 
 				$junctionurl =  "/lineguide/$lineb/diagram$extraPageURL/#km".$location['km'];
-				$url ='/location/'.$urlbase.'/'.$linea;
+				$url ='/location/'.$urlbase.'/'.$linea.'/';
 				$otherLineName = $nameb;
 			}
 			elseif ($idb == $location['line_id'])
@@ -468,19 +468,19 @@ function getFullLocationForLineguide($location)
 				$extraPageURL = getLineguideDistanceURL($junctionresult[0]["trackSubpage"], $location['km']);
 
 				$junctionurl =  "/lineguide/$linea/diagram$extraPageURL/#km".$location['km'];
-				$url ='/location/'.$urlbase.'/'.$lineb;
+				$url ='/location/'.$urlbase.'/'.$lineb.'/';
 				$otherLineName = $namea;
 			}
 		}
 		elseif($location['url'] != '')
 		{
-			$junctionurl = '/lineguide/'.$location['url'];
-			$url ='/location/'.$urlbase;
+			$junctionurl = '/lineguide/'.$location['url'].'/';
+			$url ='/location/'.$urlbase.'/';
 		}
 		else
 		{
 			$junctionurl = '';
-			$url = '/location/'.$urlbase;
+			$url = '/location/'.$urlbase.'/';
 		}
 	}
 	else
@@ -488,7 +488,7 @@ function getFullLocationForLineguide($location)
 		$junctionurl = '';
 		if ($location['event'] == 1 OR showPhotos($location['photo']) OR $location['description_length'] > 2)
 		{
-			$url = '/location/'.$urlbase;
+			$url = '/location/'.$urlbase.'/';
 		}
 
 		//specific actions for certain types of location
@@ -505,7 +505,7 @@ function getFullLocationForLineguide($location)
 				$url = '/articles/timingloops';
 				break;
 			case '29':	//signal box
-				$turl = '/location/'.$urlbase.'/box';
+				$turl = '/location/'.$urlbase.'/box/';
 				break;
 			default:
 		}

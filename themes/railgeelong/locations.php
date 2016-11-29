@@ -47,7 +47,7 @@ if(isset($_REQUEST['type']))
 	include_once('common/location-lineguide-functions.php');
 ?>
 <div id="headbar">
-	<div class="link"><a href="/">Home</a> &raquo; <a href="/locations">Locations</a> &raquo; <?php echo $breadCrumbTitle?></div>
+	<div class="link"><a href="/">Home</a> &raquo; <a href="/locations/">Locations</a> &raquo; <?php echo $breadCrumbTitle?></div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php include_once('midbar.php'); ?>

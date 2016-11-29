@@ -23,7 +23,7 @@ if ($updatedPages["numberOfRows"] > 0)
 	include_once("header.php");
 ?>
 <div id="headbar">
-	<div class="link"><a href="/">Home</a> &raquo; <a href="/updates">Updates</a></div>
+	<div class="link"><a href="/">Home</a> &raquo; <a href="/updates/">Updates</a></div>
 	<div class="search"><?php printSearchForm(); ?></div>
 </div>
 <?php 

@@ -55,14 +55,14 @@ if (function_exists('next_news')) {
 }
 ?>
 </table>
-<p><a href="/news">Complete List...</a></p>
+<p><a href="/news/">Complete List...</a></p>
 <h4 style="clear:both">Updated content</h4>
 <hr/>
 <?php
 $updates = getUpdatedPages(0, 10);
 drawUpdatedPagesTable($updates['result'], true);
  ?>
-<p><a href="/updates">Complete List...</a></p>
+<p><a href="/updates/">Complete List...</a></p>
 <h4 style="clear:both">Updated galleries</h4>
 <hr/>
 <table class="centeredTable">
@@ -99,7 +99,7 @@ foreach ($latestalbums as $latestalbum) {
 }
 ?>
 </tbody></table>
-<p><a href="/gallery/recent">Complete List...</a></p>
+<p><a href="/gallery/recent/">Complete List...</a></p>
 <h4 style="clear:both">Coming Soon...</h4>
 <hr/>
 <?php 

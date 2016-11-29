@@ -40,7 +40,7 @@ else
 		include_once('common/header.php');
 ?>
 <div id="headbar">
-	<div class="link"><a href="/">Home</a> &raquo; <a href="/lineguides">Line Guides</a> &raquo; <?php echo $pageTitle?></div>
+	<div class="link"><a href="/">Home</a> &raquo; <a href="/lineguides/">Line Guides</a> &raquo; <?php echo $pageTitle?></div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php include_once('common/midbar.php'); ?>

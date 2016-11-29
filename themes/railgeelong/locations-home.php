@@ -57,7 +57,7 @@ else
 <img src="/images/rank3.gif" alt="Detailed" title="Detailed" />Detailed<br/><br/>
 <img src="/images/rank2.gif" alt="Beginning" title="Beginning" />Beginning<br/><br/>
 <img src="/images/rank1.gif" alt="Basic" title="Basic" />Basic<br/><br/>
-I recommend having a look at the page on <a href="/location/south-geelong">South Geelong</a> for an example of a detailed page.  ;-)</p>
+I recommend having a look at the page on <a href="/location/south-geelong/">South Geelong</a> for an example of a detailed page.  ;-)</p>
 <?php
 	include_once("footer.php");
 }

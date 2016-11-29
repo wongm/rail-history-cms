@@ -64,7 +64,7 @@ function printAlbumDescAndLink($editable=false)
 	else if ($locationId != 0 AND $locationId != '')
 	{
 		$name = $_zp_current_album->get('location_name');
-		$url = "/location/$locationId";
+		$url = "/location/$locationId/";
 	}
 	
 	if ($name != '')
