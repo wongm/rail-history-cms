@@ -6,8 +6,7 @@ require_once('parsing-functions.php');
 
 function drawAdminEditableLink($link, $title)
 {
-	global $editablelinkforadmin;
-	if ($editablelinkforadmin)
+	if ( zp_loggedin() )
 	{
 		echo "<b>Edit: </b><a href=\"$link\" target=\"_new\">$title</a><br/>\n";
 	}

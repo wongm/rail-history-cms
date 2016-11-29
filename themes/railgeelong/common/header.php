@@ -1,5 +1,5 @@
 <?php 
-global $editablelinkforadmin, $startTime;
+global $startTime;
 
 // $pageTitle
 // $pageHeading
@@ -16,12 +16,10 @@ $startTime = $startTime[1] + $startTime[0];
 $server = $_SERVER['HTTP_HOST'];
 if ($server == 'z' OR $server == 'localhost' OR isset($_GET['wongm']))
 {
-	$editablelinkforadmin = true;
 	error_reporting(E_ALL - E_NOTICE);
 }
 else
 {
-	$editablelinkforadmin = false;
 	error_reporting(0);
 }
 

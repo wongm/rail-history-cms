@@ -79,30 +79,9 @@ class railGeelongTheme {
         	    return true;
 		}
 	}
-
-    static function addAlbumLink($albumname) {
-    	echo "<li>";
-    	printLinkHTML(WEBPATH.'/' . ZENFOLDER . '/admin-edit-small.php?page=edit&tab=imageinfo&album=' . urlencode($albumname), 'Edit images', NULL, NULL, NULL);
-    	echo "</li>";
-    	if (isset($_GET['wongm'])) {
-            print_r($_GET);
-            echo 'addAlbumLink';
-//            die();
-        }
-    }
     
     static function addGlobalLink() {
-    	if (isset($_GET['wongm'])) {
-            print_r($_GET);
-            echo 'addGlobalLink';
-//            die();
-        }
-        
     	echo "<li>";
-    	printLinkHTML(WEBPATH.'/page/stats', 'Stats', NULL, NULL, NULL);
-    	echo "</li><li>";
-    	printLinkHTML(WEBPATH.'/page/sqlbits', 'SQL bits', NULL, NULL, NULL);
-    	echo "</li><li>";
     	printLinkHTML(WEBPATH.'/page/recent-uncaptioned', 'Uncaptioned images', NULL, NULL, NULL);
     	echo "</li><li>";
     	printLinkHTML(WEBPATH.'/page/recent-uncaptioned-albums', 'Uncaptioned albums', NULL, NULL, NULL);

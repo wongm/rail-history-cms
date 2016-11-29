@@ -465,16 +465,7 @@ function drawLocationDataTable($location)
 	<b>Closed: </b><?php echo formatDate($close, $approxClose)?><br/>
 <?php
 	}
-	/*
-?>
-	<b>Previous location: </b><?php echo $backLocation; ?><br/>
-	<b>Next location: </b><?php echo $nextLocation; ?><br/>
-<?php */
-	global $editablelinkforadmin;
-	if ($editablelinkforadmin)
-	{
-		echo "<b>Edit: </b><a href=\"/backend/editLocations.php?location=$id\" target=\"_new\">ID=$id</a><br/>\n";
-	}
+	drawAdminEditableLink("/backend/editLocations.php?location=$id", "ID=$id");
 ?>
 </div>
 <?php

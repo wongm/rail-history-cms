@@ -43,11 +43,7 @@ else
 <?php include_once("midbar.php"); ?>
 <h3><?php echo $pageTitle?></h3>
 <?php 
-		global $editablelinkforadmin;
-		if ($editablelinkforadmin)
-		{
-			echo "<b>Edit: </b><a href=\"/backend/editArticles.php?id=$articleId\" target=\"_new\">Edit Article</a><br/>\n";
-		}
+		drawAdminEditableLink("/backend/editArticles.php?id=$articleId", "Edit Article");
 		
 		// get pretty header photo
 		drawHeaderPic('articles', $link, $pageTitle);

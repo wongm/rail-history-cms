@@ -15,17 +15,6 @@ $generation = round($endTime - $startTime, 3);
 ?>
 Page Generation: <?php echo $generation?> seconds.<br/>
 <?php
-global $editablelinkforadmin;
-if ($editablelinkforadmin)
-{
-	global $dbHits;
-	
-	if ($dbHits > 10)
-		echo "<h4 style=\"color:red !important\">$dbHits DB hits.</h4>\n";
-	else
-		echo "$dbHits DB hits.<br/>\n";
-}
-
 if ($lastUpdatedDate != '')
 {
 	echo "Last updated $lastUpdatedDate<br/>\n";
