@@ -177,7 +177,7 @@ function drawRegionRaillines($regionLink, $regionId)
 		for ($i = 0; $i < sizeof($lineArray); $i++)
 		{
 			// set child items for nav.php
-			$pageNavigation[$i]['url'] = "/lineguide/" . $lineArray[$i]['lineLink'];
+			$pageNavigation[$i]['url'] = "/lineguide/" . $lineArray[$i]['lineLink'] . "/";
 			$pageNavigation[$i]['title'] = $lineArray[$i]['lineName'];
 			
 			$itemstodisplay = getLineguidePages($lineArray[$i]);

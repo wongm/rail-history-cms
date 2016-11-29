@@ -280,7 +280,7 @@ function getLineguideNavigation($line)
 	
 	// initial home link
 	$pageNavigation['regions'] = $line['regions'];
-	$pageNavigation[0]['url'] = "/lineguide/".$line['lineLink'];
+	$pageNavigation[0]['url'] = "/lineguide/".$line['lineLink']."/";
 	$pageNavigation[0]['title'] = getLineName($line['lineName']);
 	
 	// loop through the different pages
@@ -302,26 +302,21 @@ function getLineguideNavigation($line)
 			{
 				if (strlen($singleline[1]) > 0)
 				{
-					$pageNavigation[0][$i]['url'] = "/lineguide/".$line['lineLink']."/".$singleline[0];
+					$pageNavigation[0][$i]['url'] = "/lineguide/".$line['lineLink']."/".$singleline[0]."/";
 					$pageNavigation[0][$i]['title'] = $singleline[1];
-					//$lineguideMenuHTML .= " :: <span>".$singleline[1]."</span>\n";
-					//$currentBreadcrumbTitle = " &raquo; " . $singleline[1];
 				}
 			}
 			else
 			{				
-				$pageNavigation[0][$i]['url'] = "/lineguide/".$line['lineLink']."/".$singleline[0];
+				$pageNavigation[0][$i]['url'] = "/lineguide/".$line['lineLink']."/".$singleline[0]."/";
 				$pageNavigation[0][$i]['title'] = $singleline[1];
-				//$lineguideMenuHTML .= " :: <a href=\"/lineguide/".$line['lineLink']."/".$singleline[0]."\">".$singleline[1]."</a>\n";
 			}
 			
 			$i++;
-			
 		}
 	}
 
 	return $pageNavigation;
-	//echo $lineguideMenuHTML .= "</td></tr></table>\n";
 }	//end function
 
 function drawSpecificLine($line, $contentsHeader = 'Contents')
