@@ -1,8 +1,8 @@
 <?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die();
 
-include_once("common/dbConnection.php");
-include_once("common/updates-functions.php");
-include_once("common/formatting-functions.php");
+require_once("common/dbConnection.php");
+require_once("common/updates-functions.php");
+require_once("common/formatting-functions.php");
 
 $pageTitle = ' - Updates';
 
@@ -20,16 +20,16 @@ $updatedPages['index'] = $index;
 
 if ($updatedPages["numberOfRows"] > 0)
 {
-	include_once("header.php");
+	require_once("common/header.php");
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; <a href="/updates/">Updates</a></div>
 	<div class="search"><?php printSearchForm(); ?></div>
 </div>
 <?php 
-	include_once("midbar.php");
+	require_once("common/midbar.php");
 	drawPageOfUpdated($updatedPages);
-	include_once("footer.php");
+	require_once("common/footer.php");
 }
 else
 {

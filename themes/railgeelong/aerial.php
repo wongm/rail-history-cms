@@ -1,6 +1,6 @@
 <?php
-include_once("common/aerial-functions.php");
-include_once("common/formatting-functions.php");
+require_once("common/aerial-functions.php");
+require_once("common/formatting-functions.php");
 $id = $_REQUEST["id"];
 $section = $_REQUEST["section"];
 $preset = $_REQUEST["preset"];
@@ -21,7 +21,7 @@ elseif ($section == 'popup' OR $section == 'preset' )
 else
 {
 	$pageTitle = "Aerial Explorer";
-	include_once("common/header.php");
+	require_once("common/header.php");
 	$query = "aerial.php?section=popup";
 
 	if ($center != '')
@@ -51,7 +51,7 @@ else
 </div>
 <?php
 	
-	include_once("common/midbar.php");
+	require_once("common/midbar.php");
 	
 	if ($section != 'overview')
 	{
@@ -69,7 +69,7 @@ pl(<?php echo '"'.$query.'"'; ?>);
 </script>	<?php
 	}
 	
-	include_once("common/footer.php");
+	require_once("common/footer.php");
 }
 
 function drawDescription()

@@ -1,9 +1,9 @@
 <?php 
-include_once("common/dbConnection.php");
-include_once("common/location-functions.php");
-include_once("common/location-database-functions.php");
-include_once("common/source-functions.php");
-include_once("common/formatting-functions.php");
+require_once("common/dbConnection.php");
+require_once("common/location-functions.php");
+require_once("common/location-database-functions.php");
+require_once("common/source-functions.php");
+require_once("common/formatting-functions.php");
 
 $locationName = '';
 $locationBox = '';

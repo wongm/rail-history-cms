@@ -1,6 +1,6 @@
 <?php
-include_once("common/aerial-functions.php");
-include_once("common/formatting-functions.php");
+require_once("common/aerial-functions.php");
+require_once("common/formatting-functions.php");
 $id = $_REQUEST["id"];
 $section = $_REQUEST["section"];
 $preset = $_REQUEST["preset"];

@@ -16,14 +16,14 @@ header("Status: 404 Not Found");
  
 $startTime = array_sum(explode(" ",microtime())); 
 $pageTitle = ' - 404 Page Not Found';
-include_once('header.php');
-include_once('functions-search.php');
+require_once('common/header.php');
+require_once('common/functions-search.php');
 ?>
 <div id="headbar">
 	<div class="link"><a href="<?php echo getGalleryIndexURL();?>" title="Gallery Index"><?php echo getGalleryTitle();?></a> &raquo; 404 Page Not Found</div>
 	<div class="search"><?php printSearchForm(); ?></div>
 </div>
-<?php include_once('midbar.php'); ?>
+<?php require_once('common/midbar.php'); ?>
 <div class="topbar">
   	<h3>404 Page Not Found</h3>
 </div>
@@ -80,5 +80,5 @@ else
 ?>
 <p><?php echo $wording?>can use <a href="<?php echo SEARCH_URL_PATH?>/<?php echo $term?>">Search</a> to find what you are looking for. </p> 
 <p>Otherwise please check you typed the address correctly. If you followed a link from elsewhere, please inform them. If the link was from this site, then <a href="<?php echo CONTACT_URL_PATH?>">Contact Me</a>.</p>
-<?php include_once('footer.php');
+<?php require_once('common/footer.php');
  ?>

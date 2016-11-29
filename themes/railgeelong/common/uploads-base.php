@@ -3,13 +3,13 @@
 $description = "images ";
 $breadcrumb = 'Recent Uploads';
 $pageTitle = " - $breadcrumb";
-include_once('header.php'); 
+require_once('header.php'); 
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; <a href="<?php echo getGalleryIndexURL();?>" title="Gallery Index"><?php echo getGalleryTitle();?></a> &raquo; <a href="/gallery/recent"><?php echo $breadcrumb; ?></a></div>
 	<div class="search"><?php printSearchForm(); ?></div>
 </div>
-<?php include_once('midbar.php'); ?>
+<?php require_once('midbar.php'); ?>
 <div class="topbar">
 	<h3><?php echo $breadcrumb; ?></h3>
 </div>
@@ -55,5 +55,5 @@ include_once('header.php');
 </table>
 <?php
 printPhotostreamPageListWithNav("« " . gettext("Previous"), gettext("Next") . " »");
-include_once('footer.php'); 
+require_once('footer.php'); 
 ?>

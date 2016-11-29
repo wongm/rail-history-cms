@@ -6,9 +6,9 @@ require_once(dirname(__FILE__)."/".ZENFOLDER . "/template-functions.php");
 require_once(ZENFOLDER . "/class-rss.php");
 startRSSCache();
 
-include_once("common/dbConnection.php");
-include_once("common/updates-functions.php");
-include_once("common/formatting-functions.php");
+require_once("common/dbConnection.php");
+require_once("common/updates-functions.php");
+require_once("common/formatting-functions.php");
 
 $updatedPages = getUpdatedPages(0, 20);
 $updatedLocations = $updatedPages["result"];

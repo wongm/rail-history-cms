@@ -1,13 +1,13 @@
 <?php 
 
-include_once('header.php'); ?>
+require_once('header.php'); ?>
 
 	<div id="headbar">
 		<div class="link"><a href="/">Home</a> &raquo; Gallery</div>
 		<div class="search"><?php printSearchForm(); ?></div>
 	</div>
 	
-<?php include_once('midbar.php'); ?>
+<?php require_once('midbar.php'); ?>
 
   <div class="topbar">
   	<h3>Welcome to the Gallery</h3>
@@ -70,4 +70,4 @@ include_once('header.php'); ?>
   drawGalleryPageNumberLinks($url); ?>
 </div>
   <?php } ?>
-<?php include_once('footer.php'); ?>
+<?php require_once('footer.php'); ?>

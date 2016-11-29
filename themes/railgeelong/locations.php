@@ -1,7 +1,7 @@
 <?php 
-include_once("common/dbConnection.php");
-include_once("common/location-functions.php");
-include_once("common/formatting-functions.php");
+require_once("common/dbConnection.php");
+require_once("common/location-functions.php");
+require_once("common/formatting-functions.php");
 
 /*
  * show a listing of certain type of location
@@ -43,17 +43,17 @@ if(isset($_REQUEST['type']))
 	}
 	$breadCrumbTitle = $pageTitle;
 	
-	include_once("header.php");
-	include_once('common/location-lineguide-functions.php');
+	require_once("header.php");
+	require_once('common/location-lineguide-functions.php');
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; <a href="/locations/">Locations</a> &raquo; <?php echo $breadCrumbTitle?></div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
-<?php include_once('midbar.php'); ?>
+<?php require_once('midbar.php'); ?>
 <h3>Locations database: <?php echo $breadCrumbTitle?></h3>
 <?php
 	drawLinedLocationsTable(getLocationsTable('', '', $sql, $locationType, $locationSort), 'type');
-	include_once("footer.php");
+	require_once("footer.php");
 }
 ?>

@@ -1,8 +1,8 @@
 <?php
-include_once(dirname(__FILE__) . "/dbConnection.php");
-include_once(dirname(__FILE__) . "/formatting-functions.php");
-include_once(dirname(__FILE__) . "/../functions-search.php");
-include_once(dirname(__FILE__) . "/../functions.php");
+require_once(dirname(__FILE__) . "/dbConnection.php");
+require_once(dirname(__FILE__) . "/formatting-functions.php");
+require_once(dirname(__FILE__) . "/../functions-search.php");
+require_once(dirname(__FILE__) . "/../functions.php");
 
 // check this location has images to show
 function getLocationImages($location)

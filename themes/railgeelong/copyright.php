@@ -1,12 +1,12 @@
-<?php include_once("common/dbConnection.php");
-include_once("common/formatting-functions.php");
+<?php require_once("common/dbConnection.php");
+require_once("common/formatting-functions.php");
 $pageTitle = 'Copyright';
-include_once("common/header.php");?>
+require_once("common/header.php");?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; <?php echo $pageTitle; ?></div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
-<?php include_once("common/midbar.php"); ?>
+<?php require_once("common/midbar.php"); ?>
 <h3><?php echo $pageTitle; ?></h3>
 <div id="copyright">
 <p>All content on this site is the copyright of the author Marcus Wong unless otherwise noted.</p>
@@ -22,5 +22,5 @@ include_once("common/header.php");?>
 <p>Inquiries about the extension of this research is welcomed.</p>
 </div>
 <?php
-include_once("common/footer.php");
+require_once("common/footer.php");
 ?>

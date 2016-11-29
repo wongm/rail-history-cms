@@ -1,9 +1,9 @@
 <?php 
 
-include_once("common/dbConnection.php");
-include_once("common/formatting-functions.php");
-include_once("common/source-functions.php");
-include_once("common/map-functions.php");
+require_once("common/dbConnection.php");
+require_once("common/formatting-functions.php");
+require_once("common/source-functions.php");
+require_once("common/map-functions.php");
 
 if (!isset($_REQUEST['name']))
 {
@@ -34,13 +34,13 @@ else
 			$description = insertMapElement($description, $mapKML);
 		}
 		
-		include_once("header.php");
+		require_once("header.php");
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; <a href="/articles/">Articles</a> &raquo; <?php echo $pageTitle?></div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
-<?php include_once("midbar.php"); ?>
+<?php require_once("midbar.php"); ?>
 <h3><?php echo $pageTitle?></h3>
 <?php 
 		drawAdminEditableLink("/backend/editArticles.php?id=$articleId", "Edit Article");
@@ -65,7 +65,7 @@ else
 		
 		if($photos != '')
 		{
-			include_once("common/gallery-functions.php");
+			require_once("common/gallery-functions.php");
 			getLocationImages($photos,$photos);
 		}
 		
@@ -74,7 +74,7 @@ else
 		{
 			echo $articleSources;
 		}
-		include_once("footer.php");
+		require_once("footer.php");
 	}
 	else
 	{
@@ -85,14 +85,14 @@ else
 function drawAllArticles($type)
 {
 	$pageTitle = $pageTitleArticles = ucfirst($type).'s Listing';
-	include_once("header.php");
+	require_once("header.php");
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; Articles</div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php
-	include_once("midbar.php");
+	require_once("midbar.php");
 ?>
 <h3><?php echo $pageTitleArticles?></h3>
 <?php 
@@ -103,6 +103,6 @@ function drawAllArticles($type)
 		echo '<h4><a href="/'.$type.'/'.stripslashes($articles[$i]["link"]).'">'.stripslashes($articles[$i]["title"]).'</a></h4>';
 		echo '<p class="details">'.stripslashes($articles[$i]["description"]).'</p>';
 	}
-	include_once("footer.php");
+	require_once("footer.php");
 }
 ?>

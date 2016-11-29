@@ -15,7 +15,7 @@ DEFINE ('DATE_SEARCH', false);
 DEFINE ('SEARCH_URL_PATH', "/gallery/page/search");
 DEFINE ('UPDATES_URL_PATH', "/gallery/recent");
 //DEFINE ('EVERY_ALBUM_PATH', "/gallery/everything");
-//DEFINE ('CONTACT_URL_PATH', "/misc/contact");
+DEFINE ('CONTACT_URL_PATH', "/contact.php");
 //DEFINE ('RANDOM_ALBUM_PATH', "/gallery/random");
 DEFINE ('GALLERY_PATH', '/gallery');
 

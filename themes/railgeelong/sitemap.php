@@ -1,15 +1,15 @@
-<?php include_once("common/dbConnection.php");
-include_once("common/formatting-functions.php");
-include_once("common/lineguide-functions.php");
+<?php require_once("common/dbConnection.php");
+require_once("common/formatting-functions.php");
+require_once("common/lineguide-functions.php");
 
 $pageTitle = 'Sitemap';
-include_once("common/header.php");
+require_once("common/header.php");
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; Sitemap</div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
-<?php include_once("common/midbar.php"); ?>
+<?php require_once("common/midbar.php"); ?>
 <h3>Sitemap</h3>
 <div id="sitemap">
 <p>A guide to all the pages on this site.</p>
@@ -74,5 +74,5 @@ if ($numberOfRows>0)
 <li><a href="/sitemap.php">Sitemap</a></li>
 </ul></div>
 <?php
-include_once("common/footer.php");
+require_once("common/footer.php");
 ?>

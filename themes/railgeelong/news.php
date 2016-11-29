@@ -1,7 +1,7 @@
 <?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die();
 
 $pageTitle = ' - '.getAlbumTitle();
-include_once('header.php');
+require_once('common/header.php');
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; <a href="/news/">News</a></div>
@@ -9,7 +9,7 @@ include_once('header.php');
 </div>
 <?php 
 
-include_once('midbar.php');
+require_once('common/midbar.php');
 
 // single news article
 if(is_NewsArticle()) { 
@@ -120,5 +120,5 @@ if (getOption('comment_form_articles')) { ?>
 ?>
 </div>
 <?php
-include_once('footer.php'); 
+require_once('common/footer.php'); 
 ?>

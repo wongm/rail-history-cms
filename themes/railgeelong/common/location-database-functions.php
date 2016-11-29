@@ -1,5 +1,5 @@
 <?php
-include_once("dbConnection.php");
+require_once("dbConnection.php");
 
 /*
  *	returns an array of data for a location

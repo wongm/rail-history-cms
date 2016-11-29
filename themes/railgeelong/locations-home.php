@@ -1,7 +1,7 @@
 <?php 
-include_once("common/dbConnection.php");
-include_once("common/location-functions.php");
-include_once("common/formatting-functions.php");
+require_once("common/dbConnection.php");
+require_once("common/location-functions.php");
+require_once("common/formatting-functions.php");
 
 /*
  * find a location by name
@@ -15,12 +15,12 @@ if (isset($_REQUEST['search']))
 		$locationSearchPage = $_REQUEST['page'];
 	}
 	
-	include_once("common/location-database-functions.php");
+	require_once("common/location-database-functions.php");
 
 	$pageTitle = "Location search - \"$locationSearch\"";
-	include_once("header.php");
+	require_once("header.php");
 	drawLocationSearch($locationSearch, 1, $locationSearchPage);
-	include_once("footer.php");
+	require_once("footer.php");
 }
 /*
  * a default opening info page
@@ -28,13 +28,13 @@ if (isset($_REQUEST['search']))
 else
 {
 	$pageTitle = 'Locations';
-	include_once("header.php");
+	require_once("header.php");
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; Locations</div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
-<?php include_once('midbar.php'); ?>
+<?php require_once('midbar.php'); ?>
 <h3>Introduction to the locations database</h3>
 <div class="locations">
 <p>Here is a listing of all the railway locations in the Geelong Region. Either view by type, or search by name. You can also browse by line from the <a href="/lineguides">lineguides</a>. The sort order can be altered in all cases.</p>
@@ -59,6 +59,6 @@ else
 <img src="/images/rank1.gif" alt="Basic" title="Basic" />Basic<br/><br/>
 I recommend having a look at the page on <a href="/location/south-geelong/">South Geelong</a> for an example of a detailed page.  ;-)</p>
 <?php
-	include_once("footer.php");
+	require_once("footer.php");
 }
 ?>

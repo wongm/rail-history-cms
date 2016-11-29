@@ -1,17 +1,4 @@
-<?php 
-global $startTime;
-
-// $pageTitle
-// $pageHeading
-// $pageNavigation
-// $googleHeader
-// $googleHeaderKMLscript
-// $canonical
-
-// start timer
-$startTime = explode(' ',microtime());
-$startTime = $startTime[1] + $startTime[0];
-
+<?php
 // don't display errors
 $server = $_SERVER['HTTP_HOST'];
 if ($server == 'z' OR $server == 'localhost' OR isset($_GET['wongm']))
@@ -23,68 +10,82 @@ else
 	error_reporting(0);
 }
 
-// header stuff
-if (!isset($pageTitle))
+// work out the page title
+switch ($_GET['p'])
 {
-	$pageTitle = "Geelong and District, Past and Present";
+	case 'news':
+		$localPageTitle = " - News";
+		$pageHeading = $localPageTitle;
+		$newsRSS = true;
+		break;
+		
+	case 'locations':
+	case 'locations-home':
+	case 'location':
+	case 'lineguides':
+	case 'lineguide':
+	case 'regions':
+	case 'articles':
+		$localPageTitle = " - $pageTitle";
+		$pageHeading = $localPageTitle;
+		$railGeelongRSS = true;
+		break;
+
+	default:
+		$localPageTitle = " - Gallery" . $pageTitle;
+		$pageHeading = " - Gallery";
+		$galleryRSS = true;
 }
-if (!isset($pageHeading))
+		
+if (!isset($_GET['album']) && $_GET['p'] == '') 
 {
-	$pageHeading = $pageTitle;
-}
-if (strlen($pageHeading) > 35)
-{
-	$pageHeading = str_replace('Line Guide', '', $pageHeading);
+	$localPageTitle = " - Welcome";
+	$pageHeading = $localPageTitle;
+	$railGeelongRSS = true;
 }
 
-$bodyExtra = '';
-$googleArticle = false;
-
-//extra header items when displaying Google maps
-if (isset($googleHeader))
-{
-	if ($googleHeader == 'article')
-	{
-		$googleArticle = true;
-	}
-	
-	// need bits in the body tag as well
-	$bodyExtra = ' onload="loadLineguideAll()" onunload="GUnload()"';
-}
+$localPageTitle = "Rail Geelong" . $localPageTitle;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<title>Rail Geelong - <?php echo $pageTitle;?></title>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title><?php echo $localPageTitle; ?></title>
 <link rel="stylesheet" type="text/css" href="/themes/railgeelong/common/css/style.css" media="all" title="Normal" />
-<?php if ($googleArticle) { ?>
-<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=<?php echo GOOGLE_KEY?>" type="text/javascript"></script>
-<?php echo $googleHeaderKMLscript ?>
-<?php } else if ($googleHeader) { ?>
-<link rel="stylesheet" type="text/css" href="/common/css/aerialstyle.css" />
-<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=<?php echo GOOGLE_KEY?>" type="text/javascript"></script>
-<script src="/themes/railgeelong/common/js/aerialfunctions.js" type="text/javascript"></script></head>
-<script src="/themes/railgeelong/common/aerialjavascript.php?lineguide=<?php echo $line["lineId"]; ?>&link=<?php echo $line["lineLink"]; ?>" type="text/javascript"></script>
-<?php } ?>
+<link rel="stylesheet" href="<?php echo $_zp_themeroot ?>/zen.css" type="text/css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="/themes/railgeelong/common/js/lightbox.js"></script>
-<script type="text/javascript" src="/themes/railgeelong/common/js/functions.js"></script>
 <?php zp_apply_filter('theme_head') ?>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="author" content="Marcus Wong" />
 <meta name="description" content="A history of the railways of Geelong and District" />
-<meta name="keywords" content="railways trains history geelong victoria australia transport" />
-<?php if (isset($canonical)) { ?>
-<link rel="canonical" href="<?php echo $canonical; ?>" />
-<?php } ?>
-<link rel="alternate" type="application/rss+xml" title="Recently updated pages" href="/rss" />
+<meta name="keywords" content="photos of railways trains history geelong victoria australia transport" />
+<?php
+if ($galleryRSS)
+{
+	printRSSHeaderLink("AlbumsRSS", "Recent gallery uploads");
+}
+else if ($railGeelongRSS)
+{
+	echo '<link rel="alternate" type="application/rss+xml" title="Recently updated pages" href="/rss" />';
+}
+else if ($newsRSS)
+{
+	//printZenpageRSSHeaderLink('News', '', 'Recent news updates', null);
+}
+//facebook headers for image.php
+if (getImageThumb())
+{
+	printFacebookTag();
+}
+?>
 </head>
-<body<?php echo $bodyExtra ?>>
-<?php zp_apply_filter('theme_body_close'); ?>
+<body>
 <div id="container">
 <div id="header">
 	<div id="sitename"><h1><a href="/" title="Home">Rail Geelong</a></h1></div>
 	<div id="sitedesc">A history of the railways of Geelong and District.</div>
 	<div style="clear:both;"></div>
 </div>
+<?php zp_apply_filter('theme_body_close'); ?>
 <div id="contentwrapper">

@@ -1,15 +1,15 @@
 <?php 
-include_once("common/dbConnection.php");
-include_once("common/formatting-functions.php");
+require_once("common/dbConnection.php");
+require_once("common/formatting-functions.php");
 
 $pageTitle = 'Credits and Acknowledgements';
-include_once("common/header.php");
+require_once("common/header.php");
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; <?php echo $pageTitle; ?></div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
-<?php include_once("common/midbar.php"); ?>
+<?php require_once("common/midbar.php"); ?>
 <h3><?php echo $pageTitle; ?></h3>
 <div id="credits">
 <p>I would like to thank the following people for their assistance provided in creating this site.</p>
@@ -18,5 +18,5 @@ include_once("common/header.php");
 <p>The concept of the <a href="/lineguide.php">Line Guides</a> was inspired by those by Chris Gordon at <a href="http://vicsig.net">http://vicsig.net</a>.</p>
 <p>Finally I would like to thank the staff at the State Library and the Geelong Heritage Centre for their assistance in tracking down various documents.</p></div>
 <?php
-include_once("common/footer.php");
+require_once("common/footer.php");
 ?>

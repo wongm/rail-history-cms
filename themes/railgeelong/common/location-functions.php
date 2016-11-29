@@ -6,10 +6,10 @@ function drawInvalidLocation($locationToFind, $index=1)
 	header("HTTP/1.1 404 Not Found");
 	header("Status: 404 Not Found");
 	$pageTitle = "404 Page Not Found";
-	include_once("header.php");
+	require_once("header.php");
 	$message = "<br clear=\"all\"><p class=\"error\">Error - Invalid Location!</p>\n";
 	drawLocationSearch($locationToFind, $index, $message);
-	include_once("footer.php");
+	require_once("footer.php");
 }
 
 function drawDuplicateLocation($recheckresult)
@@ -17,12 +17,12 @@ function drawDuplicateLocation($recheckresult)
 	header("HTTP/1.1 404 Not Found");
 	header("Status: 404 Not Found");
 	$pageTitle = "404 Page Not Found";
-	include_once("header.php");
+	require_once("header.php");
 	echo "<div class=\"locations\">\n";
 	echo "<br clear=\"all\"><p class=\"error\">Multiple locations by that name found!</p>\n";
 	drawLinedLocationsTable(getLocationsOnlyTable($recheckresult, 'line'), 'search');
 	echo "</div>\n";
-	include_once("footer.php");
+	require_once("footer.php");
 }
 
 /*
@@ -34,14 +34,14 @@ function drawLocation($location)
 	$pageTitle = "Locations - ".$location['pageTitle'];
 	$pageHeading = "Locations";
 	$canonical = getLocationCanonicalUrl($location);
-	include_once("header.php");
-	include_once("event-functions.php");
+	require_once("header.php");
+	require_once("event-functions.php");
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; <a href="/locations/">Locations</a> &raquo; <?php echo $location['pageTitle']?></div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
-<?php include_once("midbar.php"); ?>
+<?php require_once("midbar.php"); ?>
 <h3 id="top"><?php echo $location['pageTitle']?></h3>
 <?php
 	// working out if dot points section shown or not
@@ -89,7 +89,7 @@ function drawLocation($location)
 	// check to see if photos will be shown
 	if (showPhotos($location['photos']))
 	{
-		include_once("gallery-functions.php");
+		require_once("gallery-functions.php");
 		$locationPhotos = getLocationImages($location['photos']);
 		$showPhotos = (sizeof($locationPhotos) > 0);
 		$dotpoints++;
@@ -245,7 +245,7 @@ function drawLocation($location)
 	echo "</div>\n";
 
 	$lastUpdatedDate = $location['updated'];
-	include_once("footer.php");
+	require_once("footer.php");
 
 } //end function
 
@@ -351,7 +351,7 @@ function drawLocationSearch($locationSearch, $searchPageNumber, $message="")
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php
-	include_once("midbar.php");
+	require_once("midbar.php");
 
 	if ($numberOfRecords > 0)
 	{
@@ -370,7 +370,7 @@ function drawLocationSearch($locationSearch, $searchPageNumber, $message="")
 	}
 	else
 	{
-		include_once("location-lineguide-functions.php");
+		require_once("location-lineguide-functions.php");
 		
 		// display number of results
 		$extraBit = ', locations '.drawNumberCurrentDisplayedRecords($maxRecordsPerPage,$numberOfRecords,$searchPageNumber);
@@ -433,7 +433,7 @@ function drawLocationDataTable($location)
 		{
 			if ($location['trackSubpageCount'])
 			{
-				include_once("location-lineguide-functions.php");
+				require_once("location-lineguide-functions.php");
 				$extraPageBounds = getLineguideDistanceURL($location['trackSubpage'], $location['km']);
 			}
 ?>

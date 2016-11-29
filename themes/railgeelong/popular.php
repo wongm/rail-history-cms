@@ -10,7 +10,7 @@
 $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
 
 $pageTitle = ' - Popular photos';
-include_once('header.php');
+require_once('header.php');
 require_once("search-functions.php");
 //$pageBreadCrumb = "<a href=\"".POPULAR_URL_PATH."\" title=\"Popular photos\">Popular photos</a>";
 $pageBreadCrumb = 'Popular photos';
@@ -21,7 +21,7 @@ $pageBreadCrumb = 'Popular photos';
 </div>
 <?php 
 
-include_once('midbar.php');
+require_once('midbar.php');
 
 foreach (array('this-week', 'ratings', 'this-month', 'all-time') AS $viewType)
 {
@@ -31,5 +31,5 @@ foreach (array('this-week', 'ratings', 'this-month', 'all-time') AS $viewType)
 	drawImageGallery($galleryResults['galleryResult'], $viewType);
 }
 
-include_once('footer.php'); 
+require_once('footer.php'); 
 ?>

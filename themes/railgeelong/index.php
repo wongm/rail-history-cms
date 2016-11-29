@@ -3,18 +3,18 @@
 // trick zenpage into displaying the HOME page
 //zenpage_setup_page('home');
 
-include_once("common/dbConnection.php");
-include_once("common/formatting-functions.php");
-include_once("common/updates-functions.php");
+require_once("common/dbConnection.php");
+require_once("common/formatting-functions.php");
+require_once("common/updates-functions.php");
 
 $pageHeading = "Welcome";
-include_once('header.php'); 
+require_once('common/header.php'); 
 ?>
 <div id="headbar">
 	<div class="link">Welcome</div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
-<?php include_once('midbar.php'); ?>
+<?php require_once('common/midbar.php'); ?>
 <div id="frontpage">
 <script type="text/javascript" src="/common/js/frontpage.js"></script>
 <div id="headerpane" class="photo-right">
@@ -109,5 +109,5 @@ printPageContent();
 Melbourne to Geelong and on to Warrnambool has now been covered, along with as well the various branches around Melbourne and Geelong. Geelong to Ballarat is currently in the works, with the Gheringhap to Maroona and Moriac to Wensleydale lines also partly researched.
 </div>
 <?php
-include("footer.php"); 
+include("common/footer.php"); 
 ?>
