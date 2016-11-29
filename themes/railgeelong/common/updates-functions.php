@@ -4,6 +4,7 @@ function drawUpdatedPagesTable($updatedLocations, $frontPage=false)
 {
 	echo "<table class=\"linedTable updatedPages\" id=\"locationTable\">\n";
 	$j = 0;	// for line styling independant of # of records
+	$pastId = -1;
 	
 	if (!$frontPage)
 	{
