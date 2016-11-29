@@ -1,7 +1,7 @@
 <?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
 
 $pageTitle = ' - '.getImageTitle();
-require_once('header.php'); ?>
+require_once('common/header.php'); ?>
 
   <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; 
@@ -12,7 +12,7 @@ require_once('header.php'); ?>
 	<div class="search"><?php printSearchForm(); ?></div>
   </div>
 
-<?php require_once('midbar.php'); ?>
+<?php require_once('common/midbar.php'); ?>
   
   <div class="topbar">
   	<h3><?php printMWEditableImageTitle(true);?></h3>
@@ -48,5 +48,5 @@ if(function_exists("printImageMarkupFields")) {
 	printImageMarkupFields();
 }
 
-require_once('footer.php'); 
+require_once('common/footer.php'); 
 ?>

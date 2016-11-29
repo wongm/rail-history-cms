@@ -34,13 +34,13 @@ else
 			$description = insertMapElement($description, $mapKML);
 		}
 		
-		require_once("header.php");
+		require_once("common/header.php");
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; <a href="/articles/">Articles</a> &raquo; <?php echo $pageTitle?></div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
-<?php require_once("midbar.php"); ?>
+<?php require_once("common/midbar.php"); ?>
 <h3><?php echo $pageTitle?></h3>
 <?php 
 		drawAdminEditableLink("/backend/editArticles.php?id=$articleId", "Edit Article");
@@ -74,7 +74,7 @@ else
 		{
 			echo $articleSources;
 		}
-		require_once("footer.php");
+		require_once("common/footer.php");
 	}
 	else
 	{
@@ -85,14 +85,14 @@ else
 function drawAllArticles($type)
 {
 	$pageTitle = $pageTitleArticles = ucfirst($type).'s Listing';
-	require_once("header.php");
+	require_once("common/header.php");
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; Articles</div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
 <?php
-	require_once("midbar.php");
+	require_once("common/midbar.php");
 ?>
 <h3><?php echo $pageTitleArticles?></h3>
 <?php 
@@ -103,6 +103,6 @@ function drawAllArticles($type)
 		echo '<h4><a href="/'.$type.'/'.stripslashes($articles[$i]["link"]).'">'.stripslashes($articles[$i]["title"]).'</a></h4>';
 		echo '<p class="details">'.stripslashes($articles[$i]["description"]).'</p>';
 	}
-	require_once("footer.php");
+	require_once("common/footer.php");
 }
 ?>

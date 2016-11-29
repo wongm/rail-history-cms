@@ -4,13 +4,13 @@ require_once("common/lineguide-functions.php");
 require_once("common/formatting-functions.php");
 
 $pageTitle = "Line Guides";
-require_once("header.php");
+require_once("common/header.php");
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; Line Guides</div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
-<?php require_once('midbar.php'); ?>
+<?php require_once('common/midbar.php'); ?>
 <h3>Introduction to the line guides</h3>
 <img class="photo-right" src="/images/geelong-region.gif" alt="Geelong region railway lines" title="Geelong region railway lines" usemap="#linemap" height="402" width="500" />
 <map name="linemap" id="linemap">
@@ -34,5 +34,5 @@ require_once("header.php");
 <h4 style="clear:both;" >The lines...</h4><hr/>
 <?php
 drawAllLineguideDotpoints(false);
-require_once("footer.php");
+require_once("common/footer.php");
 ?>

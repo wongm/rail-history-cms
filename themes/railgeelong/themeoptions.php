@@ -7,7 +7,7 @@
  * 
 */
 
-require_once(dirname(__FILE__) . '/common/functions.php');
+require_once(dirname(__FILE__) . '/functions.php');
 
 class ThemeOptions {
 	

@@ -1,8 +1,7 @@
 <?php
-require_once(dirname(__FILE__) . "/dbConnection.php");
-require_once(dirname(__FILE__) . "/formatting-functions.php");
-require_once(dirname(__FILE__) . "/../functions-search.php");
-require_once(dirname(__FILE__) . "/../functions.php");
+require_once("dbConnection.php");
+require_once("formatting-functions.php");
+require_once("functions-search.php");
 
 // check this location has images to show
 function getLocationImages($location)

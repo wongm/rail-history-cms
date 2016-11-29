@@ -1,7 +1,7 @@
 <?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die(); 
 
 $pageTitle = ' - Search results';
-require_once('header.php'); 
+require_once('common/header.php'); 
 
 $totalAlbums = getNumAlbums();
 $totalImages = getNumImages();
@@ -29,7 +29,7 @@ else
 	<div class="link"><a href="/">Home</a> &raquo; <a href="/gallery/">Gallery</a> &raquo; <a href="<?php echo SEARCH_URL_PATH?>">Search</a></div>
 	<div class="search"><?php printSearchForm(); ?></div>
 </div>
-<?php require_once('midbar.php'); ?>
+<?php require_once('common/midbar.php'); ?>
 <?php echo $leadingIntroText; ?>
 <div id="searchpage">
 <?php
@@ -84,4 +84,4 @@ if ($totalImages == 0 AND $totalAlbums == 0)
 printPageListWithNav("« " . gettext("Previous"), gettext("Next") . " »");
 ?>
 </div>
-<?php require_once('footer.php'); ?>
+<?php require_once('common/footer.php'); ?>

@@ -1,7 +1,7 @@
 <?php $startTime = array_sum(explode(" ",microtime())); if (!defined('WEBPATH')) die();
 
 $pageTitle = ' - '.getAlbumTitle();
-require_once('header.php'); ?>
+require_once('common/header.php'); ?>
 
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; 
@@ -10,7 +10,7 @@ require_once('header.php'); ?>
       	<?php echo getAlbumTitle();?></div>
 	<div class="search"><?php printSearchForm(); ?></div>
 </div>
-<?php require_once('midbar.php'); ?>
+<?php require_once('common/midbar.php'); ?>
   <div class="topbar">
   	<h3><?php printMWEditableAlbumTitle(true);?></h3>
   	<?php printMWEditableAlbumDesc(true); ?>
@@ -115,4 +115,4 @@ if(function_exists(formatHitcounter)) {
 	echo "<p>" . formatHitcounter(incrementAndReturnHitCounter('album'), false) . "</p>"; 
 }
 
-require_once('footer.php'); ?>
+require_once('common/footer.php'); ?>
