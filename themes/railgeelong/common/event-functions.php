@@ -400,8 +400,6 @@ function getLocationLineEvents($type, $location)
 					$multiLocations = query_full_array($sqlmultilocations);
 					$sameDate = sizeof($multiLocations);
 					
-					print_r($multiLocations);
-					
 					if ($sameDate > 1)
 					{
 						$startName = stripslashes($multiLocations[0]["start_name"]);
