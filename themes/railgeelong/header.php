@@ -19,18 +19,13 @@ switch ($_GET['p'])
 		$newsRSS = true;
 		break;
 		
-	case 'home':
-		$localPageTitle = " - Welcome";
-		$pageHeading = $localPageTitle;
-		$railGeelongRSS = true;
-		break;
-		
 	case 'locations':
 	case 'locations-home':
 	case 'location':
 	case 'lineguides':
 	case 'lineguide':
 	case 'regions':
+	case 'articles':
 		$localPageTitle = " - $pageTitle";
 		$pageHeading = $localPageTitle;
 		$railGeelongRSS = true;
@@ -40,6 +35,13 @@ switch ($_GET['p'])
 		$localPageTitle = " - Gallery" . $pageTitle;
 		$pageHeading = " - Gallery";
 		$galleryRSS = true;
+}
+		
+if (!isset($_GET['album']) && $_GET['p'] == '') 
+{
+	$localPageTitle = " - Welcome";
+	$pageHeading = $localPageTitle;
+	$railGeelongRSS = true;
 }
 
 $localPageTitle = "Rail Geelong" . $localPageTitle;

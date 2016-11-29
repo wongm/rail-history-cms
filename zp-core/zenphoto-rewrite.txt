@@ -11,7 +11,7 @@
 	RewriteRule ^admin/*$																	%ZENFOLDER%/admin.php [L,QSA]
 	
 	#### Rail Geelong custom
-	RewriteRule ^gallery/?$					   											index.php?p=galleryindex [L,QSA]
+	RewriteRule ^gallery/?$					   											index.php?p=gallery-index [L,QSA]
 	RewriteRule ^gallery/recent/?$					   											index.php?p=recent [L,QSA]
 	RewriteRule ^gallery/(.*)$                     										index.php?album=$1 [L,QSA]
 	RewriteRule ^lineguides/(.*)$                     									index.php?p=lineguides [L,QSA]

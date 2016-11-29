@@ -4,8 +4,6 @@ include_once("common/dbConnection.php");
 include_once("common/formatting-functions.php");
 include_once("common/source-functions.php");
 include_once("common/map-functions.php");
-	
-
 
 if (!isset($_REQUEST['name']))
 {
