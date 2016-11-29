@@ -12,6 +12,7 @@
 	
 	#### Rail Geelong custom
 	RewriteRule ^gallery/?$					   											index.php?p=galleryindex [L,QSA]
+	RewriteRule ^gallery/recent/?$					   											index.php?p=recent [L,QSA]
 	RewriteRule ^gallery/(.*)$                     										index.php?album=$1 [L,QSA]
 	RewriteRule ^lineguides/(.*)$                     									index.php?p=lineguides [L,QSA]
 	RewriteRule ^region/(.*)/$                     										index.php?p=regions&name=$1 [L,QSA]
@@ -28,8 +29,6 @@
     RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/diagram/page-([A-Za-z0-9\-_]+)/year-([0-9\-_]+)/?$	index.php?p=lineguide&line=$1&section=diagram&page=$2&year=$3 [L,QSA]
     RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/diagram/year-([0-9\-_]+)/page-([0-9\-_]+)/?$			index.php?p=lineguide&line=$1&section=diagram&year=$2&page=$3 [L,QSA]
     RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/safeworking/([A-Za-z0-9\-_]+)/?$						index.php?p=lineguide&line=$1&section=safeworking&year=$2 [L,QSA]
-	
-	
 	
 	RewriteRule ^location/([0-9]+)/map/$					   				index.php?p=location-aerial&id=$1&view=map [L,QSA]
 	RewriteRule ^location/([0-9]+)/satellite/$					   			index.php?p=location-aerial&id=$1&view=satellite [L,QSA]

@@ -79,7 +79,7 @@ foreach ($regions as $region)
 </ul>
 <ul class="sitemenu">
 	<li class="lead"><a href="/gallery/">Gallery</a></li>
-	<li><a href="/gallery/recent">Recent uploads</a></li>
+	<li><a href="/gallery/recent/">Recent uploads</a></li>
 </ul>
 <ul class="sitemenu">
 	<li><a href="/contact.php">Contact</a></li>
