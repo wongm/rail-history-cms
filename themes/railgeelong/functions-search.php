@@ -180,7 +180,7 @@ function drawImageGallery($galleryResult, $type='')
 						// only reset the monthly and weekly totals if and admin, and counter are past the date
 						if ($updatedHitCounter['admin'] != '') 
 						{
-							query("UPDATE zen_images SET ".$updatedHitCounter['admin']." WHERE `id` = $id");
+							query("UPDATE " . prefix("images") . " SET ".$updatedHitCounter['admin']." WHERE `id` = $id");
 							$photoHitcounter = array($updatedHitCounter['hitCounterAllTime'], $updatedHitCounter['hitCounterMonth'], $updatedHitCounter['hitCounterWeek'], $type);
 						}
 					}
@@ -292,7 +292,7 @@ function imageOrAlbumSearch($term, $type, $page)
 	// do the query
 	if ($type == 'Image')
 	{
-		$searchSql = "SELECT * FROM zen_images, zen_albums WHERE zen_images.albumid = zen_albums.id AND (zen_images.title like '%$term%' OR zen_images.desc like '%$term%' OR zen_images.filename like '%$term%' ) ORDER BY zen_images.sort_order";
+		$searchSql = "SELECT * FROM " . prefix("images") . " i , " . prefix("albums") . " a WHERE i.albumid = a.id AND (i.title like '%$term%' OR i.desc like '%$term%' OR i.filename like '%$term%' ) ORDER BY i.sort_order";
  		$limitedSearchSql = "$searchSql LIMIT $index,$maxImagesPerPage";
 		$numberImagesFound = db_num_rows(query_full_array($searchSql));
 		
@@ -302,7 +302,7 @@ function imageOrAlbumSearch($term, $type, $page)
 	}
 	elseif ($type == 'Album')
 	{
-		$searchSql = "SELECT * FROM zen_albums WHERE ( zen_albums.title LIKE '%$term%' OR zen_albums.desc LIKE '%$term%' OR zen_albums.folder LIKE '%$term%' )";
+		$searchSql = "SELECT * FROM " . prefix("albums") . " a WHERE ( a.title LIKE '%$term%' OR a.desc LIKE '%$term%' OR a.folder LIKE '%$term%' )";
 		$text2 = ' <a href="'.GALLERY_PATH.'/search/?search='.$term.'&type=image">Search for \''.$term.'\' in images instead?</a>';
 		$galleryResult = query_full_array($searchSql);
 		$numberOfRows = db_num_rows($galleryResult);
@@ -408,7 +408,7 @@ function drawAlbums($galleryResult, $error = false, $search = false)
 					$albumDate = strftime(TIME_FORMAT, strtotime(MYSQL_RESULT($galleryResult,$i,"fdate")));
 					
 					// get an image to display with it
-					$imageSql = "SELECT filename, id FROM zen_images WHERE zen_images.albumid = '$albumId' LIMIT 0,1 ";
+					$imageSql = "SELECT filename, id FROM " . prefix("images") . " WHERE albumid = '$albumId' LIMIT 0,1 ";
 					$imageResult = MYSQL_QUERY($imageSql);
 					$numberOfImages = MYSQL_NUM_ROWS($imageResult);
 					if ($numberOfImages > 0)
@@ -481,13 +481,13 @@ function getGalleryUploadsResults($pageType, $pageTypeModifier, $nextURL, $start
 		
 		$nextURL .= "/?double=&count=$count&start=$start&page=";
 	
-		$sql = "SELECT i.*, a.folder, a.title AS albumtitle FROM zen_images i
-			INNER JOIN zen_albums a ON i.albumid = a.id 
+		$sql = "SELECT i.*, a.folder, a.title AS albumtitle FROM " . prefix("images") . " i
+			INNER JOIN " . prefix("albums") . " a ON i.albumid = a.id 
 			WHERE i.filename IN (
 				SELECT filename 
 				FROM (
 					SELECT filename, count(id) AS duplicates 
-					FROM zen_images
+					FROM " . prefix("images") . "
 					GROUP BY filename) AS inner_query 
 				WHERE duplicates > 1)
 			ORDER BY i.date DESC
@@ -532,15 +532,15 @@ function getGalleryUploadsResults($pageType, $pageTypeModifier, $nextURL, $start
 			}
 			else if ($pageTypeModifier == 'ratings')
 			{
-				$order = " ORDER BY i.ratings_score DESC, zen_images.hitcounter DESC";
+				$order = " ORDER BY i.ratings_score DESC, i.hitcounter DESC";
 				$where = " AND i.ratings_view > 0 ";
 			}
 			
 			$nextURL .= "/";
 		}
 		
-		$sql = "SELECT i.*, a.folder, a.title AS albumtitle FROM zen_images i
-			INNER JOIN zen_albums a ON i.albumid = a.id
+		$sql = "SELECT i.*, a.folder, a.title AS albumtitle FROM " . prefix("images") . " i
+			INNER JOIN " . prefix("albums") . " a ON i.albumid = a.id
 			$captiona $captionb $where
 			$order
 			LIMIT $currentImageResultIndex,$count";
@@ -548,8 +548,8 @@ function getGalleryUploadsResults($pageType, $pageTypeModifier, $nextURL, $start
 	
 	if (!$dontDoTotalCount) {		
 		$innersql = "SELECT count(i.id) AS total 
-			FROM zen_images i
-			INNER JOIN zen_albums a ON i.albumid = a.id
+			FROM " . prefix("images") . " i
+			INNER JOIN " . prefix("albums") . " a ON i.albumid = a.id
 			$captiona $captionb $where";
 		
 		$checkQueryResults = db_fetch_assoc(query($innersql));

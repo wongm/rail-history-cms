@@ -13,30 +13,30 @@ function getLocationImages($location)
 	// for comma seperated individual images
 	if ($subLocation > 1)
 	{
-		$gallerySQL = "SELECT zp_albums.folder, zp_images.filename, zp_images.title, zp_images.id 
-			FROM zp_images
-			INNER JOIN zp_albums ON zp_images.albumid = zp_albums.id 
-			WHERE ( zp_images.filename = ".db_quote(getFilename($locationbits[0]))." ";
+		$gallerySQL = "SELECT a.folder, i.filename, i.title, i.id 
+			FROM " . prefix("images") . " i
+			INNER JOIN " . prefix("albums") . " ON i.albumid = a.id 
+			WHERE ( i.filename = ".db_quote(getFilename($locationbits[0]))." ";
 		for ($i = 1; $i < $subLocation; $i++)
 		{
-			$gallerySQL .= " OR zp_images.filename = ".db_quote(getFilename($locationbits[$i]))." ";
+			$gallerySQL .= " OR i.filename = ".db_quote(getFilename($locationbits[$i]))." ";
 		}
-		$gallerySQL .= " ) ORDER BY zp_images.sort_order";
+		$gallerySQL .= " ) ORDER BY i.sort_order";
 	}
 	else if (strpos($location, '.jpg') > 0)
 	{
-		$gallerySQL = "SELECT zp_albums.folder, zp_images.filename, zp_images.title, zp_images.id 
-			FROM zp_images
-			INNER JOIN zp_albums ON zp_images.albumid = zp_albums.id 
-			WHERE zp_images.filename = ".db_quote(getFilename($location))." ";
+		$gallerySQL = "SELECT a.folder, i.filename, i.title, i.id 
+			FROM " . prefix("images") . "
+			INNER JOIN " . prefix("albums") . " ON i.albumid = a.id 
+			WHERE i.filename = ".db_quote(getFilename($location))." ";
 	}
 	// for album in the gallery 
 	else
 	{
-		$gallerySQL = "SELECT zp_albums.folder, zp_images.filename, zp_images.title, zp_images.id
-			FROM zp_images
-			INNER JOIN zp_albums ON zp_images.albumid = zp_albums.id 
-			WHERE folder = ".db_quote($location)." ORDER BY zp_images.sort_order";
+		$gallerySQL = "SELECT a.folder, i.filename, i.title, i.id
+			FROM " . prefix("images") . " i
+			INNER JOIN " . prefix("albums") . " a ON i.albumid = a.id 
+			WHERE a.folder = ".db_quote($location)." ORDER BY i.sort_order";
 	}
 	
 	return query_full_array($gallerySQL);
