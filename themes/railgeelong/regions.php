@@ -190,8 +190,6 @@ function drawRegionRaillines($regionLink, $regionId)
 			}	
 			echo "</ul></td>\n";
 			echo "<td class=\"regionContent\">" . $lineArray[$i]['regionContent'] . "</td></tr>\n";
-			
-			$lineOrderPast = $lineOrder;
 		}
 		
 		echo "</table>\n";

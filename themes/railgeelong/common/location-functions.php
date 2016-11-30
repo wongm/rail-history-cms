@@ -373,7 +373,7 @@ function drawLocationSearch($locationSearch, $searchPageNumber, $message="")
 		require_once("location-lineguide-functions.php");
 		
 		// display number of results
-		$extraBit = ', locations '.drawNumberCurrentDisplayedRecords($maxRecordsPerPage,$numberOfRecords,$searchPageNumber);
+		$extraBit = ', locations '.drawNumberCurrentDisplayedRecords($maxRecordsPerPage, $numberOfRecords, $searchPageNumber, null);
 		echo "<p>$totalNumberOfRecords results found for \"".stripslashes($locationSearch)."\"$extraBit.</p>\n";
 
 		// draw the actual results

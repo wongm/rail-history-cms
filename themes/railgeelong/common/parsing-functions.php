@@ -153,7 +153,10 @@ function getDescriptionSize($text)
  */
 function parseLinks($text, $simple=false)
 {
+	$toreturn = "";
+	
 	// check if the first bit of text is a link
+	$firstlink = false;
 	if (substr($text, 0, 1) == '[[')
 	{
 		$firstlink = true;

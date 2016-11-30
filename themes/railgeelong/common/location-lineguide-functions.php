@@ -2,6 +2,8 @@
 
 function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 {	
+	$sqlSpecific = "";
+	
 	// depends on what class of diagram we want - line
 	if ($lineId != '')
 	{
@@ -14,6 +16,7 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 		$sqlorder = ' ORDER BY lr.km ASC';
 		$sortorder = 'distance from Melbourne. Click table headers to reorder';
 	}
+	
 	//  type
 	if ($typeSql != '')
 	{
@@ -95,6 +98,7 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 		$toreturn['headerurl'] = array('by-name', $headerUrl, 'by-km', 'by-photos', 'by-events', 'by-history');
 	}
 	
+	$pastid = -1;
 	for ($i  = 0; $i < $numberOfLocations; $i++)
 	{	
 		$locationId = stripslashes($result[$i]["location_id"]);
@@ -135,7 +139,7 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 		// fix for the link to locations on more than one line
 		if($numberOfLocations > 1)
 		{
-			$lineId = stripslashes($result[$i]["r.line_id"]);
+			$lineId = stripslashes($result[$i]["line_id"]);
 		}
 		else
 		{
@@ -212,7 +216,7 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 			
 			$toreturn[] = array($thisCommon, $thisKm, $thisPhoto, $thisEvent, $thisLength, $locationName, $locationUrl);
 			$j++;
-			$pastid = $id;
+			$pastid = $locationId;
 			
 		}	// end $thisUrl if
 	}		// end while

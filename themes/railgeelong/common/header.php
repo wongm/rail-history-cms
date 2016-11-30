@@ -10,8 +10,12 @@ else
 	error_reporting(0);
 }
 
+$showRailHistoryCmsRssLink = false;
+$showGalleryRssLink  = false;
+
 // work out the page title
-switch ($_GET['p'])
+$currentPage = isset($_GET['p']) ? $_GET['p'] : "";
+switch ($currentPage)
 {
 	case 'news':
 		$localPageTitle = " - News";
@@ -26,7 +30,7 @@ switch ($_GET['p'])
 	case 'lineguide':
 	case 'regions':
 	case 'articles':
-		$railGeelongRSS = true;
+		$showRailHistoryCmsRssLink = true;
 		
 	case 'contact':
 		$localPageTitle = " - $pageTitle";
@@ -34,16 +38,16 @@ switch ($_GET['p'])
 		break;
 
 	default:
-		$localPageTitle = " - Gallery" . $pageTitle;
+		$localPageTitle = " - Gallery" . (isset($pageTitle) ? $pageTitle : "");
 		$pageHeading = " - Gallery";
-		$galleryRSS = true;
+		$showGalleryRssLink = true;
 }
 		
-if (!isset($_GET['album']) && $_GET['p'] == '') 
+if (!isset($_GET['album']) && $currentPage == '') 
 {
 	$localPageTitle = " - Welcome";
 	$pageHeading = $localPageTitle;
-	$railGeelongRSS = true;
+	$showRailHistoryCmsRssLink = true;
 }
 
 $localPageTitle = getGalleryTitle() . $localPageTitle;
@@ -61,11 +65,11 @@ $localPageTitle = getGalleryTitle() . $localPageTitle;
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="description" content="<?php echo getGalleryDesc();?>" />
 <?php
-if ($galleryRSS)
+if ($showGalleryRssLink)
 {
 	printRSSHeaderLink("AlbumsRSS", "Recent gallery uploads");
 }
-else if ($railGeelongRSS)
+else if ($showRailHistoryCmsRssLink)
 {
 	echo '<link rel="alternate" type="application/rss+xml" title="Recently updated pages" href="/rss" />';
 }

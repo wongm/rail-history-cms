@@ -205,7 +205,7 @@ function drawNextAndBackLinks($index, $totalimg, $max, $url, $includePageNumberL
 	}
 } // end function
 
-function drawNumberCurrentDisplayedRecords($maxRecordsPerPage,$numberOfRecords,$searchPageNumber)
+function drawNumberCurrentDisplayedRecords($maxRecordsPerPage, $numberOfRecords, $searchPageNumber, $totalNumberOfRecords)
 {
 	if ($numberOfRecords != $totalNumberOfRecords)
 	{
@@ -371,14 +371,13 @@ function getLineguidePages($line, $type='list')
 			if ($type != 'headbar')
 			{
 				$beyondFirstText = 'Track Diagram ';
-				//$elaborateText = 'part ';
 			}
 
-			$toreturn[] = array("diagram/page-1", "Track Diagram (page ".$elaborateText."1)", "Track Diagram (page ".$elaborateText."1)");
+			$toreturn[] = array("diagram/page-1", "Track Diagram (page 1)", "Track Diagram (page 1)");
 
 			for ($i = 2; $i <= $line['trackSubpageCount']; $i++)
 			{
-				$toreturn[] = array("diagram/page-$i", "$beyondFirstText(page $elaborateText$i)", "$beyondFirstText(page $elaborateText$i)");
+				$toreturn[] = array("diagram/page-$i", "$beyondFirstText(page $i)", "$beyondFirstText(page $i)");
 			}
 		}
 		else
@@ -471,8 +470,7 @@ function drawLinedLocationsTable($locationData, $displayType)
 
 	// skips the header cells
 	$i = 0;
-
-	while ($i < $numberOfLocations)
+	while ($i < $numberOfLocations - 1)
 	{
 		if ($i%2 == '0')
 		{

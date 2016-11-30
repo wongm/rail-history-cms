@@ -102,7 +102,7 @@ function drawPageOfUpdated($updatedPages)
 	$page = $updatedPages['page'];
 	$maxRowsPerPage = $updatedPages['maxRowsPerPage'];
 	
-	$extraBit = ', pages '.drawNumberCurrentDisplayedRecords($maxRowsPerPage, $updatedPages["numberOfRows"], $page-1);
+	$extraBit = ', pages '.drawNumberCurrentDisplayedRecords($maxRowsPerPage, $updatedPages["numberOfRows"], $page-1, $updatedPages['maxRows']);
 	$nextPageUrl = '/updates/page/';
 ?>
 <h3>Updated content</h3>

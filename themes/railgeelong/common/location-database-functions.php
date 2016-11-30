@@ -387,6 +387,7 @@ function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 	$toreturn['headerurl'] 	 = '';
 	$toreturn['headerwidth'] = '';
 	$toreturn['pageurl'] 	 = '';
+	$toreturn['headerstyle'] = array_fill(0, 6, '');
 	
 	if ($displaytype == 'updated')
 	{
@@ -397,6 +398,7 @@ function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 		$toreturn['headertitle'] = array('Location', 'Type', 'Photos', 'Events', 'History', 'Line');
 	}
 	
+	$j = 0;
 	for ($i = 0; $i < $numberOfLocations; $i++)
 	{
 		$id = stripslashes($resultLocations[$i]["location_id"]);
@@ -421,8 +423,8 @@ function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 		}
 		
 		// image depending on length of description
-		//$contentLengthImage = getLocationDescriptionLengthImage($resultLocations[$i]["description_length"]);
-		$contentLengthImage = "<a href=\"/location/$urlBase/\">$contentLengthImage</a>";
+		$contentLengthImage = getLocationDescriptionLengthImage($resultLocations[$i]["description_length"]);
+		$contentLengthLink = "<a href=\"/location/$urlBase/\">$contentLengthImage</a>";
 			
 		// image if photos
 		if (showPhotos($resultLocations[$i]["photos"]))
@@ -451,12 +453,12 @@ function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 			
 		if ($displaytype == 'search')
 		{
-			$toreturn[] = array($locationTypeName, $galleryLinkImage, $eventLinkImage, $contentLengthImage, $linename, $highlightedLocationName, "/location/$urlBase/");
+			$toreturn[] = array($locationTypeName, $galleryLinkImage, $eventLinkImage, $contentLengthLink, $linename, $highlightedLocationName, "/location/$urlBase/");
 		}
 		else if ($displaytype == 'updated')
 		{
 			$updated = $resultLocations[$j]["fdate"]; 
-			$toreturn[] = array($updated, $linename, $locationTypeName, $galleryLinkImage, $eventLinkImage, $contentLengthImage, $highlightedLocationName, "/location/$urlBase/");
+			$toreturn[] = array($updated, $linename, $locationTypeName, $galleryLinkImage, $eventLinkImage, $contentLengthLink, $highlightedLocationName, "/location/$urlBase/");
 		}
 		
 		$j++;
