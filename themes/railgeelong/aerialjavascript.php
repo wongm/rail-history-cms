@@ -1,4 +1,4 @@
-<?php require_once("definitions.php");
+<?php require_once("common/definitions.php");
 //PHP SCRIPT: getlocations.php
 Header("content-type: application/x-javascript");	
 
@@ -20,25 +20,26 @@ function returnlocations()
 		$bit = '';
 	}
 	
-	$sqlQuery = "SELECT * FROM locations l, location_types lt, locations_raillines lr 
+	$sqlQuery = "SELECT l.name, l.location_id, basic, l.long, l.photos, l.events, l.description, l.type, line_id
+	FROM locations l, location_types lt, locations_raillines lr 
 	WHERE lt.type_id = l.type AND l.location_id = lr.location_id
 	AND name != '' AND `long` != '' AND `long` != '0' AND display != 'tracks' ".$bit;
-	$result = MYSQL_QUERY($sqlQuery, locationDBconnect());
-	$numberOfRows = MYSQL_NUM_ROWS($result);
+	$result = query_full_array($sqlQuery);
+	$numberOfRows = sizeof($result);
 	
 	if ($numberOfRows > 0) 
 	{	
 		for($i = 0; $i < $numberOfRows; $i++)
 		{
-			$name = stripslashes(MYSQL_RESULT($result,$i,"name")); 
-			$id = stripslashes(MYSQL_RESULT($result,$i,"l.location_id")); 
-			$typeName = stripslashes(MYSQL_RESULT($result,$i,"lt.basic"));
-			$coords = split (', ', stripslashes(MYSQL_RESULT($result,$i,"long"))); 
-			$photos = stripslashes(MYSQL_RESULT($result,$i,"photos")); 
-			$events = stripslashes(MYSQL_RESULT($result,$i,"events")); 
-			$length = strlen((MYSQL_RESULT($result,$i,"description"))); 
-			$type = stripslashes(MYSQL_RESULT($result,$i,"type")); 
-			$lines = stripslashes(MYSQL_RESULT($result,$i,"line_id")); 
+			$name = stripslashes($result[$i]["name"]);
+			$id = stripslashes($result[$i]["location_id"]); 
+			$typeName = stripslashes($result[$i]["basic"]);
+			$coords = explode (', ', stripslashes($result[$i]["long"])); 
+			$photos = stripslashes($result[$i]["photos"]); 
+			$events = stripslashes($result[$i]["events"]); 
+			$length = strlen(($result[$i]["description"])); 
+			$type = stripslashes($result[$i]["type"]); 
+			$lines = stripslashes($result[$i]["line_id"]); 
 			
 			if (sizeOf($coords) == 2)
 			{

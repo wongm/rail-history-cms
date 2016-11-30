@@ -12,6 +12,8 @@ function drawLineguideGoogleMap($line)
 
 function drawAllMap($center, $zoom, $types, $lines)
 {	
+	global $_zp_themeroot;
+	
 	$section = $_REQUEST["section"];
 	//$preset = $_REQUEST["preset"];
 	
@@ -42,7 +44,7 @@ function drawAllMap($center, $zoom, $types, $lines)
 <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<?php echo GOOGLE_KEY?>" type="text/javascript"></script>
 <script src="<?php echo $_zp_themeroot ?>/js/functions.js" type="text/javascript"></script>
 <script src="<?php echo $_zp_themeroot ?>/js/aerialfunctions.js" type="text/javascript"></script></head>
-<script src="/common/aerialjavascript.php?lines=<?php echo $lines; ?>&types=<?php echo $types; ?>" type="text/javascript"></script>
+<script src="/aerialjavascript.php?lines=<?php echo $lines; ?>&types=<?php echo $types; ?>" type="text/javascript"></script>
 <body style="width: 98%; height: 100%; margin: 1%; padding: 0;" onload="loadExplorerAll(<?php echo $center.",".$zoom; ?>)" onunload="GUnload()">
 <?php getTabs('lines'); ?>
 <div name="map" id="map" style="position: absolute; width: 98%; height: 85%;"></div>
