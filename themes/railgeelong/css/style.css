@@ -270,9 +270,6 @@ h3.intro {
 	
 /* site menu formatting stuff --------------------------------------------------
 	based on http://www.projectseven.com/tutorials/css/uberlinks/index.htm */
-.menu a {
-	height: 1%;
-}
 #navigation ul {
 	padding: 0; 
 	list-style-type: none; 
