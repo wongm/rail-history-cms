@@ -16,7 +16,7 @@ require_once('common/header.php');
 </div>
 <?php require_once('common/midbar.php'); ?>
 <div id="frontpage">
-<script type="text/javascript" src="/common/js/frontpage.js"></script>
+<script type="text/javascript" src="<?php echo $_zp_themeroot ?>/js/frontpage.js"></script>
 <div id="headerpane" class="photo-right">
 <img id="randomimage" height="267" width="400" alt="Random image" title="Random image" src="/images/frontpage/E105_0086.jpg"/>
 <span id="randomcaption">Random image</span>

@@ -37,11 +37,11 @@ function drawAllMap($center, $zoom, $types, $lines)
 <meta name="author" content="Marcus Wong" />
 <meta name="description" content="Rail Geelong Homepage" />
 <meta name="keywords" content="railways trains geelong victoria" />
-<link rel="stylesheet" type="text/css" href="/common/css/style.css" media="all" title="Normal" />
-<link rel="stylesheet" type="text/css" href="/common/css/aerialstyle.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $_zp_themeroot ?>/css/style.css" media="all" title="Normal" />
+<link rel="stylesheet" type="text/css" href="<?php echo $_zp_themeroot ?>/css/aerialstyle.css" />
 <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<?php echo GOOGLE_KEY?>" type="text/javascript"></script>
-<script src="/common/js/functions.js" type="text/javascript"></script>
-<script src="/common/js/aerialfunctions.js" type="text/javascript"></script></head>
+<script src="<?php echo $_zp_themeroot ?>/js/functions.js" type="text/javascript"></script>
+<script src="<?php echo $_zp_themeroot ?>/js/aerialfunctions.js" type="text/javascript"></script></head>
 <script src="/common/aerialjavascript.php?lines=<?php echo $lines; ?>&types=<?php echo $types; ?>" type="text/javascript"></script>
 <body style="width: 98%; height: 100%; margin: 1%; padding: 0;" onload="loadExplorerAll(<?php echo $center.",".$zoom; ?>)" onunload="GUnload()">
 <?php getTabs('lines'); ?>
