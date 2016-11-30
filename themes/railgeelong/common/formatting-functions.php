@@ -1,7 +1,5 @@
 <?php
 
-define('SITE_NAME', 'Rail Geelong');
-
 require_once('parsing-functions.php');
 
 function drawAdminEditableLink($link, $title)
@@ -44,7 +42,7 @@ function getLineName($pageTitle)
 
 function getPageBreadcrumbs($pageTitle)
 {
-	$toreturn = '<a href="/" title="'.SITE_NAME.' Home">Home</a>';
+	$toreturn = '<a href="/" title="' . getGalleryTitle() . ' Home">Home</a>';
 	$size = sizeof($pageTitle);
 
 	for ($i = 0; $i < $size; $i++)

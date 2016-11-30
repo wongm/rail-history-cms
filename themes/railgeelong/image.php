@@ -5,7 +5,7 @@ require_once('common/header.php'); ?>
 
   <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; 
-		<a href="<?php echo getGalleryIndexURL();?>" title="Gallery Index"><?php echo getGalleryTitle();?></a> &raquo; 
+		<a href="<?php echo getGalleryIndexURL();?>" title="Gallery Index">Gallery</a> &raquo; 
 		<?php printParentBreadcrumb('', ' » ', ' » '); ?>
 		<a href="<?php echo getAlbumURL();?>" title="<?php echo getAlbumTitle();?> Index"><?php echo getAlbumTitle();?></a>
 	</div>

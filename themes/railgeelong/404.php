@@ -20,7 +20,7 @@ require_once('common/header.php');
 require_once('common/functions-search.php');
 ?>
 <div id="headbar">
-	<div class="link"><a href="<?php echo getGalleryIndexURL();?>" title="Gallery Index"><?php echo getGalleryTitle();?></a> &raquo; 404 Page Not Found</div>
+	<div class="link"><a href="<?php echo getGalleryIndexURL();?>" title="Gallery Index">Gallery</a> &raquo; 404 Page Not Found</div>
 	<div class="search"><?php printSearchForm(); ?></div>
 </div>
 <?php require_once('common/midbar.php'); ?>

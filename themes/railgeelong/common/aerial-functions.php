@@ -32,13 +32,10 @@ function drawAllMap($center, $zoom, $types, $lines)
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
 <html>
 <head>
-<!-- Description: <?php echo $pageTitle;?> -->
-<!-- Author: Marcus Wong -->
-<title>Rail Geelong - <?php echo $pageTitle;?></title>
+<title><?php echo getGalleryTitle();?> - <?php echo $pageTitle;?></title>
 <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
 <meta name="author" content="Marcus Wong" />
-<meta name="description" content="Rail Geelong Homepage" />
-<meta name="keywords" content="railways trains geelong victoria" />
+<meta name="description" content="<?php echo getGalleryDesc();?>" />
 <link rel="stylesheet" type="text/css" href="<?php echo $_zp_themeroot ?>/css/style.css" media="all" title="Normal" />
 <link rel="stylesheet" type="text/css" href="<?php echo $_zp_themeroot ?>/css/aerialstyle.css" />
 <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<?php echo GOOGLE_KEY?>" type="text/javascript"></script>
@@ -198,13 +195,10 @@ function drawSpecific($view, $id)
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html height="100%" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<!-- Description: <?php echo $pageTitle;?> -->
-<!-- Author: Marcus Wong -->
-<title>Rail Geelong - <?php echo $pageTitle;?></title>
+<title><?php echo getGalleryTitle();?> - <?php echo $pageTitle;?></title>
 <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
 <meta name="author" content="Marcus Wong" />
-<meta name="description" content="Rail Geelong Homepage" />
-<meta name="keywords" content="railways trains geelong victoria" />
+<meta name="description" content="<?php echo getGalleryDesc();?>" />
 <link rel="stylesheet" type="text/css" href="/common/css/style.css" media="all" title="Normal" />
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_KEY_v3?>&sensor=false"></script>
 <script type="text/javascript">

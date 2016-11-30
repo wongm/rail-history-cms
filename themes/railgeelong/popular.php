@@ -16,7 +16,7 @@ require_once("search-functions.php");
 $pageBreadCrumb = 'Popular photos';
 ?>
 <div id="headbar">
-	<div class="link"><a href="<?php echo getGalleryIndexURL();?>" title="Gallery Index"><?php echo getGalleryTitle();?></a> &raquo; <?php echo $pageBreadCrumb?></div>
+	<div class="link"><a href="<?php echo getGalleryIndexURL();?>" title="Gallery Index">Gallery</a> &raquo; <?php echo $pageBreadCrumb?></div>
 	<div class="search"><?php printSearchForm(); ?></div>
 </div>
 <?php 

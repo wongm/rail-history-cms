@@ -44,7 +44,7 @@ if (!isset($_GET['album']) && $_GET['p'] == '')
 	$railGeelongRSS = true;
 }
 
-$localPageTitle = "Rail Geelong" . $localPageTitle;
+$localPageTitle = getGalleryTitle() . $localPageTitle;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -57,9 +57,7 @@ $localPageTitle = "Rail Geelong" . $localPageTitle;
 <script type="text/javascript" src="<?php echo $_zp_themeroot ?>/js/lightbox.js"></script>
 <?php zp_apply_filter('theme_head') ?>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-<meta name="author" content="Marcus Wong" />
-<meta name="description" content="A history of the railways of Geelong and District" />
-<meta name="keywords" content="photos of railways trains history geelong victoria australia transport" />
+<meta name="description" content="<?php echo getGalleryDesc();?>" />
 <?php
 if ($galleryRSS)
 {
@@ -83,8 +81,8 @@ if (getImageThumb())
 <body>
 <div id="container">
 <div id="header">
-	<div id="sitename"><h1><a href="/" title="Home">Rail Geelong</a></h1></div>
-	<div id="sitedesc">A history of the railways of Geelong and District.</div>
+	<div id="sitename"><h1><a href="/" title="Home"><?php echo getGalleryTitle();?></a></h1></div>
+	<div id="sitedesc"><?php echo getGalleryDesc();?></div>
 	<div style="clear:both;"></div>
 </div>
 <?php zp_apply_filter('theme_body_close'); ?>

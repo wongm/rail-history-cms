@@ -6,7 +6,7 @@ $pageTitle = " - $breadcrumb";
 require_once('header.php'); 
 ?>
 <div id="headbar">
-	<div class="link"><a href="/">Home</a> &raquo; <a href="<?php echo getGalleryIndexURL();?>" title="Gallery Index"><?php echo getGalleryTitle();?></a> &raquo; <a href="/gallery/recent"><?php echo $breadcrumb; ?></a></div>
+	<div class="link"><a href="/">Home</a> &raquo; <a href="<?php echo getGalleryIndexURL();?>" title="Gallery Index">Gallery</a> &raquo; <a href="/gallery/recent"><?php echo $breadcrumb; ?></a></div>
 	<div class="search"><?php printSearchForm(); ?></div>
 </div>
 <?php require_once('midbar.php'); ?>
