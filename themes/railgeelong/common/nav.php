@@ -66,8 +66,8 @@ foreach ($regions as $region)
 	<li><a href="/gallery/recent/">Recent uploads</a></li>
 </ul>
 <ul class="sitemenu">
-	<li><a href="/contact.php">Contact</a></li>
-	<li><a href="/credits.php">Credits</a></li>
-	<li><a href="/sources.php">Sources</a></li>
-	<li><a href="/sitemap.php">Sitemap</a></li>
+	<li><a href="<?php echo CONTACT_URL_PATH ?>">Contact</a></li>
+	<li><a href="<?php echo CREDITS_URL_PATH ?>">Credits</a></li>
+	<li><a href="<?php echo SOURCES_URL_PATH ?>">Sources</a></li>
+	<li><a href="<?php echo SITEMAP_URL_PATH ?>">Sitemap</a></li>
 </ul>

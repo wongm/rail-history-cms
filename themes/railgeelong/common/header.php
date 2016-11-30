@@ -26,9 +26,11 @@ switch ($_GET['p'])
 	case 'lineguide':
 	case 'regions':
 	case 'articles':
+		$railGeelongRSS = true;
+		
+	case 'contact':
 		$localPageTitle = " - $pageTitle";
 		$pageHeading = $localPageTitle;
-		$railGeelongRSS = true;
 		break;
 
 	default:

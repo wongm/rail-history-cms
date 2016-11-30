@@ -79,6 +79,6 @@ else
 }
 ?>
 <p><?php echo $wording?>can use <a href="<?php echo SEARCH_URL_PATH?>/<?php echo $term?>">Search</a> to find what you are looking for. </p> 
-<p>Otherwise please check you typed the address correctly. If you followed a link from elsewhere, please inform them. If the link was from this site, then <a href="<?php echo CONTACT_URL_PATH?>">Contact Me</a>.</p>
+<p>Otherwise please check you typed the address correctly. If you followed a link from elsewhere, please inform them. If the link was from this site, then <a href="<?php echo CONTACT_URL_PATH ?>">Contact Me</a>.</p>
 <?php require_once('common/footer.php');
  ?>

@@ -87,3 +87,14 @@ h4.main_formhead {
 	text-align: left;
 	vertical-align: top;
 }
+
+#mailform label {
+    display: inline-block;
+    vertical-align: top;
+	width: 100px;
+}
+
+#mailform #message {	
+	width: 600px;
+    height: 200px;
+}

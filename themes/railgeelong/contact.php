@@ -9,7 +9,7 @@ require_once("common/header.php");
 </div>
 <?php require_once("common/midbar.php"); ?>
 <h3>Contact Me</h3>
-<?php include("common/gbcf_form.php"); ?> 
+<?php printContactForm(); ?> 
 <?php require_once("common/footer.php"); ?>
 
 
