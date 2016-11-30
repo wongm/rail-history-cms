@@ -6,6 +6,7 @@ function drawInvalidLocation($locationToFind, $index=1)
 	header("HTTP/1.1 404 Not Found");
 	header("Status: 404 Not Found");
 	$pageTitle = "404 Page Not Found";
+	global $_zp_themeroot;	
 	require_once("header.php");
 	$message = "<br clear=\"all\"><p class=\"error\">Error - Invalid Location!</p>\n";
 	drawLocationSearch($locationToFind, $index, $message);
@@ -17,6 +18,7 @@ function drawDuplicateLocation($recheckresult)
 	header("HTTP/1.1 404 Not Found");
 	header("Status: 404 Not Found");
 	$pageTitle = "404 Page Not Found";
+	global $_zp_themeroot;	
 	require_once("header.php");
 	echo "<div class=\"locations\">\n";
 	echo "<br clear=\"all\"><p class=\"error\">Multiple locations by that name found!</p>\n";
@@ -34,6 +36,7 @@ function drawLocation($location)
 	$pageTitle = "Locations - ".$location['pageTitle'];
 	$pageHeading = "Locations";
 	$canonical = getLocationCanonicalUrl($location);
+	global $_zp_themeroot;	
 	require_once("header.php");
 	require_once("event-functions.php");
 ?>

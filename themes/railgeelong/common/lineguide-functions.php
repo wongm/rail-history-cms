@@ -13,6 +13,7 @@ function drawLineguideHeaders($line, $section='')
 		$googleHeader = true;
 	}
 	
+	global $_zp_themeroot;	
 	require_once("header.php");
 	?>
 <div id="headbar">

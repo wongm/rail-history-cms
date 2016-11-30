@@ -162,6 +162,8 @@ function draw404InvalidSubpage($pageUrlRoot, $subpage='subpage')
 	header("Status: 404 Not Found");
 
 	$pageTitle = "404 Page Not Found";
+	
+	global $_zp_themeroot;	
 	require_once("header.php");
 	echo "<p class=\"error\">Error - Invalid $subpage!</p>\n";
 	echo "<a href=\"/$pageUrlRoot\">Return</a>";
