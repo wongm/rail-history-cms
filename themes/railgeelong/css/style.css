@@ -85,7 +85,7 @@ body {
 	width: 800px; 
 	height: 600px;
 }
-.error {
+.error, .errorbox h2, .errorbox {
 	text-align: center;
 	padding: 5px;
 	background: red;
