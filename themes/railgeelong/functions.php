@@ -41,7 +41,7 @@ class railGeelongTheme {
 function printFacebookTag()
 {
 	$path = 'http://' . $_SERVER['HTTP_HOST'] . getImageThumb();		
-	$description = "A history of the railways of Geelong and District";	
+	$description = getGalleryDesc();	
 	if (strlen(getImageDesc()) > 0)	{
 		$description = getImageDesc() + ". $description";
 	}	
@@ -159,11 +159,6 @@ function drawGalleryPageNumberLinks($url='')
 }
 
 function my_checkPageValidity($request, $gallery_page, $page) {
-	if (isset($_GET['wongm'])) {
-        echo '<BR>inside my_checkPageValidity';
-//            die();
-    }
-
     switch (stripSuffix($gallery_page))
 	{
     	case 'lineguide':
