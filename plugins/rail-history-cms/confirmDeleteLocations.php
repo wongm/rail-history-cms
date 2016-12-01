@@ -7,8 +7,8 @@ $thisLocation_id = $_REQUEST['location']
 ?>
 <?php
 $sql = "SELECT   * FROM locations WHERE location_id = '$thisLocation_id'";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 if ($numberOfRows==0) {  
 ?>
 
@@ -19,32 +19,32 @@ Sorry. No records found !!
 else if ($numberOfRows>0) {
 
 	$i=0;
-	$thisLocation_id = MYSQL_RESULT($result,$i,"location_id");
-	$thisName = MYSQL_RESULT($result,$i,"name");
-	$thisSuburb = MYSQL_RESULT($result,$i,"suburb");
-	$thisLine_old = MYSQL_RESULT($result,$i,"line_old");
-	$thisTracks = MYSQL_RESULT($result,$i,"tracks");
-	$thisType = MYSQL_RESULT($result,$i,"type");
-	$thisImage = MYSQL_RESULT($result,$i,"image");
-	$thisLx_type = MYSQL_RESULT($result,$i,"lx_type");
-	$thisUrl = MYSQL_RESULT($result,$i,"url");
-	$thisDiagrams = MYSQL_RESULT($result,$i,"diagrams");
-	$thisDisplay = MYSQL_RESULT($result,$i,"display");
-	$thisStatus = MYSQL_RESULT($result,$i,"status");
-	$thisDescription = MYSQL_RESULT($result,$i,"description");
-	$thisCredits = MYSQL_RESULT($result,$i,"credits");
-	$thisOpen = MYSQL_RESULT($result,$i,"open");
-	$thisOpenAccuracy = MYSQL_RESULT($result,$i,"openAccuracy");
-	$thisClose = MYSQL_RESULT($result,$i,"close");
-	$thisCloseAccuracy = MYSQL_RESULT($result,$i,"closeAccuracy");
-	$thisLong = MYSQL_RESULT($result,$i,"long");
-	$thisLat = MYSQL_RESULT($result,$i,"lat");
-	$thisKm_old = MYSQL_RESULT($result,$i,"km_old");
-	$thisKmaccuracy_old = MYSQL_RESULT($result,$i,"kmaccuracy_old");
-	$thisEvents = MYSQL_RESULT($result,$i,"events");
-	$thisPhotos = MYSQL_RESULT($result,$i,"photos");
-	$thisAdded = MYSQL_RESULT($result,$i,"added");
-	$thisModified = MYSQL_RESULT($result,$i,"modified");
+	$thisLocation_id = $result[$i]["location_id"];
+	$thisName = $result[$i]["name"];
+	$thisSuburb = $result[$i]["suburb"];
+	$thisLine_old = $result[$i]["line_old"];
+	$thisTracks = $result[$i]["tracks"];
+	$thisType = $result[$i]["type"];
+	$thisImage = $result[$i]["image"];
+	$thisLx_type = $result[$i]["lx_type"];
+	$thisUrl = $result[$i]["url"];
+	$thisDiagrams = $result[$i]["diagrams"];
+	$thisDisplay = $result[$i]["display"];
+	$thisStatus = $result[$i]["status"];
+	$thisDescription = $result[$i]["description"];
+	$thisCredits = $result[$i]["credits"];
+	$thisOpen = $result[$i]["open"];
+	$thisOpenAccuracy = $result[$i]["openAccuracy"];
+	$thisClose = $result[$i]["close"];
+	$thisCloseAccuracy = $result[$i]["closeAccuracy"];
+	$thisLong = $result[$i]["long"];
+	$thisLat = $result[$i]["lat"];
+	$thisKm_old = $result[$i]["km_old"];
+	$thisKmaccuracy_old = $result[$i]["kmaccuracy_old"];
+	$thisEvents = $result[$i]["events"];
+	$thisPhotos = $result[$i]["photos"];
+	$thisAdded = $result[$i]["added"];
+	$thisModified = $result[$i]["modified"];
 
 }
 ?>

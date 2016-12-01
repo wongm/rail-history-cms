@@ -9,7 +9,7 @@ $thisName = addslashes($_REQUEST['thisNameField']);
 $thisDetails = addslashes($_REQUEST['thisDetailsField']);
 
 $sql = "UPDATE sources SET source_id = '$thisSource_id' , short = '$thisShort' , name = '$thisName' , details = '$thisDetails'  WHERE source_id = '$thisSource_id'";
-$result = MYSQL_QUERY($sql);
+$result = query_full_array($sql);
 
 // redirect to the list all page
 header("Location: listSources.php?updated=".urlencode(stripslashes(stripslashes($thisName))));

@@ -55,19 +55,19 @@ include_once("common/dbConnection.php");
 		}
 		
 		$sqlQuery = $sqlFirstHalf.") VALUES (".$sqlLastHalf.")";
-		$result = MYSQL_QUERY($sqlQuery);
+		$result = query_full_array($sqlQuery);
 		
 		// update this event
 		//$sql = "update railline_events E set E.start_distance = (select km from locations L where L.location_id = E.start_location), E.end_distance = (select km from locations M where M.location_id = E.end_location)";
-		//MYSQL_QUERY($sql);	
+		//query_full_array($sql);	
 		
 		// and update km for end locations
 		//$sql = "update railline_events E set E.start_distance = (select km from locations L where L.location_id = E.start_location), E.end_distance = (select km from locations M where M.location_id = E.end_location)";
-		//MYSQL_QUERY($sql);	
+		//query_full_array($sql);	
 			
 		// and for the middle location
 		//$sql = "update railline_events E set E.safeworking_km = (select km from locations L where L.location_id = E.safeworking_middle)";
-		//MYSQL_QUERY($sql);
+		//query_full_array($sql);
 		
 		Header("Location: ".$_SERVER['HTTP_REFERER']."#add");
 		

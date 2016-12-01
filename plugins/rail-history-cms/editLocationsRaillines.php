@@ -8,8 +8,8 @@ $thisLine_id = $_REQUEST['line'];
 $thisLocation_id = $_REQUEST['location'];
 
 $sql = "SELECT  * FROM locations_raillines WHERE line_id = '$thisLine_id' AND location_id = '$thisLocation_id' ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 if ($numberOfRows==0) {  
 ?>
 
@@ -20,11 +20,11 @@ Sorry. No records found !!
 else if ($numberOfRows>0) {
 
 	$i=0;
-	$thisLine_id = MYSQL_RESULT($result,$i,"line_id");
-	$thisLocation_id = MYSQL_RESULT($result,$i,"location_id");
-	$thisKm = MYSQL_RESULT($result,$i,"km");
-	$thisKmAccuracy = MYSQL_RESULT($result,$i,"kmaccuracy");
-	$thisJunctionType = MYSQL_RESULT($result,$i,"junctiontype");
+	$thisLine_id = $result[$i]["line_id"];
+	$thisLocation_id = $result[$i]["location_id"];
+	$thisKm = $result[$i]["km"];
+	$thisKmAccuracy = $result[$i]["kmaccuracy"];
+	$thisJunctionType = $result[$i]["junctiontype"];
 }
 ?>
 <fieldset>

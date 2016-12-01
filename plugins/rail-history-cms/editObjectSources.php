@@ -9,8 +9,8 @@ $type = $_REQUEST['type'];
 $niceName = ucfirst($type);
 
 $sql = "SELECT  * FROM object_sources WHERE linkzor_id = '$uniqueId'";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 if ($numberOfRows==0) {  
 ?>
 
@@ -21,14 +21,14 @@ Sorry. No records found !!
 else if ($numberOfRows>0) {
 
 	$i=0;
-	$uniqueId = MYSQL_RESULT($result,$i,"linkzor_id");
-	$thisObjectId = MYSQL_RESULT($result,$i,$type."_id");
-	$thisSourceId = MYSQL_RESULT($result,$i,"source_id");
-	$thisExtra = stripSlashes(MYSQL_RESULT($result,$i,"extra"));
-	$thisDate = stripslashes(MYSQL_RESULT($result,$i,"date"));
-	$thisPage = stripslashes(MYSQL_RESULT($result,$i,"page"));
-	$thisUrl = stripslashes(MYSQL_RESULT($result,$i,"url"));
-	$thisUrlTitle = stripslashes(MYSQL_RESULT($result,$i,"url_title"));
+	$uniqueId = $result[$i]["linkzor_id"];
+	$thisObjectId = $result[$i][$type."_id"];
+	$thisSourceId = $result[$i]["source_id"];
+	$thisExtra = stripSlashes($result[$i]["extra"]);
+	$thisDate = stripslashes($result[$i]["date"]);
+	$thisPage = stripslashes($result[$i]["page"]);
+	$thisUrl = stripslashes($result[$i]["url"]);
+	$thisUrlTitle = stripslashes($result[$i]["url_title"]);
 
 }
 ?>

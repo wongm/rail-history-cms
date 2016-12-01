@@ -10,7 +10,7 @@ include_once("common/header.php");
 ?>
 <?php
 $sqlQuery = "INSERT INTO railline_region (line_id , article_id , content ) VALUES ('$thisLine_id' , '$thisArticle_id' , '$thisContent' )";
-$result = MYSQL_QUERY($sqlQuery);
+$result = query_full_array($sqlQuery);
 
 ?>
 A new record has been inserted in the database. Here is the information that has been inserted :- <br><br>

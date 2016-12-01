@@ -50,7 +50,7 @@ if ($thisObjectId == '')
 else
 {		
 	$sqlQuery = "INSERT INTO object_sources (".$type."_id , source_id ".$a.") VALUES ('$thisObjectId' , '$thisSourceId' ".$b.")";
-	$result = MYSQL_QUERY($sqlQuery);
+	$result = query_full_array($sqlQuery);
 	
 	Header("Location: ".$_SERVER['HTTP_REFERER']."#sources");
 	

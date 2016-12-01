@@ -8,8 +8,8 @@ $thisLink = $_REQUEST['line'];
 ?>
 <?php
 $sql = "SELECT   * FROM railline_events WHERE event_id = '$thisEvent_id'";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 if ($numberOfRows==0) {  
 ?>
 
@@ -20,16 +20,16 @@ Sorry. No records found !!
 else if ($numberOfRows>0) {
 
 	$i=0;
-	$thisEvent_id = MYSQL_RESULT($result,$i,"event_id");
-	$thisLine = MYSQL_RESULT($result,$i,"line");
-	$thisDate = MYSQL_RESULT($result,$i,"date");
-	$thisStart_location = MYSQL_RESULT($result,$i,"start_location");
-	$thisEnd_location = MYSQL_RESULT($result,$i,"end_location");
-	$thisStart_distance = MYSQL_RESULT($result,$i,"start_distance");
-	$thisEnd_distance = MYSQL_RESULT($result,$i,"end_distance");
-	$thisTracks = MYSQL_RESULT($result,$i,"tracks");
-	$thisSafeworking = MYSQL_RESULT($result,$i,"safeworking");
-	$thisGauge = MYSQL_RESULT($result,$i,"gauge");
+	$thisEvent_id = $result[$i]["event_id"];
+	$thisLine = $result[$i]["line"];
+	$thisDate = $result[$i]["date"];
+	$thisStart_location = $result[$i]["start_location"];
+	$thisEnd_location = $result[$i]["end_location"];
+	$thisStart_distance = $result[$i]["start_distance"];
+	$thisEnd_distance = $result[$i]["end_distance"];
+	$thisTracks = $result[$i]["tracks"];
+	$thisSafeworking = $result[$i]["safeworking"];
+	$thisGauge = $result[$i]["gauge"];
 
 }
 ?>

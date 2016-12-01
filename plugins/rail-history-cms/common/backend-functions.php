@@ -51,21 +51,21 @@ function drawHeadbar($thisKm, $thisLine)
 	// next and forward linkzor
 	$sqlBack = "SELECT * FROM locations l, locations_raillines lr 
 	WHERE l.location_id = lr.location_id AND `km` < '".$thisKm."' AND line_id = '".$thisLine."' ORDER BY km DESC";
-	$resultBack = MYSQL_QUERY($sqlBack);
+	$resultBack = query_full_array($sqlBack);
 	$sqlNext = "SELECT * FROM locations l, locations_raillines lr 
 	WHERE l.location_id = lr.location_id AND `km` > '".$thisKm."' AND line_id = '".$thisLine."' ORDER BY km ASC";
-	$resultNext = MYSQL_QUERY($sqlNext);
+	$resultNext = query_full_array($sqlNext);
 	
-	if (MYSQL_NUM_ROWS($resultBack) > '0')	
+	if (sizeof($resultBack) > '0')	
 	{
-		$Name = stripslashes(MYSQL_RESULT($resultBack,0,"name"));
-		$id = stripslashes(MYSQL_RESULT($resultBack,0,"l.location_id"));
+		$Name = stripslashes($resultBack[0]["name"]);
+		$id = stripslashes($resultBack[0]["location_id"]);
 		$back = '<a href="./editLocations.php?location='.$id.'">&laquo; '.$Name.'</a>'; 
 	}	
-	if (MYSQL_NUM_ROWS($resultNext) > '0')	
+	if (sizeof($resultNext) > '0')	
 	{
-		$Name = stripslashes(MYSQL_RESULT($resultNext,0,"name"));
-		$id = stripslashes(MYSQL_RESULT($resultNext,0,"l.location_id"));
+		$Name = stripslashes($resultNext[0]["name"]);
+		$id = stripslashes($resultNext[0]["location_id"]);
 		$next = '<a href="./editLocations.php?location='.$id.'">'.$Name.' &raquo;</a>'; 
 	}
 	
@@ -125,8 +125,8 @@ function drawSafeworkingWhyFields($thisSafeworkingWhy)
 function drawSafeworkingNameSelectFields($thisSafeworking)
 {
 	$sql = "SELECT * FROM safeworking_types ORDER BY name ASC";
-	$result = MYSQL_QUERY($sql);
-	$numberOfRows = MYSQL_NUMROWS($result);
+	$result = query_full_array($sql);
+	$numberOfRows = sizeof($result);
 	if ($numberOfRows==0) {  
 	?>
 	<option value="null" selected>None Found!</option>
@@ -138,8 +138,8 @@ function drawSafeworkingNameSelectFields($thisSafeworking)
 		
 		for ($i = 0; $i<$numberOfRows; $i++)
 		{
-			$thisType = MYSQL_RESULT($result,$i,"link");
-			$thisName = MYSQL_RESULT($result,$i,"name");
+			$thisType = $result[$i]["link"];
+			$thisName = $result[$i]["name"];
 			
 			if($thisType == $thisSafeworking)
 			{
@@ -192,8 +192,8 @@ function drawLineDisplayTypeFields($thisTodisplay)
 function drawLineNameSelectFields($currentLineId)
 {
 	$sql = "SELECT * FROM raillines";
-	$result = MYSQL_QUERY($sql);
-	$numberOfRows = MYSQL_NUMROWS($result);
+	$result = query_full_array($sql);
+	$numberOfRows = sizeof($result);
 	if ($numberOfRows==0) {  
 		?>
 	<option value="" selected>None Found!</option>
@@ -205,9 +205,9 @@ function drawLineNameSelectFields($currentLineId)
 		
 		for ($i = 0; $i<$numberOfRows; $i++)
 		{
-			$thisLoopLine_id = stripslashes(MYSQL_RESULT($result,$i,"line_id"));
-			$thisLoopLine_link = stripslashes(MYSQL_RESULT($result,$i,"link"));
-			$thisName = stripslashes(MYSQL_RESULT($result,$i,"name"));
+			$thisLoopLine_id = stripslashes($result[$i]["line_id"]);
+			$thisLoopLine_link = stripslashes($result[$i]["link"]);
+			$thisName = stripslashes($result[$i]["name"]);
 			
 			if($thisLoopLine_id == $currentLineId || $thisLoopLine_link == $currentLineId)
 			{
@@ -228,8 +228,8 @@ function drawLineNameSelectFields($currentLineId)
 function drawLocationNameSelectFields($currentLocationId, $google=false)
 {
 	$sql = "SELECT * FROM locations ORDER BY name";
-	$result = MYSQL_QUERY($sql);
-	$numberOfRows = MYSQL_NUMROWS($result);
+	$result = query_full_array($sql);
+	$numberOfRows = sizeof($result);
 	if ($numberOfRows==0) {  
 		?>
 		<option value="" selected>None Found!</option>
@@ -241,18 +241,18 @@ function drawLocationNameSelectFields($currentLocationId, $google=false)
 		
 		for ($i = 0; $i<$numberOfRows; $i++)
 		{
-			$thisName = stripSlashes(MYSQL_RESULT($result,$i,"name"));
-			$thisLocation_id = MYSQL_RESULT($result,$i,"location_id");
+			$thisName = stripSlashes($result[$i]["name"]);
+			$thisLocation_id = $result[$i]["location_id"];
 			
 			if ($google)
 			{
-				if (MYSQL_RESULT($result,$i,"long") != 0)
+				if ($result[$i]["long"] != 0)
 				{
 					$thisName .= " [SET]";
 				}
 					
-				$km = MYSQL_RESULT($result,$i,"km_old");
-				$line = MYSQL_RESULT($result,$i,"line_old");
+				$km = $result[$i]["km_old"];
+				$line = $result[$i]["line_old"];
 				$thisName .= " [$line / $km km]";
 			}
 			
@@ -274,8 +274,8 @@ function drawLocationNameSelectFields($currentLocationId, $google=false)
 function drawSourcesSelectFields($currentSourceId)
 {
 	$sql = "SELECT * FROM sources ORDER BY short ASC";
-	$result = MYSQL_QUERY($sql);
-	$numberOfRows = MYSQL_NUMROWS($result);
+	$result = query_full_array($sql);
+	$numberOfRows = sizeof($result);
 	if ($numberOfRows==0) {  
 	?>
 		<option value="" selected>None Found!</option>
@@ -287,8 +287,8 @@ function drawSourcesSelectFields($currentSourceId)
 		
 		for ($i = 0; $i<$numberOfRows; $i++)
 		{
-			$thisSourceId = stripslashes(MYSQL_RESULT($result,$i,"source_id"));
-			$thisName = stripslashes(MYSQL_RESULT($result,$i,"name"));
+			$thisSourceId = stripslashes($result[$i]["source_id"]);
+			$thisName = stripslashes($result[$i]["name"]);
 			
 			if ($currentSourceId == $thisSourceId)
 			{
@@ -340,8 +340,8 @@ function drawLocationDisplayTypeFields($thisDisplay)
 function drawLocationTypeFields($thisType)
 {
 	$sql = "SELECT * FROM location_types";
-	$result = MYSQL_QUERY($sql);
-	$numberOfRows = MYSQL_NUMROWS($result);
+	$result = query_full_array($sql);
+	$numberOfRows = sizeof($result);
 	if ($numberOfRows==0)
 	{  
 ?>
@@ -354,10 +354,10 @@ function drawLocationTypeFields($thisType)
 		
 		for ($i = 0; $i<$numberOfRows; $i++)
 		{
-			$thisType_id = stripslashes(MYSQL_RESULT($result,$i,"type_id"));
-			$thisBasic = stripslashes(MYSQL_RESULT($result,$i,"basic"));
-			$thisMore = stripslashes(MYSQL_RESULT($result,$i,"more"));
-			$thisSpecific = stripslashes(MYSQL_RESULT($result,$i,"specific"));
+			$thisType_id = stripslashes($result[$i]["type_id"]);
+			$thisBasic = stripslashes($result[$i]["basic"]);
+			$thisMore = stripslashes($result[$i]["more"]);
+			$thisSpecific = stripslashes($result[$i]["specific"]);
 			
 			if($thisType_id == $thisType)
 			{
@@ -441,8 +441,8 @@ function drawAddNewRailineEvent()
 	
 	<?php
 	$sql = "SELECT * FROM safeworking_types ORDER BY name ASC";
-	$result = MYSQL_QUERY($sql);
-	$numberOfRows = MYSQL_NUMROWS($result);
+	$result = query_full_array($sql);
+	$numberOfRows = sizeof($result);
 	if ($numberOfRows==0) {  
 	?>
 	<option value="null" selected>None Found!</option>
@@ -453,8 +453,8 @@ function drawAddNewRailineEvent()
 		
 		for ($i = 0;$i<$numberOfRows; $i++)
 		{
-			$thisType = MYSQL_RESULT($result,$i,"link");
-			$thisName = MYSQL_RESULT($result,$i,"name");
+			$thisType = $result[$i]["link"];
+			$thisName = $result[$i]["name"];
 			
 			if($thisType == $thisSafeworking)
 			{
@@ -576,20 +576,20 @@ function drawObjectSources($type, $objectID)
 <?php
 // gets the sources for this location
 $sql3 = "SELECT * FROM object_sources, sources WHERE object_sources.source_id = sources.source_id AND `".$type."_id` = '".$objectID."'";
-$result3 = MYSQL_QUERY($sql3);
-$numberOfRows3 = MYSQL_NUMROWS($result3);
+$result3 = query_full_array($sql3);
+$numberOfRows3 = sizeof($result3);
 if ($numberOfRows3>0) 
 {		
 	for ($i3 = 0; $i3 < $numberOfRows3; $i3++)
 	{
-		$sourceName = stripslashes(MYSQL_RESULT($result3,$i3,"short"));
-		$uniqueId = MYSQL_RESULT($result3,$i3,"linkzor_id");
-		$extra = stripslashes(MYSQL_RESULT($result3,$i3,"extra"));
-		$date = stripslashes(MYSQL_RESULT($result3,$i3,"date"));
-		$page = stripslashes(MYSQL_RESULT($result3,$i3,"page"));
-		$url = stripslashes(MYSQL_RESULT($result3,$i3,"url"));
-		$url_title = stripslashes(MYSQL_RESULT($result3,$i3,"url_title"));
-		$sourceId = MYSQL_RESULT($result3,$i3,"source_id");
+		$sourceName = stripslashes($result3[$i3]["short"]);
+		$uniqueId = $result3[$i3]["linkzor_id"];
+		$extra = stripslashes($result3[$i3]["extra"]);
+		$date = stripslashes($result3[$i3]["date"]);
+		$page = stripslashes($result3[$i3]["page"]);
+		$url = stripslashes($result3[$i3]["url"]);
+		$url_title = stripslashes($result3[$i3]["url_title"]);
+		$sourceId = $result3[$i3]["source_id"];
 		
 		if ($date != '')
 		{
@@ -655,8 +655,8 @@ else
 function drawRegionSelectFields($currentRegionId)
 {
 	$sql = "SELECT * FROM articles WHERE line_id = '-1'";
-	$result = MYSQL_QUERY($sql);
-	$numberOfRows = MYSQL_NUMROWS($result);
+	$result = query_full_array($sql);
+	$numberOfRows = sizeof($result);
 	if ($numberOfRows==0) {  
 		?>
 		<option value="" selected>None Found!</option>
@@ -668,8 +668,8 @@ function drawRegionSelectFields($currentRegionId)
 		
 		for ($i = 0; $i<$numberOfRows; $i++)
 		{
-			$thisName = stripSlashes(MYSQL_RESULT($result,$i,"title"));
-			$thisRegion_id = MYSQL_RESULT($result,$i,"article_id");
+			$thisName = stripSlashes($result[$i]["title"]);
+			$thisRegion_id = $result[$i]["article_id"];
 			
 			if ($currentRegionId == $thisRegion_id)
 			{

@@ -12,7 +12,7 @@ include_once("common/header.php");
 ?>
 <?php
 $sqlQuery = "INSERT INTO locations_raillines (line_id , location_id , km , kmaccuracy ) VALUES ('$thisLine_id' , '$thisLocation_id' , '$thisKm' , '$thisKmaccuracy' )";
-$result = MYSQL_QUERY($sqlQuery);
+$result = query_full_array($sqlQuery);
 
 ?>
 A new record has been inserted in the database. Here is the information that has been inserted :- <br><br>

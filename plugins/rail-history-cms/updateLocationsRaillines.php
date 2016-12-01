@@ -16,7 +16,7 @@ echo $sql = "UPDATE locations_raillines
 	SET line_id = '$thisLine_id' , location_id = '$thisLocation_id' , km = '$thisKm' , 
 	kmaccuracy = '$thisKmAccuracy', junctiontype = '$thisJunctionType' 
 	WHERE line_id = '$thisLine_id' AND location_id = '$thisLocation_id'";
-$result = MYSQL_QUERY($sql);
+$result = query_full_array($sql);
 
 ?>
 Record  has been updated in the database. Here is the updated information :- <br><br>

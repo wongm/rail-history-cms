@@ -7,8 +7,8 @@ $thisSafeworking_id = $_REQUEST['safeworking_idField']
 ?>
 <?php
 $sql = "SELECT   * FROM safeworking_types WHERE safeworking_id = '$thisSafeworking_id'";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 if ($numberOfRows==0) {  
 ?>
 
@@ -19,10 +19,10 @@ Sorry. No records found !!
 else if ($numberOfRows>0) {
 
 	$i=0;
-	$thisSafeworking_id = MYSQL_RESULT($result,$i,"safeworking_id");
-	$thisName = MYSQL_RESULT($result,$i,"name");
-	$thisLink = MYSQL_RESULT($result,$i,"link");
-	$thisDetails = stripslashes(MYSQL_RESULT($result,$i,"details"));
+	$thisSafeworking_id = $result[$i]["safeworking_id"];
+	$thisName = $result[$i]["name"];
+	$thisLink = $result[$i]["link"];
+	$thisDetails = stripslashes($result[$i]["details"]);
 
 }
 ?>

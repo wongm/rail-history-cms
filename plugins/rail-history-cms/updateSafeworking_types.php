@@ -12,7 +12,7 @@ include_once("common/header.php");
 ?>
 <?php
 $sql = "UPDATE safeworking_types SET safeworking_id = '$thisSafeworking_id' , name = '$thisName' , link = '$thisLink' , details = '$thisDetails'  WHERE safeworking_id = '$thisSafeworking_id'";
-$result = MYSQL_QUERY($sql);
+$result = query_full_array($sql);
 if ($result != 0)
 {
 	failed();

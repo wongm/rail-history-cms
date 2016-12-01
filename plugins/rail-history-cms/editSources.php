@@ -7,8 +7,8 @@ include_once("common/header.php");
 $thisSource_id = $_REQUEST['id'];
 
 $sql = "SELECT   * FROM sources WHERE source_id = '$thisSource_id'";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 if ($numberOfRows==0) {  
 ?>
 
@@ -19,10 +19,10 @@ Sorry. No records found !!
 else if ($numberOfRows>0) {
 
 	$i=0;
-	$thisSource_id = stripSlashes(MYSQL_RESULT($result,$i,"source_id"));
-	$thisShort = stripSlashes(MYSQL_RESULT($result,$i,"short"));
-	$thisName = stripSlashes(MYSQL_RESULT($result,$i,"name"));
-	$thisDetails = stripSlashes(MYSQL_RESULT($result,$i,"details"));
+	$thisSource_id = stripSlashes($result[$i]["source_id"]);
+	$thisShort = stripSlashes($result[$i]["short"]);
+	$thisName = stripSlashes($result[$i]["name"]);
+	$thisDetails = stripSlashes($result[$i]["details"]);
 
 }
 

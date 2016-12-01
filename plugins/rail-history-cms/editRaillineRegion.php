@@ -6,16 +6,16 @@ include_once("common/header.php");
 $thisLinkzor_id = $_REQUEST['id'];
 
 $sql = "SELECT   * FROM railline_region WHERE linkzor_id = '$thisLinkzor_id'";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 
 if ($numberOfRows>0) {
 
 	$i=0;
-	$thisLinkzor_id = MYSQL_RESULT($result,$i,"linkzor_id");
-	$thisLine_id = MYSQL_RESULT($result,$i,"line_id");
-	$thisArticle_id = MYSQL_RESULT($result,$i,"article_id");
-	$thisContent = MYSQL_RESULT($result,$i,"content");
+	$thisLinkzor_id = $result[$i]["linkzor_id"];
+	$thisLine_id = $result[$i]["line_id"];
+	$thisArticle_id = $result[$i]["article_id"];
+	$thisContent = $result[$i]["content"];
 }
 ?>
 <a href="listRaillineRegion.php">Return</a>

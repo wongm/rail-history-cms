@@ -19,7 +19,7 @@ include_once("common/dbConnection.php");
 $sql = "UPDATE object_sources SET ".$type."_id = '$thisObjectId' , source_id = '$thisSourceId',  extra = '$thisExtra',  
 		date = '$thisDate', page = '$thisPage', url = '$thisURL', url_title = '$thisLinkTitle'
 		WHERE linkzor_id = '$thisLinkzorId'";
-$result = MYSQL_QUERY($sql);
+$result = query_full_array($sql);
 
 Header("Location: ".$_SERVER['HTTP_REFERER']."#sources");
 

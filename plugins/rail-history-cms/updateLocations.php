@@ -72,7 +72,7 @@ $sql = $sql." WHERE location_id = '$thisLocationId'";
  * add it to table
  * --------------------------------------------------
  */
-$result = MYSQL_QUERY($sql, backendDBConnect());
+$result = query_full_array($sql, backendDBConnect());
 $done .= '<p>Location data updated!</p>';
 
 /*
@@ -87,7 +87,7 @@ if ($thisPhotos != '')
 		$gallerysql = "UPDATE `zen_albums` 
 		SET `location_id` = '$thisLocationId' , `location_name` = '$thisName' 
 		WHERE `folder` = '$thisPhotos'";
-		$galleryresult = MYSQL_QUERY($gallerysql, galleryDBConnect());
+		$galleryresult = query_full_array($gallerysql, galleryDBConnect());
 		$done .= '<p>Gallery location links updated!</p>';
 	}
 }
@@ -111,13 +111,13 @@ if($thisYear != '')
 	while ($i<$yearArrayLength)
 	{
 		$sql23 = "SELECT * FROM location_years WHERE location = '$thisLocationId' AND year = ".$yearArray[$i];
-		$result23 = MYSQL_QUERY($sql23, backendDBConnect());
-		$numberOfRows23 = MYSQL_NUMROWS($result23);
+		$result23 = query_full_array($sql23, backendDBConnect());
+		$numberOfRows23 = sizeof($result23);
 		
 		if($numberOfRows23 == '0')
 		{
 			$sql34 = "INSERT INTO location_years (`location` , `year`) VALUES ('".$thisLocationId."' , '".$yearArray[$i]."')";
-			$result34 = MYSQL_QUERY($sql34, backendDBConnect());
+			$result34 = query_full_array($sql34, backendDBConnect());
 		}
 		$i++;
 	}

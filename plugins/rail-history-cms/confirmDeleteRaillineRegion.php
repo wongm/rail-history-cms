@@ -7,8 +7,8 @@ $thisLinkzor_id = $_REQUEST['id']
 ?>
 <?php
 $sql = "SELECT   * FROM railline_region WHERE linkzor_id = '$thisLinkzor_id'";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 if ($numberOfRows==0) {  
 ?>
 
@@ -19,9 +19,9 @@ Sorry. No records found !!
 else if ($numberOfRows>0) {
 
 	$i=0;
-	$thisLinkzor_id = MYSQL_RESULT($result,$i,"linkzor_id");
-	$thisLine_id = MYSQL_RESULT($result,$i,"line_id");
-	$thisArticle_id = MYSQL_RESULT($result,$i,"article_id");
+	$thisLinkzor_id = $result[$i]["linkzor_id"];
+	$thisLine_id = $result[$i]["line_id"];
+	$thisArticle_id = $result[$i]["article_id"];
 
 }
 ?>

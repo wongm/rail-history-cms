@@ -3,9 +3,9 @@ include_once("common/dbConnection.php");
 
 $lineLink = $_REQUEST['line'];
 $sql = "SELECT * FROM raillines WHERE link = '$lineLink'";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
-$thisName = stripslashes(MYSQL_RESULT($result,$i,"name"));
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
+$thisName = stripslashes($result[0]["name"]);
 
 $pageTitle = 'Update '.$thisName.' Line Details';
 include_once("common/header.php");
@@ -20,29 +20,29 @@ Sorry. No records found !!
 else if ($numberOfRows>0) 
 {
 	$i = 0;
-	$thisLineId = stripslashes(MYSQL_RESULT($result,$i,"line_id"));
+	$thisLineId = stripslashes($result[$i]["line_id"]);
 	
-	$thisLink = stripslashes(MYSQL_RESULT($result,$i,"link"));
-	$thisOrder = stripslashes(MYSQL_RESULT($result,$i,"order"));
-	$thisStartlocation = stripslashes(MYSQL_RESULT($result,$i,"startlocation"));
-	$thisEndlocation = stripslashes(MYSQL_RESULT($result,$i,"endlocation"));
-	$thisOpened = stripslashes(MYSQL_RESULT($result,$i,"opened"));
-	$thisClosed = stripslashes(MYSQL_RESULT($result,$i,"closed"));
-	$thisKmstart = stripslashes(MYSQL_RESULT($result,$i,"kmstart"));
-	$thisKmend = stripslashes(MYSQL_RESULT($result,$i,"kmend"));
-	$thisDescription = stripslashes(MYSQL_RESULT($result,$i,"description"));
-	$thisCredits = stripslashes(MYSQL_RESULT($result,$i,"credits"));
-	$thisPhotos = stripslashes(MYSQL_RESULT($result,$i,"photos"));
-	$thisTrackyears = stripslashes(MYSQL_RESULT($result,$i,"trackyears"));
-    $thisTrackdefault = stripslashes(MYSQL_RESULT($result,$i,"trackdefault"));
-    $thisTracksubpage = stripslashes(MYSQL_RESULT($result,$i,"tracksubpage"));
-    $thisSafeworkingyears = stripslashes(MYSQL_RESULT($result,$i,"safeworkingyears"));
-    $thisSafeworkingdefault = stripslashes(MYSQL_RESULT($result,$i,"safeworkingdefault"));
-    $thisTodisplay = stripslashes(MYSQL_RESULT($result,$i,"todisplay"));
-    $thisDiagramtabs = stripslashes(MYSQL_RESULT($result,$i,"trackdiagramtabs"));
-    $thisImageCaption = stripslashes(MYSQL_RESULT($result,$i,"imagecaption"));
-    $thisSafeworkingDiagramNote = stripslashes(MYSQL_RESULT($result,$i,"safeworkingdiagramnote"));
-    $thisTrackDiagramNote = stripslashes(MYSQL_RESULT($result,$i,"trackdiagramnote"));
+	$thisLink = stripslashes($result[$i]["link"]);
+	$thisOrder = stripslashes($result[$i]["order"]);
+	$thisStartlocation = stripslashes($result[$i]["startlocation"]);
+	$thisEndlocation = stripslashes($result[$i]["endlocation"]);
+	$thisOpened = stripslashes($result[$i]["opened"]);
+	$thisClosed = stripslashes($result[$i]["closed"]);
+	$thisKmstart = stripslashes($result[$i]["kmstart"]);
+	$thisKmend = stripslashes($result[$i]["kmend"]);
+	$thisDescription = stripslashes($result[$i]["description"]);
+	$thisCredits = stripslashes($result[$i]["credits"]);
+	$thisPhotos = stripslashes($result[$i]["photos"]);
+	$thisTrackyears = stripslashes($result[$i]["trackyears"]);
+    $thisTrackdefault = stripslashes($result[$i]["trackdefault"]);
+    $thisTracksubpage = stripslashes($result[$i]["tracksubpage"]);
+    $thisSafeworkingyears = stripslashes($result[$i]["safeworkingyears"]);
+    $thisSafeworkingdefault = stripslashes($result[$i]["safeworkingdefault"]);
+    $thisTodisplay = stripslashes($result[$i]["todisplay"]);
+    $thisDiagramtabs = stripslashes($result[$i]["trackdiagramtabs"]);
+    $thisImageCaption = stripslashes($result[$i]["imagecaption"]);
+    $thisSafeworkingDiagramNote = stripslashes($result[$i]["safeworkingdiagramnote"]);
+    $thisTrackDiagramNote = stripslashes($result[$i]["trackdiagramnote"]);
 
     drawEditLineHeadbar($lineLink);
 ?>

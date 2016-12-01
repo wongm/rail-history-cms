@@ -10,12 +10,12 @@ $thisContent = addslashes($_REQUEST['thisContentField']);
 if ($thisLinkzor_id > 0)
 {
 	$sql = "UPDATE railline_region SET content = '$thisContent' , line_id = '$thisLine_id' , article_id = '$thisArticle_id'  WHERE linkzor_id = '$thisLinkzor_id'";
-	$result = MYSQL_QUERY($sql);
+	$result = query_full_array($sql);
 }
 else
 {
 	$sqlQuery = "INSERT INTO railline_region (line_id , article_id , content ) VALUES ('$thisLine_id' , '$thisArticle_id' , '$thisContent' )";
-	$result = MYSQL_QUERY($sqlQuery);
+	$result = query_full_array($sqlQuery);
 }
 
 Header("Location: /backend/listRaillineRegion.php");

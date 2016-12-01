@@ -7,8 +7,8 @@ include_once("common/header.php");
 $thisEvent_id = $_REQUEST['eventid'];
 
 $sql = "SELECT   * FROM location_events WHERE event_id = '$thisEvent_id'";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 if ($numberOfRows==0) {  
 ?>
 
@@ -19,21 +19,21 @@ Sorry. No records found !!
 else if ($numberOfRows>0) {
 
 	$i=0;
-	$thisEvent_id = MYSQL_RESULT($result,$i,"event_id");
-	$thisLocation = MYSQL_RESULT($result,$i,"location");
-	$thisDate = MYSQL_RESULT($result,$i,"date");
-	$thisApprox = MYSQL_RESULT($result,$i,"dateAccuracy");
-	$thisAdded = MYSQL_RESULT($result,$i,"added");
-	$thisModified = MYSQL_RESULT($result,$i,"modified");
-	$thisDetails = stripslashes(MYSQL_RESULT($result,$i,"details"));
-	$thisSource = MYSQL_RESULT($result,$i,"source");
-	$thisSourceDetail = MYSQL_RESULT($result,$i,"sourcedetail");
+	$thisEvent_id = $result[$i]["event_id"];
+	$thisLocation = $result[$i]["location"];
+	$thisDate = $result[$i]["date"];
+	$thisApprox = $result[$i]["dateAccuracy"];
+	$thisAdded = $result[$i]["added"];
+	$thisModified = $result[$i]["modified"];
+	$thisDetails = stripslashes($result[$i]["details"]);
+	$thisSource = $result[$i]["source"];
+	$thisSourceDetail = $result[$i]["sourcedetail"];
 	
 	// checking if this date is marked intereseting
 	$year = substr($thisDate,0,4);
 	$sqlCheckingForYear = "SELECT * FROM location_years WHERE location = '$thisLocation' AND year = ".$year;
-	$resultCheckingForYear = MYSQL_QUERY($sqlCheckingForYear);
-	if ( MYSQL_NUMROWS($resultCheckingForYear) != '0') 
+	$resultCheckingForYear = query_full_array($sqlCheckingForYear);
+	if ( sizeof($resultCheckingForYear) != '0') 
 	{ 
 		$thisDiagram = 'checked'; 
 	}

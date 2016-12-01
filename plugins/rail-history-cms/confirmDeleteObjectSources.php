@@ -6,8 +6,8 @@ $id = $_REQUEST['id'];
 $type = $_REQUEST['type'];
 
 $sql = "SELECT * FROM object_sources WHERE linkzor_id = '$id'";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 if ($numberOfRows==0) {  
 ?>
 
@@ -18,8 +18,8 @@ Sorry. No records found !!
 else if ($numberOfRows>0) {
 
 	$i=0;
-	$thisObjectId = MYSQL_RESULT($result,$i,$type."_id");
-	$thisSourceId = MYSQL_RESULT($result,$i,"source_id");
+	$thisObjectId = $result[$i][$type."_id"];
+	$thisSourceId = $result[$i]["source_id"];
 
 }
 ?>

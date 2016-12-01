@@ -10,7 +10,7 @@ include_once("common/header.php");
 ?>
 <?php
 $sql = "DELETE FROM object_sources WHERE linkzor_id = '$id'";
-$result = MYSQL_QUERY($sql);
+$result = query_full_array($sql);
 
 ?>
 Record has been deleted from database.

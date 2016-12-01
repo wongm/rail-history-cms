@@ -48,14 +48,14 @@ $sqlQuery = "INSERT INTO locations (name , suburb , line_old , tracks , type , i
 									close , closeAccuracy , `long` , lat , km_old , kmaccuracy_old , 
 									events , photos , added, modified) 
 			VALUES ('$thisName' , '$thisSuburb' , '$thisLine' , '$thisTracks' , '$thisType' , '$thisImage' , '$thisLx_type' , '$thisUrl' , '$thisDisplay' , '$thisStatus' , '$thisDescription' , '$thisCredits' , '$thisOpen' , '$thisOpenAccuracy' , '$thisClose' , '$thisCloseAccuracy' , '$thisLong' , '$thisLat' , '$thisKm' , '$thisKmaccuracy' , '$thisEvents' , '$thisPhotos' , '$thisModified' , '$thisModified' )";
-$result = MYSQL_QUERY($sqlQuery);
+$result = query_full_array($sqlQuery);
 
 // get location ID for next query
-$thisLocationId = MYSQL_RESULT(MYSQL_QUERY("SELECT location_id FROM locations WHERE name = '$thisName' AND km_old = '$thisKm'"), 0, 'location_id');
+$thisLocationId = query_full_array("SELECT location_id FROM locations WHERE name = '$thisName' AND km_old = '$thisKm'")[0]['location_id'];
 
 $sqlQuery = "INSERT INTO locations_raillines (line_id, location_id, km, kmaccuracy) 
 			VALUES ('$thisLine' , '$thisLocationId', '$thisKm' , '$thisKmaccuracy')";
-$result = MYSQL_QUERY($sqlQuery);
+$result = query_full_array($sqlQuery);
 
 if (strlen($_POST['submitAndEdit']))
 {

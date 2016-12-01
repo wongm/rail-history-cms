@@ -19,7 +19,7 @@ include_once("common/header.php");
 ?>
 <?php
 $sql = "DELETE FROM railline_events WHERE event_id = '$thisEvent_id'";
-$result = MYSQL_QUERY($sql);
+$result = query_full_array($sql);
 
 ?>
 Record  has been deleted from database. Here is the deleted record :-<br><br>

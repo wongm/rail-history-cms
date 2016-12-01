@@ -11,9 +11,9 @@
 // check for non empty name and point, and not already set
 if ($thisId != '' AND $thisPoint != '')
 {
-	$thisResult = MYSQL_QUERY("SELECT * FROM locations WHERE `location_id` = '".$thisId."'");
-	$thisName = stripslashes(MYSQL_RESULT($thisResult,'0',"name"));
-	$thisSet = stripslashes(MYSQL_RESULT($thisResult,'0',"long"));
+	$thisResult = query_full_array("SELECT * FROM locations WHERE `location_id` = '".$thisId."'");
+	$thisName = stripslashes($result[0]["name"]);
+	$thisSet = stripslashes($result[0]["long"]);
 	if ($thisSet != '0' AND $thisSet != '' AND $force == '')
 	{
 		echo '<p></p>'; ?>
@@ -28,7 +28,7 @@ if ($thisId != '' AND $thisPoint != '')
 	else
 	{
 		$sql = "UPDATE locations SET `long` = '$thisPoint' WHERE location_id = '$thisId'";
-		MYSQL_QUERY($sql);
+		query_full_array($sql);
 		drawForm('Updated!  ');
 	}
 }

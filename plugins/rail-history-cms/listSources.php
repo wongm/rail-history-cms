@@ -6,8 +6,8 @@ include_once("common/header.php");
 $updated = $_REQUEST['updated'];
 
 $sql = "SELECT   * FROM sources ORDER BY name ASC";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUM_ROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 
 if ($numberOfRows>0) {
 
@@ -43,10 +43,10 @@ if ($numberOfRows>0) {
 
 		if (($i%2)==0) { $bgColor = "odd"; } else { $bgColor = "even"; }
 
-	$thisSource_id = stripSlashes(MYSQL_RESULT($result,$i,"source_id"));
-	$thisName = stripSlashes(MYSQL_RESULT($result,$i,"name"));
-	$thisShort = stripSlashes(MYSQL_RESULT($result,$i,"short"));
-	$thisDetails = stripSlashes(MYSQL_RESULT($result,$i,"details"));
+	$thisSource_id = stripSlashes($result[$i]["source_id"]);
+	$thisName = stripSlashes($result[$i]["name"]);
+	$thisShort = stripSlashes($result[$i]["short"]);
+	$thisDetails = stripSlashes($result[$i]["details"]);
 
 ?>
 	<TR class="<?php echo $bgColor; ?>">

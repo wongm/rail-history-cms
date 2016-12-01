@@ -6,8 +6,8 @@ include_once("common/dbConnection.php");
 include_once("common/header.php");
 
 $sql = "SELECT * FROM locations l WHERE ".SQL_NEXTABLE. " ORDER BY modified DESC";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUM_ROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 
 if ($numberOfRows>0) 
 {
@@ -28,8 +28,8 @@ if ($numberOfRows>0)
 	{
 		if (($i%2)==0) { $bgColor = "odd"; } else { $bgColor = "even"; }
 
-		$name = stripslashes(MYSQL_RESULT($result,$i,"name"));
-		$id = stripslashes(MYSQL_RESULT($result,$i,"location_id"));
+		$name = stripslashes($result[$i]["name"]);
+		$id = stripslashes($result[$i]["location_id"]);
 		$headerpic = strtolower("/images/location/$id.jpg");
 		$filePath = $_SERVER['DOCUMENT_ROOT'].$headerpic;
 		

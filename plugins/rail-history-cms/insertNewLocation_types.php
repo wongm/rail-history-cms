@@ -16,7 +16,7 @@ include_once("common/header.php");
 	else
 	{
 $sqlQuery = "INSERT INTO `location_types` (`basic` , `more` , `specific` ) VALUES ('$thisBasic' , '$thisMore' , '$thisSpecific' )";
-$result = MYSQL_QUERY($sqlQuery);
+$result = query_full_array($sqlQuery);
 
 if ($result != 0)
 {

@@ -34,7 +34,7 @@ include_once("../common/header.php");
 ?>
 <?php
 $sql = "DELETE FROM locations WHERE location_id = '$thisLocation_id'";
-$result = MYSQL_QUERY($sql);
+$result = query_full_array($sql);
 
 ?>
 Record  has been deleted from database. Here is the deleted record :-<br><br>

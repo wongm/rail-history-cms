@@ -7,8 +7,8 @@ $thisEvent_id = $_REQUEST['eventid']
 ?>
 <?php
 $sql = "SELECT   * FROM location_events WHERE event_id = '$thisEvent_id'";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 if ($numberOfRows==0) {  
 ?>
 
@@ -19,13 +19,13 @@ Sorry. No records found !!
 else if ($numberOfRows>0) {
 
 	$i=0;
-	$thisEvent_id = MYSQL_RESULT($result,$i,"event_id");
-	$thisLocation = MYSQL_RESULT($result,$i,"location");
-	$thisDate = MYSQL_RESULT($result,$i,"date");
-	$thisAdded = MYSQL_RESULT($result,$i,"added");
-	$thisModified = MYSQL_RESULT($result,$i,"modified");
-	$thisDetails = MYSQL_RESULT($result,$i,"details");
-	$thisSource = MYSQL_RESULT($result,$i,"source");
+	$thisEvent_id = $result[$i]["event_id"];
+	$thisLocation = $result[$i]["location"];
+	$thisDate = $result[$i]["date"];
+	$thisAdded = $result[$i]["added"];
+	$thisModified = $result[$i]["modified"];
+	$thisDetails = $result[$i]["details"];
+	$thisSource = $result[$i]["source"];
 
 }
 ?>

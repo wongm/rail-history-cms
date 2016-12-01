@@ -6,8 +6,8 @@ include_once("common/header.php");
 $sql = "SELECT   * FROM railline_region, articles, raillines 
 	WHERE railline_region.line_id = raillines.line_id AND railline_region.article_id = articles.article_id
 	ORDER BY articles.title, raillines.order";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUM_ROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 
 if ($numberOfRows>0) 
 {
@@ -19,14 +19,15 @@ if ($numberOfRows>0)
 		<th>Region</th>
 	</TR>
 <?php
+	$i = 0;
 	while ($i<$numberOfRows)
 	{
 
 		if (($i%2)==0) { $bgColor = "odd"; } else { $bgColor = "even"; }
 
-	$thisLinkzor_id = MYSQL_RESULT($result,$i,"linkzor_id");
-	$thisLine_id = MYSQL_RESULT($result,$i,"raillines.name");
-	$thisArticle_id = MYSQL_RESULT($result,$i,"articles.title");
+	$thisLinkzor_id = $result[$i]["linkzor_id"];
+	$thisLine_id = $result[$i]["name"];
+	$thisArticle_id = $result[$i]["title"];
 
 ?>
 	<TR class="<?php echo $bgColor; ?>">

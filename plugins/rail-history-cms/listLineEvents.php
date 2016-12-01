@@ -3,9 +3,9 @@ include_once("common/dbConnection.php");
 
 $lineLink = $_REQUEST['line'];
 $sql = "SELECT * FROM raillines WHERE link = '".$_REQUEST['line']."'";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
-$thisName = stripslashes(MYSQL_RESULT($result,$i,"name"));
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
+$thisName = stripslashes($result[$i]["name"]);
 $pageTitle = 'Update '.$thisName.' Line Events';
 include_once("common/header.php");
 
@@ -19,9 +19,9 @@ Sorry. No records found !!
 else if ($numberOfRows>0) 
 {
 	$i = 0;
-	$thisLine_id = stripslashes(MYSQL_RESULT($result,$i,"line_id"));
-	$thisName = stripslashes(MYSQL_RESULT($result,$i,"name"));
-	$thisLink = stripslashes(MYSQL_RESULT($result,$i,"link"));
+	$thisLine_id = stripslashes($result[$i]["line_id"]);
+	$thisName = stripslashes($result[$i]["name"]);
+	$thisLink = stripslashes($result[$i]["link"]);
 	
 	drawEditLineHeadbar($lineLink);
 
@@ -31,8 +31,8 @@ else if ($numberOfRows>0)
 <?php
 
 $sql = "SELECT * FROM railline_events WHERE line = ".$thisLine_id." ORDER BY date ASC";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUM_ROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 
 if ($numberOfRows==0) {  
 ?>
@@ -64,18 +64,18 @@ else if ($numberOfRows>0) {
 
 		if (($i%2)==0) { $bgColor = "odd"; } else { $bgColor = "even"; }
 
-		$thisEvent_id = stripslashes(MYSQL_RESULT($result,$i,"event_id"));
-		$thisLine = stripslashes(MYSQL_RESULT($result,$i,"line"));
-		$thisDate = stripslashes(MYSQL_RESULT($result,$i,"date"));
-		$thisApprox = stripslashes(MYSQL_RESULT($result,$i,"dateAccuracy"));
-		$thisTracks = stripslashes(MYSQL_RESULT($result,$i,"tracks"));
-		$thisSafeworking = stripslashes(MYSQL_RESULT($result,$i,"safeworking"));
-		$thisGauge = stripslashes(MYSQL_RESULT($result,$i,"gauge"));
-		$thisWhy = stripslashes(MYSQL_RESULT($result,$i,"safeworking_why"));
-		$thisDisplay = stripslashes(MYSQL_RESULT($result,$i,"display"));
-		$thisDescription = MYSQL_RESULT($result,$i,"description");
+		$thisEvent_id = stripslashes($result[$i]["event_id"]);
+		$thisLine = stripslashes($result[$i]["line"]);
+		$thisDate = stripslashes($result[$i]["date"]);
+		$thisApprox = stripslashes($result[$i]["dateAccuracy"]);
+		$thisTracks = stripslashes($result[$i]["tracks"]);
+		$thisSafeworking = stripslashes($result[$i]["safeworking"]);
+		$thisGauge = stripslashes($result[$i]["gauge"]);
+		$thisWhy = stripslashes($result[$i]["safeworking_why"]);
+		$thisDisplay = stripslashes($result[$i]["display"]);
+		$thisDescription = $result[$i]["description"];
 		
-		if (MYSQL_RESULT($result,$i,"safeworking_middle") != 0)
+		if ($result[$i]["safeworking_middle"] != 0)
 		{
 			$thisMiddle = 'Y';
 		}
@@ -95,10 +95,10 @@ else if ($numberOfRows>0) {
 <?php }
 	else
 	{	
-		$thisStart_location = stripslashes(MYSQL_RESULT($result,$i,"start_location"));
-		$thisStartName = stripslashes(MYSQL_RESULT(MYSQL_QUERY("SELECT name FROM locations WHERE location_id = '".$thisStart_location."'"),0,"name"));
-		$thisEnd_location = stripslashes(MYSQL_RESULT($result,$i,"end_location"));
-		$thisEndName = stripslashes(MYSQL_RESULT(MYSQL_QUERY("SELECT name FROM locations WHERE location_id = '".$thisEnd_location."'"),0,"name"));
+		$thisStart_location = stripslashes($result[$i]["start_location"]);
+		$thisStartName = stripslashes(query_full_array("SELECT name FROM locations WHERE location_id = '".$thisStart_location."'")[0]["name"]);
+		$thisEnd_location = stripslashes($result[$i]["end_location"]);
+		$thisEndName = stripslashes(query_full_array("SELECT name FROM locations WHERE location_id = '".$thisEnd_location."'")[0]["name"]);
 ?>		
 		<TD><?php echo $thisStartName; ?></TD>
 		<TD><?php echo $thisEndName; ?></TD>

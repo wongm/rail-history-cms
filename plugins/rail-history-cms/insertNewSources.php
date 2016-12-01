@@ -17,7 +17,7 @@ include_once("common/header.php");
 	{
 
 		$sqlQuery = "INSERT INTO sources (source_id , short , name , details ) VALUES ('$thisSource_id' , '$thisShort' , '$thisName' , '$thisDetails' )";
-		$result = MYSQL_QUERY($sqlQuery);
+		$result = query_full_array($sqlQuery);
 		
 		if ($result != 0)
 		{

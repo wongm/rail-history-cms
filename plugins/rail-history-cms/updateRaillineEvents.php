@@ -79,7 +79,7 @@ echo '<br><br><hr>';
 
 	
 $sql = "UPDATE railline_events SET ".$bit." line = '$thisLine' , dateAccuracy = '$thisApprox' , description = '$thisDescription' , display = '$thisDisplay' , date = '$thisDate' , start_location = '$thisStart_location' , end_location = '$thisEnd_location' , safeworking = '$thisSafeworking' , safeworking_why = '$thisSafeworkingWhy' , safeworking_middle = '$thisSafeworkingMiddle' , gauge = '$thisGauge'  WHERE event_id = '$thisEvent_id'";
-$result = MYSQL_QUERY($sql);
+$result = query_full_array($sql);
 echo $sql.'<br><br>';
 
 
@@ -91,7 +91,7 @@ if ($result != 0)
 
 // fix up kms
 //$sql = "update railline_events E set E.start_distance = (select km from locations L where L.location_id = E.start_location), E.end_distance = (select km from locations M where M.location_id = E.end_location)";
-//MYSQL_QUERY($sql);	
+//query_full_array($sql);	
 //echo $sql.'<br><br>';
 
 

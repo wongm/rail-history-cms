@@ -7,8 +7,8 @@ $thisLocation = $_REQUEST['yearField']
 ?>
 <?php
 $sql = "SELECT   * FROM location_years WHERE id = '$thisLocation'";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 if ($numberOfRows==0) {  
 ?>
 
@@ -19,9 +19,9 @@ Sorry. No records found !!
 else if ($numberOfRows>0) {
 
 	$i=0;
-	$thisLocation = MYSQL_RESULT($result,$i,"location");
-	$thisYear = MYSQL_RESULT($result,$i,"year");
-	$thisId = MYSQL_RESULT($result,$i,"id");
+	$thisLocation = $result[$i]["location"];
+	$thisYear = $result[$i]["year"];
+	$thisId = $result[$i]["id"];
 
 }
 ?>

@@ -8,8 +8,8 @@ $thisEvent_id = $_REQUEST['event'];
 $thisLink = $_REQUEST['line'];
 
 $sql = "SELECT   * FROM railline_events WHERE event_id = '$thisEvent_id'";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 if ($numberOfRows==0) {  
 ?>
 
@@ -20,19 +20,19 @@ Sorry. No records found !!
 else if ($numberOfRows>0) {
 
 	$i=0;
-	$thisEvent_id = MYSQL_RESULT($result,$i,"event_id");
-	$thisLine = MYSQL_RESULT($result,$i,"line");
-	$thisDate = MYSQL_RESULT($result,$i,"date");
-	$thisApprox = MYSQL_RESULT($result,$i,"dateAccuracy");
-	$thisDisplay = MYSQL_RESULT($result,$i,"display");
-	$thisStartLocation = MYSQL_RESULT($result,$i,"start_location");
-	$thisEndLocation = MYSQL_RESULT($result,$i,"end_location");
-	$thisTracks = MYSQL_RESULT($result,$i,"tracks");
-	$thisDescription = MYSQL_RESULT($result,$i,"description");
-	$thisSafeworking = MYSQL_RESULT($result,$i,"safeworking");
-	$thisSafeworkingWhy = MYSQL_RESULT($result,$i,"safeworking_why");
-	$thisSafeworkingMiddle = MYSQL_RESULT($result,$i,"safeworking_middle");
-	$thisGauge = MYSQL_RESULT($result,$i,"gauge");
+	$thisEvent_id = $result[$i]["event_id"];
+	$thisLine = $result[$i]["line"];
+	$thisDate = $result[$i]["date"];
+	$thisApprox = $result[$i]["dateAccuracy"];
+	$thisDisplay = $result[$i]["display"];
+	$thisStartLocation = $result[$i]["start_location"];
+	$thisEndLocation = $result[$i]["end_location"];
+	$thisTracks = $result[$i]["tracks"];
+	$thisDescription = $result[$i]["description"];
+	$thisSafeworking = $result[$i]["safeworking"];
+	$thisSafeworkingWhy = $result[$i]["safeworking_why"];
+	$thisSafeworkingMiddle = $result[$i]["safeworking_middle"];
+	$thisGauge = $result[$i]["gauge"];
 
 }
 ?>

@@ -7,8 +7,8 @@ $thisId = $_REQUEST['id']
 ?>
 <?php
 $sql = "SELECT   * FROM articles WHERE id = '$thisId'";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 if ($numberOfRows==0) {  
 ?>
 
@@ -19,11 +19,11 @@ Sorry. No records found !!
 else if ($numberOfRows>0) {
 
 	$i=0;
-	$thisId = MYSQL_RESULT($result,$i,"id");
-	$thisLink = MYSQL_RESULT($result,$i,"link");
-	$thisTitle = MYSQL_RESULT($result,$i,"title");
-	$thisDescription = MYSQL_RESULT($result,$i,"description");
-	$thisContent = MYSQL_RESULT($result,$i,"content");
+	$thisId = $result[$i]["id"];
+	$thisLink = $result[$i]["link"];
+	$thisTitle = $result[$i]["title"];
+	$thisDescription = $result[$i]["description"];
+	$thisContent = $result[$i]["content"];
 
 }
 ?>

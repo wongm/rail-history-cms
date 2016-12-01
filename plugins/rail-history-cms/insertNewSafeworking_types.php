@@ -16,7 +16,7 @@ include_once("common/header.php");
 	else
 	{
 		$sqlQuery = "INSERT INTO safeworking_types (safeworking_id , name , link , details ) VALUES ('$thisSafeworking_id' , '$thisName' , '$thisLink' , '$thisDetails' )";
-		$result = MYSQL_QUERY($sqlQuery);
+		$result = query_full_array($sqlQuery);
 
 		if ($result != 0)
 		{

@@ -22,7 +22,7 @@ if ($formType == 'newLocationsRaillines')
 	$thisKmaccuracy = addslashes($_REQUEST['thisKmAccuracyField']);
 	$thisJunctionType = addslashes($_REQUEST['thisJunctionTypeField']);
 	$sqlQuery = "INSERT INTO locations_raillines (line_id , location_id , km , kmaccuracy , junctiontype ) VALUES ('$thisLine_id' , '$thisLocation_id' , '$thisKm' , '$thisKmaccuracy' , '$thisJunctionType' )";
-	$result = MYSQL_QUERY($sqlQuery);
+	$result = query_full_array($sqlQuery);
 }
 else if ($formType == 'newLocationYears')
 {
@@ -32,20 +32,20 @@ else if ($formType == 'newLocationYears')
 	if ($addLocationYear_Location != '' AND $addLocationYear_Year != '')
 	{
 		$sqlQuery = "INSERT INTO location_years (location , year) VALUES ('$addLocationYear_Location' , '$addLocationYear_Year')";
-		$result = MYSQL_QUERY($sqlQuery);
+		$result = query_full_array($sqlQuery);
 	}
 }
 else if ($formType == 'deleteLocationYears')
 {
 	$deletethisId = addslashes($_REQUEST['thisDeleteYearIdField']);
 	$sql = "DELETE FROM location_years WHERE id = '$deletethisId'";
-	$result = MYSQL_QUERY($sql);
+	$result = query_full_array($sql);
 }
 else if ($formType == 'deleteLocationEvents')
 {
 	$thisEvent_id = addslashes($_REQUEST['thisEvent_idField']);
 	$sql = "DELETE FROM location_events WHERE event_id = '$thisEvent_id'";
-	$result = MYSQL_QUERY($sql);
+	$result = query_full_array($sql);
 }
 else if ($formType == 'newLocationEvents')
 {
@@ -67,11 +67,11 @@ else if ($formType == 'newLocationEvents')
 	if ($thisLocation != '' OR $thisDate != '')
 	{
 		$sqlQuery = "INSERT INTO location_events (event_id , location , date , details , source , dateAccuracy, modified ) VALUES ('$thisEvent_id' , '$thisLocation' , '$thisDate' , '$thisDetails' , '$thisSource' , '$thisApprox', '$thisModified')";
-		$result = MYSQL_QUERY($sqlQuery);
+		$result = query_full_array($sqlQuery);
 		
 		// update locations if they have events
 		$sql = "UPDATE locations SET events = '1' WHERE location_id = '$thisLocation' ";
-		MYSQL_QUERY($sql);	
+		query_full_array($sql);	
 		
 		// add interesting year to 'location_years' table
 		if ($thisDiagram == true)
@@ -79,13 +79,13 @@ else if ($formType == 'newLocationEvents')
 			$year = substr($thisDate,0,4);
 			
 			$sqlCheckingForYear = "SELECT * FROM location_years WHERE location = '$thisLocation' AND year = ".$year;
-			$resultCheckingForYear = MYSQL_QUERY($sqlCheckingForYear);
-			$numberOfRowsCheckingForYear = MYSQL_NUMROWS($resultCheckingForYear);
+			$resultCheckingForYear = query_full_array($sqlCheckingForYear);
+			$numberOfRowsCheckingForYear = sizeof($resultCheckingForYear);
 			
 			if($numberOfRowsCheckingForYear == '0')
 			{
 				$sqlInsertingYear = "INSERT INTO location_years (`location` , `year`) VALUES ('".$thisLocation."' , '".$year."')";
-				$resultInsertingYear = MYSQL_QUERY($sqlInsertingYear);
+				$resultInsertingYear = query_full_array($sqlInsertingYear);
 			}
 		}
 	}
@@ -97,8 +97,8 @@ $sql = "SELECT  l.*, lr.*, r.link
 	INNER JOIN locations_raillines lr ON l.location_id = lr.location_id 
 	INNER JOIN raillines r ON r.line_id = lr.line_id 
 	WHERE $search";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 $pageTitle = 'Edit Location';
 
 if ($numberOfRows > 1 and !is_numeric($locationToFind)) 
@@ -116,28 +116,28 @@ else
 
 	//general crap
 	$i=0;
-	$thisLocationId = stripslashes(MYSQL_RESULT($result,$i,"l.location_id"));
-	$thisName = stripslashes(MYSQL_RESULT($result,$i,"name"));
-	$thisLink = stripslashes(MYSQL_RESULT($result,$i,"link"));
-	$thisSuburb = stripslashes(MYSQL_RESULT($result,$i,"suburb"));
-	$thisTracks = stripslashes(MYSQL_RESULT($result,$i,"tracks"));
-	$thisType = stripslashes(MYSQL_RESULT($result,$i,"type"));
-	$thisImage = stripslashes(MYSQL_RESULT($result,$i,"image"));
-	$thisUrl = stripslashes(MYSQL_RESULT($result,$i,"url"));
-	$thisDiagrams = stripslashes(MYSQL_RESULT($result,$i,"diagrams"));
-	$thisDisplay = stripslashes(MYSQL_RESULT($result,$i,"display"));
-	$thisDescription = stripslashes(MYSQL_RESULT($result,$i,"description"));
-	$thisCredits = stripslashes(MYSQL_RESULT($result,$i,"credits"));
-	$thisOpen = stripslashes(MYSQL_RESULT($result,$i,"open"));
-	$thisOpenAccuracy = stripslashes(MYSQL_RESULT($result,$i,"openAccuracy"));
-	$thisClose = stripslashes(MYSQL_RESULT($result,$i,"close"));
-	$thisCloseAccuracy = stripslashes(MYSQL_RESULT($result,$i,"closeAccuracy"));
-	$thisCoOrds = stripslashes(MYSQL_RESULT($result,$i,"long"));
-	$thisPhotos = stripslashes(MYSQL_RESULT($result,$i,"photos"));
+	$thisLocationId = stripslashes($result[$i]["l.location_id"]);
+	$thisName = stripslashes($result[$i]["name"]);
+	$thisLink = stripslashes($result[$i]["link"]);
+	$thisSuburb = stripslashes($result[$i]["suburb"]);
+	$thisTracks = stripslashes($result[$i]["tracks"]);
+	$thisType = stripslashes($result[$i]["type"]);
+	$thisImage = stripslashes($result[$i]["image"]);
+	$thisUrl = stripslashes($result[$i]["url"]);
+	$thisDiagrams = stripslashes($result[$i]["diagrams"]);
+	$thisDisplay = stripslashes($result[$i]["display"]);
+	$thisDescription = stripslashes($result[$i]["description"]);
+	$thisCredits = stripslashes($result[$i]["credits"]);
+	$thisOpen = stripslashes($result[$i]["open"]);
+	$thisOpenAccuracy = stripslashes($result[$i]["openAccuracy"]);
+	$thisClose = stripslashes($result[$i]["close"]);
+	$thisCloseAccuracy = stripslashes($result[$i]["closeAccuracy"]);
+	$thisCoOrds = stripslashes($result[$i]["long"]);
+	$thisPhotos = stripslashes($result[$i]["photos"]);
 	
-	$thisLine = stripslashes(MYSQL_RESULT($result,$i,"line_id"));
-	$thisKm = stripslashes(MYSQL_RESULT($result,$i,"km"));
-	$thisLineLink = stripslashes(MYSQL_RESULT($result,$i,"link"));
+	$thisLine = stripslashes($result[$i]["line_id"]);
+	$thisKm = stripslashes($result[$i]["km"]);
+	$thisLineLink = stripslashes($result[$i]["link"]);
 	
 	$pageTitle = "Update Location - $thisName";
 	include_once("common/header.php");
@@ -279,8 +279,8 @@ else
 	*/
 	$sqllines = "SELECT * FROM locations_raillines lr, raillines r 
 		WHERE lr.line_id = r.line_id AND location_id = '".$thisLocationId."'";
-	$resultlines = MYSQL_QUERY($sqllines);
-	$numlines = MYSQL_NUM_ROWS($resultlines);
+	$resultlines = query_full_array($sqllines);
+	$numlines = sizeof($resultlines);
 	
 	if ($numlines > 0)
 	{
@@ -289,11 +289,11 @@ else
 		*/
 		for ($i = 0; $i < $numlines; $i++)
 		{
-			$thisLocalReadOnlyLine = stripslashes(MYSQL_RESULT($resultlines,$i,"lr.line_id"));
-			$thisLocalReadOnlyLineName = stripslashes(MYSQL_RESULT($resultlines,$i,"name"));
-			$thisLocalReadOnlyKm = stripslashes(MYSQL_RESULT($resultlines,$i,"km"));
-			$thisLocalReadOnlyKmAccuracy = stripslashes(MYSQL_RESULT($resultlines,$i,"kmAccuracy"));
-			$thisLocalReadOnlyType = stripslashes(MYSQL_RESULT($resultlines,$i,"junctiontype"));
+			$thisLocalReadOnlyLine = stripslashes($resultlines[$i]["lr.line_id"]);
+			$thisLocalReadOnlyLineName = stripslashes($resultlines[$i]["name"]);
+			$thisLocalReadOnlyKm = stripslashes($resultlines[$i]["km"]);
+			$thisLocalReadOnlyKmAccuracy = stripslashes($resultlines[$i]["kmAccuracy"]);
+			$thisLocalReadOnlyType = stripslashes($resultlines[$i]["junctiontype"]);
 			
 ?>			<tr><td>
 				<fieldset><table cellspacing="2" cellpadding="2">
@@ -375,16 +375,16 @@ else
 // gets the impiortant years for this location
 
 $sql2 = "SELECT * FROM location_years WHERE `location` = '".$thisLocationId."' ORDER BY year ASC";
-$result2 = MYSQL_QUERY($sql2);
-$numberOfRows2 = MYSQL_NUMROWS($result2);
+$result2 = query_full_array($sql2);
+$numberOfRows2 = sizeof($result2);
 if ($numberOfRows2>0) 
 {
-	$thisYear = $thisYear.MYSQL_RESULT($result2,$i2,"year");
+	$thisYear = $thisYear . $result2[$i2]["year"];
 			
 	for ($i2 = 0; $i2 < $numberOfRows2; $i2++)
 	{	
-		$year = MYSQL_RESULT($result2,$i2,"year");
-		$yearID = MYSQL_RESULT($result2,$i2,"id");
+		$year = $result2[$i2]["year"];
+		$yearID = $result2[$i2]["id"];
 		
 		if (($i2%2)==0) 
 		{ 
@@ -433,20 +433,20 @@ else
 <tr><th>Date</th><th>Event</th><th>Edit</th><th>Delete</th></tr>
 <?php
 $sql = "SELECT date, details, event_id, added, modified, source FROM location_events WHERE location_events.location = '".$thisLocationId."' ORDER BY date ASC";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUM_ROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 
 if ($numberOfRows>0) 
 {
 	for ($i = 0; $i < $numberOfRows; $i++)
 	{	
 		if (($i%2)==0) { $bgColor = "odd"; } else { $bgColor = "even"; }
-		$thisEvent_id = MYSQL_RESULT($result,$i,"event_id");
-		$date = MYSQL_RESULT($result,$i,"date");
-		$thisAdded = MYSQL_RESULT($result,$i,"added");
-		$thisModified = MYSQL_RESULT($result,$i,"modified");
-		$details = stripslashes(MYSQL_RESULT($result,$i,"details"));
-		$thisSource = MYSQL_RESULT($result,$i,"source");
+		$thisEvent_id = $result[$i]["event_id"];
+		$date = $result[$i]["date"];
+		$thisAdded = $result[$i]["added"];
+		$thisModified = $result[$i]["modified"];
+		$details = stripslashes($result[$i]["details"]);
+		$thisSource = $result[$i]["source"];
 		
 		// for crossing change events
 			if (is_numeric($details))

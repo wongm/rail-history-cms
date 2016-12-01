@@ -10,7 +10,7 @@ include_once("common/header.php");
 ?>
 <?php
 $sqlQuery = "INSERT INTO suburbs (name ) VALUES ('$thisName' )";
-$result = MYSQL_QUERY($sqlQuery);
+$result = query_full_array($sqlQuery);
 
 if ($result != 0)
 {

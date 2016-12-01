@@ -15,8 +15,8 @@ else
 {
 	$sql = "SELECT   * FROM articles WHERE article_id = '$thisId'";
 }
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 if ($numberOfRows==0) {  
 ?>
 
@@ -27,14 +27,14 @@ Sorry. No records found !!
 else if ($numberOfRows>0) {
 
 	$i=0;
-	$thisId = MYSQL_RESULT($result,$i,"article_id");
-	$thisLink = stripslashes(MYSQL_RESULT($result,$i,"link"));
-	$thisTitle = stripslashes(MYSQL_RESULT($result,$i,"title"));
-	$thisDescription = stripslashes(MYSQL_RESULT($result,$i,"description"));
-	$thisContent = stripslashes(MYSQL_RESULT($result,$i,"content"));
-	$thisPhotos = stripslashes(MYSQL_RESULT($result,$i,"photos"));
-	$thisLine = stripslashes(MYSQL_RESULT($result,$i,"line_id"));
-	$thisCaption = stripslashes(MYSQL_RESULT($result,$i,"caption"));
+	$thisId = $result[$i]["article_id"];
+	$thisLink = stripslashes($result[$i]["link"]);
+	$thisTitle = stripslashes($result[$i]["title"]);
+	$thisDescription = stripslashes($result[$i]["description"]);
+	$thisContent = stripslashes($result[$i]["content"]);
+	$thisPhotos = stripslashes($result[$i]["photos"]);
+	$thisLine = stripslashes($result[$i]["line_id"]);
+	$thisCaption = stripslashes($result[$i]["caption"]);
 
 }
 ?>

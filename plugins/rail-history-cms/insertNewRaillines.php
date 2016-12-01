@@ -37,7 +37,7 @@ include_once("common/header.php");
 	else
 	{
 		$sqlQuery = "INSERT INTO raillines (name , link , startlocation , endlocation , opened , closed , kmstart , kmend , description , credits , trackyears , trackdefault , safeworkingyears , safeworkingdefault , todisplay ) VALUES ('$thisName' , '$thisLink' , '$thisStartlocation' , '$thisEndlocation' , '$thisOpened' , '$thisClosed' , '$thisKmstart' , '$thisKmend' , '$thisDescription' , '$thisCredits' , '$thisTrackyears' , '$thisTrackdefault' , '$thisSafeworkingyears' , '$thisSafeworkingdefault' , '$thisTodisplay' )";
-		$result = MYSQL_QUERY($sqlQuery);
+		$result = query_full_array($sqlQuery);
 		
 		if ($result != 0)
 		{

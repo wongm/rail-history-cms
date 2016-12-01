@@ -13,13 +13,13 @@ $sql = "SELECT * FROM locations l, location_types lt, locations_raillines lr, ra
 		WHERE lr.location_id = l.location_id AND lr.line_id = r.line_id 
 		AND l.type = lt.type_id $limit
 		ORDER BY km ASC";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUM_ROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 
 if ($numberOfRows > 0) 
 {	
-	$thisLineId = stripslashes(MYSQL_RESULT($result,'0',"r.line_id"));
-	$thisLineName = stripslashes(MYSQL_RESULT($result,'0',"r.name"));
+	$thisLineId = stripslashes($result[0]["line_id"]);
+	$thisLineName = stripslashes($result[0]["name"]);
 }
 	
 $pageTitle = 'Update '.$thisLineName.' Line Locations';
@@ -51,25 +51,25 @@ for ($i = 0; $i < $numberOfRows; $i++)
 		$style = 'even';
 	}
 	
-	$thisLocation_id = stripslashes(MYSQL_RESULT($result,$i,"location_id"));
-	$thisName = stripslashes(MYSQL_RESULT($result,$i,"name"));
-	$thisType = stripslashes(MYSQL_RESULT($result,$i,"basic"));
-	$thisImg = stripslashes(MYSQL_RESULT($result,$i,"image"));
-	$thisLink = stripslashes(MYSQL_RESULT($result,$i,"url"));
-	$thisDisplay = stripslashes(MYSQL_RESULT($result,$i,"display"));
-	$thisDescription = stripslashes(MYSQL_RESULT($result,$i,"description"));
-	$thisCredits = stripslashes(MYSQL_RESULT($result,$i,"credits"));
-	$thisOpen = stripslashes(MYSQL_RESULT($result,$i,"open"));
-	$thisOpenAccuracy = stripslashes(MYSQL_RESULT($result,$i,"openAccuracy"));
-	$thisClose = stripslashes(MYSQL_RESULT($result,$i,"close"));
-	$thisCloseAccuracy = stripslashes(MYSQL_RESULT($result,$i,"closeAccuracy"));
-	$thisCoOrds = stripslashes(MYSQL_RESULT($result,$i,"long"));
-	$thisKm = stripslashes(MYSQL_RESULT($result,$i,"km"));
-	$thisPhotos = stripslashes(MYSQL_RESULT($result,$i,"photos"));
-	$thisEvents = stripslashes(MYSQL_RESULT($result,$i,"events"));
-	$thisKmAccuracy = stripslashes(MYSQL_RESULT($result,$i,"kmAccuracy"));
+	$thisLocation_id = stripslashes($result[$i]["location_id"]);
+	$thisName = stripslashes($result[$i]["name"]);
+	$thisType = stripslashes($result[$i]["basic"]);
+	$thisImg = stripslashes($result[$i]["image"]);
+	$thisLink = stripslashes($result[$i]["url"]);
+	$thisDisplay = stripslashes($result[$i]["display"]);
+	$thisDescription = stripslashes($result[$i]["description"]);
+	$thisCredits = stripslashes($result[$i]["credits"]);
+	$thisOpen = stripslashes($result[$i]["open"]);
+	$thisOpenAccuracy = stripslashes($result[$i]["openAccuracy"]);
+	$thisClose = stripslashes($result[$i]["close"]);
+	$thisCloseAccuracy = stripslashes($result[$i]["closeAccuracy"]);
+	$thisCoOrds = stripslashes($result[$i]["long"]);
+	$thisKm = stripslashes($result[$i]["km"]);
+	$thisPhotos = stripslashes($result[$i]["photos"]);
+	$thisEvents = stripslashes($result[$i]["events"]);
+	$thisKmAccuracy = stripslashes($result[$i]["kmAccuracy"]);
 	
-	$thisTypeFull = stripslashes(MYSQL_RESULT($result,$i,"basic")) . "-" . stripslashes(MYSQL_RESULT($result,$i,"more")) . "-" . stripslashes(MYSQL_RESULT($result,$i,"specific"));
+	$thisTypeFull = stripslashes($result[$i]["basic"]) . "-" . stripslashes($result[$i]["more"]) . "-" . stripslashes($result[$i]["specific"]);
 	$thisTypeFull = "$thisTypeFull==";
 	$thisTypeFull = str_replace('--==', '', $thisTypeFull);
 	$thisTypeFull = str_replace('-==', '', $thisTypeFull);

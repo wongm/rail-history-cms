@@ -4,8 +4,8 @@ include_once("common/dbConnection.php");
 include_once("common/header.php");
 
 $sql = "SELECT   * FROM location_types ORDER BY basic ASC, more ASC";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUM_ROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 
 ?>
 <a href="enterNewLocationTypes.php">Add new location type</a><br><br>
@@ -27,10 +27,10 @@ if ($numberOfRows>0) {
 	{
 		if (($i%2)==0) { $bgColor = "odd"; } else { $bgColor = "even"; }
 
-		$thisType_id = MYSQL_RESULT($result,$i,"type_id");
-		$thisBasic = MYSQL_RESULT($result,$i,"basic");
-		$thisMore = MYSQL_RESULT($result,$i,"more");
-		$thisSpecific = MYSQL_RESULT($result,$i,"specific");
+		$thisType_id = $result[$i]["type_id"];
+		$thisBasic = $result[$i]["basic"];
+		$thisMore = $result[$i]["more"];
+		$thisSpecific = $result[$i]["specific"];
 		$thisUrl = "/t/1-$thisType_id.gif"
 ?>
 	<TR class="<?php echo $bgColor; ?>">

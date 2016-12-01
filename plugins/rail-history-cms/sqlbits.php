@@ -19,14 +19,14 @@ if($_REQUEST['line-safeworking'] == true)
 			AND lr.location_id = l.location_id AND lr.line_id = E.line ),
 	 	E.end_distance = (select lr.km from locations M locations_raillines lr   where M.location_id = E.end_location 
 	 		AND lr.location_id = M.location_id AND lr.line_id = E.line )";
-	MYSQL_QUERY($sql);	
+	query_full_array($sql);	
 	
 	$sql = "update railline_events E set 
 		E.safeworking_km = 
 			(select lr.km from locations L, locations_raillines lr 
 				WHERE L.location_id = E.safeworking_middle
 				AND lr.location_id = L.location_id)";
-	MYSQL_QUERY($sql);
+	query_full_array($sql);
 	
 	echo '<p class="error">All Done!</p><br><a href="sqlbits.php">Back</a>';
 }	?>
@@ -45,7 +45,7 @@ if($_REQUEST['line-safeworking'] == true)
 if($_REQUEST['fixphotoflag'] == true)
 {
 	$sql = "update locations set photos = '0' WHERE photos = ''";
-	MYSQL_QUERY($sql);	
+	query_full_array($sql);	
 	echo '<p class="error">All Done!</p><br><a href="sqlbits.php">Back</a>';
 }	?>
 </div>
@@ -64,8 +64,8 @@ if($_REQUEST['zenclean'] == true)
 	include_once("../common/gallery-functions.php"); 
 	
 	$sqlLocations = "SELECT * FROM zen_images, zen_albums WHERE zen_images.albumid = zen_albums.id";
-	$galleryResult = MYSQL_QUERY($sqlLocations);
-	$numberOfRows = MYSQL_NUM_ROWS($galleryResult);
+	$galleryResult = query_full_array($sqlLocations);
+	$numberOfRows = sizeof($galleryResult);
 	
 	if ($numberOfRows>0)
 	{
@@ -73,10 +73,10 @@ if($_REQUEST['zenclean'] == true)
 		
 		while ($i<$numberOfRows)
 		{
-			$filename = addslashes(MYSQL_RESULT($galleryResult,$i,"filename"));
-			$directory = MYSQL_RESULT($galleryResult,$i,"folder");
-			$title = MYSQL_RESULT($galleryResult,$i,"title");
-			$id = MYSQL_RESULT($galleryResult,$i,"zen_images.id");
+			$filename = addslashes($galleryResult[$i]["filename"]);
+			$directory = $galleryResult[$i]["folder"];
+			$title = $galleryResult[$i]["title"];
+			$id = $galleryResult[$i]["zen_images.id"];
 			$path = '../gallery/albums/'.$directory.'/'.$filename;
 			
 			if (!file_exists($path))
@@ -85,11 +85,11 @@ if($_REQUEST['zenclean'] == true)
 				
 				//re-caption moved image
 				$sqlzen = "UPDATE `zen_images` SET `title` = '$title' WHERE `filename` = '".$filename."'";
-				MYSQL_QUERY($sqlzen);
+				query_full_array($sqlzen);
 				//echo $sqlzen;
 				// delete
 				$sqlzen = "DELETE FROM zen_images WHERE zen_images.id = '".$id."'";
-				MYSQL_QUERY($sqlzen);
+				query_full_array($sqlzen);
 				echo '<br><br>';
 			}
 			$i++;
@@ -100,8 +100,8 @@ if($_REQUEST['zenclean'] == true)
 	
 	// check for albums
 	$sqlLocations = "SELECT * FROM zen_albums";
-	$galleryResult = MYSQL_QUERY($sqlLocations);
-	$numberOfRows = MYSQL_NUM_ROWS($galleryResult);
+	$galleryResult = query_full_array($sqlLocations);
+	$numberOfRows = sizeof($galleryResult);
 	
 	if ($numberOfRows>0)
 	{
@@ -109,9 +109,9 @@ if($_REQUEST['zenclean'] == true)
 		
 		while ($i<$numberOfRows)
 		{
-			$directory = MYSQL_RESULT($galleryResult,$i,"folder");
-			$title = MYSQL_RESULT($galleryResult,$i,"title");
-			$id = MYSQL_RESULT($galleryResult,$i,"id");
+			$directory = $galleryResult[$i]["folder"];
+			$title = $galleryResult[$i]["title"];
+			$id = $galleryResult[$i]["id"];
 			$path = '../gallery/albums/'.$directory;
 			
 			if (!file_exists($path))
@@ -120,10 +120,10 @@ if($_REQUEST['zenclean'] == true)
 				
 				//re-caption moved album
 				$sqlzen = "UPDATE `zen_albums` SET `title` = '$title' WHERE `directory` = '".$filename."'";
-				MYSQL_QUERY($sqlzen);
+				query_full_array($sqlzen);
 				// delete
 				$sqlzen = "DELETE FROM zen_albums WHERE id = '".$id."'";
-				MYSQL_QUERY($sqlzen);
+				query_full_array($sqlzen);
 				echo '<br><br>';
 			}
 			$i++;
@@ -149,8 +149,8 @@ It looks for images with default titles (from filename) and sets the caption bas
 if($_REQUEST['zencaptionsbackup'] == true)
 {
 	$sqlLocations = "SELECT * FROM `zen_images` WHERE id != ''";
-	$galleryResult = MYSQL_QUERY($sqlLocations);
-	$numberOfRows = MYSQL_NUM_ROWS($galleryResult);
+	$galleryResult = query_full_array($sqlLocations);
+	$numberOfRows = sizeof($galleryResult);
 	
 	if ($numberOfRows>0)
 	{
@@ -158,9 +158,9 @@ if($_REQUEST['zencaptionsbackup'] == true)
 		
 		while ($i<$numberOfRows)
 		{
-			$desc = addslashes(MYSQL_RESULT($galleryResult,$i,"desc"));
-			$title = addslashes(MYSQL_RESULT($galleryResult,$i,"title"));
-			$id = MYSQL_RESULT($galleryResult,$i,"filename");
+			$desc = addslashes($galleryResult[$i]["desc"]);
+			$title = addslashes($galleryResult[$i]["title"]);
+			$id = $galleryResult[$i]["filename"];
 			
 			echo "UPDATE `zen_images` SET title = '$title', desc = '$desc' WHERE title = '$id';<br>";
 			$i++;

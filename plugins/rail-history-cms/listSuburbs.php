@@ -37,8 +37,8 @@ if ($sortBy!="")
 
 
 $sql = "SELECT   * FROM suburbs".$orderByQuery.$limitQuery;
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUM_ROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 
 
 ?>
@@ -91,8 +91,8 @@ if ($numberOfRows == $limitPerPage)
 
 		if (($i%2)==0) { $bgColor = "odd"; } else { $bgColor = "even"; }
 
-	$thisSuburb_id = MYSQL_RESULT($result,$i,"suburb_id");
-	$thisName = MYSQL_RESULT($result,$i,"name");
+	$thisSuburb_id = $result[$i]["suburb_id"];
+	$thisName = $result[$i]["name"];
 
 ?>
 	<TR class="<?php echo $bgColor; ?>">

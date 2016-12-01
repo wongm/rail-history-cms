@@ -26,11 +26,11 @@ include_once("common/header.php");
 	}
 
 $sql = "UPDATE location_events SET event_id = '$thisEvent_id' , location = '$thisLocation' , date = '$thisDate' , dateAccuracy = '$thisApprox' , modified = '$thisModified' , details = '$thisDetails' , source = '$thisSource' ".$sqlBit." WHERE event_id = '$thisEvent_id'";
-$result = MYSQL_QUERY($sql);
+$result = query_full_array($sql);
 
 // update locations if they have events
 $sql = "UPDATE locations SET events = '1' WHERE location_id = '$thisLocation' ";
-MYSQL_QUERY($sql);	
+query_full_array($sql);	
 
 // add interesting year to 'location_years' table
 if ($thisDiagram == true)
@@ -38,13 +38,13 @@ if ($thisDiagram == true)
 	$year = substr($thisDate,0,4);
 	
 	$sqlCheckingForYear = "SELECT * FROM location_years WHERE location = '$thisLocation' AND year = ".$year;
-	$resultCheckingForYear = MYSQL_QUERY($sqlCheckingForYear);
-	$numberOfRowsCheckingForYear = MYSQL_NUMROWS($resultCheckingForYear);
+	$resultCheckingForYear = query_full_array($sqlCheckingForYear);
+	$numberOfRowsCheckingForYear = sizeof($resultCheckingForYear);
 	
 	if($numberOfRowsCheckingForYear == '0')
 	{
 		$sqlInsertingYear = "INSERT INTO location_years (`location` , `year`) VALUES ('".$thisLocation."' , '".$year."')";
-		$resultInsertingYear = MYSQL_QUERY($sqlInsertingYear);
+		$resultInsertingYear = query_full_array($sqlInsertingYear);
 	}
 }
 

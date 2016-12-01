@@ -5,8 +5,8 @@ include_once("common/header.php");
 
 
 $sql = "SELECT   * FROM safeworking_types ORDER BY ordered ASC";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUM_ROWS($result);
+$result = query_full_array($sql);
+$numberOfRows = sizeof($result);
 ?>
 <a href="enterNewSafeworkingTypes.php">Add new safeworking type</a><br><br>
 <?php
@@ -27,10 +27,10 @@ if ($numberOfRows>0) {
 
 		if (($i%2)==0) { $bgColor = "odd"; } else { $bgColor = "even"; }
 
-	$thisSafeworking_id = MYSQL_RESULT($result,$i,"safeworking_id");
-	$thisName = MYSQL_RESULT($result,$i,"name");
-	$thisLink = MYSQL_RESULT($result,$i,"link");
-	$thisDetails = stripslashes(MYSQL_RESULT($result,$i,"details"));
+	$thisSafeworking_id = $result[$i]["safeworking_id"];
+	$thisName = $result[$i]["name"];
+	$thisLink = $result[$i]["link"];
+	$thisDetails = stripslashes($result[$i]["details"]);
 
 ?>
 	<TR class="<?php echo $bgColor; ?>">

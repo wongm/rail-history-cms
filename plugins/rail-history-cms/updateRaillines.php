@@ -74,7 +74,7 @@ if ($_REQUEST['flag'] == 'on')
 }
 
 $sql .= "  WHERE line_id = '$thisLine_id' ";
-$result = MYSQL_QUERY($sql);
+$result = query_full_array($sql);
 $done .= '<p>Line data updated!</p>';
 
 /*
@@ -91,7 +91,7 @@ if ($thisPhotos != '')
 		$gallerysql = "UPDATE `zen_albums` 
 			SET `line_link` = '$thisLink' , `line_name` = '$thisName' 
 			WHERE `folder` = '$thisPhotos'";
-		$galleryresult = MYSQL_QUERY($gallerysql);///echo $gallerysql;
+		$galleryresult = query_full_array($gallerysql);///echo $gallerysql;
 		$done .= '<p>Gallery location links updated!</p>';
 	}
 	backendDBConnect();
