@@ -31,12 +31,8 @@ else
 	define ('TIME_FORMAT', '%B %d, %Y %H:%M %p');
 }
 
-$server = $_SERVER['HTTP_HOST'];
-if ($server == 'z')
-{
-	define('GOOGLE_KEY','ABQIAAAAugzXsqqH3uhS-f10_b0zUBST6D7rN_nARn0Oa2viJMznnj503BQ5gGmyL3Kmv8sjcXN6gIoC0MCv7A');
-}
-else if ($server == 'localhost')
+$server = $_SERVER['SERVER_NAME'];
+if ($server == 'localhost')
 {
 	define('GOOGLE_KEY','ABQIAAAAYC6wPz4_TXO8W21k3ZQsxxT2yXp_ZAY8_ufC3CFXhHIE1NvwkxRtkZ1P0Ak4-BtWFnDfiXlK-RmYgg');
 }
