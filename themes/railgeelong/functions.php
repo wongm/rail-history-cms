@@ -66,6 +66,7 @@ function printAlbumDescAndLink($editable=false)
 	$lineLink = $_zp_current_album->get('line_link');
 	$locationId = $_zp_current_album->get('location_id');
 	
+	$name = $linkContent = "";
 	if ($lineLink != '')
 	{
 		$name = $_zp_current_album->get('line_name');
@@ -84,8 +85,7 @@ function printAlbumDescAndLink($editable=false)
 	
 	if ($editable AND zp_loggedin())
 	{
-		echo "<div id=\"albumDescEditable\" style=\"display: block;\">" . $desc . "</div>\n";
-		echo "<script type=\"text/javascript\">initEditableDesc('albumDescEditable');</script>\n";
+		printMWEditableAlbumDesc(true);
 		echo '<div class="albumdesc">'.$linkContent.'</div>';
 	}
 	else

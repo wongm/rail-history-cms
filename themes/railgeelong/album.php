@@ -13,7 +13,7 @@ require_once('common/header.php'); ?>
 <?php require_once('common/midbar.php'); ?>
   <div class="topbar">
   	<h3><?php printMWEditableAlbumTitle(true);?></h3>
-  	<?php printMWEditableAlbumDesc(true); ?>
+  	<?php printAlbumDescAndLink(true); ?>
   </div>
   
   <?php
@@ -45,7 +45,7 @@ require_once('common/header.php'); ?>
         <?php printAlbumThumbImage(getAlbumTitle()); ?></a></div>
       <div class="albumtitle">
       	<h4><a href="<?php echo getAlbumURL();?>" title="<?php echo getAlbumTitle();?>"><?php printAlbumTitle(); ?></a></h4>
-        <small><?php printAlbumDate(); ?><br/><?php if(function_exists(printHitCounter)) { printHitCounter($_zp_current_album); } ?></small></div>
+        <small><?php printAlbumDate(); ?><br/><?php if(function_exists('printHitCounter')) { printHitCounter($_zp_current_album); } ?></small></div>
       <div class="albumdesc"><?php printAlbumDesc(); ?></div>
     </td>
   <?php if ($i == 2)
@@ -87,7 +87,7 @@ require_once('common/header.php'); ?>
       <div class="imagetitle">
       	<h4><a href="<?php echo getImageURL();?>" title="<?php echo getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
 		<?php echo printImageDescWrapped(); ?>
-        <small><?php printImageDate(); ?><br/><?php if(function_exists(printHitCounter)) { printHitCounter($_zp_current_image); } ?></small>
+        <small><?php printImageDate(); ?><br/><?php if(function_exists('printHitCounter')) { printHitCounter($_zp_current_image); } ?></small>
       </div>
     </td>  
   <?php 
@@ -111,7 +111,7 @@ require_once('common/header.php'); ?>
 <?php endif; 
 
 printPageListWithNav("« " . gettext("Previous"), gettext("Next") . " »");
-if(function_exists(formatHitcounter)) { 
+if(function_exists('formatHitcounter')) { 
 	echo "<p>" . formatHitcounter(incrementAndReturnHitCounter('album'), false) . "</p>"; 
 }
 

@@ -349,7 +349,7 @@ function drawLocationSearch($locationSearch, $searchPageNumber, $message="")
 	}
 	else
 	{
-		$totalNumberOfRecords = 0;
+		$totalNumberOfRecords = $numberOfRecords = 0;
 	}
 	?>
 <div id="headbar">
