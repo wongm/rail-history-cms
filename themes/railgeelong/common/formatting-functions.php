@@ -366,15 +366,12 @@ function highlight($keyword, $name)
 
 function getLineguidePages($line, $type='list')
 {
+	$toreturn = null;
 	if ($line['showTrack'])
 	{
 		if ($line['trackSubpageCount'] > 1)
 		{
-			if ($type != 'headbar')
-			{
-				$beyondFirstText = 'Track Diagram ';
-			}
-
+			$beyondFirstText = ($type != 'headbar') ? 'Track Diagram ' : "";
 			$toreturn[] = array("diagram/page-1", "Track Diagram (page 1)", "Track Diagram (page 1)");
 
 			for ($i = 2; $i <= $line['trackSubpageCount']; $i++)
@@ -405,7 +402,7 @@ function getLineguidePages($line, $type='list')
 	}
 
 	// draw 'extra' page links...
-	$extrasLength = sizeof($line['pageNameArray']);
+	$extrasLength = isset($line['pageNameArray']) ? sizeof($line['pageNameArray']) : 0;
 
 	for ($i = 1; $i < $extrasLength; $i++)
 	{

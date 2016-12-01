@@ -20,18 +20,19 @@ $numberOfRows = sizeof($result);
 
 if ($numberOfRows>0)
 {
+	$previousShortName = "";
 	for ($i=0; $i<$numberOfRows; $i++)
 	{
 		$thisId = stripslashes($result[$i]["source_id"]);
 		$thisShort = stripslashes($result[$i]["short"]);
 		$thisDetails = stripslashes($result[$i]["details"]);
 
-		if ($lastName != $thisShort)
+		if ($previousShortName != $thisShort)
 		{	?>
 <b name="id<?php echo $thisId; ?>" id="id<?php echo $thisId; ?>"><?php echo $thisShort; ?></b><?php
 		}
 		echo "<p>$thisDetails</p>";
-		$lastName = $thisShort;
+		$previousShortName = $thisShort;
 	} 	// end loop
 }		// end if
 echo '</div>';

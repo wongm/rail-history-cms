@@ -12,6 +12,7 @@ else
 
 $showRailHistoryCmsRssLink = false;
 $showGalleryRssLink  = false;
+$showNewsRssLink = false;
 
 // work out the page title
 $currentPage = isset($_GET['p']) ? $_GET['p'] : "";
@@ -20,7 +21,7 @@ switch ($currentPage)
 	case 'news':
 		$localPageTitle = " - News";
 		$pageHeading = $localPageTitle;
-		$newsRSS = true;
+		$showNewsRssLink = true;
 		break;
 		
 	case 'locations':
@@ -30,6 +31,8 @@ switch ($currentPage)
 	case 'lineguide':
 	case 'regions':
 	case 'articles':
+	case 'aerial':
+	case 'sitemap':
 		$showRailHistoryCmsRssLink = true;
 		
 	case 'contact':
@@ -60,6 +63,7 @@ $localPageTitle = getGalleryTitle() . $localPageTitle;
 <link rel="stylesheet" type="text/css" href="<?php echo $_zp_themeroot ?>/css/style.css" media="all" title="Normal" />
 <link rel="stylesheet" href="<?php echo $_zp_themeroot ?>/css/zen.css" type="text/css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo $_zp_themeroot ?>/js/functions.js"></script>
 <script type="text/javascript" src="<?php echo $_zp_themeroot ?>/js/lightbox.js"></script>
 <?php zp_apply_filter('theme_head') ?>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
@@ -73,7 +77,7 @@ else if ($showRailHistoryCmsRssLink)
 {
 	echo '<link rel="alternate" type="application/rss+xml" title="Recently updated pages" href="/rss" />';
 }
-else if ($newsRSS)
+else if ($showNewsRssLink)
 {
 	//printZenpageRSSHeaderLink('News', '', 'Recent news updates', null);
 }

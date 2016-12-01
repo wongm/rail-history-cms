@@ -14,7 +14,8 @@ function drawLineEvents($lineId, $type)
 		$location['lineId'] = $lineId;
 		$dataarray = getLocationLineEvents($type, $location);
 	}
-	if ($dataarray[0] != '')
+	
+	if ($dataarray != null && $dataarray[0] != '')
 	{
 		$title = str_replace(' ', '', strtolower($type));
 		
@@ -83,6 +84,7 @@ function getMiscLineEvents($lineId)
 	$result = query_full_array($sql);
 	$numberOfRows = sizeof($result);
 	
+	$eventData = null;
 	if ($numberOfRows > 0)
 	{
 		for ($i=0; $i<$numberOfRows; $i++)
@@ -97,9 +99,9 @@ function getMiscLineEvents($lineId)
 	
 function getLocationLineEvents($type, $location)
 {
-	$locationID = $location['id'];
+	$locationID = isset($location['id']) ? $location['id'] : "";
 	
-	if ($location['numberoflines'] == '')
+	if (!isset($location['numberoflines']) || $location['numberoflines'] == '')
 	{
 		$lineId = $location['lineId'];
 		$lineSQL = " line = '$lineId' ";
@@ -127,6 +129,7 @@ function getLocationLineEvents($type, $location)
 	// array format - DATE - EVENT DESCRIPTION
 	$eventData = array();
 	
+	$sqlBetween = $sqlOn = "";
 	if ($locationID != "")
 	{
 		$sqlBetween = " AND ( RE.start_location = '".$locationID."' OR RE.end_location = '".$locationID."' 
@@ -243,6 +246,8 @@ function getLocationLineEvents($type, $location)
 	
 	if ($numberOfRows > 0 AND $sqlBit != '' )
 	{
+		$pastdetails = "";
+		
 		$i=0;
 		$j=0; // for data row for output array
 		while ($i<$numberOfRows)
@@ -515,7 +520,7 @@ function getLocationLineEvents($type, $location)
 	//end if
 	
 	//swap for opening event is first, it all are the same date
-	for ($i = 0; $i < min(sizeof($eventData), 3); $i++)
+	for ($i = 0; $i < min(sizeof($eventData), 3) - 1; $i++)
 	{
 		$dateA = $eventData[$i]['date'];
 		$dateB = $eventData[$i+1]['date'];
@@ -606,6 +611,7 @@ Array
  */
 function getAllLocationLineEvents($location, $showEverything)
 {
+	$toreturn = null;
 	$ownLocationEvents = getLocationEvents($location);
 	if (sizeof($ownLocationEvents) > 0)
 	{
@@ -738,10 +744,6 @@ function getLocationEventDetails($details)
  */
 function getLocationEvents($location)
 {
-	//$id, $open, $close, $openPlain, $stillOpen
-	//extract($location);
-	//print_r($location);
-	
 	$sql = "SELECT DATE_FORMAT(date, '".SHORT_DATE_FORMAT."') AS fdate, 
 		date, dateAccuracy, details, source, sourcedetail 
 		FROM location_events 
@@ -749,7 +751,9 @@ function getLocationEvents($location)
 		ORDER BY date ASC";
 	$result = query_full_array($sql);
 	$numberOfRows = sizeof($result);
+	
 	$i=0;
+	$locationevents = null;
 	
 	if ($numberOfRows>0) 
 	{

@@ -1,7 +1,6 @@
 <?php
 require_once("common/aerial-functions.php");
 require_once("common/formatting-functions.php");
-$id = $_REQUEST["id"];
 $section = $_REQUEST["section"];
 $preset = $_REQUEST["preset"];
 $center = $_REQUEST["center"];
@@ -10,11 +9,7 @@ $view = $_REQUEST["view"];
 $lines = $_REQUEST["lines"];
 $types = $_REQUEST["types"];
 
-if ($id != '')
-{
-	drawSpecific($view, $id);
-}
-elseif ($section == 'popup' OR $section == 'preset' )
+if ($section == 'popup' OR $section == 'preset' )
 {
 	drawAllMap($center, $zoom, $types, $lines);
 }

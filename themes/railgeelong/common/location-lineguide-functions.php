@@ -226,8 +226,11 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 
 function getLineguideDistanceURL($trackSubpageDistances, $currentKm)
 {
-	$diagramPageBounds = explode(';',$trackSubpageDistances);
+	if ($trackSubpageDistances == "")
+		return "";
+	
 	$i = 1;
+	$diagramPageBounds = explode(';', $trackSubpageDistances);
 	
 	foreach ($diagramPageBounds as $pageBound)
 	{

@@ -200,7 +200,10 @@ function drawLocation($location)
 	}
 
 	// display diagrams depending on earlier settings
-	drawLocationDiagrams($locationDiagrams);
+	if (isset($locationDiagrams))
+	{
+		drawLocationDiagrams($locationDiagrams);
+	}
 
 	// display gallery if required
 	if ($showPhotos)
@@ -405,6 +408,10 @@ function drawLocationDataTable($location)
 			$extraUrlYear = '/year-'.$opentest;
 		}
 	}
+	else
+	{
+		$extraUrlYear = "";
+	}
 ?>
 <div class="datatable">
 <?php
@@ -419,14 +426,16 @@ function drawLocationDataTable($location)
 ?>
 	<b><?php echo $typeToDisplay?></b><br/>
 <?php
-		if (sizeof($branchlines) > 0)
+		if (isset($branchlines) && sizeof($branchlines) > 0)
 		{
 			$lineLinkText = getLineLinksForLocation($branchlines);
 			echo $lineLinkText['main'];
-			echo $lineLinkText['branch'];
+			echo isset($lineLinkText['branch']) ? $lineLinkText['branch'] : "";
+			$lineLinkDistance = isset($lineLinkText['distance']) ? $lineLinkText['distance'] : "";
 		}
 		else
 		{
+			$lineLinkDistance = "";
 ?>
 	<b>Line: </b><a href="/lineguide/<?php echo $lineLink?>"><?php echo $lineName?></a><br/>
 <?php
@@ -440,7 +449,7 @@ function drawLocationDataTable($location)
 				$extraPageBounds = getLineguideDistanceURL($location['trackSubpage'], $location['km']);
 			}
 ?>
-	<b>Distance from Melbourne: </b><?php echo formatDistance($km, $kmAccuracy)?><?php echo $lineLinkText['distance'];?><br/>
+	<b>Distance from Melbourne: </b><?php echo formatDistance($km, $kmAccuracy)?><?php echo $lineLinkDistance;?><br/>
 	<b>Track Diagram: </b><a href="/lineguide/<?php echo $lineLink?>/diagram<?php echo $extraPageBounds.$extraUrlYear?>/#km<?php echo $km?>">View</a><br/>
 <?php
 		}
@@ -468,7 +477,7 @@ function drawLocationDataTable($location)
 	<b>Closed: </b><?php echo formatDate($close, $approxClose)?><br/>
 <?php
 	}
-	drawAdminEditableLink("/backend/editLocations.php?location=$id", "ID=$id");
+	drawAdminEditableLink("editLocations.php?location=$id", "ID=$id");
 ?>
 </div>
 <?php

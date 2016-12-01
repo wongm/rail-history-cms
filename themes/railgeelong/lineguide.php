@@ -101,7 +101,7 @@ else
 	{
 		drawLineguideHeaders($line, 'Safeworking Diagram');
 		drawAdminEditableLink("/backend/listLineEvents.php?line=".$line['lineLink'], "Edit events");
-		drawSafeworkingDiagram($line, $section);
+		drawSafeworkingDiagram($line, $section, $trackPage);
 	}
 	// track diagram pages for line
 	elseif ($section == 'diagram')

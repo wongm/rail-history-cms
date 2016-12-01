@@ -29,7 +29,7 @@ function drawLineguideFooters($line, $section='')
 {	
 	//draw the credits if they exist
 	if (strtolower($section) != 'google map') {
-		if ($line['fullsources'] == '')
+		if (!isset($line['fullsources']) || $line['fullsources'] == '')
 		{
 			$line['fullsources'] = getObjectSources('railline', $line['lineId'], $line['credits']);
 		}
@@ -47,7 +47,7 @@ function drawLineguideFooters($line, $section='')
 	require_once("footer.php");
 }
 
-function drawSafeworkingDiagram($line, $section)
+function drawSafeworkingDiagram($line, $section, $trackPage)
 {
 	$line = checkLineguideDiagramYears($line);
 	$diagramData = getLineDiagram($line, $section, $trackPage);
@@ -98,6 +98,7 @@ function drawTrackDiagram($line, $section, $trackPage)
 	// test if an error was encounted, then display it
 	if (sizeof($diagramData) > 1)
 	{
+		$subpageheader = "";
 		if ($trackPage != '')
 		{
 			$subpageheader = " page $trackPage";
@@ -141,7 +142,8 @@ function drawInterestingYears($interestingYears, $yearToDisplay, $lineToDisplay,
 		$yearToDisplay = '';
 	}
 
-	$diagramPage = $_REQUEST['page'];
+	$pageLink = "";
+	$diagramPage = isset($_REQUEST['page']) ? $_REQUEST['page'] : "";
 	if (is_numeric($diagramPage))
 	{
 		$pageLink = "/page-$diagramPage";
@@ -322,7 +324,7 @@ function getLineguideNavigation($line)
 
 function drawSpecificLine($line, $contentsHeader = 'Contents')
 {
-	$section = $_REQUEST['section'];
+	$section = isset($_REQUEST['section']) ? $_REQUEST['section'] : "";
 
 	// check to see if photos will be shown
 	if (showPhotos($line['photos']))
@@ -458,7 +460,9 @@ function getFullLocationForLineguide($location)
 
 			if ($ida == $location['line_id'])
 			{
-				$extraPageURL = getLineguideDistanceURL($junctionresult[1]["trackSubpage"], $location['km']);
+				$extraPageURL = isset($junctionresult[1]["trackSubpage"])
+					? getLineguideDistanceURL($junctionresult[1]["trackSubpage"], $location['km'])
+					: "";
 
 				$junctionurl =  "/lineguide/$lineb/diagram$extraPageURL/#km".$location['km'];
 				$url ='/location/'.$urlbase.'/'.$linea.'/';
@@ -466,7 +470,9 @@ function getFullLocationForLineguide($location)
 			}
 			elseif ($idb == $location['line_id'])
 			{
-				$extraPageURL = getLineguideDistanceURL($junctionresult[0]["trackSubpage"], $location['km']);
+				$extraPageURL = isset($junctionresult[0]["trackSubpage"])
+					? getLineguideDistanceURL($junctionresult[0]["trackSubpage"], $location['km'])
+					: "";
 
 				$junctionurl =  "/lineguide/$linea/diagram$extraPageURL/#km".$location['km'];
 				$url ='/location/'.$urlbase.'/'.$lineb.'/';
@@ -503,7 +509,7 @@ function getFullLocationForLineguide($location)
 			//	$url = '/locations/'.$urlbase;
 			//	break;
 			case '18': 	//timing loop
-				$url = '/articles/timingloops';
+				$url = '/articles/timingloops/';
 				break;
 			case '29':	//signal box
 				$turl = '/location/'.$urlbase.'/box/';
@@ -567,16 +573,16 @@ function getLineDiagram($line, $section, $trackPage)
 	// fix up sub-distances if subpages have been selected and setup
 	else
 	{
-		$pageBounds = explode(';',$trackSubpage);
-		$pageBounds = explode('-',$pageBounds[$trackPage-1]);
-		if (sizeof($pageBounds) == 2)
+		$pageBounds = '';
+		if ($trackSubpage != "" && $trackPage != "")
 		{
-			$lowerBound = $pageBounds[1]-10;
-			$pageBounds = " AND km >= $pageBounds[0] AND km <= $pageBounds[1] ";
-		}
-		else
-		{
-			$pageBounds = '';
+			$trackSubpages = explode(';', $trackSubpage);
+			$trackSubpageBounds = explode('-', $pageBounds[$trackPage-1]);
+			if (sizeof($pageBounds) == 2)
+			{
+				$lowerBound = $pageBounds[1]-10;
+				$pageBounds = " AND km >= $pageBounds[0] AND km <= $pageBounds[1] ";
+			}
 		}
 	}
 
@@ -621,6 +627,8 @@ function getLineDiagram($line, $section, $trackPage)
 								'<td class="t"><i><a href="/lineguide/'.$lineLink.'/diagram/page-'.($trackPage-1).'">Continued on page '.($trackPage-1).'</a></i></td>'
 								);
 		}
+		
+		$pastTracks = "";
 
 		for ($i = 0; $i < $numberOfLocations; $i++)
 		{
@@ -700,6 +708,8 @@ function getLineDiagram($line, $section, $trackPage)
 		$currentLocation = getBasicLocationForLineguide($locationsOnRaillineResult, 0);
 		$endDist = $currentLocation['km'];
 
+		$i = 0;
+		$pastTracks = "";
 		while ($i < $numberOfLocations)
 		{
 			$currentLocation = getBasicLocationForLineguide($locationsOnRaillineResult, $i);
@@ -733,8 +743,9 @@ function getLineDiagram($line, $section, $trackPage)
 				ORDER BY RE.date DESC";
 
 			$resultSafeworking = query_full_array($sqlSafeworking);
+			$startDist = $middleDist = $nextSwName = "";
 
-			if(sizeof($resultSafeworking) == 1)
+			if(sizeof($resultSafeworking) >= 1)
 			{
 				$nextSafeworking = $resultSafeworking[0]["safeworking"];
 				$nextSwName = $resultSafeworking[0]["name"];
@@ -767,6 +778,8 @@ function getLineDiagram($line, $section, $trackPage)
 				|| $currentLocation['km'] == $endDist
 				|| $currentLocation['km'] == $middleDist)
 			{
+				
+				
 				// update location, add more details to it beofre printing
 				$currentLocation = getFullLocationForLineguide($currentLocation);
 				$pastKm = $currentLocation['km'];
@@ -853,6 +866,8 @@ function getLineDiagramSectionTracks($line, $currentLocation, $pastTracks)
  */
 function getLineDiagramLocationImage($line, $currentLocation, $tracksToDisplay)
 {
+	$imageToDisplay = "";
+	
 	// set up image url for crossings with events
 	if ($currentLocation['image'] == "")
 	{
@@ -898,7 +913,11 @@ function getLineDiagramLocationImage($line, $currentLocation, $tracksToDisplay)
 	// set up images
 	if ($imageToDisplay == '')
 	{
-		if ($yearHeader != 'All Locations')
+		if (isset($yearHeader) && $yearHeader == 'All Locations')
+		{
+			$imageToDisplay = $currentLocation['image'];
+		}
+		else
 		{
 			$yearLimitedResult = query_full_array("SELECT * FROM location_years
 											WHERE `location` = '".$currentLocation['location_id']."'
@@ -935,7 +954,9 @@ function getLineDiagramLocationImage($line, $currentLocation, $tracksToDisplay)
 			}
 
 			// for junctions - so both sides don't show the same pic!
-			if ($currentLocation['junctionurl'] != '' OR $currentLocation['type'] == TYPE_JUNCTION )
+			if (!isset($currentLocation['junctionurl']) 
+				OR $currentLocation['junctionurl'] != '' 
+				OR $currentLocation['type'] == TYPE_JUNCTION )
 			{
 				$imageToDisplay = $currentLocation['image'].'-'.$line['lineId'].$yearImage;
 			}
@@ -943,10 +964,6 @@ function getLineDiagramLocationImage($line, $currentLocation, $tracksToDisplay)
 			{
 				$imageToDisplay = $currentLocation['image'].$yearImage;
 			}
-		}
-		else
-		{
-			$imageToDisplay = $currentLocation['image'];
 		}
 	}
 
@@ -970,7 +987,7 @@ Events by Type :: <a href="/lineguide/<?php echo $line['lineLink']?>/events-by-d
 	drawEventsTable(getMiscLineEvents($line['lineId']), 1);
 
 	// override to check misc events
-	if ($line['numLocations'] >= 1)
+	if (isset($line['numLocations']) && $line['numLocations'] >= 1)
 	{
 		drawLineEvents($line['lineId'], '');
 	}
@@ -995,6 +1012,8 @@ Events by Type :: <a href="/lineguide/<?php echo $line['lineLink']?>/events-by-d
  */
 function checkLineguideDiagramYears($line)
 {
+	$faultMessage = "";
+	
 	if ($line['yearHeader'] == 'All Locations')
 	{}
 	else if($line['yearStart'] < $line['openYear'])
