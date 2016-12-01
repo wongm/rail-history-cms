@@ -11,19 +11,19 @@ require_once("definitions.php");
  */
 function getLineguideExtraPage($line, $section)
 {
-	$extrasPageSQL = sprintf("SELECT * FROM articles WHERE `line_id` = '%s' AND `link` = '%s'", 
-		mysql_real_escape_string($line['lineId']), mysql_real_escape_string($section));
-	$extras = MYSQL_QUERY($extrasPageSQL, locationDBconnect());
-	$extrasLength = MYSQL_NUM_ROWS($extras);
+	$extrasPageSQL = sprintf("SELECT * FROM articles WHERE `line_id` = '%s' AND `link` = %s", 
+		($line['lineId']), db_quote($section));
+	$extras = query_full_array($extrasPageSQL);
+	$extrasLength = sizeof($extras);
 				
 	if ($extrasLength == 1)
 	{
-		$line["header"] = MYSQL_RESULT($extras,'0',"title");
+		$line["header"] = $extras[0]["title"];
 		
 		// overwrite line data for subpages
-		$line["description"] = stripslashes(MYSQL_RESULT($extras,'0',"content"));
-		$line["caption"] = stripslashes(MYSQL_RESULT($extras,'0',"caption"));
-		$line["photos"] = stripslashes(MYSQL_RESULT($extras,'0',"photos"));
+		$line["description"] = stripslashes($extras[0]["content"]);
+		$line["caption"] = stripslashes($extras[0]["caption"]);
+		$line["photos"] = stripslashes($extras[0]["photos"]);
 		
 		return $line;
 	}
