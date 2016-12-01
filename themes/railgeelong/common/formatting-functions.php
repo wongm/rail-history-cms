@@ -312,15 +312,15 @@ function formatDate($fdate, $type)
 			return '<abbr title="By this date">('.$fdate.')</abbr>';
 			break;
 		case 'year':
-			if (sizeof($dateParts) == 4) {
-				return $dateParts[3];
+			if (sizeof($dateParts) == 3) {
+				return $dateParts[2];
 			}
 			return $fdate;
 			break;
 		case 'decade':
-			if (sizeof($dateParts) == 4) {
-				$period = substr($dateParts[3], 3, 1);
-				$decade = substr($dateParts[3], 0, 3)."0s";
+			if (sizeof($dateParts) == 3) {
+				$period = substr($dateParts[2], 3, 1);
+				$decade = substr($dateParts[2], 0, 3)."0s";
 				
 				if ($period == 0) {
 				return $fdate;
@@ -335,8 +335,8 @@ function formatDate($fdate, $type)
 			return $fdate;
 			break;
 		case 'month':
-			if (sizeof($dateParts) == 4) {
-				return $dateParts[2].' '.$dateParts[3];
+			if (sizeof($dateParts) == 3) {
+				return $dateParts[0].' '.$dateParts[2];
 			}
 			return $fdate;
 			break;
