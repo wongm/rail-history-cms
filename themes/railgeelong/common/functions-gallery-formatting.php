@@ -254,9 +254,10 @@ function printImageDescWrapped()
  */
 function drawWongmGridImages($numberOfItems)
 {
-    $albumLinkHtml = "";
+    $albumLinkHtml = $style = "";
     $column = 0;
     $count = 0;
+	$row = 0;
     
 	?>
 <!-- Images -->

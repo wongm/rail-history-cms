@@ -1,14 +1,14 @@
 <?php
 
 // for searching by date links in the EXIF info box
-DEFINE ('SEARCH_URL_PATH', "/gallery/page/search");
-DEFINE ('UPDATES_URL_PATH', "/gallery/recent");
+DEFINE ('SEARCH_URL_PATH', "/page/search/");
+DEFINE ('UPDATES_URL_PATH', "/gallery/recent/");
 DEFINE ('SITEMAP_URL_PATH', "/sitemap.php");
 DEFINE ('COPYRIGHT_URL_PATH', "/copyright.php");
 DEFINE ('CREDITS_URL_PATH', "/credits.php");
 DEFINE ('SOURCES_URL_PATH', "/sources.php");
 DEFINE ('CONTACT_URL_PATH', "/page/contact/");
-DEFINE ('GALLERY_PATH', '/gallery');
+DEFINE ('GALLERY_PATH', '/gallery/');
 
 DEFINE ('COPYRIGHT', '<p>All photographs copyright Marcus Wong unless otherwise noted.</p>');
 

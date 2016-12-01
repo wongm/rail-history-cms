@@ -33,12 +33,13 @@ else
 <?php echo $leadingIntroText; ?>
 <div id="searchpage">
 <?php
+$albumsText = "";
 if ($totalAlbums > 0)
 {
 	$albumsText = " - $totalAlbums albums and $totalImages images.";
 }
 
-echo "<p>You are currently searching the Gallery: you can also <a href=\"/search?q=$searchwords\">search this site via Google</a>.</p>";
+echo "<p>You are currently searching the Gallery: you can also <a href=\"/search/?q=$searchwords\">search this site via Google</a>.</p>";
 
 if ($total > 0) 
 {
@@ -50,7 +51,7 @@ if ($totalAlbums > 0)
 	echo "<table class=\"indexalbums\">\n";
 	while (next_album())
 	{
-		if (is_null($firstAlbum)) 
+		if (!isset($firstAlbum) || is_null($firstAlbum)) 
 		{
 			$lastAlbum = albumNumber();
 			$firstAlbum = $lastAlbum;

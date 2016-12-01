@@ -32,6 +32,7 @@ switch ($currentPage)
 	case 'regions':
 	case 'articles':
 	case 'aerial':
+	case 'site-search':
 	case 'sitemap':
 		$showRailHistoryCmsRssLink = true;
 		
