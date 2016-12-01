@@ -175,12 +175,10 @@ img {
 .pagelist .next {
 	float: right;
 	text-align: left; 
-	height: 100%;
 }
 .pagelist .prev {
 	float: left; 
 	text-align: right; 
-	height: 100%;
 }
 .pagelist A:hover, .pagelist A:active {
 	text-decoration: none; 
