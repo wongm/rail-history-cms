@@ -61,9 +61,8 @@ function getLineLocationEvents($lineId, $type)
 		{
 			$fDate = formatDate($result[$i]["fdate"], $result[$i]["dateaccuracy"]);
 			$type = $result[$i]["basic"];
-			$type = str_replace('industry', '(industry)', $type);
 			$name = stripslashes($result[$i]["name"]);
-			$eventData[$i]['details'] = $name.' '.mb_strtolower($type).' '.$desc;
+			$eventData[$i]['details'] = cleanLocationTypeName($name.' '.mb_strtolower($type).' '.$desc);
 			$eventData[$i]['date'] = $fDate;
 		}
 	}
@@ -295,7 +294,7 @@ function getLocationLineEvents($type, $location)
 				case 'opened':
 				case 'closed':
 					$details = $eventLocationName.' '.strtolower($safeworkingType).' '.$tracks;
-					$details = str_replace('industry', '(industry)', $details);
+					$details = cleanLocationTypeName($details);
 					break;
 			}
 			
@@ -803,6 +802,12 @@ function getLocationEvents($location)
 	}
 	
 	return $locationevents;	//end function
+}
+
+function cleanLocationTypeName($name)
+{
+	$name = str_replace('industry', '(industry)', $name);
+	return str_replace('Junction junction', 'Junction', $name);
 }
 
 
