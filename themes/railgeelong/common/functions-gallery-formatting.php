@@ -55,6 +55,8 @@ function printEXIFData()
 {
 	global $_zp_current_image;
 	$result = getImageMetaData();
+	$hitCounterText = $ratingsText = "";
+	
 	if (function_exists('getRollingHitcounter'))
 	{
 		$hitCounterText = getRollingHitcounter($_zp_current_image);

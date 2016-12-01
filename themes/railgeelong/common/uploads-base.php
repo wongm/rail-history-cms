@@ -3,6 +3,7 @@
 $description = "images ";
 $breadcrumb = 'Recent Uploads';
 $pageTitle = " - $breadcrumb";
+$totalImages = getNumPhotostreamImages();
 require_once('header.php'); 
 ?>
 <div id="headbar">
@@ -13,7 +14,7 @@ require_once('header.php');
 <div class="topbar">
 	<h3><?php echo $breadcrumb; ?></h3>
 </div>
-<p><?php echo getNumberCurrentDisplayedRecords("Displaying $description", ""); ?></p>
+<p><?php echo getNumberCurrentDisplayedRecords("Displaying $description", " of $totalImages"); ?></p>
 <!-- Images -->
 <table class="centeredTable">
 	<?php	 
@@ -32,12 +33,12 @@ require_once('header.php');
 				<h4><a href="<?php echo getImageURL();?>" title="<?php echo getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
 		<?php echo printImageDescWrapped(); ?>
 				<p>In album: <a href="<?php echo getAlbumURL();?>" title="View parent album"><?php echo getAlbumTitleForPhotostreamImage(); ?></a></p>
-				<small><?php printImageDate(); ?><br/><?php if(function_exists(printHitCounter)) { printHitCounter($_zp_current_image); } ?></small>
+				<small><?php printImageDate(); ?><br/><?php if(function_exists('printHitCounter')) { printHitCounter($_zp_current_image); } ?></small>
 			</div>
 		</td>
 	<?php 
 	// neater for when only 4 items
-	if ($i == 2 || ($num == 4 && $i == 1))
+	if ($i == 2 || ($totalImages == 4 && $i == 1))
 	{
 		echo "</tr>\n";
 		$i = 0;
