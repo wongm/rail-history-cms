@@ -11,31 +11,27 @@ function getLocationImages($location)
 	// for comma seperated individual images
 	if ($subLocation > 1)
 	{
-		$gallerySQL = "SELECT a.folder, i.filename, i.title, i.id 
-			FROM " . prefix("images") . " i
-			INNER JOIN " . prefix("albums") . " ON i.albumid = a.id 
-			WHERE ( i.filename = ".db_quote(getFilename($locationbits[0]))." ";
+		$sqlWhere = "( i.filename = ".db_quote(getFilename($locationbits[0]))." ";
 		for ($i = 1; $i < $subLocation; $i++)
 		{
-			$gallerySQL .= " OR i.filename = ".db_quote(getFilename($locationbits[$i]))." ";
+			$sqlWhere .= " OR i.filename = ".db_quote(getFilename($locationbits[$i]))." ";
 		}
-		$gallerySQL .= " ) ORDER BY i.sort_order";
+		$sqlWhere .= ")";
 	}
 	else if (strpos($location, '.jpg') > 0)
 	{
-		$gallerySQL = "SELECT a.folder, i.filename, i.title, i.id 
-			FROM " . prefix("images") . "
-			INNER JOIN " . prefix("albums") . " ON i.albumid = a.id 
-			WHERE i.filename = ".db_quote(getFilename($location))." ";
+		$sqlWhere = "i.filename = ".db_quote(getFilename($location))." ";
 	}
 	// for album in the gallery 
 	else
 	{
-		$gallerySQL = "SELECT a.folder, i.filename, i.title, i.id
-			FROM " . prefix("images") . " i
-			INNER JOIN " . prefix("albums") . " a ON i.albumid = a.id 
-			WHERE a.folder = ".db_quote($location)." ORDER BY i.sort_order";
+		$sqlWhere = "a.folder = ".db_quote($location);
 	}
+	
+	$gallerySQL = "SELECT a.folder, i.filename, i.title, i.id 
+			FROM " . prefix("images") . " i 
+			INNER JOIN " . prefix("albums") . " a ON i.albumid = a.id 
+			WHERE $sqlWhere ORDER BY i.sort_order";
 	
 	return query_full_array($gallerySQL);
 }
