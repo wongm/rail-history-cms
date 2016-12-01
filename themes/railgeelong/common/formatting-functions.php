@@ -550,7 +550,7 @@ function getLocationDescriptionLengthImage($input, $events=0)
 	}
 }
 
-function showPhotos($text)
+function showPhotosConfigured($text)
 {
 	return ($text != '0' AND $text != '');
 }

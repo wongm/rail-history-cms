@@ -427,7 +427,7 @@ function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 		$contentLengthLink = "<a href=\"/location/$urlBase/\">$contentLengthImage</a>";
 			
 		// image if photos
-		if (showPhotos($resultLocations[$i]["photos"]))
+		if (showPhotosConfigured($resultLocations[$i]["photos"]))
 		{
 			$galleryLinkImage = '<a href="/location/'.$urlBase.'/#photos"><img src="/images/photos.gif" alt="Photos" title="Photos" /></a>';
 		}

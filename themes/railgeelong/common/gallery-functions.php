@@ -3,40 +3,36 @@ require_once("definitions.php");
 require_once("formatting-functions.php");
 
 // check this location has images to show
-function getLocationImages($location)
+function getLinkedPhotoCount($linkedPhotoPathString)
 {
-	$locationbits = explode(';', $location);
-	$subLocation = sizeof($locationbits);
+	$linkedPhotoPathStringBits = explode(';', $linkedPhotoPathString);
+	$subLocation = sizeof($linkedPhotoPathStringBits);
 	
 	// for comma seperated individual images
 	if ($subLocation > 1)
 	{
-		$sqlWhere = "( i.filename = ".db_quote(getFilename($locationbits[0]))." ";
+		$sqlWhere = "( i.filename = ".db_quote(getFilenameFromPath($linkedPhotoPathStringBits[0]))." ";
 		for ($i = 1; $i < $subLocation; $i++)
 		{
-			$sqlWhere .= " OR i.filename = ".db_quote(getFilename($locationbits[$i]))." ";
+			$sqlWhere .= " OR i.filename = ".db_quote(getFilenameFromPath($linkedPhotoPathStringBits[$i]))." ";
 		}
 		$sqlWhere .= ")";
 	}
-	else if (strpos($location, '.jpg') > 0)
+	else if (strpos($linkedPhotoPathString, '.jpg') > 0)
 	{
-		$sqlWhere = "i.filename = ".db_quote(getFilename($location))." ";
+		$sqlWhere = "i.filename = ".db_quote(getFilenameFromPath($linkedPhotoPathString))." ";
 	}
 	// for album in the gallery 
 	else
 	{
-		$sqlWhere = "a.folder = ".db_quote($location);
+		$sqlWhere = "a.folder = ".db_quote($linkedPhotoPathString);
 	}
 	
-	$gallerySQL = "SELECT a.folder, i.filename, i.title, i.id 
-			FROM " . prefix("images") . " i 
-			INNER JOIN " . prefix("albums") . " a ON i.albumid = a.id 
-			WHERE $sqlWhere ORDER BY i.sort_order";
-	
-	return query_full_array($gallerySQL);
+	setCustomPhotostream($sqlWhere);	
+	return getNumPhotostreamImages();
 }
 
-function getFilename($fullpath)
+function getFilenameFromPath($fullpath)
 {
 	$fullpathbits = explode('/', $fullpath);
 	$bitcount = sizeof($fullpathbits);
@@ -48,82 +44,70 @@ function getFilename($fullpath)
  * Gets the images for a specified location
  * $locations = path to album, or CSV of image ids
  */
-function drawLocationImages($locationPhotos, $path='')
+function drawLinkedPhotosFromGallery()
 {
-	$displayRows = $originalRows = sizeof($locationPhotos);
-	$path = $locationPhotos[0]['folder'];
+	$displayRows = $originalRows = getNumPhotostreamImages();
 	
 	if ($originalRows > 0) 
-	{	
+	{
+		$i=0;
+		$j=0;
+		
+		if ($originalRows == '4')
+		{
+			$j=1;
+		}
+		
+		if ($originalRows > 9)
+		{
+			$k=rand(0, ($originalRows/9));
+		}
+		else
+		{
+			$k = 0;
+		}
+	
+		while (next_photostream_image())
+		{
+			$linkedGalleryItemPath = getAlbumURL();
+			
+			if ($i == 0)
+			{
 ?>
 <h4 id="photos" name="photos">Photos</h4><hr />
 <?php
-	if ($originalRows > 9)
-	{
-		$moreString = 'Nine of <a href="/gallery/'.$path.'">'.$originalRows.' images found</a> displayed.';
-		$displayRows = 9;
-	}
-	else		
-	{
-		$moreString = '<a href="/gallery/'.$path.'">'.$displayRows.' images found</a>.';
-	}
+		if ($originalRows > 9)
+		{
+			$moreString = 'Nine of <a href="'.$linkedGalleryItemPath.'">'.$originalRows.' images found</a> displayed.';
+			$displayRows = 9;
+		}
+		else		
+		{
+			$moreString = '<a href="'.$linkedGalleryItemPath.'">'.$displayRows.' images found</a>.';
+		}
 ?>
 <p><?php echo $moreString?> Click them to enlarge.</p>
 <table class="centeredTable">
 <?php
-	$i=0;
-	$j=0;
-	
-	if ($numberOfRows == '4')
-	{
-		$j=1;
-	}
-	
-	if ($originalRows > 9)
-	{
-		$k=rand(0, ($originalRows/9));
-	}
-	else
-	{
-		$k = 0;
-	}
-	
-	while ($i<$displayRows)
-	{
-		echo "<tr>\n";
-
-		while ($j < 3 AND $i<$displayRows )
-		{
-			// check index is within limits...
-			if ($k >= $originalRows)
-			{
-				$k = $originalRows-1;
 			}
 			
-			$photoPath = $locationPhotos[$k]['folder'];
-			$photoUrl = $locationPhotos[$k]['filename'];
-			$photoTitle = $locationPhotos[$k]['title'];
-			$photoId = $locationPhotos[$k]['id'];
-			// for when URL rewrite is on
-			/* <td><a href="/gallery/<?php echo $photoPath; ?>/<?php echo $photoUrl; ?>.html" target="new" ><img src="/gallery/cache/<?php echo $photoPath; ?>/<?php echo $photoUrl; ?>_<?php echo thumbsize; ?>.jpg" alt="<?php echo $photoTitle; ?>" title="<?php echo $photoTitle; ?>" /></a>*/
-			// non rewrite
-			/* <a href="/gallery/index.php?album=<?php echo $photoPath; ?>&amp;image=<?php echo $photoUrl; ?>&size=" target="new" ><img src="/gallery/cache/<?php echo $photoPath; ?>/<?php echo $photoUrl; ?>_<?php echo thumbsize; ?>.jpg" alt="<?php echo $photoTitle; ?>" title="<?php echo $photoTitle; ?>" /></a> */
-			
-			// old version
-			/*<td class="i"><a href="/gallery/<?php echo $photoPath; ?>/<?php echo $photoUrl; ?>.html?size=" target="new" ><img src="/gallery/cache/<?php echo $photoPath; ?>/<?php echo $photoUrl; ?>_150_cw150_ch150.jpg" alt="<?php echo $photoTitle; ?>" title="<?php echo $photoTitle; ?>" />*/
-			
-			$thumbUrl = str_ireplace('.jpg', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.jpg', $photoUrl);
-			$normalImageUrl = str_ireplace('.jpg', '_' . NORMAL_IMAGE_SIZE . '.jpg', $photoUrl);
+			echo "<tr>\n";
+			while ($j < 3 AND $i<$displayRows )
+			{
 ?>
-<td class="i">
-	<a href="/gallery/cache/<?php echo $photoPath; ?>/<?php echo $normalImageUrl; ?>" rel="lightbox" title="<?php echo $photoTitle; ?>"><img src="/gallery/cache/<?php echo $photoPath; ?>/<?php echo $thumbUrl; ?>" alt="<?php echo $photoTitle; ?>" title="<?php echo $photoTitle; ?>" /></a>
-	<p><?php echo $photoTitle ?></p></td>
-<?php 	$j++;
-			$i++;
-			$k = $k+(rand(1, ($original/7)));
-	
-		}	//end while for cols
-		$j=0;
+	<td class="i">
+			<div class="imagethumb"><a href="<?php echo getFullImageURL();?>" rel="lightbox" title="<?php echo getImageTitle();?>">
+			 <?php printImageThumb(getImageTitle()); ?></a></div>
+			<div class="imagetitle">
+				<h4><a href="<?php echo getImageURL();?>" title="<?php echo getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
+				<?php echo printImageDescWrapped(); ?>
+				<small><?php printImageDate(); ?><br/><?php if(function_exists('printHitCounter')) { printHitCounter($_zp_current_image); } ?></small>
+			</div>
+		</td>
+<?php 			$j++;
+				$i++;
+			}	//end while for cols
+			$j=0;
 ?>
 </tr>
 <?php

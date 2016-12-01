@@ -90,11 +90,10 @@ function drawLocation($location)
 	}
 
 	// check to see if photos will be shown
-	if (showPhotos($location['photos']))
+	if (showPhotosConfigured($location['photos']))
 	{
 		require_once("gallery-functions.php");
-		$locationPhotos = getLocationImages($location['photos']);
-		$showPhotos = (sizeof($locationPhotos) > 0);
+		$showPhotos = getLinkedPhotoCount($location['photos']);
 		$dotpoints++;
 	}
 	else
@@ -208,7 +207,7 @@ function drawLocation($location)
 	// display gallery if required
 	if ($showPhotos)
 	{
-		drawLocationImages($locationPhotos, $location['photos']);
+		drawLinkedPhotosFromGallery();
 	}
 
 	// display aerial photos if they exist

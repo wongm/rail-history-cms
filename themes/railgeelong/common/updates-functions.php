@@ -66,7 +66,7 @@ function drawUpdatedPagesTable($updatedLocations, $frontPage=false)
 		
 		$urlText = '<a href="/'.strtolower($itemType).'/'.$itemlink.'/">';
 		
-		if (showPhotos($updatedLocations[$i]["photos"]))
+		if (showPhotosConfigured($updatedLocations[$i]["photos"]))
 		{
 			$photosText = $urlText.'<img src="/images/photos.gif" alt="Photos" title="Photos" /></a>';
 		}

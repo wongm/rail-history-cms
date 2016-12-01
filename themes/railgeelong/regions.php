@@ -56,11 +56,10 @@ else
 		$descriptionTitles = getDescriptionTitles($pageContent, $descriptionTitles);
 		$articleSources = getObjectSources('article', $regionId, '');
 		
-		if(showPhotos($photos))
+		if(showPhotosConfigured($photos))
 		{
 			require_once("common/gallery-functions.php");
-			$regionPhotos = getLocationImages($photos);
-			$showPhotos = (sizeof($regionPhotos) > 0);
+			$showPhotos = getLinkedPhotoCount($photos);
 			$descriptionTitles = addDescriptionTitles($descriptionTitles, 'photos');
 		}
 		else
@@ -91,7 +90,7 @@ else
 		
 		if($showPhotos)
 		{
-			drawLocationImages($regionPhotos);
+			drawLinkedPhotosFromGallery();
 		}
 		
 		// draw credits previously formatted by drawObjectSources()

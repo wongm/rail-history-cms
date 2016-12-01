@@ -66,7 +66,7 @@ else
 		if($photos != '')
 		{
 			require_once("common/gallery-functions.php");
-			getLocationImages($photos,$photos);
+			$showPhotos = getLinkedPhotoCount($photos);
 		}
 		
 		// draw credits previously formatted by drawObjectSources()

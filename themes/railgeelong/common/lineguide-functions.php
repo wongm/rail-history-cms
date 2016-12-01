@@ -198,7 +198,7 @@ function drawLocationTitle($thisUrl, $id, $thisName, $thisPhoto)
 		$base = $id;
 	}
 
-	if (showPhotos($thisPhoto))
+	if (showPhotosConfigured($thisPhoto))
 	{
 		$info = '<td><img src="/images/photos.gif" alt="Photo" title="Photo" /></td>';
 	}
@@ -327,11 +327,10 @@ function drawSpecificLine($line, $contentsHeader = 'Contents')
 	$section = isset($_REQUEST['section']) ? $_REQUEST['section'] : "";
 
 	// check to see if photos will be shown
-	if (showPhotos($line['photos']))
+	if (showPhotosConfigured($line['photos']))
 	{
 		require_once("gallery-functions.php");
-		$linePhotos = getLocationImages($line['photos']);
-		$showPhotos = (sizeof($linePhotos) > 0);
+		$showPhotos = getLinkedPhotoCount($line['photos']);
 	}
 	else
 	{
@@ -388,7 +387,7 @@ function drawSpecificLine($line, $contentsHeader = 'Contents')
 
 	if ($showPhotos)
 	{
-		drawLocationImages($linePhotos);
+		drawLinkedPhotosFromGallery();
 	}
 }	// end function
 
@@ -493,7 +492,7 @@ function getFullLocationForLineguide($location)
 	else
 	{
 		$junctionurl = '';
-		if ($location['event'] == 1 OR showPhotos($location['photo']) OR $location['description_length'] > 2)
+		if ($location['event'] == 1 OR showPhotosConfigured($location['photo']) OR $location['description_length'] > 2)
 		{
 			$url = '/location/'.$urlbase.'/';
 		}
@@ -540,7 +539,7 @@ function getFullLocationForLineguide($location)
 	}
 
 	// set location title
-	if (showPhotos($location['photo']))
+	if (showPhotosConfigured($location['photo']))
 	{
 		$photoextra = '<td><img src="/images/photos.gif" alt="Photo" title="Photo" /></td>';
 		$location['title'] = '<table><tr>'.$photoextra.'<td>'.$title.'&nbsp;&nbsp;'.$junctionText.'</td></tr></table>';
