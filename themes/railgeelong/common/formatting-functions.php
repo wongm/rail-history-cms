@@ -6,7 +6,7 @@ function drawAdminEditableLink($link, $title)
 {
 	if ( zp_loggedin() )
 	{
-		echo "<b>Edit: </b><a href=\"$link\" target=\"_new\">$title</a><br/>\n";
+		echo "<b>Edit: </b><a href=\"/plugins/rail-history-cms/$link\" target=\"_new\">$title</a><br/>\n";
 	}
 }
 

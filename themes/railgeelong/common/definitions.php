@@ -7,7 +7,7 @@ DEFINE ('SITEMAP_URL_PATH', "/sitemap.php");
 DEFINE ('COPYRIGHT_URL_PATH', "/copyright.php");
 DEFINE ('CREDITS_URL_PATH', "/credits.php");
 DEFINE ('SOURCES_URL_PATH', "/sources.php");
-DEFINE ('CONTACT_URL_PATH', "/page/contact");
+DEFINE ('CONTACT_URL_PATH', "/page/contact/");
 DEFINE ('GALLERY_PATH', '/gallery');
 
 DEFINE ('COPYRIGHT', '<p>All photographs copyright Marcus Wong unless otherwise noted.</p>');

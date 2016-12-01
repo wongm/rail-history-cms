@@ -28,24 +28,24 @@ if ($numberOfRows>0)
 	
 	for ($i = 0; $i < $numberOfRows; $i++)
 	{
-		echo '<li><a href="region/'.stripslashes($regions[$i]["link"]).'">'.stripslashes($regions[$i]["title"]).'</a></li>';
+		echo '<li><a href="region/'.stripslashes($regions[$i]["link"]).'/">'.stripslashes($regions[$i]["title"]).'</a></li>';
 	}
 	
 	//echo "</ul></li>\n";
 }
 
 // draw all lines and their subsections
-echo "<li><a href=\"/lineguides\">Lineguide Overview</a>\n";
+echo "<li><a href=\"/lineguides/\">Lineguide Overview</a>\n";
 drawAllLineguideDotpoints('sitemap');
 ?>
 <li><a href="/locations/">Location Overview</a></li>
 <ul>
 <li><a href="/locations/#search">Search</a>
-<li><a href="/locations/stations">Stations</a></li>
-<li><a href="/locations/industries">Industries</a></li>
-<li><a href="/locations/signalboxes">Signal Boxes</a></li>
-<li><a href="/locations/yards">Yards</a></li>
-<li><a href="/locations/misc">Miscellaneous</a></li>
+<li><a href="/locations/stations/">Stations</a></li>
+<li><a href="/locations/industries/">Industries</a></li>
+<li><a href="/locations/signalboxes/">Signal Boxes</a></li>
+<li><a href="/locations/yards/">Yards</a></li>
+<li><a href="/locations/misc/">Miscellaneous</a></li>
 </ul></li>
 <?php
 // get all articles
@@ -53,12 +53,12 @@ $articles = query_full_array("SELECT * FROM articles WHERE link != '' AND `line_
 $numberOfRows = sizeof($articles);
 if ($numberOfRows>0) 
 {?>
-<li><a href="articles.php">Articles Listing</a>
+<li><a href="/articles/">Articles Listing</a>
 <ul>
 <?php 
 	for ($i = 0; $i < $numberOfRows; $i++)
 	{
-		echo '<li><a href="/articles/'.stripslashes($articles[$i]["link"]).'">'.stripslashes($articles[$i]["title"]).'</a></li>';
+		echo '<li><a href="/article/'.stripslashes($articles[$i]["link"]).'/">'.stripslashes($articles[$i]["title"]).'</a></li>';
 	}?>
 </ul></li>
 <?php 
@@ -68,10 +68,10 @@ if ($numberOfRows>0)
 <ul>
 	<li><a href="/gallery/recent/">Recent uploads</a></li>
 </ul></li>
-<li><a href="/contact.php">Contact</a></li>
-<li><a href="/credits.php">Credits and Acknowledgements</a></li>
-<li><a href="/sources.php">Sources</a></li>
-<li><a href="/sitemap.php">Sitemap</a></li>
+<li><a href="<?php echo CONTACT_URL_PATH ?>">Contact</a></li>
+<li><a href="<?php echo CREDITS_URL_PATH ?>">Credits and Acknowledgements</a></li>
+<li><a href="<?php echo SOURCES_URL_PATH ?>">Sources</a></li>
+<li><a href="<?php echo SITEMAP_URL_PATH ?>">Sitemap</a></li>
 </ul></div>
 <?php
 require_once("common/footer.php");

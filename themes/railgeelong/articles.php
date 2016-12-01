@@ -43,7 +43,7 @@ else
 <?php require_once("common/midbar.php"); ?>
 <h3><?php echo $pageTitle?></h3>
 <?php 
-		drawAdminEditableLink("/backend/editArticles.php?id=$articleId", "Edit Article");
+		drawAdminEditableLink("editArticles.php?id=$articleId", "Edit Article");
 		
 		// get pretty header photo
 		drawHeaderPic('articles', $link, $pageTitle);
@@ -85,6 +85,8 @@ else
 function drawAllArticles($type)
 {
 	$pageTitle = $pageTitleArticles = ucfirst($type).'s Listing';
+	
+	global $_zp_themeroot;	
 	require_once("common/header.php");
 ?>
 <div id="headbar">

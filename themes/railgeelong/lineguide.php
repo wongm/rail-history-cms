@@ -43,7 +43,7 @@ else
 	if ($section == 'events' AND $line['showEvents'])
 	{
 		drawLineguideHeaders($line, 'Events');
-		drawAdminEditableLink("/backend/listLineEvents.php?line=".$line['lineLink'], "Edit events");
+		drawAdminEditableLink("listLineEvents.php?line=".$line['lineLink'], "Edit events");
 		echo "<h3>Events</h3>\n";
 		drawLineguideEventsSection($line);
 		drawLineguideFooters($line);
@@ -51,7 +51,7 @@ else
 	elseif ($section == 'events-by-date' AND $line['showEvents'])
 	{
 		drawLineguideHeaders($line, 'Events by Date');
-		drawAdminEditableLink("/backend/listLineEvents.php?line=".$line['lineLink'], "Edit events");
+		drawAdminEditableLink("listLineEvents.php?line=".$line['lineLink'], "Edit events");
 		echo "<h3>Events</h3>\n";
 		echo "<a href=\"/lineguide/".$line['lineLink']."/events\">Events by Type</a> :: Events by Date\n";
 		drawLineEvents($line['lineId'], 'By Date');
@@ -62,7 +62,7 @@ else
 	{
 		require_once("common/location-lineguide-functions.php");
 		drawLineguideHeaders($line, 'Locations');
-		drawAdminEditableLink("/backend/listLineLocations.php?line=".$line['lineLink'], "Edit locations");
+		drawAdminEditableLink("listLineLocations.php?line=".$line['lineLink'], "Edit locations");
 		echo "<h3>Locations</h3>\n";
 		drawLinedLocationsTable(getLocationsTable($line['lineId'], $lineToDisplay, '', '', $sort), 'line');
 		drawLineguideFooters($line);
@@ -87,7 +87,7 @@ else
 	elseif ($section == '')
 	{
 		drawLineguideHeaders($line, 'Home');
-		drawAdminEditableLink("/backend/editLines.php?line=".$line['lineLink'], "Edit line");
+		drawAdminEditableLink("editLines.php?line=".$line['lineLink'], "Edit line");
 		drawSpecificLine($line);
 		drawLineguideFooters($line);
 	}
@@ -100,7 +100,7 @@ else
 	else if ($section == 'safeworking' AND $line['showSafeworking'])
 	{
 		drawLineguideHeaders($line, 'Safeworking Diagram');
-		drawAdminEditableLink("/backend/listLineEvents.php?line=".$line['lineLink'], "Edit events");
+		drawAdminEditableLink("listLineEvents.php?line=".$line['lineLink'], "Edit events");
 		drawSafeworkingDiagram($line, $section, $trackPage);
 	}
 	// track diagram pages for line
@@ -109,7 +109,7 @@ else
 		if ($line['showTrack'] AND validateTrackPage($line, $trackPage))
 		{
 			drawLineguideHeaders($line, 'Track Diagram');
-			drawAdminEditableLink("/backend/listLineLocations.php?line=".$line['lineLink'], "Edit locations");
+			drawAdminEditableLink("listLineLocations.php?line=".$line['lineLink'], "Edit locations");
 			drawTrackDiagram($line, $section, $trackPage);
 		}
 		else
@@ -127,7 +127,7 @@ else
 		if ($extraPage)
 		{
 			drawLineguideHeaders($extraPage, $extraPage["header"]);
-			drawAdminEditableLink("/backend/editArticles.php?link=".$section, "Lineguide article");
+			drawAdminEditableLink("editArticles.php?link=".$section, "Lineguide article");
 			drawSpecificLine($extraPage, $extraPage["header"]);
 			drawLineguideFooters($extraPage);
 		}
