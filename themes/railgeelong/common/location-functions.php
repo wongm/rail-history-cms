@@ -513,6 +513,7 @@ function getLineLinksForLocation($branchlines)
 
 			$branchText .= '<a href="/lineguide/'.$branchlines[$i]['link'].'">'.$branchlines[$i]['name']."</a>";
 
+			$branchDistanceText = "";
 			if ($branchlines[$i]['km'] != $initialKm)
 			{
 				$branchDistanceText .= " (".$branchlines[$i]['km']."km via ".$branchlines[$i]['name'].")";
