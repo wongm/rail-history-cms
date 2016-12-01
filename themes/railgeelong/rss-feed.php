@@ -1,10 +1,7 @@
 <?php
 // force UTF-8 Ø
-require_once(dirname(__FILE__).'/zp-core/global-definitions.php');
-define('OFFSET_PATH', 0);
-require_once(dirname(__FILE__)."/".ZENFOLDER . "/template-functions.php");
-require_once(ZENFOLDER . "/class-rss.php");
-startRSSCache();
+require_once(dirname(dirname(dirname(__FILE__))).'/zp-core/global-definitions.php');
+require_once(dirname(dirname(dirname(__FILE__)))."/".ZENFOLDER . "/template-functions.php");
 
 require_once("common/definitions.php");
 require_once("common/updates-functions.php");
@@ -26,8 +23,9 @@ header('Content-Type: application/xml');
 <docs>http://blogs.law.harvard.edu/tech/rss</docs>
 <generator>Rail Geelong RSS Generator</generator>
 <?php
-
-for ($i = 0; $i < MYSQL_NUM_ROWS($updatedLocations); $i++)
+$j = 0;
+$pastItemLink = -1;
+for ($i = 0; $i < sizeof($updatedLocations); $i++)
 	{	
 		if ($j%2 == '0')
 		{
@@ -38,14 +36,17 @@ for ($i = 0; $i < MYSQL_NUM_ROWS($updatedLocations); $i++)
 			$style = 'class="even"';
 		}
 		
-		$date = MYSQL_RESULT($updatedLocations,$i,"fdate");
-		$id = 	MYSQL_RESULT($updatedLocations,$i,"link");
-		$name = stripslashes(MYSQL_RESULT($updatedLocations,$i,"name"));
-		$objecttype = MYSQL_RESULT($updatedLocations,$i,"object_type");
-		$locationtype = MYSQL_RESULT($updatedLocations,$i,"type");
-		$length = MYSQL_RESULT($updatedLocations,$i,"length");
-		$events = MYSQL_RESULT($updatedLocations,$i,"events");
-		$desc = stripslashes(MYSQL_RESULT($updatedLocations,$i,"length"));
+		$date = $updatedLocations[$i]["fdate"];
+		$objectid = $updatedLocations[$i]["object_id"];
+		$locationlink = $updatedLocations[$i]["link"];
+		$name = stripslashes($updatedLocations[$i]["name"]);
+		$objecttype = $updatedLocations[$i]["object_type"];
+		$locationtype = $updatedLocations[$i]["type"];
+		$length = $updatedLocations[$i]["length"];
+		$events = $updatedLocations[$i]["events"];
+		$desc = stripslashes($updatedLocations[$i]["length"]);
+		
+		$itemlink = $objectid;
 		
 		$desc = strip_tags(getFormattedText(truncateString($desc, 500), true));
 		$date = date("r", strtotime($date) + (60*60*19));
@@ -55,6 +56,9 @@ for ($i = 0; $i < MYSQL_NUM_ROWS($updatedLocations); $i++)
 			case 'L':
 				$path = 'Location';
 				$name = getLocationName($name, $locationtype);
+				if (strlen($locationlink) > 0) {
+					$itemlink = $locationlink;
+				}
 				break;
 			case 'RL':
 				$path = 'Lineguide';
@@ -68,10 +72,10 @@ for ($i = 0; $i < MYSQL_NUM_ROWS($updatedLocations); $i++)
 				break;
 		}
 		
-		$urlText = "http://www.railgeelong.com/".strtolower($path).'/'.$id;
+		$urlText = "http://www.railgeelong.com/".strtolower($path).'/'.$itemlink;
 		
 		// skip location if has already been displayed, when on multiple lines it has the same ID
-		if ($id != $pastId)
+		if ($itemlink != $pastItemLink)
 		{
 			$j++;
 ?>
@@ -85,9 +89,8 @@ for ($i = 0; $i < MYSQL_NUM_ROWS($updatedLocations); $i++)
 </item>
 <?php 	}
 		
-		$pastId = $id;
+		$pastItemLink = $itemlink;
 	}	// end for loop
 ?>
 </channel>
 </rss>
-<?php endRSSCache();?>

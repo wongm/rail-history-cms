@@ -12,6 +12,7 @@
 	
 	#### Rail Geelong custom
 	RewriteRule ^gallery/?$					   											index.php?p=gallery-index [L,QSA]
+	RewriteRule ^rss-feed/?$					   											index.php?p=rss-feed [L,QSA]
 	RewriteRule ^gallery/recent/?$					   											index.php?p=recent [L,QSA]
 	RewriteRule ^gallery/(.*)$                     										index.php?album=$1 [L,QSA]
 	RewriteRule ^lineguides/(.*)$                     									index.php?p=lineguides [L,QSA]

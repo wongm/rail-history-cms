@@ -41,8 +41,6 @@ function drawUpdatedPagesTable($updatedLocations, $frontPage=false)
 		
 		$itemlink = $objectid;
 		
-		//print_r(mysql_fetch_assoc($updatedLocations));
-		
 		switch ($objecttype)
 		{
 			case 'L':

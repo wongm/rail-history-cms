@@ -12,7 +12,6 @@ else
 
 $showRailHistoryCmsRssLink = false;
 $showGalleryRssLink  = false;
-$showNewsRssLink = false;
 
 // work out the page title
 $currentPage = isset($_GET['p']) ? $_GET['p'] : "";
@@ -21,7 +20,7 @@ switch ($currentPage)
 	case 'news':
 		$localPageTitle = " - News";
 		$pageHeading = $localPageTitle;
-		$showNewsRssLink = true;
+		$showRailHistoryCmsRssLink = true;
 		break;
 		
 	case 'locations':
@@ -70,17 +69,13 @@ $localPageTitle = getGalleryTitle() . $localPageTitle;
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="description" content="<?php echo getGalleryDesc();?>" />
 <?php
-if ($showGalleryRssLink)
+if ($showRailHistoryCmsRssLink)
+{
+	echo '<link rel="alternate" type="application/rss+xml" title="Recently updated pages" href="' . PROTOCOL . '://' . html_encode($_SERVER["HTTP_HOST"]) . '/rss-feed" />';
+}
+else if ($showGalleryRssLink)
 {
 	printRSSHeaderLink("AlbumsRSS", "Recent gallery uploads");
-}
-else if ($showRailHistoryCmsRssLink)
-{
-	echo '<link rel="alternate" type="application/rss+xml" title="Recently updated pages" href="/rss" />';
-}
-else if ($showNewsRssLink)
-{
-	//printZenpageRSSHeaderLink('News', '', 'Recent news updates', null);
 }
 //facebook headers for image.php
 if (getImageThumb())
