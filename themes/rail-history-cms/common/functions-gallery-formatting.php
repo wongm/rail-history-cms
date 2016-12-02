@@ -1,33 +1,5 @@
 <?php
 
-//******************************************************************************
-// Miscellaneous functions for the ZenPhoto gallery that I need
-//
-// For railgeelong.com and wongm.railgeelong.com
-//
-// V 1.0.0
-//
-//******************************************************************************
-
-function pluralNumberWord($number, $text)
-{
-	if (is_numeric($number))
-	{
-		if ($number == 0)
-		{
-			return $number.' '.$text.'s';
-		}
-		if ($number > 1)
-		{
-			return $number.' '.$text.'s';
-		}
-		else
-		{
-			return "$number $text";
-		}
-	}
-}
-
 /**
  * Returns the url of the previous image.
  *
@@ -135,20 +107,6 @@ function drawNewsNextables()
 <table class="pagelist"><tr><td>
   <?php if($prev) { ?><a class="prev" href="<?php echo $prev['link'];?>" title="<?php echo $prev['title']?>"><span>&laquo;</span> <?php echo $prev['title']?></a> <?php } ?>
   <?php if($next) { ?><a class="next" href="<?php echo $next['link'];?>" title="<?php echo $next['title']?>"><?php echo $next['title']?> <span>&raquo;</span></a> <?php } ?>
-</td></tr></table>
-  <?php }
-}
-
-function drawNewsFrontpageNextables()
-{
-	$next = getNextNewsPageURL();
-	$prev = getPrevNewsPageURL();
-
-	if($next OR $prev) {
-	?>
-<table class="pagelist"><tr><td>
-  <?php if($prev) { ?><a class="prev" href="<?php echo "http://".$_SERVER['HTTP_HOST'].$prev;?>" title="Previous page"><span>&laquo;</span> Previous page</a> <?php } ?>
-  <?php if($next) { ?><a class="next" href="<?php echo "http://".$_SERVER['HTTP_HOST'].$next;?>" title="Next page">Next page <span>&raquo;</span></a> <?php } ?>
 </td></tr></table>
   <?php }
 }
@@ -322,66 +280,6 @@ function drawWongmGridImages($numberOfItems)
 
 /*
  *
- * drawIndexAlbums()
- *
- * Draw a list of albums,
- * thumbnail image on the left, details on the right
- * Used by recent-albums.php (recent albums) and everything.php (all albums)
- *
- */
-function drawIndexAlbums($type=null, $site=null)
-{
-	global $_zp_current_album;
-
-	echo "<table id=\"centeredAlbums\" class=\"indexalbums\">\n";
-
-	if ($type == 'dynamiconly' OR $type == 'frontpage')
-	{
-		while (next_album(true))
-		{
-			if ($_zp_current_album->isDynamic())
-			{
-				drawWongmAlbumRow();
-			}
-		}
-	}
-	elseif($type=='nodynamic')
-	{
-		while (next_non_dynamic_album())
-		{
-			if (!$_zp_current_album->isDynamic())
-			{
-				drawWongmAlbumRow();
-			}
-		}
-	}
-	elseif($type=='recent')
-	{
-    	$totalDisplayed = 0;
-    	
-		while (next_non_dynamic_album(false, 'ID', 'DESC'))
-		{
-			if (!$_zp_current_album->isDynamic() && $totalDisplayed < 12)
-			{
-    			$totalDisplayed++;
-				drawWongmAlbumRow();
-			}
-		}
-	}
-	else
-	{
-		while (next_album())
-		{
-			drawWongmAlbumRow();
-		}
-	}
- ?>
-</table>
-<?php
-}
-
-/*
- *
  * drawWongmAlbumRow()
  *
  * Draw an album row
@@ -424,41 +322,6 @@ function replace_filename_with_cache_thumbnail_version($filename)
 	$imgURL = str_replace('.jpeg', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.jpeg', $imgURL);
 	$imgURL = str_replace('.JPEG', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.JPEG', $imgURL);
 	return $imgURL;	
-}
-
-/**
- * WHILE next_album(): context switches to Album.
- * If we're already in the album context, this is a sub-albums loop, which,
- * quite simply, changes the source of the album list.
- * Switch back to the previous context when there are no more albums.
-
- * Returns true if there are albums, false if none
- *
- * @param bool $all true to go through all the albums
- * @param string $sorttype what you want to sort the albums by
- * @return bool
- * @since 0.6
- */
-function next_non_dynamic_album($all=false, $sorttype=null, $direction=null) {
-	global $_zp_albums, $_zp_gallery, $_zp_current_album, $_zp_page, $_zp_current_album_restore, $_zp_current_search;
-	if (is_null($_zp_albums)) {
-		$_zp_albums = $_zp_gallery->getAlbums($all ? 0 : $_zp_page, $sorttype, $direction);
-
-		if (empty($_zp_albums)) { return false; }
-		$_zp_current_album_restore = $_zp_current_album;
-		$_zp_current_album = newAlbum(array_shift($_zp_albums), true, true);
-		save_context();
-		add_context(ZP_ALBUM);
-		return true;
-	} else if (empty($_zp_albums)) {
-		$_zp_albums = NULL;
-		$_zp_current_album = $_zp_current_album_restore;
-		restore_context();
-		return false;
-	} else {
-		$_zp_current_album = newAlbum(array_shift($_zp_albums), true, true);
-		return true;
-	}
 }
 
 function printMWEditableImageTitle($editable=false, $editclass='editable imageTitleEditable', $messageIfEmpty = true ) {
