@@ -12,14 +12,14 @@
 require_once('common/functions-gallery-formatting.php');
 require_once('common/definitions.php');
 
-zp_register_filter('admin_toolbox_global', 'railGeelongTheme::addGlobalLink');
-zp_register_filter('getLink', 'railGeelongTheme::setCustomGalleryPath');
+zp_register_filter('admin_toolbox_global', 'railHistoryCMSTheme::addGlobalLink');
+zp_register_filter('getLink', 'railHistoryCMSTheme::setCustomGalleryPath');
 
 /**
  * Plugin option handling class
  *
  */
-class railGeelongTheme {
+class railHistoryCMSTheme {
 	
 	static function setCustomGalleryPath($url, $object, $title) {
 		if ($object instanceof Album OR $object instanceof Image){
