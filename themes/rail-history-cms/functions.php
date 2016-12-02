@@ -22,6 +22,10 @@ zp_register_filter('getLink', 'railHistoryCMSTheme::setCustomGalleryPath');
 class railHistoryCMSTheme {
 	
 	static function setCustomGalleryPath($url, $object, $title) {
+		
+		if ($url == "/page/recent/"){
+			return "/gallery/recent/";
+		}
 		if ($object instanceof Album OR $object instanceof Image){
 			return "/gallery$url";
 		}
