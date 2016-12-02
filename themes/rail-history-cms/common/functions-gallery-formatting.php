@@ -311,19 +311,6 @@ function drawWongmAlbumRow()
 
 }	// end function
 
-function replace_filename_with_cache_thumbnail_version($filename)
-{
-	$imgURL = str_replace('.jpg', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.jpg', $filename);
-	$imgURL = str_replace('.JPG', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.JPG', $imgURL);
-	$imgURL = str_replace('.gif', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.gif', $imgURL);
-	$imgURL = str_replace('.GIF', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.GIF', $imgURL);
-	$imgURL = str_replace('.png', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.png', $imgURL);
-	$imgURL = str_replace('.PNG', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.PNG', $imgURL);
-	$imgURL = str_replace('.jpeg', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.jpeg', $imgURL);
-	$imgURL = str_replace('.JPEG', '_' . THUMBNAIL_IMAGE_SIZE . '_thumb.JPEG', $imgURL);
-	return $imgURL;	
-}
-
 function printMWEditableImageTitle($editable=false, $editclass='editable imageTitleEditable', $messageIfEmpty = true ) {
 	if ( $messageIfEmpty === true ) {
 		$messageIfEmpty = gettext('(No title...)');

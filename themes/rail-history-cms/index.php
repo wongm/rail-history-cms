@@ -68,34 +68,28 @@ drawUpdatedPagesTable($updates['result'], true);
 <table class="centeredTable">
 <tbody>
 <?php 
-$latestalbums = query_full_array("SELECT i.filename, i.date, a.folder, a.title FROM " . prefix('images'). " i INNER JOIN " . prefix('albums'). " a ON i.albumid = a.id GROUP BY i.albumid, DATE(i.date) ORDER BY i.date DESC LIMIT 6");
 
-$albumCount = 1;
-foreach ($latestalbums as $latestalbum) {
-	
+setCustomPhotostream("", "i.albumid, DATE(i.date)", "i.date DESC");
+
+for ($albumCount = 1; $albumCount < 7; $albumCount++) {
+	next_photostream_image();
 	if (($albumCount % 3) == 1)
 	{
 		echo "<tr>";
 	}
-	
-	$folderpath = "/gallery/" . $latestalbum['folder'];
-	$foldername = get_language_string($latestalbum['title'], null);
-	$thumbUrl = replace_filename_with_cache_thumbnail_version($latestalbum['filename']);
-	$thumbnailURL = "/gallery/cache/" . $latestalbum['folder'] . "/$thumbUrl";
-	
+		
 	echo '<td class="image">';
-	echo "	<a href=\"" . htmlspecialchars($folderpath)."\" title=\"" . html_encode($foldername) . "\">\n";
-	echo "	<img src=\"" . $thumbnailURL . "\" alt=\"" . html_encode($foldername) . "\" /></a>\n";
-	echo "	<h4><a href=\"".htmlspecialchars($folderpath)."\" title=\"" . html_encode($foldername) . "\">$foldername</a></h4>\n";
-	echo "	<small>". zpFormattedDate(getOption('date_format'),strtotime($latestalbum['date']))."</small>\n";
+	echo "	<a href=\"" . getAlbumURL()."\" title=\"" . getAlbumTitleForPhotostreamImage() . "\">\n";
+	printImageThumb(getAlbumTitleForPhotostreamImage());
+	echo "	</a>\n";
+	echo "	<h4><a href=\"" . getAlbumURL() . "\" title=\"" . getAlbumTitleForPhotostreamImage() . "\">" . getAlbumTitleForPhotostreamImage() . "</a></h4>\n";
+	echo "	<small>" . printImageDate() . "</small>\n";
 	echo "</td>\n";
 		
 	if (($albumCount % 3) == 0)
 	{
 		echo "</tr>";
 	}
-	
-	$albumCount++;
 }
 ?>
 </tbody></table>
