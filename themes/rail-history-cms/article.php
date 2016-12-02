@@ -58,7 +58,7 @@ if (sizeof($article) == 1)
 	
 	if($photos != '')
 	{
-		require_once("common/gallery-functions.php");
+		require_once("common/linked-photo-functions.php");
 		$showPhotos = getLinkedPhotoCount($photos);
 	}
 	

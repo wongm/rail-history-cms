@@ -61,7 +61,7 @@ if($_REQUEST['fixphotoflag'] == true)
 
 if($_REQUEST['zenclean'] == true)
 {
-	include_once("../common/gallery-functions.php"); 
+	include_once("../common/linked-photo-functions.php"); 
 	
 	$sqlLocations = "SELECT * FROM zen_images, zen_albums WHERE zen_images.albumid = zen_albums.id";
 	$galleryResult = query_full_array($sqlLocations);

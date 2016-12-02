@@ -329,7 +329,7 @@ function drawSpecificLine($line, $contentsHeader = 'Contents')
 	// check to see if photos will be shown
 	if (showPhotosConfigured($line['photos']))
 	{
-		require_once("gallery-functions.php");
+		require_once("linked-photo-functions.php");
 		$showPhotos = getLinkedPhotoCount($line['photos']);
 	}
 	else

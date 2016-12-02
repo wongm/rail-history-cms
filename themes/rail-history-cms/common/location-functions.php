@@ -92,7 +92,7 @@ function drawLocation($location)
 	// check to see if photos will be shown
 	if (showPhotosConfigured($location['photos']))
 	{
-		require_once("gallery-functions.php");
+		require_once("linked-photo-functions.php");
 		$showPhotos = getLinkedPhotoCount($location['photos']);
 		$dotpoints++;
 	}

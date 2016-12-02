@@ -58,7 +58,7 @@ else
 		
 		if(showPhotosConfigured($photos))
 		{
-			require_once("common/gallery-functions.php");
+			require_once("common/linked-photo-functions.php");
 			$showPhotos = getLinkedPhotoCount($photos);
 			$descriptionTitles = addDescriptionTitles($descriptionTitles, 'photos');
 		}
