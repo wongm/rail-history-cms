@@ -129,7 +129,7 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 		}
 		
 		// get stations and signal boxes with the same name as this one
-		$location["associatedLocations"] = getAssociatedLocations($location["id"], $location["name"], $location["type"], $location["locationLink"]);
+		$location["associatedLocations"] = getAssociatedLocations($location["id"], $location["name"], $location["type"]);
 		$location["hasAssociatedLocations"] = (bool)$location["associatedLocations"];
 		
 		// setup distances
@@ -469,7 +469,7 @@ function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 }	// end function
 
 
-function getAssociatedLocations($id, $name, $type, $link)
+function getAssociatedLocations($id, $name, $type)
 {
 	$splitName = explode(' ', $name);
 	$splitNameLength = sizeof($splitName);
@@ -563,9 +563,10 @@ function getAssociatedLocations($id, $name, $type, $link)
 			
 			if ($title != '')
 			{
+				$link = $associatedLocationsResults[$i]['link'];
 				if (strlen($link))
 				{
-					$toreturn[] = array($associatedLocationsResults[$i]['link'], $title);
+					$toreturn[] = array($link, $title);
 				}
 				else
 				{
