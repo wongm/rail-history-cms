@@ -9,52 +9,6 @@
 	RewriteRule ^$                     													index.php [L,QSA]
 	RewriteRule ^index\.php$                     										index.php [L,QSA]
 	RewriteRule ^admin/*$																%ZENFOLDER%/admin.php [L,QSA]
-	
-	#### Rail Geelong custom
-	RewriteRule ^gallery/?$					   											index.php?p=gallery-index [L,QSA]
-	RewriteRule ^gallery/recent/?$					   									index.php?p=recent [L,QSA]	
-	RewriteRule ^gallery/%PAGE%/recent/([0-9]*)/?$					   					index.php?p=recent&page=$1 [L,QSA]	
-	RewriteRule ^gallery/(.*)/%PAGE%/([0-9]+)/$                     					index.php?album=$1&page=$2 [L,QSA]
-	RewriteRule ^gallery/(.*)$                     										index.php?album=$1 [L,QSA]
-
-	RewriteRule ^rss-feed/?$					   										index.php?p=rss-feed [L,QSA]
-	RewriteRule ^lineguides/(.*)$                     									index.php?p=lineguides [L,QSA]
-	RewriteRule ^region/(.*)/$                     										index.php?p=region&name=$1 [L,QSA]
-
-	RewriteRule ^updates/?$                     										index.php?p=updates [L,QSA]
-	RewriteRule ^updates/%PAGE%/(.*)/$                     								index.php?p=updates&page=$1 [L,QSA]
-	
-	RewriteRule ^search/?$					   											index.php?p=site-search [L,QSA]
-	
-	RewriteRule ^lineguide/?$					   										index.php?p=lineguides [L,QSA]
-    RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/?$	  										index.php?p=lineguide&line=$1 [L,QSA]
-    RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/([A-Za-z0-9\-_]+)/?$	  					index.php?p=lineguide&line=$1&section=$2 [L,QSA]
-    RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/locations/([A-Za-z0-9\-_]+)/?$	  	  		index.php?p=lineguide&line=$1&section=locations&sort=$2 [L,QSA]
-    RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/diagram/year-([0-9\-_]+)/?$				index.php?p=lineguide&line=$1&section=diagram&year=$2 [L,QSA]
-    RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/diagram/page-([A-Za-z0-9\-_]+)/?$			index.php?p=lineguide&line=$1&section=diagram&page=$2 [L,QSA]
-    RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/diagram/page-([A-Za-z0-9\-_]+)/year-([0-9\-_]+)/?$		index.php?p=lineguide&line=$1&section=diagram&page=$2&year=$3 [L,QSA]
-    RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/diagram/year-([0-9\-_]+)/page-([0-9\-_]+)/?$			index.php?p=lineguide&line=$1&section=diagram&year=$2&page=$3 [L,QSA]
-    RewriteRule ^lineguide/([A-Za-z0-9\-_]+)/safeworking/([A-Za-z0-9\-_]+)/?$						index.php?p=lineguide&line=$1&section=safeworking&year=$2 [L,QSA]
-	
-	RewriteRule ^location/([0-9]+)/map/$					   				index.php?p=location-aerial&id=$1&view=map [L,QSA]
-	RewriteRule ^location/([0-9]+)/satellite/$					   			index.php?p=location-aerial&id=$1&view=satellite [L,QSA]
-	RewriteRule ^location/([0-9\-_]+)/?$					   				index.php?p=location&id=$1 [L,QSA]
-	RewriteRule ^location/([0-9\-_]+)/box/?$					   			index.php?p=location&id=$1 [L,QSA]
-	RewriteRule ^location/([A-Za-z0-9\-'.,_]+)/?$	   						index.php?p=location&name=$1 [L,QSA]
-	RewriteRule ^location/([A-Za-z0-9\-'.,_]+)/box/?$						index.php?p=location&box=$1 [L,QSA]
-	RewriteRule ^location/([A-Za-z0-9\-'.,_]+)/([A-Za-z0-9\-'._]+)/?$  		index.php?p=location&name=$1&line=$2 [L,QSA]  
-	
-	RewriteRule ^locations/?=search=?$					   					index.php?p=locations&search=$1 [L,QSA]
-	RewriteRule ^locations/?=search=?$&page=([0-9]+)			   			index.php?p=locations&search=$1&page=$2[L,QSA]
-	RewriteRule ^locations/([A-Za-z0-9\-_]+)/?$	   							index.php?p=locations&type=$1 [L,QSA]
-	RewriteRule ^locations/([A-Za-z0-9\-_]+)/([A-Za-z0-9\-_]+)/?$	   		index.php?p=locations&type=$1&sort=$2 [L,QSA]
-	RewriteRule ^locations/(.*)$                     						index.php?p=locations [L,QSA]
-	
-	RewriteRule ^articles/?$					   			index.php?p=articles [L,QSA]
-	RewriteRule ^article/(.*)/?$	   						index.php?p=article&name=$1 [L,QSA]
-	
-	#### Rail Geelong legacy
-	RewriteRule ^(.*)\.php$                     					index.php?p=$1 [L,QSA]
 
 	#### Rewrite rules for search
 	RewriteRule ^%SEARCH%/*$															index.php?p=search [L,QSA]
