@@ -33,6 +33,7 @@ switch ($currentPage)
 	case 'aerial':
 	case 'site-search':
 	case 'sitemap':
+	case 'updates':
 		$showRailHistoryCmsRssLink = true;
 		
 	case 'contact':

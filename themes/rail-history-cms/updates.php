@@ -4,7 +4,7 @@ require_once("common/definitions.php");
 require_once("common/updates-functions.php");
 require_once("common/formatting-functions.php");
 
-$pageTitle = ' - Updates';
+$pageTitle = 'Updates';
 
 $pageNumber = 1;
 if(isset($_REQUEST['page']) && $_REQUEST['page'] > 0)
