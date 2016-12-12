@@ -12,10 +12,10 @@ $plugin_description = gettext("Custom CMS extensions for Zenphoto, enabling the 
 $plugin_author = "Marcus Wong (wongm)";
 $plugin_version = '1.0.0'; 
 $plugin_URL = "https://github.com/wongm/rail-history-cms/";
-$plugin_is_filter = 500 | ADMIN_PLUGIN;
+$plugin_is_filter = 9 | CLASS_PLUGIN;
 
-zp_register_filter('admin_utilities_buttons', 'railHistoryCMS::addAdminButton', 1000);
-zp_register_filter('admin_toolbox_global', 'railHistoryCMS::addGlobalEditLink', 1000);
+zp_register_filter('admin_utilities_buttons', 'railHistoryCMS::addAdminButton');
+zp_register_filter('admin_toolbox_global', 'railHistoryCMS::admin_toolbox_global');
 
 class railHistoryCMS {
 	
@@ -35,10 +35,11 @@ class railHistoryCMS {
 		return $buttons;
 	}
     
-    static function addGlobalEditLink() {
+    static function admin_toolbox_global($zf) {
     	echo "<li>";
-    	printLinkHTML(WEBPATH.'/plugins/rail-history-cms', 'Rail History CMS', NULL, NULL, NULL);
+    	printLinkHTML(WEBPATH.'/plugins/rail-history-cms/', 'Rail History CMS', NULL, NULL, NULL);
     	echo "</li>";
+		return $zf;
     }
 }
 ?>

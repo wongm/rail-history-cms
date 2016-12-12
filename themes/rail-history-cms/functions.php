@@ -12,7 +12,7 @@
 require_once('common/functions-gallery-formatting.php');
 require_once('common/definitions.php');
 
-zp_register_filter('admin_toolbox_global', 'railHistoryCMSTheme::addGlobalLink');
+zp_register_filter('admin_toolbox_global', 'railHistoryCMSTheme::admin_toolbox_global');
 zp_register_filter('getLink', 'railHistoryCMSTheme::setCustomGalleryPath');
 
 /**
@@ -31,14 +31,13 @@ class railHistoryCMSTheme {
 		}
 	}
     
-    static function addGlobalLink() {
+    static function admin_toolbox_global($zf) {
     	echo "<li>";
-    	printLinkHTML(WEBPATH.'/page/recent-uncaptioned', 'Uncaptioned images', NULL, NULL, NULL);
+    	printLinkHTML(WEBPATH.'/page/recent-uncaptioned/', 'Uncaptioned images', NULL, NULL, NULL);
     	echo "</li><li>";
-    	printLinkHTML(WEBPATH.'/page/recent-uncaptioned-albums', 'Uncaptioned albums', NULL, NULL, NULL);
-    	echo "</li><li>";
-    	printLinkHTML(WEBPATH.'/page/recent-duplicates', 'Duplicate images', NULL, NULL, NULL);
+    	printLinkHTML(WEBPATH.'/page/recent-uncaptioned-albums/', 'Uncaptioned albums', NULL, NULL, NULL);
     	echo "</li>";
+		return $zf;
     }
 }
 
