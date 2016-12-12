@@ -981,7 +981,7 @@ function getLineDiagramLocationImage($line, $currentLocation, $tracksToDisplay)
 function drawLineguideEventsSection($line)
 {
 ?>
-Events by Type :: <a href="/lineguide/<?php echo $line['lineLink']?>/events-by-date">Events by Date</a>
+Events by Type :: <a href="/lineguide/<?php echo $line['lineLink']?>/events-by-date/">Events by Date</a>
 <?php
 	drawEventsTable(getMiscLineEvents($line['lineId']), 1);
 

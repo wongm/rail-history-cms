@@ -53,7 +53,7 @@ else
 		drawLineguideHeaders($line, 'Events by Date');
 		drawAdminEditableLink("listLineEvents.php?line=".$line['lineLink'], "Edit events");
 		echo "<h3>Events</h3>\n";
-		echo "<a href=\"/lineguide/".$line['lineLink']."/events\">Events by Type</a> :: Events by Date\n";
+		echo "<a href=\"/lineguide/".$line['lineLink']."/events/\">Events by Type</a> :: Events by Date\n";
 		drawLineEvents($line['lineId'], 'By Date');
 		drawLineguideFooters($line);
 	}

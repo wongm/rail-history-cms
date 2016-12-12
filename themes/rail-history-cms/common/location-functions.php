@@ -436,7 +436,7 @@ function drawLocationDataTable($location)
 		{
 			$lineLinkDistance = "";
 ?>
-	<b>Line: </b><a href="/lineguide/<?php echo $lineLink?>"><?php echo $lineName?></a><br/>
+	<b>Line: </b><a href="/lineguide/<?php echo $lineLink?>/"><?php echo $lineName?></a><br/>
 <?php
 		}
 		
@@ -500,7 +500,7 @@ function getLineLinksForLocation($branchlines)
 				$mainText .= ",&nbsp;";
 			}
 
-			$mainText .= '<a href="/lineguide/'.$branchlines[$i]['link'].'">'.$branchlines[$i]['name']."</a>";
+			$mainText .= '<a href="/lineguide/'.$branchlines[$i]['link'].'/">'.$branchlines[$i]['name']."</a>";
 			$mainCount++;
 		}
 		else
@@ -510,7 +510,7 @@ function getLineLinksForLocation($branchlines)
 				$branchText .= ",&nbsp;";
 			}
 
-			$branchText .= '<a href="/lineguide/'.$branchlines[$i]['link'].'">'.$branchlines[$i]['name']."</a>";
+			$branchText .= '<a href="/lineguide/'.$branchlines[$i]['link'].'/">'.$branchlines[$i]['name']."</a>";
 
 			$branchDistanceText = "";
 			if ($branchlines[$i]['km'] != $initialKm)
