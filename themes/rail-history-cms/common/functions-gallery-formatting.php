@@ -504,4 +504,63 @@ function printFacebookTag()
 	echo "<meta property=\"og:title\" content=\"" . getImageTitle() . "\" />\n";	
 	echo "<meta property=\"og:description\" content=\"$description\" />\n";
 }
+
+/**
+ * Prints the album description of the current album.
+ *
+ * @param bool $editable
+ */
+function printAlbumDescAndLink($editable=false) 
+{
+	global $_zp_current_album;
+		
+	$linkContent = "";	
+	$railHistoryCMSLink = getRailHistoryCMSLinkForAlbum($_zp_current_album->getFileName());
+	if ($railHistoryCMSLink != null)
+	{
+		$linkContent = "For more details see <a href=\"" . $railHistoryCMSLink['url'] . "\">" . $railHistoryCMSLink['name'] . "</a>.";
+	}
+	
+	if ($editable AND zp_loggedin())
+	{
+		printMWEditableAlbumDesc(true);
+		echo '<div class="albumdesc">'.$linkContent.'</div>';
+	}
+	else
+	{
+		$desc = htmlspecialchars(getAlbumDesc());
+		$len = strlen($desc);
+		if ($len > 1 AND substr($desc, $len-1, 1) != '.') {
+			$desc .= ".";
+		}
+		
+		echo "<div class=\"albumdesc\">$desc $linkContent</div>";
+	}
+}
+
+function getRailHistoryCMSLinkForAlbum($albumFolderName)
+{
+	//prefer lineguide first, even if it doesn't exist
+	$lineResultSQL = "SELECT name, link FROM raillines WHERE photos = " . db_quote($albumFolderName);
+	$lineResult = query_full_array($lineResultSQL);
+	
+	if (sizeof($lineResult) > 0)
+	{
+		$url = "/lineguide/" . $lineResult[0]['link'] . "/";
+		return array('url' => $url, 'name' => $lineResult[0]['name']);
+		
+	}
+	
+	$locationResultSQL = "SELECT name, link FROM locations WHERE photos = " . db_quote($albumFolderName) . " AND link != ''";
+	$locationResult = query_full_array($locationResultSQL);
+	
+	if (sizeof($locationResult) > 0)
+	{
+		$url = "/location/" . $locationResult[0]['link'] . "/";
+		return array('url' => $url, 'name' => $locationResult[0]['name']);
+	}
+	
+	return null;
+}
+
 ?>

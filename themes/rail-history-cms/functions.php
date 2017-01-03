@@ -41,54 +41,6 @@ class railHistoryCMSTheme {
     }
 }
 
-
-/**
- * Prints the album description of the current album.
- *
- * @param bool $editable
- */
-function printAlbumDescAndLink($editable=false) 
-{
-	global $_zp_current_album;
-	
-	$desc = htmlspecialchars(getAlbumDesc());
-	$desc = str_replace("\r\n", "\n", $_zp_current_album->getDesc());
-	$desc = str_replace("\n", '<br />', $desc);
-	
-	$lineLink = $_zp_current_album->get('line_link');
-	$locationId = $_zp_current_album->get('location_id');
-	
-	$name = $linkContent = "";
-	if ($lineLink != '')
-	{
-		$name = $_zp_current_album->get('line_name');
-		$url = "/lineguide/$lineLink";
-	}	
-	else if ($locationId != 0 AND $locationId != '')
-	{
-		$name = $_zp_current_album->get('location_name');
-		$url = "/location/$locationId/";
-	}
-	
-	if ($name != '')
-	{
-		$linkContent = "For more details see <a href=\"$url\">$name</a>.";
-	}
-	
-	if ($editable AND zp_loggedin())
-	{
-		printMWEditableAlbumDesc(true);
-		echo '<div class="albumdesc">'.$linkContent.'</div>';
-	}
-	else
-	{
-		$len = strlen($desc);
-		if ($len > 1 AND substr($desc, $len-1, 1) != '.') {
-			$desc .= ".";
-		}
-		
-		echo "<div class=\"albumdesc\">$desc $linkContent</div>";
-	}
 function railHistoryCMS_checkPageValidity($request, $gallery_page, $page) {
     switch (stripSuffix($gallery_page))
 	{
