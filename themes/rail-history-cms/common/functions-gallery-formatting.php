@@ -301,7 +301,7 @@ function drawWongmAlbumRow()
 <?php 	if (zp_loggedin())
 	{
 		echo "<p>";
-		echo printLinkHTML($zf . '/zp-core/admin-edit.php?page=edit&album=' . urlencode(getAlbumURL()), gettext("Edit details"), NULL, NULL, NULL);
+		echo printLinkHTML('/zp-core/admin-edit.php?page=edit&album=' . urlencode(getAlbumURL()), gettext("Edit details"), NULL, NULL, NULL);
 		echo '</p>';
 	}
 ?>
