@@ -58,16 +58,4 @@ require_once('common/header.php'); ?>
   
    ?>
   </table>
-  
-  <?php if(hasNextPage() || hasPrevPage())
-  {	?>
-  <table class="nextables"><tr><td>
-    <?php if (hasPrevPage()) { ?> <a class="prev" href="<?php echo getPrevPageURL();?>" title="Previous Page"><span>&laquo;</span> Previous</a> <?php } ?>
-    <?php if (hasNextPage()) { ?> <a class="next" href="<?php echo getNextPageURL();?>" title="Next Page">Next <span>&raquo;</span></a><?php } ?>
-  </td></tr></table>
-<div class="pages">
-  <?php $url = str_replace('2', '', getPageURL(2));
-  drawGalleryPageNumberLinks($url); ?>
-</div>
-  <?php } ?>
 <?php require_once('common/footer.php'); ?>
