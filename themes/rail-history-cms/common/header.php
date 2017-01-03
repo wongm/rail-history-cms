@@ -1,5 +1,6 @@
 <?php
 // don't display errors
+$time = round(microtime(), 3);
 $server = $_SERVER['SERVER_NAME'];
 if ($server == 'localhost' OR isset($_GET['wongm']))
 {
