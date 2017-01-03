@@ -434,4 +434,74 @@ function getFullSearchDate($format='F Y') {
 	return false;
 }
 
+/**
+ * Prints a list of all pages.
+ *
+ * @param string $class the css class to use, "pagelist" by default
+ * @param string $id the css id to use
+ */
+function drawGalleryPageNumberLinks($url='')
+{
+	$total = getTotalPages();
+	$current = getCurrentPage();
+
+	echo '<p>';
+
+  	if ($total > 0)
+  	{
+		echo 'Page: ';
+	}
+
+	if ($current > 3 AND $total > 7)
+	{
+		echo "\n <a href=\"".$url.getMyPageURL(getPageURL(1))."\" title=\"First page\">1</a>&nbsp;";
+
+		if ($current > 4)
+		{
+			echo "...&nbsp;";
+		}
+	}
+
+	for ($i=($j=max(1, min($current-2, $total-6))); $i <= min($total, $j+6); $i++)
+	{
+		if ($i == $current)
+		{
+			echo $i;
+		}
+		else
+		{
+			echo '<a href="'.$url.getMyPageURL(getPageURL($i)).'"\" title="Page '.$i.'">'.($i).'</a>';
+		}
+		echo "&nbsp;";
+	}
+	if ($i <= $total)
+	{
+		if ($current < $total-5)
+		{
+			echo "...&nbsp;";
+		}
+
+		echo "<a href=\"".$url.getMyPageURL(getPageURL($total))."\" title=\"Last page\">" . $total . "</a>";
+	}
+	echo '</p>';
+}
+
+function getMyPageURL($defaultURL)
+{
+	$defaultURL = str_replace('/page/search/', '/gallery/search/', $defaultURL);
+	$defaultURL = str_replace('/page/page/', '/page/', $defaultURL);
+	return str_replace('/gallery/everything/', '/gallery/everything/page/', $defaultURL);
+}
+
+function printFacebookTag()
+{
+	$path = 'http://' . $_SERVER['HTTP_HOST'] . getImageThumb();		
+	$description = getGalleryDesc();	
+	if (strlen(getImageDesc()) > 0)	{
+		$description = getImageDesc() + ". $description";
+	}	
+	echo "<meta property=\"og:image\" content=\"$path\" />\n";
+	echo "<meta property=\"og:title\" content=\"" . getImageTitle() . "\" />\n";	
+	echo "<meta property=\"og:description\" content=\"$description\" />\n";
+}
 ?>
