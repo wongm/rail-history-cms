@@ -10,7 +10,6 @@
 
 $plugin_description = gettext("Custom CMS extensions for Zenphoto, enabling the creation of a dynamic rail history website.");
 $plugin_author = "Marcus Wong (wongm)";
-$plugin_version = '1.0.0'; 
 $plugin_URL = "https://github.com/wongm/rail-history-cms/";
 $plugin_is_filter = 9 | CLASS_PLUGIN;
 
@@ -87,5 +86,13 @@ class railHistoryCMS {
     	echo "</li>";
 		return $zf;
     }
+}
+
+function drawAdminEditableLink($link, $title)
+{
+	if ( zp_loggedin() )
+	{
+		echo "<b>Edit: </b><a href=\"/plugins/rail-history-cms/$link\" target=\"_new\">$title</a><br/>\n";
+	}
 }
 ?>
