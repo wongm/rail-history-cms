@@ -293,8 +293,12 @@ function getLineguideNavigation($line)
 		
 		foreach ($itemsToDisplay as $singleline)
 		{
-			$url = $_REQUEST['section'];
-			$url = str_replace('-by-date', '', $url);
+			$url = "";
+			if (isset($_REQUEST['section']))
+			{
+				$url = $_REQUEST['section'];
+				$url = str_replace('-by-date', '', $url);
+			}
 			if (isset($_REQUEST['page']))
 			{
 				$url .= "/page-".$_REQUEST['page'];

@@ -4,8 +4,10 @@
 </div>
 <div id="footer">
 <a href="/">Home</a> :: <a href="<?php echo SITEMAP_URL_PATH ?>">Sitemap</a> :: <a href="<?php echo COPYRIGHT_URL_PATH ?>">Copyright</a> :: <a href="<?php echo CONTACT_URL_PATH ?>">Contact</a><br/>
-<?php 	//display page generation time
-	// start $time = round(microtime(), 3);
+<?php 	
+//display page generation time
+// start $time = round(microtime(), 3);
+global $time;
 $time2 = round(microtime(), 3);
 $generation = str_replace('-', '', $time2 - $time);
 echo "Page Generation: $generation seconds.<br/>";?>
