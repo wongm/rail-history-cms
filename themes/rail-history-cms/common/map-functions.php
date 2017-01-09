@@ -6,8 +6,8 @@ function parseDescriptionForMap($description)
 {
 	if (strstr($description, "[[kml:"))
 	{
-		$segements = split ("\[\[kml:", $description);
-		$segements = split ("]]", $segements[1]);
+		$segements = explode("[[kml:", $description);
+		$segements = explode("]]", $segements[1]);
 		return $segements[0];
 	}
 	
@@ -44,7 +44,7 @@ function generateKMLScript($mapKML)
 
 function insertMapElement($description, $mapKML)
 {	
-	$mapHTML .= '<div id="map" class="inlinemap"></div>';
+	$mapHTML = '<div id="map" class="inlinemap"></div>';
 	
 	return str_replace("[[kml:$mapKML]]", $mapHTML, $description);
 }
