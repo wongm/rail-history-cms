@@ -16,8 +16,6 @@
 
 t/
 images/
-common/dbConnection*.php
-backend/common/dbConnection.php
 google*.html
 
 # Zenphoto code #
@@ -25,7 +23,6 @@ google*.html
 
 zp-core/
 index.php
-!zp-core/zenphoto-rewrite.txt
 
 # folders that should be empty #
 ################################
