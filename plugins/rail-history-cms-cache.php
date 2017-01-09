@@ -326,7 +326,7 @@ class static_html_cache_railHistoryCMS {
 								$sort = "-".sanitize($_GET['sort']);
 							}
 							if(isset($_GET['search'])) {
-								$search = "-".sanitize($_GET['search']);
+								$search = "-search".sanitize($_GET['search']);
 							}
 							$cachefilepath = $cachesubfolder."/".$custompage.'_name'.$id.$name.$box.$line.'_type'.$page.$type.$sort.$search;
 							break;					
@@ -370,7 +370,7 @@ class static_html_cache_railHistoryCMS {
 						default:			
 							$cachesubfolder = "pages";
 							$custompage = $_zp_gallery_page;
-							$id = $view = $title = $category = '';
+							$id = $view = $title = $category = $section = '';
 							
 							if(isset($_GET['id'])) {
 								$id = "-".sanitize($_GET['id']);
@@ -384,7 +384,10 @@ class static_html_cache_railHistoryCMS {
 							if(isset($_GET['category'])) {
 								$category = "-".sanitize($_GET['category']);
 							}
-							$cachefilepath = $cachesubfolder."/".$custompage.$id.$view.$title.$category.$page;
+							if(isset($_GET['section'])) {
+								$section = "-".sanitize($_GET['section']);
+							}
+							$cachefilepath = $cachesubfolder."/".$custompage.$id.$view.$title.$category.$section.$page;
 							break;
 					}
 				} else {
