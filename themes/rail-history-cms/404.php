@@ -23,7 +23,7 @@ $pageTitle = ' - 404 Page Not Found';
 require_once('common/header.php');
 ?>
 <div id="headbar">
-	<div class="link"><a href="/gallery/" title="Gallery Index">Gallery</a> &raquo; 404 Page Not Found</div>
+	<div class="link"><a href="/">Home</a> &raquo; 404 Page Not Found</div>
 	<div class="search"><?php printSearchForm(); ?></div>
 </div>
 <?php require_once('common/midbar.php'); ?>
