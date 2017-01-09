@@ -576,11 +576,11 @@ function getLineDiagram($line, $section, $trackPage)
 		if ($trackSubpage != "" && $trackPage != "")
 		{
 			$trackSubpages = explode(';', $trackSubpage);
-			$trackSubpageBounds = explode('-', $pageBounds[$trackPage-1]);
-			if (sizeof($pageBounds) == 2)
+			$trackSubpageBounds = explode('-', $trackSubpages[$trackPage-1]);			
+			if (sizeof($trackSubpageBounds) == 2)
 			{
-				$lowerBound = $pageBounds[1]-10;
-				$pageBounds = " AND km >= $pageBounds[0] AND km <= $pageBounds[1] ";
+				$lowerBound = $trackSubpageBounds[1]-10;
+				$pageBounds = " AND km >= $trackSubpageBounds[0] AND km <= $trackSubpageBounds[1] ";
 			}
 		}
 	}
@@ -623,7 +623,7 @@ function getLineDiagram($line, $section, $trackPage)
 		{
 			$toreturn[] = array('<td></td>',
 								'<td class="l" align="center" height="30"><img src="/t/2-break.gif" height="30" width="148" alt=""/></td>',
-								'<td class="t"><i><a href="/lineguide/'.$lineLink.'/diagram/page-'.($trackPage-1).'">Continued on page '.($trackPage-1).'</a></i></td>'
+								'<td class="t"><i><a href="/lineguide/'.$lineLink.'/diagram/page-'.($trackPage-1).'/">Continued on page '.($trackPage-1).'</a></i></td>'
 								);
 		}
 		
@@ -698,7 +698,7 @@ function getLineDiagram($line, $section, $trackPage)
 		{
 			$toreturn[] = array('<td></td>',
 								'<td class="l" align="center" height="30"><img src="/t/1-break.gif" height="30" width="148" alt=""/></td>',
-								'<td class="t"><i><a href="/lineguide/'.$lineLink.'/diagram/page-'.($trackPage+1).'">Continued on page '.($trackPage+1).'</a></i></td>'
+								'<td class="t"><i><a href="/lineguide/'.$lineLink.'/diagram/page-'.($trackPage+1).'/">Continued on page '.($trackPage+1).'</a></i></td>'
 								);
 		}	// end trackpage if
 	}
