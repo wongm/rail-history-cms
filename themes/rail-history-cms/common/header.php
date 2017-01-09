@@ -30,7 +30,9 @@ switch ($currentPage)
 	case 'lineguides':
 	case 'lineguide':
 	case 'regions':
+	case 'region':
 	case 'articles':
+	case 'article':
 	case 'aerial':
 	case 'site-search':
 	case 'sitemap':
