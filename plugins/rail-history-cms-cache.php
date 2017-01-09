@@ -353,8 +353,8 @@ class static_html_cache_railHistoryCMS {
 								$sort = "-".sanitize($_GET['sort']);
 							}
 							$cachefilepath = $cachesubfolder."/".$custompage.'_name'.$line.'_type'.$page.$year.$section.$sort;
-							break;	
-												
+							break;
+							
 						case 'regions':
 						case 'region':
 							$cachesubfolder = 'regions';
@@ -370,16 +370,21 @@ class static_html_cache_railHistoryCMS {
 						default:			
 							$cachesubfolder = "pages";
 							$custompage = $_zp_gallery_page;
-							$title = '';
-							$category = '';
+							$id = $view = $title = $category = '';
 							
+							if(isset($_GET['id'])) {
+								$id = "-".sanitize($_GET['id']);
+							}
+							if(isset($_GET['view'])) {
+								$view = "-".sanitize($_GET['view']);
+							}
 							if(isset($_GET['name'])) {
 								$title = "-".sanitize($_GET['name']);
 							}
 							if(isset($_GET['category'])) {
 								$category = "-".sanitize($_GET['category']);
 							}
-							$cachefilepath = $cachesubfolder."/".$custompage.$category.$title.$page;
+							$cachefilepath = $cachesubfolder."/".$custompage.$id.$view.$title.$category.$page;
 							break;
 					}
 				} else {
