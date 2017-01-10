@@ -22,7 +22,7 @@ google*.html
 ################################
 
 zp-core/
-index.php
+/index.php
 
 # folders that should be empty #
 ################################
