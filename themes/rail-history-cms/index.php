@@ -71,7 +71,7 @@ drawUpdatedPagesTable($updates['result'], true);
 
 setCustomPhotostream("", "i.albumid, DATE(i.date)", "i.date DESC");
 
-for ($albumCount = 1; $albumCount < 7; $albumCount++) {
+for ($albumCount = 1; $albumCount < 7 && $albumCount < getNumPhotostreamImages(); $albumCount++) {
 	next_photostream_image();
 	if (($albumCount % 3) == 1)
 	{
