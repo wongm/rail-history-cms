@@ -94,6 +94,7 @@ function drawLinkedPhotosFromGallery()
 			echo "<tr>\n";
 			while ($j < 3 AND $i<$displayRows )
 			{
++    				next_photostream_image();
 ?>
 	<td class="i">
 			<div class="imagethumb"><a href="<?php echo getFullImageURL();?>" rel="lightbox" title="<?php echo getImageTitle();?>">
