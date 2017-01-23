@@ -116,7 +116,7 @@ else
 
 	//general crap
 	$i=0;
-	$thisLocationId = stripslashes($result[$i]["l.location_id"]);
+	$thisLocationId = stripslashes($result[$i]["location_id"]);
 	$thisName = stripslashes($result[$i]["name"]);
 	$thisLink = stripslashes($result[$i]["link"]);
 	$thisSuburb = stripslashes($result[$i]["suburb"]);
