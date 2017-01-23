@@ -67,7 +67,8 @@ function drawLinkedPhotosFromGallery()
 			$k = 0;
 		}
 	
-		while (next_photostream_image())
+		next_photostream_image();
+		while ($i < $displayRows)
 		{
 			$linkedGalleryItemPath = getAlbumURL();
 			
@@ -76,15 +77,15 @@ function drawLinkedPhotosFromGallery()
 ?>
 <h4 id="photos" name="photos">Photos</h4><hr />
 <?php
-		if ($originalRows > 9)
-		{
-			$moreString = 'Nine of <a href="'.$linkedGalleryItemPath.'">'.$originalRows.' images found</a> displayed.';
-			$displayRows = 9;
-		}
-		else		
-		{
-			$moreString = '<a href="'.$linkedGalleryItemPath.'">'.$displayRows.' images found</a>.';
-		}
+				if ($originalRows > 9)
+				{
+					$moreString = 'Nine of <a href="'.$linkedGalleryItemPath.'">'.$originalRows.' images found</a> displayed.';
+					$displayRows = 9;
+				}
+				else		
+				{
+					$moreString = '<a href="'.$linkedGalleryItemPath.'">'.$displayRows.' images found</a>.';
+				}
 ?>
 <p><?php echo $moreString?> Click them to enlarge.</p>
 <table class="centeredTable">
@@ -94,7 +95,6 @@ function drawLinkedPhotosFromGallery()
 			echo "<tr>\n";
 			while ($j < 3 AND $i<$displayRows )
 			{
-+    				next_photostream_image();
 ?>
 	<td class="i">
 			<div class="imagethumb"><a href="<?php echo getFullImageURL();?>" rel="lightbox" title="<?php echo getImageTitle();?>">
@@ -107,6 +107,7 @@ function drawLinkedPhotosFromGallery()
 		</td>
 <?php 			$j++;
 				$i++;
++    			next_photostream_image();
 			}	//end while for cols
 			$j=0;
 ?>
