@@ -89,7 +89,7 @@ function drawLocationTabDisplayFields($tabdisplay, $lineName)
 <label><input type="checkbox" <?php if (substr($tabdisplay, 3, 1) == 1) { echo 'checked="yes"'; } ?> name="showSafeworking" /> Safeworking diagram</label><br>
 <label><input type="checkbox" <?php if (substr($tabdisplay, 2, 1) == 1) { echo 'checked="yes"'; } ?> name="showEvents" /> Events</label><br>
 <label><input type="checkbox" <?php if (substr($tabdisplay, 1, 1) == 1) { echo 'checked="yes"'; } ?> name="showLocations" /> Locations</label><br>
-<label><input type="checkbox" <?php if (file_exists($_SERVER['DOCUMENT_ROOT'].'/images/kml-'.$lineName.'.kml')) { echo 'checked="yes"'; } ?> /> Google map
+<label><input type="checkbox" <?php if (file_exists($_SERVER['DOCUMENT_ROOT'].'/images/kml/kml-'.$lineName.'.kml')) { echo 'checked="yes"'; } ?> /> Google map
 	<small>(user can't change, requires existance of "/images/kml/kml-<?php echo $lineName?>.kml")</small></label><br>
 <label><input type="checkbox" <?php if ($tabdisplay == 'hide' ) { echo 'checked="yes"'; } ?> name="hideAll" /> Hide line and all locations</label>
 <?php
