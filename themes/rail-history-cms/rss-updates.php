@@ -9,13 +9,18 @@ require_once("common/formatting-functions.php");
 
 $updatedPages = getUpdatedPages(0, 20);
 $updatedLocations = $updatedPages["result"];
+
+$host = htmlentities($_SERVER["HTTP_HOST"], ENT_QUOTES, 'UTF-8');
+$protocol = SERVER_PROTOCOL;
+$baseUrl = $protocol . '://' . $host;
+
 header('Content-Type: application/xml');
 ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
 <channel>
 <title>Rail Geelong - Updated content</title>
 <link>http://www.railgeelong.com</link>
-<atom:link href="http://www.railgeelong.com/rss.php" rel="self" type="application/rss+xml" />
+<atom:link href="<?php echo $baseUrl; ?>/rss.php" rel="self" type="application/rss+xml" />
 <description>Recent updates to lineguides, locations and articles</description>
 <language>en-AU</language>
 <pubDate><?php echo date("r", time()); ?></pubDate>
@@ -72,7 +77,7 @@ for ($i = 0; $i < sizeof($updatedLocations); $i++)
 				break;
 		}
 		
-		$urlText = "http://www.railgeelong.com/".strtolower($path).'/'.$itemlink;
+		$urlText = "$baseUrl/".strtolower($path).'/'.$itemlink;
 		
 		// skip location if has already been displayed, when on multiple lines it has the same ID
 		if ($itemlink != $pastItemLink)
