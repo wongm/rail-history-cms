@@ -112,7 +112,7 @@ function drawPageOfUpdated($updatedPages)
 
 function getUpdatedPages($index, $maxRowsPerPage)
 {
-	$sqlQuery = "SELECT l.location_id AS object_id, 'L' AS object_type, l.name, l.link AS link, l.modified, l.events, 
+	$sqlQuery = "SELECT l.location_id AS object_id, 'L' AS object_type, l.name, l.link AS link, l.modified, l.added, l.events, 
 		DATE_FORMAT(l.modified, '".SHORT_DATE_FORMAT."') AS fdate, l.type, l.photos AS photos, l.description AS length
 	FROM locations_raillines lr
 	INNER JOIN locations l ON lr.location_id = l.location_id
@@ -123,19 +123,19 @@ function getUpdatedPages($index, $maxRowsPerPage)
 	GROUP BY l.location_id
 	
 	UNION ALL
-	SELECT link AS object_id, 'RL' AS object_type, name, '' AS link, modified, 0, 
+	SELECT link AS object_id, 'RL' AS object_type, name, '' AS link, modified, added, 0, 
 		DATE_FORMAT(r.modified, '".SHORT_DATE_FORMAT."') AS fdate, '' AS type, photos, description AS length
 	FROM raillines r 
 	WHERE r.todisplay != 'hide'
 	
 	UNION ALL
-	SELECT link AS object_id, 'A' AS object_type, title AS name, '' AS link, modified, 0, 
+	SELECT link AS object_id, 'A' AS object_type, title AS name, '' AS link, modified, added, 0, 
 		DATE_FORMAT(a.modified, '".SHORT_DATE_FORMAT."') AS fdate, '' AS type, photos, content AS length
 	FROM articles a
 	WHERE a.line_id = 0 AND a.link != ''
 	
 	UNION ALL
-	SELECT link AS object_id, 'R' AS object_type, title AS name, '' AS link, modified, 0, 
+	SELECT link AS object_id, 'R' AS object_type, title AS name, '' AS link, modified, added, 0, 
 		DATE_FORMAT(a.modified, '".SHORT_DATE_FORMAT."') AS fdate, '' AS type, photos, description AS length
 	FROM articles a
 	WHERE a.line_id = -1";

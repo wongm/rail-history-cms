@@ -370,7 +370,7 @@ class static_html_cache_railHistoryCMS {
 						default:			
 							$cachesubfolder = "pages";
 							$custompage = $_zp_gallery_page;
-							$id = $view = $title = $category = $section = '';
+							$id = $view = $title = $category = $section = $date = '';
 							
 							if(isset($_GET['id'])) {
 								$id = "-".sanitize($_GET['id']);
@@ -387,7 +387,10 @@ class static_html_cache_railHistoryCMS {
 							if(isset($_GET['section'])) {
 								$section = "-".sanitize($_GET['section']);
 							}
-							$cachefilepath = $cachesubfolder."/".$custompage.$id.$view.$title.$category.$section.$page;
+							if(substr($custompage, 0, 3) === 'rss') {
+								$date = "-".date('Y-m-d', time());
+							}
+							$cachefilepath = $cachesubfolder."/".$custompage.$id.$view.$title.$category.$section.$page.$date;
 							break;
 					}
 				} else {

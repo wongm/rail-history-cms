@@ -15,8 +15,8 @@ header('Content-Type: application/xml');
 <channel>
 <title>Rail Geelong - Uploaded images</title>
 <link>http://www.railgeelong.com</link>
-<atom:link href="http://www.railgeelong.com/rss.php" rel="self" type="application/rss+xml" />
-<description>Recently uploaded images</description>
+<atom:link href="<?php echo $baseUrl; ?>/page/rss-uploads" rel="self" type="application/rss+xml" />
+<description>Recently uploaded images in the Rail Geelong gallery</description>
 <language>en-AU</language>
 <pubDate><?php echo date("r", time()); ?></pubDate>
 <lastBuildDate><?php echo date("r", time()); ?></lastBuildDate>
@@ -25,14 +25,19 @@ header('Content-Type: application/xml');
 <?php
 for ($albumCount = 1; $albumCount < 7; $albumCount++) {
 	next_photostream_image();
-	$imagePath = getDefaultSizedImage();
-	$title = "New photos in the " . getAlbumTitleForPhotostreamImage() . " album";
+	$imagePath = $baseUrl . getDefaultSizedImage();
+	
+	global $_zp_current_album;
+	$count = $_zp_current_album->count;
+	$photoPlural = ($count == 1) ? "" : "s";	
+	$title = "$count new photo$photoPlural in the " . getAlbumTitleForPhotostreamImage() . " album";
+	
 ?>
 <item>
-	<title><?php echo $title; ?></title>
+	<title><?php printImageDate(); echo " - $title"; ?></title>
 	<link><![CDATA[<?php echo $baseUrl . getAlbumURL(); ?>]]></link>
-	<description><![CDATA[<img border="0" src="<?php echo $protocol . '://' . $host . $imagePath; ?>" alt="<?php echo getAlbumTitleForPhotostreamImage() ?>" /><br><?php echo $title; ?>]]></description>
-	<guid><![CDATA[<?php echo getAlbumURL() . printImageDate(); ?>]]></guid>
+	<description><![CDATA[<img border="0" src="<?php echo $imagePath; ?>" alt="<?php echo getAlbumTitleForPhotostreamImage() ?>" /><br><?php echo $title; ?>]]></description>
+	<guid><![CDATA[<?php echo getAlbumURL(); printImageDate(); ?>]]></guid>
 	<pubDate><?php echo printImageDate(); ?></pubDate>
 </item>
 <?php 

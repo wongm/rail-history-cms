@@ -20,8 +20,8 @@ header('Content-Type: application/xml');
 <channel>
 <title>Rail Geelong - Updated content</title>
 <link>http://www.railgeelong.com</link>
-<atom:link href="<?php echo $baseUrl; ?>/rss.php" rel="self" type="application/rss+xml" />
-<description>Recent updates to lineguides, locations and articles</description>
+<atom:link href="<?php echo $baseUrl; ?>/page/rss-updates" rel="self" type="application/rss+xml" />
+<description>Recent updates to lineguides, locations and articles at Rail Geelong</description>
 <language>en-AU</language>
 <pubDate><?php echo date("r", time()); ?></pubDate>
 <lastBuildDate><?php echo date("r", time()); ?></lastBuildDate>
@@ -29,7 +29,7 @@ header('Content-Type: application/xml');
 <generator>Rail Geelong RSS Generator</generator>
 <?php
 $j = 0;
-$pastItemLink = -1;
+$pastitemLink = -1;
 for ($i = 0; $i < sizeof($updatedLocations); $i++)
 	{	
 		if ($j%2 == '0')
@@ -40,61 +40,68 @@ for ($i = 0; $i < sizeof($updatedLocations); $i++)
 		{
 			$style = 'class="even"';
 		}
-		
+				
 		$date = $updatedLocations[$i]["fdate"];
-		$objectid = $updatedLocations[$i]["object_id"];
+		$itemLink = $updatedLocations[$i]["object_id"];
 		$locationlink = $updatedLocations[$i]["link"];
 		$name = stripslashes($updatedLocations[$i]["name"]);
-		$objecttype = $updatedLocations[$i]["object_type"];
+		$objectTypeAbbr = $updatedLocations[$i]["object_type"];
 		$locationtype = $updatedLocations[$i]["type"];
-		$length = $updatedLocations[$i]["length"];
-		$events = $updatedLocations[$i]["events"];
-		$desc = stripslashes($updatedLocations[$i]["length"]);
-		
-		$itemlink = $objectid;
-		
-		$desc = strip_tags(getFormattedText(truncateString($desc, 500), true));
 		$date = date("r", strtotime($date) + (60*60*19));
+		$objectTypeDescription = ' page';
 		
-		switch ($objecttype)
+		switch ($objectTypeAbbr)
 		{
 			case 'L':
-				$path = 'Location';
+				$objectType = 'location';
 				$name = getLocationName($name, $locationtype);
 				if (strlen($locationlink) > 0) {
-					$itemlink = $locationlink;
+					$itemLink = $locationlink;
 				}
 				break;
 			case 'RL':
-				$path = 'Lineguide';
+				$objectType = 'lineguide';
 				$name = getLineName($name);
 				break;
 			case 'A':
-				$path = 'Article';
+				$objectType = 'article';
+				$objectTypeDescription = '';
 				break;	
 			case 'R':
-				$path = 'Region';
+				$objectType = 'region';
 				break;
 		}
 		
-		$urlText = "$baseUrl/".strtolower($path).'/'.$itemlink;
+		$addedDate = explode(" ", $updatedLocations[$i]["added"])[0];
+		$modifiedDate = explode(" ", $updatedLocations[$i]["modified"])[0];
+		$newItem = ($addedDate == $modifiedDate && $addedDate != "");
+		$addedText = $newItem ? "Added new " : "Updated ";
+		
+		if ($newItem) {
+			$desc = "A new page for the $name $objectType has been created";			
+		} else {
+			$desc = "The $name $objectType $objectTypeDescription has been updated";			
+		}
+		
+		$title = "$addedText$objectType: $name";
+		$urlText = "$baseUrl/".strtolower($objectType).'/'.$itemLink;
 		
 		// skip location if has already been displayed, when on multiple lines it has the same ID
-		if ($itemlink != $pastItemLink)
+		if ($itemLink != $pastitemLink)
 		{
 			$j++;
 ?>
 <item>
-	<title><?php echo "$path - $name"; ?></title>
+	<title><?php echo $title; ?></title>
 	<link><![CDATA[<?php echo $urlText; ?>]]></link>
 	<description><![CDATA[<?php echo $desc ?>]]></description>
-	<category><?php echo $path ?></category>
+	<category><?php echo $objectType ?></category>
 	<guid><![CDATA[<?php echo $urlText; ?>]]></guid>
 	<pubDate><?php echo $date; ?></pubDate>
 </item>
 <?php 	}
 		
-		$pastItemLink = $itemlink;
+		$pastitemLink = $itemLink;
 	}	// end for loop
 ?>
 </channel>
