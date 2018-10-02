@@ -4,6 +4,7 @@ require_once(dirname(dirname(dirname(__FILE__))).'/zp-core/global-definitions.ph
 require_once(dirname(dirname(dirname(__FILE__)))."/".ZENFOLDER . "/template-functions.php");
 
 require_once("common/definitions.php");
+require_once("common/formatting-functions.php");
 
 $host = htmlentities($_SERVER["HTTP_HOST"], ENT_QUOTES, 'UTF-8');
 $protocol = SERVER_PROTOCOL;
@@ -46,7 +47,7 @@ function runQuery($time, $baseUrl)
 	$day = date('j', $time);
 	$month = date('n', $time);
 	
-	$sql = "SELECT YEAR(open) AS year, l.location_id AS event_id, DATE_FORMAT(l.open, '".SHORT_DATE_FORMAT."') AS fdate, DATE_FORMAT(l.close, '".SHORT_DATE_FORMAT."') AS fdatealt, l.open AS plaindate, 'opened' AS tracks, 
+	$sql = "SELECT YEAR(open) AS year, l.location_id AS event_id, DATE_FORMAT(l.open, '".SHORT_DATE_FORMAT."') AS fdate, openAccuracy AS approx, DATE_FORMAT(l.close, '".SHORT_DATE_FORMAT."') AS fdatealt, closeAccuracy AS approxAlt, l.open AS plaindate, 'opened' AS tracks, 
 			'-', '-', '-', '-', 
 			'-', '-', l.open AS date, r.name AS line, '', 
 			'-', '-', basic, '-', '-', '-', l.openAccuracy AS dateAccuracy, 
@@ -60,7 +61,7 @@ function runQuery($time, $baseUrl)
 			AND DAY(open) = '" . $day . "' AND MONTH(open) = '" . $month . "'
 			AND l.openAccuracy = 'exact'
 			UNION
-			SELECT YEAR(close) AS year, l.location_id AS event_id, DATE_FORMAT(l.close, '".SHORT_DATE_FORMAT."')  AS fdate, DATE_FORMAT(l.open, '".SHORT_DATE_FORMAT."') AS fdatealt, l.close AS plaindate, 'closed' AS tracks, 
+			SELECT YEAR(close) AS year, l.location_id AS event_id, DATE_FORMAT(l.close, '".SHORT_DATE_FORMAT."')  AS fdate, closeAccuracy AS approx, DATE_FORMAT(l.open, '".SHORT_DATE_FORMAT."') AS fdatealt, openAccuracy AS approxAlt, l.close AS plaindate, 'closed' AS tracks, 
 			'-', '-', '-', '-', 
 			'-', '-', l.close, r.name AS line, '', 
 			'-', '-', basic, '-', '-', '-', l.closeAccuracy AS dateAccuracy, 
@@ -83,7 +84,9 @@ function runQuery($time, $baseUrl)
 		$currentYear = date('Y', $time);
 		$pastYear = $result[0]['year'];
 		$fdate = $result[0]['fdate'];
-		$fdatealt = $result[0]['fdatealt'];		
+		$fdatealt = $result[0]['fdatealt'];
+		$fdateFormatted = formatDate($result[0]['fdate'], $result[0]['approx']);
+		$fdatealtFormatted = formatDate($result[0]['fdatealt'], $result[0]['approxAlt']);		
 		$location_name = $result[0]['location_name'];
 		$line = $result[0]['line'];
 		$action = $result[0]['tracks'];
@@ -94,14 +97,14 @@ function runQuery($time, $baseUrl)
 		$locationType = ($result[0]['basic'] == 'Station') ? ' station' : "";
 		
 		$oppositeMessage = "";
-		if ($fdatealt != 'January 1, 9999') {
+		if ($fdatealt != 'January 1, 9999' && $fdatealt != 'January 1, 0001') {
 			$opposite = ($action == 'opened') ? 'closed' : 'opened';
-			$oppositeMessage = ". It $opposite on $fdatealt";
+			$oppositeMessage = ". It $opposite on $fdatealtFormatted";
 		}
 		
 		$root = "$location_name$locationType $action on the $line line";
-		$title = "On this day $yearsAgo year$yearPlural ago, $fdate: $root";
-		$description = "$root on $fdate$oppositeMessage.";
+		$title = "On this day $yearsAgo year$yearPlural ago, $fdateFormatted: $root";
+		$description = "On this day $yearsAgo year$yearPlural ago: $root on $fdateFormatted$oppositeMessage.";
 		$urlText = "$baseUrl/location/$location_id";
 ?>
 <item>
