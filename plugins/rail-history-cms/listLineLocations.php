@@ -9,7 +9,8 @@ if ($lineLink != '')
 	$limit = "AND r.link = '".$lineLink."' ";
 }
 
-$sql = "SELECT * FROM locations l, location_types lt, locations_raillines lr, raillines r 
+$sql = "SELECT l.name AS locationame, l.*, lt.*, lr.*, r.*
+        FROM locations l, location_types lt, locations_raillines lr, raillines r 
 		WHERE lr.location_id = l.location_id AND lr.line_id = r.line_id 
 		AND l.type = lt.type_id $limit
 		ORDER BY km ASC";
@@ -52,7 +53,7 @@ for ($i = 0; $i < $numberOfRows; $i++)
 	}
 	
 	$thisLocation_id = stripslashes($result[$i]["location_id"]);
-	$thisName = stripslashes($result[$i]["name"]);
+	$thisName = stripslashes($result[$i]["locationame"]);
 	$thisType = stripslashes($result[$i]["basic"]);
 	$thisImg = stripslashes($result[$i]["image"]);
 	$thisLink = stripslashes($result[$i]["url"]);

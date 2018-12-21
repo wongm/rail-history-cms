@@ -92,7 +92,7 @@ else if ($formType == 'newLocationEvents')
 }
 
 
-$sql = "SELECT  l.*, lr.*, r.link  
+$sql = "SELECT l.link AS locationlink, l.name AS locationname, l.*, lr.*, r.link  
 	FROM locations l
 	INNER JOIN locations_raillines lr ON l.location_id = lr.location_id 
 	INNER JOIN raillines r ON r.line_id = lr.line_id 
@@ -117,8 +117,8 @@ else
 	//general crap
 	$i=0;
 	$thisLocationId = stripslashes($result[$i]["location_id"]);
-	$thisName = stripslashes($result[$i]["name"]);
-	$thisLink = stripslashes($result[$i]["link"]);
+	$thisName = stripslashes($result[$i]["locationname"]);
+	$thisLink = stripslashes($result[$i]["locationlink"]);
 	$thisSuburb = stripslashes($result[$i]["suburb"]);
 	$thisTracks = stripslashes($result[$i]["tracks"]);
 	$thisType = stripslashes($result[$i]["type"]);
