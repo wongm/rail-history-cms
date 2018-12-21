@@ -35,6 +35,12 @@ function getLineguideExtraPage($line, $section)
 
 function getLine($lineToDisplay, $yearToDisplay)
 {
+    $filter = "";
+	// show if admin when page is in edit mode
+    if ( !zp_loggedin() ) {
+        $filter = " AND todisplay != 'hide'";
+    }
+    
 	//	fix up names and line IDs
 	$lineResultSQL = "SELECT r.*, r.link AS pagelink, r.name AS pagetitle, r.description as pagecontent, 
 			DATE_FORMAT(r.modified, '%M %e, %Y') AS fdate, 
@@ -42,7 +48,7 @@ function getLine($lineToDisplay, $yearToDisplay)
 			FROM raillines r
 			LEFT OUTER JOIN locations_raillines lr ON lr.line_id = r.line_id
 			WHERE r.link = ".db_quote($lineToDisplay)." 
-			AND todisplay != 'hide'
+			$filter
 			GROUP BY lr.line_id
 		UNION ALL 
 			SELECT r.*, a.link AS pagelink, a.title AS pagetitle, a.content as pagecontent, 
@@ -50,7 +56,7 @@ function getLine($lineToDisplay, $yearToDisplay)
 			FROM raillines r
 			LEFT OUTER JOIN articles a ON a.line_id = r.line_id
 			WHERE r.link = ".db_quote($lineToDisplay)." 
-			AND todisplay != 'hide'";
+			$filter";
 			
 	$lineResult = query_full_array($lineResultSQL);
 	$numberOfPageResults = sizeof($lineResult);
@@ -172,10 +178,22 @@ function getLineBasicDetails($result, $j)
 	$line["lineLocations"] = $result[$j]["line_locations"];
 	$line["todisplay"] = $result[$j]["todisplay"];
 	$todisplay = $line["todisplay"];
-	$line["showTrack"] = substr($todisplay, 4, 1) == 1;
-	$line["showSafeworking"] = substr($todisplay, 3, 1) == 1;
-	$line["showEvents"] = substr($todisplay, 2, 1) == 1;
-	$line["showLocations"] = substr($todisplay, 1, 1) == 1;
+	
+	// show everything if admin and page is in edit mode
+	if ($todisplay == 'hide' && zp_loggedin())
+	{
+    	$line["showTrack"] = true;
+    	$line["showSafeworking"] = true;
+    	$line["showEvents"] = true;
+    	$line["showLocations"] = true;
+	}
+	else
+	{
+    	$line["showTrack"] = substr($todisplay, 4, 1) == 1;
+    	$line["showSafeworking"] = substr($todisplay, 3, 1) == 1;
+    	$line["showEvents"] = substr($todisplay, 2, 1) == 1;
+    	$line["showLocations"] = substr($todisplay, 1, 1) == 1;
+	}
 	
 	$line["googleMapUrl"] = '/images/kml/kml-'.$line["lineId"].'.kml';
 	$line["showGoogleMap"] = file_exists($_SERVER['DOCUMENT_ROOT'].$line["googleMapUrl"]) == 1;

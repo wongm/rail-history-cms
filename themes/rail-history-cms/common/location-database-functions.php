@@ -34,6 +34,12 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 		}
 	}
 	
+    $filter = "";
+	// show if admin when page is in edit mode
+    if ( !zp_loggedin() ) {
+        $filter = " AND r.todisplay != 'hide'";
+    }
+	
 	// check for duplicates from DB
 	$locationSql = "SELECT lt.*, lr.*, l.* , lr.kmAccuracy, r.todisplay, r.name AS linename, r.link, r.line_id, r.tracksubpage, 
 		DATE_FORMAT(open, '".SHORT_DATE_FORMAT."') AS fopen, DATE_FORMAT(close, '".SHORT_DATE_FORMAT."') 
@@ -43,7 +49,7 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 		INNER JOIN locations_raillines lr ON l.location_id = lr.location_id
 		INNER JOIN raillines r ON r.line_id = lr.line_id
 		INNER JOIN location_types lt  ON lt.type_id = l.type 
-		WHERE ".$toFind." display != 'tracks' AND r.todisplay != 'hide' 
+		WHERE ".$toFind." display != 'tracks' $filter 
 		ORDER BY l.location_id ASC, lr.junctiontype, r.order ASC";
 	$locationResults = query_full_array($locationSql);
 	$duplicateCount = sizeof($locationResults);

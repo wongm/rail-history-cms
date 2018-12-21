@@ -69,6 +69,12 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 		//echo $sortText ;
 	}
 	
+    $filter = "";
+	// show if admin when page is in edit mode
+    if ( !zp_loggedin() ) {
+        $filter = " AND r.todisplay != 'hide'";
+    }
+	
 	$sql = "SELECT l.location_id, l.name, l.link, r.name AS linename, r.link AS linelink, l.photos, 
 		l.events, kmaccuracy, km, l.type, basic, r.line_id, length(l.description) AS description_length
 		FROM locations l
@@ -76,7 +82,7 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 		INNER JOIN locations_raillines lr ON lr.location_id = l.location_id
 		INNER JOIN raillines r ON r.line_id=lr.line_id
 		LEFT OUTER JOIN locations ol ON l.name = ol.name 
-		WHERE ".$sqlSpecific." l.name != '' AND l.display != 'tracks' AND r.todisplay != 'hide' 
+		WHERE ".$sqlSpecific." l.name != '' AND l.display != 'tracks' $filter
 		GROUP BY location_id ".$sqlorder;
 	$result = query_full_array($sql);
 	$result = query_full_array($sql);
