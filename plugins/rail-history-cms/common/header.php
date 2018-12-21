@@ -20,10 +20,6 @@ if(!isset($pageHeading) || $pageHeading == '')
 <link rel="stylesheet" type="text/css" href="css/style.css" media="all" title="Normal" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="<?php echo $_zp_themeroot ?>/js/functions.js" type="text/javascript"></script>
-<script src="js/scriptaculous/scriptaculous.js" type="text/javascript"></script>
-<script src="js/jquery.dimensions.js" type="text/javascript"></script>
-<script src="js/jquery.tooltip.js" type="text/javascript"></script>
-<script src="js/jquery.tabs.js" type="text/javascript"></script>
 <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
 <?php zp_apply_filter('theme_head') ?>
 </head>
