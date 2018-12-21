@@ -1057,10 +1057,16 @@ function checkLineguideDiagramYears($line)
 
 function drawAllLineguideDotpoints($type)
 {
+    $filter = "";
+	// show if admin when page is in edit mode
+    if ( !zp_loggedin() ) {
+        $filter = " AND todisplay != 'hide'";
+    }
+    
 	$sql = "SELECT *, count(lr.line_id) AS line_locations
 	FROM raillines r
 	LEFT OUTER JOIN locations_raillines lr ON lr.line_id = r.line_id
-	WHERE todisplay != 'hide' AND link != 'off-rail'
+	WHERE link != 'off-rail' $filter
 	GROUP BY lr.line_id
 	ORDER BY `order` ASC";
 	$result = query_full_array($sql);

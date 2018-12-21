@@ -109,12 +109,18 @@ else
 
 function drawRegionRaillines($regionLink, $regionId)
 {
+    $filter = "";
+	// show if admin when page is in edit mode
+    if ( !zp_loggedin() ) {
+        $filter = " AND todisplay != 'hide'";
+    }
+    
 	$raillineSQL = sprintf("SELECT r.*, r.`order` AS lineorder, r.link AS pagelink, r.name AS pagetitle, r.description as pagecontent, rr.content as regioncontent, 
 			count(lr.line_id) AS line_locations, 'page' AS type
 			FROM railline_region rr
 			INNER JOIN raillines r ON rr.line_id = r.line_id 
 			LEFT OUTER JOIN locations_raillines lr ON lr.line_id = r.line_id
-			WHERE rr.article_id = '%s' AND todisplay != 'hide'
+			WHERE rr.article_id = '%s' $filter
 			GROUP BY lr.line_id 
 		UNION ALL 
 			SELECT r.*, r.`order` AS lineorder, a.link AS pagelink, a.title AS pagetitle, a.content as pagecontent, '' as regioncontent, 
@@ -122,7 +128,7 @@ function drawRegionRaillines($regionLink, $regionId)
 			FROM railline_region rr
 			INNER JOIN raillines r ON rr.line_id = r.line_id 
 			LEFT OUTER JOIN articles a ON a.line_id = r.line_id
-			WHERE rr.article_id = '%s' AND todisplay != 'hide'
+			WHERE rr.article_id = '%s' $filter
 			ORDER BY lineorder ASC",
 			($regionId), ($regionId));
 						
