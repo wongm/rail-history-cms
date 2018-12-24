@@ -28,7 +28,7 @@ foreach ($regions as $region)
 		// skip the region field
 		for ($i = 0; $i < sizeof($pageNavigation) - 1; $i++)
 		{
-			echo '<li><a href="' . $pageNavigation[$i]['url'] . '">' . $pageNavigation[$i]['title'] . "</a></li>\n";
+			echo '<li><a href="' . $pageNavigation[$i]['url'] . '">&gt;&nbsp;' . $pageNavigation[$i]['title'] . "</a></li>\n";
 		}
 				
 		echo "<ul class=\"subsubmenu\">\n";
@@ -37,7 +37,7 @@ foreach ($regions as $region)
 		// minus 2 for URL and title attribs
 		for ($i = 0; $i < sizeof($pageNavigation[0]) - 2; $i++)
 		{
-			echo '<li><a href="' . $pageNavigation[0][$i]['url'] . '">' . $pageNavigation[0][$i]['title'] . "</a></li>\n";
+			echo '<li><a href="' . $pageNavigation[0][$i]['url'] . '">&gt;&gt;&nbsp;' . $pageNavigation[0][$i]['title'] . "</a></li>\n";
 		}
 		// end class subsubmenu
 		echo "</ul>\n";
