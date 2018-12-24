@@ -1,5 +1,5 @@
 <?php
-include_once("../common/dbConnection.php");
+include_once("common/dbConnection.php");
 
 // Retreiving Form Elements from Form
 $thisLinkzor_id = addslashes($_REQUEST['thisLinkzor_idField']);
@@ -18,5 +18,5 @@ else
 	$result = query_full_array($sqlQuery);
 }
 
-Header("Location: /backend/listRaillineRegion.php");
+Header("Location: listRaillineRegion.php");
 ?>
