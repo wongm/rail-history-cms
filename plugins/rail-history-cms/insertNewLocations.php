@@ -5,7 +5,7 @@ include_once("common/dbConnection.php");
 $thisName = addslashes($_REQUEST['thisNameField']);
 $thisSuburb = addslashes($_REQUEST['thisSuburbField']);
 $thisLine = addslashes($_REQUEST['thisLineField']);
-$thisTracks = addslashes($_REQUEST['thisTracksField']);
+$thisTracks = 1;
 $thisType = addslashes($_REQUEST['thisTypeField']);
 $thisImage = addslashes($_REQUEST['thisImageField']);
 $thisLx_type = addslashes($_REQUEST['thisLx_typeField']);
