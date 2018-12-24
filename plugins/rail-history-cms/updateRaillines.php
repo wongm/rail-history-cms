@@ -84,6 +84,7 @@ $done .= '<p>Line data updated!</p>';
  */
 if ($thisPhotos != '')
 {
+    /*
 	galleryDBConnect();
 	
 	if (sizeof(split(';', $thisPhotos)) == 1)
@@ -95,6 +96,7 @@ if ($thisPhotos != '')
 		$done .= '<p>Gallery location links updated!</p>';
 	}
 	backendDBConnect();
+	*/
 }
 
 if ($result != 0)
