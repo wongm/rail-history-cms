@@ -753,55 +753,70 @@ function getLocationEvents($location)
 	$numberOfRows = sizeof($result);
 	
 	$i=0;
-	$locationevents = null;
+	$locationevents = array();
+	$eventclose = null;
+	$addCloseDate = false;
 	
 	if ($numberOfRows>0) 
 	{
 		// for the opening if none listed under events
 		if ($location['openPlain'] < $result[$i]["date"] AND $location['isCrossing'] == false AND $location['openPlain'] != DATE_UNKNOWN_OPEN)
-		{	
-			$locationevents[0]["date"] = formatDate($location['open'], $location['approxOpen']);
-			$locationevents[0]["details"] = 'Opened';
-			$i++;
+		{
+			$event["date"] = formatDate($location['open'], $location['approxOpen']);
+			$event["details"] = 'Opened';
+			array_push($locationevents, $event);
+		}
+		
+		// add closing details
+		if (!$location['stillOpen'] AND $date != $location['close'] ) 
+		{
+			$eventclose["date"] = formatDate($location['close'], $location['approxClose']);
+			$eventclose["details"] = 'Closed';
 		}
 		
 		while ($i < $numberOfRows)
-		{	
+		{
+    		if ($result[$i]["date"] > $location['closePlain'] && $eventclose != null)
+    		{
+        		array_push($locationevents, $eventclose);
+        		$addCloseDate = true;
+    		}
+    		
 			// initial setup of date and details
 			$date = formatDate($result[$i]["fdate"], $result[$i]["dateAccuracy"]);
 			$details = getLocationEventDetails(stripslashes($result[$i]["details"]));
 			
 			// asssign value to be returned
-			$locationevents[$i]["date"] = $date;
-			$locationevents[$i]["details"] = $details;
+			$event["date"] = $date;
+			$event["details"] = $details;
+			array_push($locationevents, $event);
 			$i++;
 		}	
 		//end while
 		
-		// add closing details
-		if (!$location['stillOpen'] AND $date != $location['close'] ) 
+		if (!$addCloseDate && $eventclose != null)
 		{
-			$locationevents[$i]["date"] = formatDate($location['close'], $location['approxClose']);
-			$locationevents[$i]["details"] = 'Closed';
+    		array_push($locationevents, $eventclose);
 		}
-	} 		
+	}
 	//	end "$numberOfRows>0" if
-
 	//	if no events are found at all
 	else
 	{	
 		$i = 0;
 		if ($location['openPlain'] != DATE_UNKNOWN_OPEN AND !$location['isCrossing'])	
 		{
-			$locationevents[$i]["date"] = formatDate($location['open'], $location['approxOpen']);
-			$locationevents[$i]["details"] = 'Opened';
+			$event["date"] = formatDate($location['open'], $location['approxOpen']);
+			$event["details"] = 'Opened';
+			array_push($locationevents, $event);
 			$i++;
 		}
 			
 		if (!$location['stillOpen']) 
 		{ 
-			$locationevents[$i]["date"] = formatDate($location['close'], $location['approxClose']);
-			$locationevents[$i]["details"] = 'Closed';
+			$event["date"] = formatDate($location['close'], $location['approxClose']);
+			$event["details"] = 'Closed';
+			array_push($locationevents, $event);
 		}
 	}
 	
