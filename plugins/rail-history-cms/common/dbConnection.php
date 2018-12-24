@@ -9,5 +9,6 @@ setupTheme();
 
 include_once('backend-functions.php');
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . $_zp_themeroot . '/common/formatting-functions.php');
+require_once(dirname(dirname(dirname(dirname(__FILE__)))) . $_zp_themeroot . '/common/definitions.php');
 
 ?>

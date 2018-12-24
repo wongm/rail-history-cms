@@ -38,7 +38,7 @@ function drawAllMap($center, $zoom, $types, $lines)
 <meta name="description" content="<?php echo getGalleryDesc();?>" />
 <link rel="stylesheet" type="text/css" href="<?php echo $_zp_themeroot ?>/css/style.css" media="all" title="Normal" />
 <link rel="stylesheet" type="text/css" href="<?php echo $_zp_themeroot ?>/css/aerialstyle.css" />
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<?php echo GOOGLE_KEY?>" type="text/javascript"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<?php echo GOOGLE_KEY_v3 ?>" type="text/javascript"></script>
 <script src="<?php echo $_zp_themeroot ?>/js/functions.js" type="text/javascript"></script>
 <script src="<?php echo $_zp_themeroot ?>/js/aerialfunctions.js" type="text/javascript"></script></head>
 <script src="/aerialjavascript.php?lines=<?php echo $lines; ?>&types=<?php echo $types; ?>" type="text/javascript"></script>
