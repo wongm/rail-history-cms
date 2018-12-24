@@ -204,10 +204,10 @@ else
     <tr valign="top" height="20">
 		<td align="right"> <b> <abbr title="effects whether a gap is left in a lineguide diagram or not, and what side">Tracks</abbr> :  </b> </td>
 		<td><select name="thisTracksField">
-		<option <?php if ($thisTracks == '1'){echo selected;} ?> value="1">Normal</option>
-		<option <?php if ($thisTracks == '0'){echo selected;} ?> value="0">No Gap (Top)</option>
-		<option <?php if ($thisTracks == '9'){echo selected;} ?> value="9">No Gap (Bottom)</option>
-		<option <?php if ($thisTracks == '2'){echo selected;} ?> value="2">2</option>
+		<option <?php if ($thisTracks == '1'){echo "selected";} ?> value="1">Normal</option>
+		<option <?php if ($thisTracks == '0'){echo "selected";} ?> value="0">No Gap (Top)</option>
+		<option <?php if ($thisTracks == '9'){echo "selected";} ?> value="9">No Gap (Bottom)</option>
+		<option <?php if ($thisTracks == '2'){echo "selected";} ?> value="2">2</option>
 		</select></td> 
 		<!--<input type="text" name="thisTracksField" size="30" value="<?php echo $thisTracks; ?>"> -->
 	</tr>
@@ -342,12 +342,12 @@ else
 						<td align="right"> <b> Km :  </b> </td>
 						<td> <input type="text" name="thisKmField" size="8" value="<?php echo $thisKm; ?>">
 						<select name="thisKmAccuracyField">
-<?php drawApproxDistanceFields() ?>	
+<?php drawApproxDistanceFields(null) ?>	
 						</select></td></tr>
 					<tr valign="top" height="20">
 						<td align="right"> <b> Type :  </b> </td>
 						<td><select name="thisJunctionTypeField">
-<?php drawRaillineTypeFields() ?>	
+<?php drawRaillineTypeFields(null) ?>	
 						</select></td>
 					</tr>
 				</table>
