@@ -461,7 +461,7 @@ function drawLinedLocationsTable($locationData, $displayType)
 
 	// skips the header cells
 	$i = 0;
-	while ($i < $numberOfLocations - 1)
+	while ($i < $numberOfLocations)
 	{
 		if ($i%2 == '0')
 		{
