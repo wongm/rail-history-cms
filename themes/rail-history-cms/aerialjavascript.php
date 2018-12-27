@@ -103,8 +103,8 @@ if ($types != '' OR $lines != '')
 function initialcustom()
 {	
 <?php
-	$typesarray = split(',', $types);
-	$linesarray = split(',', $lines);
+	$typesarray = explode(',', $types);
+	$linesarray = explode(',', $lines);
 	
 	// get the types of locations we want
 	for ($i = 0; $i < sizeOf($typesarray);  $i++)
