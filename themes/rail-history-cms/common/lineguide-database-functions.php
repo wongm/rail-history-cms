@@ -195,7 +195,7 @@ function getLineBasicDetails($result, $j)
     	$line["showLocations"] = substr($todisplay, 1, 1) == 1;
 	}
 	
-	$line["googleMapUrl"] = '/images/kml/kml-'.$line["lineId"].'.kml';
+	$line["googleMapUrl"] = '/images/kml/lineguide-'.$line["lineLink"].'.kml';
 	$line["showGoogleMap"] = file_exists($_SERVER['DOCUMENT_ROOT'].$line["googleMapUrl"]) == 1;
 	
 	return $line;

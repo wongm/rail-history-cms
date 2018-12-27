@@ -78,7 +78,7 @@ else
 		
 		echo "<h3>Google Map</h3>\n";
 		echo generateMapElement();
-		echo generateKMLScript('kml-' . $line['lineId'] . '.kml');
+		echo generateKMLScript($line['googleMapUrl']);
 		drawLineguideFooters($line);
 	}
 	// 'home' page for line with links
