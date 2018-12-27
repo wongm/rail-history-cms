@@ -26,11 +26,11 @@ zp_register_filter('admin_utilities_buttons', 'cacheManager_railHistoryCMS::over
  */
 class cacheManager_railHistoryCMS {
 
-	static function overviewbutton($buttons) {		
+	static function overviewbutton($buttons) {
 
 		$buttons[] = array(
 						'category'		 => gettext('Cache'),
-						'enable'			 => $enable,
+						'enable'			 => true,
 						'button_text'	 => gettext('Cache manager'),
 						'formname'		 => 'cacheManager_button',
 						'action'			 => WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cacheManager/cacheImages.php?page=overview&tab=images',
@@ -38,7 +38,7 @@ class cacheManager_railHistoryCMS {
 						'alt'					 => '',
 						'hidden'			 => '',
 						'rights'			 => ADMIN_RIGHTS,
-						'title'				 => $title
+						'title'				 => gettext('Finds images that have not been cached and creates the cached versions.')
 		);
 		$buttons[] = array(
 						'category'=>gettext('Cache'),
