@@ -18,13 +18,13 @@ if (sizeof($article) == 1)
 	$articleSources = getObjectSources('article', $articleId, '');
 	$lastUpdatedDate = $article[0]["fdate"]; 
 	
-	$mapKML = parseDescriptionForMap($description);
+	$mapKMLfile = parseDescriptionForMap($description);
 	$mapJS = "";
 	
-	if ($mapKML)
+	if ($mapKMLfile)
 	{
-		$description = replaceMapElement($description, $mapKML);
-		$mapJS.= generateKMLScript($mapKML);
+		$description = replaceMapElement($description, $mapKMLfile);
+		$mapJS.= generateKMLScript("/images/kml/" . $mapKMLfile);
 	}
 	
 	require_once("common/header.php");
