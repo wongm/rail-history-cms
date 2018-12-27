@@ -15,8 +15,6 @@ else
 // $pageTitle
 // $pageHeading
 // $pageNavigation
-// $googleHeader
-// $googleHeaderKMLscript
 // $canonical
 
 $showRailHistoryCmsRssLink = false;
@@ -77,12 +75,6 @@ $localPageTitle = getGalleryTitle() . $localPageTitle;
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo $_zp_themeroot ?>/js/functions.js"></script>
 <script type="text/javascript" src="<?php echo $_zp_themeroot ?>/js/lightbox.js"></script>
-<?php if (isset($googleHeader) && strlen($googleHeader) > 0) { ?>
-<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=<?=GOOGLE_KEY?>" type="text/javascript"></script>
-<?php 
-    echo $googleHeaderKMLscript;
-    $bodyExtra = ' onload="loadLineguideAll()" onunload="GUnload()"';
-} ?>
 <?php zp_apply_filter('theme_head') ?>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="description" content="<?php echo getGalleryDesc();?>" />

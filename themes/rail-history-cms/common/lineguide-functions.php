@@ -6,14 +6,11 @@ function drawLineguideHeaders($line, $section='')
 {
 	$pageTitle = $pageHeading = getLineName($line['lineName'])." Guide";
 
-	if ($section != '') {		
+	if ($section != '') {
 		$pageTitle = "$pageTitle - $section";
 	}
-	if (strtolower($section) == 'google map') {
-		$googleHeader = true;
-	}
 	
-	global $_zp_themeroot;	
+	global $_zp_themeroot;
 	require_once("header.php");
 	?>
 <div id="headbar">

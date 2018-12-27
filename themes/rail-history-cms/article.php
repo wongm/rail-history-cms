@@ -19,12 +19,12 @@ if (sizeof($article) == 1)
 	$lastUpdatedDate = $article[0]["fdate"]; 
 	
 	$mapKML = parseDescriptionForMap($description);
+	$mapJS = "";
 	
 	if ($mapKML)
 	{
-		$googleHeader = 'article';
-		$googleHeaderKMLscript = generateKMLScript($mapKML);
-		$description = insertMapElement($description, $mapKML);
+		$description = replaceMapElement($description, $mapKML);
+		$mapJS.= generateKMLScript($mapKML);
 	}
 	
 	require_once("common/header.php");
@@ -54,6 +54,7 @@ if (sizeof($article) == 1)
 	}
 	
 	printDescriptionTitles($descriptionTitles);
+	echo $mapJS;
 	drawFormattedText($description);
 	
 	if($photos != '')

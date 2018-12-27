@@ -71,16 +71,14 @@ else
 	elseif ($section == 'map' AND $line['showGoogleMap'])
 	{
 		require_once("common/aerial-functions.php");
-		$googleHeader = 'article';
-		$googleHeaderKMLscript = generateKMLScript('kml-' . $line['lineId'] . '.kml');
-
 		$pageTitle = $pageHeading = getLineName($line['lineName'])." Guide";
 		$pageTitle = "$pageTitle - Google Map";
 		require_once("common/header.php");
 		drawLineguideHeaders($line, 'Google Map');
 		
 		echo "<h3>Google Map</h3>\n";
-		echo '<div id="map" class="inlinemap"></div>';
+		echo generateMapElement();
+		echo generateKMLScript('kml-' . $line['lineId'] . '.kml');
 		drawLineguideFooters($line);
 	}
 	// 'home' page for line with links
