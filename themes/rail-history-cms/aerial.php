@@ -1,11 +1,11 @@
 <?php
 require_once("common/aerial-functions.php");
 require_once("common/formatting-functions.php");
-$section = $_REQUEST["section"];
-$center = $_REQUEST["center"];
-$zoom = $_REQUEST["zoom"];
-$lines = $_REQUEST["lines"];
-$types = $_REQUEST["types"];
+$section = isset($_REQUEST["section"]) ? $_REQUEST["section"] : "";
+$center = isset($_REQUEST["center"]) ? $_REQUEST["center"] : "";
+$zoom = isset($_REQUEST["zoom"]) ? $_REQUEST["zoom"] : "";
+$lines = isset($_REQUEST["lines"]) ? $_REQUEST["lines"] : "";
+$types = isset($_REQUEST["types"]) ? $_REQUEST["types"] : "";
 
 if ($section == 'popup')
 {

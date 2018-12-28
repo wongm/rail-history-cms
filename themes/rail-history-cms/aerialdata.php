@@ -4,7 +4,7 @@ require_once("common/definitions.php");
 
 header('Content-Type: application/json');
 
-$lineId = 	$_REQUEST["line"];
+$lineId = isset($_REQUEST["line"]) ? $_REQUEST["line"] : "";
 
 if (is_numeric($lineId))
 {
@@ -95,7 +95,7 @@ function getIcon($typeId) {
 	else if($typeId == 30) {
 		return $iIcon;
 	}
-	else if( $$typeId == 29) {
+	else if( $typeId == 29) {
 		return $bIcon;
 	}
 	else if( $typeId == 27) {
