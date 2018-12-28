@@ -1,8 +1,10 @@
-<?php 	include_once("common/dbConnection.php");
-	$thisId = addslashes($_REQUEST['locationField']);
-	$thisPoint = addslashes($_REQUEST['pointField']); 
-	$force = addslashes($_REQUEST['force']); 
-	 ?>
+<?php
+include_once("common/dbConnection.php");
+
+$thisId = isset($_REQUEST["locationField"]) ? $_REQUEST["locationField"] : "";
+$thisPoint = isset($_REQUEST["pointField"]) ? $_REQUEST["pointField"] : "";
+$force = isset($_REQUEST["force"]) ? $_REQUEST["force"] : "";
+?>
 <html>
 <head>
 <title>Location Formzor</title>
@@ -11,7 +13,7 @@
 // check for non empty name and point, and not already set
 if ($thisId != '' AND $thisPoint != '')
 {
-	$thisResult = query_full_array("SELECT * FROM locations WHERE `location_id` = '".$thisId."'");
+	$result = query_full_array("SELECT * FROM locations WHERE `location_id` = '".$thisId."'");
 	$thisName = stripslashes($result[0]["name"]);
 	$thisSet = stripslashes($result[0]["long"]);
 	if ($thisSet != '0' AND $thisSet != '' AND $force == '')
@@ -42,8 +44,8 @@ else
 <?php
 
 function drawForm($message)
-{	
-	$locationtoset = addslashes($_REQUEST['locationtoset']);
+{
+	$locationtoset = isset($_REQUEST["locationtoset"]) ? $_REQUEST["locationtoset"] : "";
 ?>
 <form name="pointUpdateForm" method="POST" action="editAerialFrame.php">	
 <?php
@@ -56,7 +58,7 @@ if ($message != '')
 
 <b> Location :  </b>
 <select name="locationField">
-<?php drawLocationNameSelectFields($locationtoset, true); ?>		
+<?php drawLocationNameSelectFields($locationtoset, true); ?>
 </select>
 <input type="submit" name="submitPointUpdateForm" value="GO" />
 </form>

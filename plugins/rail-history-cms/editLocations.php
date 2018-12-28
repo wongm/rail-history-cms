@@ -277,7 +277,7 @@ else
 		start looping though all railway lines for this location
 		grab all railway lines for this location
 	*/
-	$sqllines = "SELECT lr.line_id AS linkline_id, lr.*, r.* 
+	$sqllines = "SELECT lr.line_id AS linkline_id, lr.kmAccuracy, lr.*, r.* 
 	    FROM locations_raillines lr, raillines r 
 		WHERE lr.line_id = r.line_id AND location_id = '".$thisLocationId."'";
 	$resultlines = query_full_array($sqllines);
@@ -333,7 +333,7 @@ else
 					<tr valign="top" height="20">
 					<td align="right"> <b> Line :  </b> </td>
 					<td width="220"> <select name="thisLine_idField" id="thisLine_idField">
-<?php drawLineNameSelectFields($thisLine_id); ?>	
+<?php drawLineNameSelectFields($thisLine); ?>
 				    </select></td>
 				    <td align="right" rowspan="2">
 						<input type="submit" name="submitEnterLocationsRaillinesForm" value="Enter Line">

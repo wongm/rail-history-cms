@@ -5,9 +5,9 @@ $pageHeading = $pageTitle;
 include_once("common/dbConnection.php");
 include_once("common/header.php");
 
-$thisId = addslashes($_REQUEST['locationField']);
-$thisPoint = addslashes($_REQUEST['pointField']);
-$locationtoset = addslashes($_REQUEST['locationtoset']);
+$thisId = isset($_REQUEST["locationField"]) ? $_REQUEST["locationField"] : "";
+$thisPoint = isset($_REQUEST["pointField"]) ? $_REQUEST["pointField"] : "";
+$locationtoset = isset($_REQUEST["locationtoset"]) ? $_REQUEST["locationtoset"] : "";
 ?>
 <style>
 #navigation { display: none }

@@ -56,6 +56,7 @@ function drawHeadbar($thisKm, $thisLine)
 	WHERE l.location_id = lr.location_id AND `km` > '".$thisKm."' AND line_id = '".$thisLine."' ORDER BY km ASC";
 	$resultNext = query_full_array($sqlNext);
 	
+	$back = $next = "";
 	if (sizeof($resultBack) > '0')	
 	{
 		$Name = stripslashes($resultBack[0]["name"]);
