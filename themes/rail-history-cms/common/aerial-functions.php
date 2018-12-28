@@ -4,8 +4,9 @@ require_once("definitions.php");
 
 function drawAllMap($center, $zoom, $types, $lines)
 {
-	global $_zp_themeroot;	
-	$pageTitle = "Aerial Explorer";	?>
+	global $_zp_themeroot;
+	$pageTitle = "Aerial Explorer";
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
@@ -28,8 +29,8 @@ function drawAllMap($center, $zoom, $types, $lines)
 <script type="text/javascript">
 var map;
 var markers = [];
-var types = [<?php echo $types; ?>];
-var lines = [<?php echo $lines; ?>];
+var types = null;
+var lines = null;
 
 var bounds = new google.maps.LatLngBounds();
 var infowindow = new google.maps.InfoWindow();
@@ -40,7 +41,11 @@ google.maps.event.addDomListener(window, 'load', initialize);
 // set up the initial values if given as params
 
 if ($types != '' OR $lines != '')
-{	?>
+{
+?>
+types = [<?php echo $types; ?>];
+lines = [<?php echo $lines; ?>];
+
 function initialiseCustomFilters()
 {
 <?php
@@ -142,7 +147,7 @@ Click on the icons to view more details of the location. The tabs along the top 
 <label for="b">Signal Boxes: </label><input type="checkbox" id="b" name="b" /> 
 <label for="r">Bridges and Crossings: </label><input type="checkbox" id="r" name="r" /> 
 <label for="m">Other: </label><input type="checkbox" id="m" name="m" />
-<a href="#" onclick="selectAll(this.parentNode,'all')" alt="Select All" title="Select All">[A]</a> <a href="#" onclick="selectAll(this.parentNode,'none')" alt="Unselect All" title="Unselect All">[N]</a>
+<a href="#" onclick="selectAllAndRefresh(this.parentNode,'all')" alt="Select All" title="Select All">[A]</a> <a href="#" onclick="selectAllAndRefresh(this.parentNode,'none')" alt="Unselect All" title="Unselect All">[N]</a>
 </form></td><td><a href="#" onclick="updateMapOnClick()"><b>Update</b></a>
 </td></tr></table>
 </div><?php /* end lines tab */ ?>
@@ -165,7 +170,7 @@ if ($numberOfRows>0)
 <label for="<?php echo $thisLine_id?>"><?php echo $thisName?>: </label><input type="checkbox" name="<?php echo $thisLine_id?>" id="<?php echo $thisLine_id?>" />
 <?php } // end while loop
 }	?>
-<a href="#" onclick="selectAll(this.parentNode,'all')" alt="Select All" title="Select All">[A]</a> <a href="#" onclick="selectAll(this.parentNode,'none')" alt="Unselect All" title="Unselect All">[N]</a>
+<a href="#" onclick="selectAllAndRefresh(this.parentNode,'all')" alt="Select All" title="Select All">[A]</a> <a href="#" onclick="selectAllAndRefresh(this.parentNode,'none')" alt="Unselect All" title="Unselect All">[N]</a>
 </form></td><td><a href="#" onclick="updateMapOnClick()"><b>Update</b></a>
 </td></tr></table>
 </div><?php /* end custom map tab */ ?>

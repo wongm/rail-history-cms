@@ -1,7 +1,5 @@
-
-
 function initialize() {	
-	if (lines == '' && lines == '' ) {
+	if (lines == null && lines == null ) {
 		selectAll(document.getElementById("customlines"), 'all');
 		selectAll(document.getElementById("customtypes"), 'all');
 	} else {
@@ -9,7 +7,7 @@ function initialize() {
 	}
 
 	updateCustomFilters();
-	renderMap(types, lines);
+	loadMap(types, lines);
 	$('input').bind('change', updateMapOnClick);
 }
 
@@ -26,8 +24,12 @@ function updateMapFromCustomFilters() {
 }
 
 function setMarkerVisibility(marker) {
-	var typeSelected = (types.length == 0 || (types.length > 0 && types.includes(marker.type)));
-	var lineSelected = (lines.length == 0 || (lines.length > 0 && lines.includes(marker.line)));
+	if (typeof types === 'undefined' && typeof lines === 'undefined') {
+		return;
+	}
+
+	var typeSelected = (types.length > 0 && types.includes(marker.type));
+	var lineSelected = (lines.length > 0 && lines.includes(marker.line));
 	marker.setVisible(typeSelected && lineSelected);
 }
 
@@ -79,28 +81,30 @@ function updateDirectLink() {
 	document.getElementById('directlink').value = directlink;
 }
 
-function renderMap()
+function loadMap()
 {
 	map = new google.maps.Map(document.getElementById("map-canvas"));
 	var mapDataUrl = "aerialdata.php";
 
 	// get data and use it
-	$.getJSON( mapDataUrl , function( data ) {
-		$.each( data.locations, function( index, location ) {
-			addMarker(location.name, location.id, location.lat, location.lng, location.type, location.line, location.icon, location.infoBox);
-		});
-		
-		map.fitBounds(bounds);
-		updateDirectLink();
+	$.getJSON( mapDataUrl , renderMap);
+}
+
+function renderMap(data)
+{
+	$.each( data.locations, function( index, location ) {
+		addMarker(location.name, location.id, location.lat, location.lng, location.type, location.line, location.icon, location.infoBox);
 	});
 	
+	map.fitBounds(bounds);
+	updateDirectLink();
 	map.addListener('center_changed', updateDirectLink);
 	map.addListener('zoom_changed', updateDirectLink);
 }
 
 function addMarker(name, id, lat, lng, type, line, icon, infoBox) {
 	var latlngs = new google.maps.LatLng(parseFloat(lat), parseFloat(lng));
-	bounds.extend(latlngs);	
+	bounds.extend(latlngs);
 	var marker = new google.maps.Marker({
 		position: latlngs,
 		map: map,
@@ -115,6 +119,12 @@ function addMarker(name, id, lat, lng, type, line, icon, infoBox) {
 		infowindow.open(map, this);
 	});
 	markers.push(marker);
+}
+
+function selectAllAndRefresh(theElement, type)
+{
+	selectAll(theElement, type);
+	updateMapOnClick();
 }
 
 //selects all checkboxes when link clicked
@@ -132,7 +142,6 @@ function selectAll(theElement, type)
 			theForm[z].checked = false;
 		}
 	}
-	updateMapOnClick();
 }
 
 //opens url in original window

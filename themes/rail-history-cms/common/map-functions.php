@@ -14,33 +14,52 @@ function parseDescriptionForMap($description)
 	return false;
 }
 
-function generateKMLScript($mapKMLpath)
+function generateKMLScript($mapKMLpath, $lineId)
 {
+	global $_zp_themeroot;
 	$mapKMLlocation = "https://" . $_SERVER['HTTP_HOST'] . "$mapKMLpath?session=" . rand(100000000,900000000);
 	
-	$mapHTML =  "<script src=\"https://maps.google.com/maps?file=api&v=2&key=" . GOOGLE_KEY_v3 . "\" type=\"text/javascript\"></script>\n";
+	$mapHTML =  "<script src=\"https://maps.googleapis.com/maps/api/js?key=" . GOOGLE_KEY_v3 . "\" type=\"text/javascript\"></script>\n";
+	
+	if ($lineId > 0)
+	{
+    	$mapHTML .= "<script src=\"//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>\n";
+    	$mapHTML .= "<script src=\"" . $_zp_themeroot . "/js/aerialfunctions.js?v=3245345345\" type=\"text/javascript\"></script>\n";
+	}
+	
 	$mapHTML .= "<script type=\"text/javascript\">\n";
 	$mapHTML .= "window.onload = loadLineguideAll;\n";
+	$mapHTML .= "var map;\n";
+	$mapHTML .= "var markers = [];\n";
+	$mapHTML .= "var infowindow = new google.maps.InfoWindow();\n";
+	$mapHTML .= "var bounds = new google.maps.LatLngBounds();\n";
 	$mapHTML .= "function loadLineguideAll()\n";
-	$mapHTML .= "    {\n";
-	$mapHTML .= "      var map;\n";
-	$mapHTML .= "      var geoXml = new GGeoXml(\"$mapKMLlocation\", function() {\n";
-	$mapHTML .= "	   if (geoXml.loadedCorrectly()) {\n";
-	$mapHTML .= "		 geoXml.gotoDefaultViewport(map);\n";
-	$mapHTML .= "	   }\n";
-	$mapHTML .= "      });\n";
-	$mapHTML .= "	if (GBrowserIsCompatible())\n";
-	$mapHTML .= "      {\n";
-	$mapHTML .= "        map = new GMap2(document.getElementById(\"map\"));\n";
-	$mapHTML .= "        map.addMapType(G_PHYSICAL_MAP);\n";
-	$mapHTML .= "        map.addOverlay(geoXml);\n";
-	$mapHTML .= "        map.setZoom(map.getBoundsZoomLevel(geoXml.getDefaultBounds()));\n";
-	$mapHTML .= "        map.setCenter(geoXml.getDefaultCenter());\n";
-	$mapHTML .= "      }\n";
-	$mapHTML .= "    }\n";
+	$mapHTML .= "	{\n";
+	$mapHTML .= "		map = new google.maps.Map(document.getElementById('map'));\n";
+	$mapHTML .= "		var geoXml = new google.maps.KmlLayer(\"$mapKMLlocation\", {\n";
+	$mapHTML .= "		 suppressInfoWindows: false,\n";
+	$mapHTML .= "		 preserveViewport: false,\n";
+	$mapHTML .= "		 map: map\n";
+	$mapHTML .= "		});\n";
+	
+	if ($lineId > 0)
+	{
+    	$mapHTML .= "var mapDataUrl = \"/aerialdata.php?line=" . $lineId . "\";\n";
+    	$mapHTML .= "$.getJSON( mapDataUrl , function( data ) {\n";
+    	$mapHTML .= "	$.each( data.locations, function( index, location ) {\n";
+    	$mapHTML .= "		addMarker(location.name, location.id, location.lat, location.lng, location.type, location.line, location.icon, location.infoBox);\n";
+    	$mapHTML .= "	});\n";
+    	$mapHTML .= "	map.fitBounds(bounds);\n";
+    	$mapHTML .= "});\n";
+	}
+	
+	$mapHTML .= "   }\n";
 	return $mapHTML . "</script>\n";
 }
 
+
+	//$mapHTML .= "		map.setZoom(map.getBoundsZoomLevel(geoXml.getDefaultBounds()));\n";
+	//$mapHTML .= "		map.setCenter(geoXml.getDefaultCenter());\n";
 function generateMapElement()
 {
 	return '<div id="map" class="inlinemap"></div>';
@@ -146,6 +165,5 @@ Sorry! Your browser is not compatible with Google Maps. Please upgrade your brow
 </html>
 <?php
 		} // end if
-}	/*	end overview if	*/?>
-
+}	/*	end overview if	*/
 ?>
