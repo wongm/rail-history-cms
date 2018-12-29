@@ -111,6 +111,13 @@ function drawLocation($location)
 
 	// draw essential location data
 	drawLocationDataTable($location);
+	
+	// get diagram data, and save it
+	$locationDiagrams = null;
+	if ($location['showDiagrams'] == 'full' OR $location['showDiagrams'] == 'all')
+	{
+		$locationDiagrams = getLocationDiagrams($location);
+	}
 
 	// check if minimum number of dot points spat out
 	if ($dotpoints > 2)
@@ -130,19 +137,10 @@ function drawLocation($location)
 			echo "<li><a href=\"#events\">Events</a></li>\n";
 		}
 
-		if ($location['showDiagrams'] != '')
+		// test retreived date, and output dot point
+		if ($locationDiagrams != null)
 		{
-			// get diagram data, and save it
-			if ($location['showDiagrams'] == 'full' OR $location['showDiagrams'] == 'all')
-			{
-				$locationDiagrams = getLocationDiagrams($location);
-			}
-
-			// test retreived date, and output dot point
-			if ($locationDiagrams != '')
-			{
-				echo "<li><a href=\"#diagrams\">Diagrams</a></li>\n";
-			}
+			echo "<li><a href=\"#diagrams\">Diagrams</a></li>\n";
 		}
 
 		// gallery functions
