@@ -268,10 +268,10 @@ function drawLocationNeighbourBar($nextLocation, $backLocation)
 /*
  * draws all track diagrams given an array from "getLocationDiagrams"
  */
-function drawLocationDiagrams($diagramData)
+function drawLocationDiagrams($locationDiagrams)
 {
-	$numberOfRows = sizeof($diagramData);
-	if ($diagramData == '')
+	$numberOfRows = sizeof($locationDiagrams);
+	if ($locationDiagrams == '')
 	{
 		return;
 	}
@@ -280,14 +280,14 @@ function drawLocationDiagrams($diagramData)
 <p>NOTE: Diagrams are not to scale.</p>
 <?php if ($numberOfRows > 1)
 	{
-		drawDiagramTabs($diagramData);
+		drawDiagramTabs($locationDiagrams);
 	}
 	// end "if more than one diagram"
 	// if there is only ever one image
 	elseif ($numberOfRows == 1)
 	{
 ?>
-<p><img src="/t/<?php echo $diagramData[0][0].'.gif'; ?>" alt="<?php echo $name.' '.$diagramData[0][1]; ?>" title="<?php echo $name.' '.$diagramData[0][1]; ?>" /></p>
+<p><img src="/t/<?php echo $locationDiagrams[0][0].'.gif'; ?>" alt="<?php echo $name.' '.$locationDiagrams[0][1]; ?>" title="<?php echo $name.' '.$locationDiagrams[0][1]; ?>" /></p>
 <?php
 	}	// end if
 	?>

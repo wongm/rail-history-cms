@@ -298,8 +298,11 @@ function getNeighbourLocation($location, $way)
  */
 function getLocationDiagrams($location)
 {
-	//$id, $image, $open, $diagrams, $name
-	extract($location);
+	$id = $location['id'];
+	$image = $location['image'];
+	$open = $location['open'];
+	$diagrams = $location['diagrams'];
+	$name = $location['name'];
 	
 	// for when a CSV string is given
 	if ($diagrams != '' AND $diagrams != '0')
@@ -361,7 +364,7 @@ function getLocationDiagrams($location)
 	}
 	else
 	{
-		$diagramData = '';
+		$diagramData = null;
 	}
 	
 	return $diagramData;
