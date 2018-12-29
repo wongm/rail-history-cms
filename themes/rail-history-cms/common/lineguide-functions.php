@@ -954,9 +954,7 @@ function getLineDiagramLocationImage($line, $currentLocation, $tracksToDisplay)
 			}
 
 			// for junctions - so both sides don't show the same pic!
-			if (!isset($currentLocation['junctionurl']) 
-				OR $currentLocation['junctionurl'] != '' 
-				OR $currentLocation['type'] == TYPE_JUNCTION )
+			if ((isset($currentLocation['junctionurl']) && $currentLocation['junctionurl'] != '') || $currentLocation['type'] == TYPE_JUNCTION )
 			{
 				$imageToDisplay = $currentLocation['image'].'-'.$line['lineId'].$yearImage;
 			}
