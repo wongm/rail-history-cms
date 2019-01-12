@@ -47,6 +47,12 @@ function runQuery($time, $baseUrl)
 	$day = date('j', $time);
 	$month = date('n', $time);
 	
+    $filter = "";
+	// show if admin when page is in edit mode
+    if ( !zp_loggedin() ) {
+        $filter = " AND r.todisplay != 'hide'";
+    }
+	
 	$sql = "SELECT YEAR(open) AS year, l.location_id AS event_id, DATE_FORMAT(l.open, '".SHORT_DATE_FORMAT."') AS fdate, openAccuracy AS approx, DATE_FORMAT(l.close, '".SHORT_DATE_FORMAT."') AS fdatealt, closeAccuracy AS approxAlt, l.open AS plaindate, 'opened' AS tracks, 
 			'-', '-', '-', '-', 
 			'-', '-', l.open AS date, r.name AS line, '', 
@@ -59,7 +65,7 @@ function runQuery($time, $baseUrl)
 			WHERE display != 'tracks' AND (".IMPORTANT_LOCATION.") 
 			AND l.name != '' AND open != '".DATE_UNKNOWN_OPEN."' AND open != '".DATE_UNKNOWN_CLOSE."' 
 			AND DAY(open) = '" . $day . "' AND MONTH(open) = '" . $month . "'
-			AND l.openAccuracy = 'exact'
+			AND l.openAccuracy = 'exact' " . $filter . "
 			UNION
 			SELECT YEAR(close) AS year, l.location_id AS event_id, DATE_FORMAT(l.close, '".SHORT_DATE_FORMAT."')  AS fdate, closeAccuracy AS approx, DATE_FORMAT(l.open, '".SHORT_DATE_FORMAT."') AS fdatealt, openAccuracy AS approxAlt, l.close AS plaindate, 'closed' AS tracks, 
 			'-', '-', '-', '-', 
@@ -73,7 +79,7 @@ function runQuery($time, $baseUrl)
 			WHERE display != 'tracks' AND (".IMPORTANT_LOCATION.") 
 			AND l.name != '' AND close != '".DATE_NULL."' AND close != '".DATE_UNKNOWN_CLOSE."' 
 			AND DAY(close) = '" . $day . "' AND MONTH(close) = '" . $month . "'
-			AND l.closeAccuracy = 'exact'
+			AND l.closeAccuracy = 'exact' " . $filter . "
 			ORDER BY plaindate ASC";
 			
 	$result = query_full_array($sql);
