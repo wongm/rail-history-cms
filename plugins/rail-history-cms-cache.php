@@ -258,6 +258,7 @@ class static_html_cache_railHistoryCMS {
 				}
 				$cachefilepath .= $album.$image.$page;
 				break;
+			case 'site-search.php':
 			case 'search.php':
 				$cachesubfolder = "search";
 				$custompage = $_zp_gallery_page;
@@ -266,6 +267,8 @@ class static_html_cache_railHistoryCMS {
 				
 				if (isset($_REQUEST['words'])) {
 					$words = $_REQUEST['words'];
+				} else if (isset($_REQUEST['q'])) {
+					$words = $_REQUEST['q'];
 				}
 				if (isset($_REQUEST['date'])) {
 					$date = $_REQUEST['date'];
