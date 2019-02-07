@@ -112,13 +112,19 @@ function drawPageOfUpdated($updatedPages)
 
 function getUpdatedPages($index, $maxRowsPerPage)
 {
+	$filter = "";
+	// show if admin when page is in edit mode
+	if ( !zp_loggedin() ) {
+		$filter = " AND r.todisplay != 'hide'";
+	}
+
 	$sqlQuery = "SELECT l.location_id AS object_id, 'L' AS object_type, l.name, l.link AS link, l.modified, l.added, l.events, 
 		DATE_FORMAT(l.modified, '".SHORT_DATE_FORMAT."') AS fdate, l.type, l.photos AS photos, l.description AS length
 	FROM locations_raillines lr
 	INNER JOIN locations l ON lr.location_id = l.location_id
 	INNER JOIN raillines r ON r.line_id = lr.line_id 
 	INNER JOIN location_types lt ON l.type = lt.type_id 
-	WHERE ".SQL_NEXTABLE." AND r.todisplay != 'hide'  AND l.name != '' 
+	WHERE " . SQL_NEXTABLE . $filter . " AND l.name != '' 
 	AND l.display != 'tracks' AND l.type != ".TYPE_TIMING_LOOP."
 	GROUP BY l.location_id
 	
@@ -126,7 +132,7 @@ function getUpdatedPages($index, $maxRowsPerPage)
 	SELECT link AS object_id, 'RL' AS object_type, name, '' AS link, modified, added, 0, 
 		DATE_FORMAT(r.modified, '".SHORT_DATE_FORMAT."') AS fdate, '' AS type, photos, description AS length
 	FROM raillines r 
-	WHERE r.todisplay != 'hide'
+	WHERE 1=1 " . $filter . " 
 	
 	UNION ALL
 	SELECT link AS object_id, 'A' AS object_type, title AS name, '' AS link, modified, added, 0, 
