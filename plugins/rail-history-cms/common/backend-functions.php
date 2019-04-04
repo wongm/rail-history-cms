@@ -651,14 +651,9 @@ else
 
 
 
-
-
-
-
-
-function drawRegionSelectFields($currentRegionId)
+function drawArticleSelectFieldsInternal($currentArticleId, $lineId)
 {
-	$sql = "SELECT * FROM articles WHERE line_id = '-1'";
+	$sql = "SELECT * FROM articles WHERE line_id = $lineId";
 	$result = query_full_array($sql);
 	$numberOfRows = sizeof($result);
 	if ($numberOfRows==0) {  
@@ -675,7 +670,7 @@ function drawRegionSelectFields($currentRegionId)
 			$thisName = stripSlashes($result[$i]["title"]);
 			$thisRegion_id = $result[$i]["article_id"];
 			
-			if ($currentRegionId == $thisRegion_id)
+			if ($currentArticleId == $thisRegion_id)
 			{
 				$selected = 'selected';
 			}
@@ -688,5 +683,15 @@ function drawRegionSelectFields($currentRegionId)
 <?php
 		} // end while loop
 	} //end if
+}
+
+function drawArticleSelectFields($currentArticleId)
+{
+	return drawArticleSelectFieldsInternal($currentArticleId, 0);
+}
+
+function drawRegionSelectFields($currentRegionId)
+{
+	return drawArticleSelectFieldsInternal($currentRegionId, -1);
 }
 ?>

@@ -1,12 +1,12 @@
 <?php
 
-$pageTitle = 'Update Location Sources';
+$uniqueId = $_REQUEST['id'];
+$objectType = $_REQUEST['type'];
+$niceName = ucfirst($objectType);
+
+$pageTitle = "Update $niceName Sources";
 include_once("common/dbConnection.php");
 include_once("common/header.php");
-
-$uniqueId = $_REQUEST['id'];
-$type = $_REQUEST['type'];
-$niceName = ucfirst($type);
 
 $sql = "SELECT  * FROM object_sources WHERE linkzor_id = '$uniqueId'";
 $result = query_full_array($sql);
@@ -18,24 +18,24 @@ Sorry. No records found !!
 
 <?php
 }
-else if ($numberOfRows>0) {
+else if ($numberOfRows>0)
+{
 
 	$i=0;
 	$uniqueId = $result[$i]["linkzor_id"];
-	$thisObjectId = $result[$i][$type."_id"];
+	$thisObjectId = $result[$i][$objectType."_id"];
 	$thisSourceId = $result[$i]["source_id"];
 	$thisExtra = stripSlashes($result[$i]["extra"]);
 	$thisDate = stripslashes($result[$i]["date"]);
 	$thisPage = stripslashes($result[$i]["page"]);
 	$thisUrl = stripslashes($result[$i]["url"]);
 	$thisUrlTitle = stripslashes($result[$i]["url_title"]);
-
 }
 ?>
 <fieldset>
 <form name="objectSourcesUpdateForm" method="POST" action="updateObjectSources.php">
 <input type="hidden" name="thisLinkzorIdField" value="<?php echo $uniqueId; ?>">
-<input type="hidden" name="type" value="<?php echo $type; ?>">
+<input type="hidden" name="type" value="<?php echo $objectType; ?>">
 
 <table cellspacing="2" cellpadding="2" border="0" width="100%">
 	<tr valign="top" height="20">
@@ -46,13 +46,17 @@ else if ($numberOfRows>0) {
 		<td align="right"> <b> <?php echo $niceName?> :  </b> </td>
 		<td> <select name="thisObjectIdField">
 <?php
-	if ($type == 'location')
+	if ($objectType == 'location')
 	{
 		drawLocationNameSelectFields($thisObjectId);
 	}
-	else if ($type = 'railline')
+	else if ($objectType == 'railline')
 	{
 		drawLineNameSelectFields($thisObjectId);
+	}
+	else if ($objectType == 'article')
+	{
+		drawArticleSelectFields($thisObjectId);
 	}
 ?>
 		</select></td> 

@@ -20,5 +20,5 @@ $result = query_full_array($sqlQuery);
 // get location ID for next query
 $thisArticleId = query_full_array("SELECT article_id FROM articles WHERE link = '$thisLink'")[0]['article_id'];
 
-Header("Location: /backend/editArticles.php?id=" . $thisArticleId);
+Header("Location: editArticles.php?id=" . $thisArticleId);
 ?>

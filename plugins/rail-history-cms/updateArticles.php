@@ -24,5 +24,5 @@ if ($_REQUEST['flag'] == 'on')
 $sql .= " WHERE article_id = '$thisId'";
 $result = query_full_array($sql);
 
-Header("Location: /backend/editArticles.php?id=" . $thisId . "#general");
+Header("Location: editArticles.php?id=" . $thisId . "#general");
 ?>

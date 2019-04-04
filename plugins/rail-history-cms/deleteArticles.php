@@ -12,7 +12,7 @@ include_once("common/header.php");
 
 ?>
 <?php
-$sql = "DELETE FROM articles WHERE id = '$thisId'";
+$sql = "DELETE FROM articles WHERE article_id = '$thisId'";
 $result = query_full_array($sql);
 
 ?>
@@ -20,7 +20,7 @@ Record  has been deleted from database. Here is the deleted record :-<br><br>
 
 <table>
 <tr height="30">
-	<td align="right"><b>Id : </b></td>
+	<td align="right"><b>Article_id : </b></td>
 	<td><?php echo $thisId; ?></td>
 </tr>
 <tr height="30">
