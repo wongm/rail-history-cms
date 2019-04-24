@@ -518,11 +518,10 @@ a:hover {
 #news h4 {
 	line-height: 1em;
 	text-align:left;
-	padding: 0;
-	margin: 0;
+	margin-top: 0;
 }
 .newsarticlecontent {
-	margin: 0.2em auto 1.5em auto;
+	margin: 0.8em auto 1.5em auto;
 }
 /* for search
 ------------------------------ */

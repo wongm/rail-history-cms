@@ -104,7 +104,7 @@ if (getOption('comment_form_articles')) { ?>
 	<div class="newsarticle"> 
     	<h3><?php echo getNewsTitle(); ?></h3>
         <div class="newsarticlecredit">
-        <p><small><?php printNewsDate();?></small></p>
+        <small><?php printNewsDate();?></small>
 		</div>
     	<div class="newsarticlecontent"><?php echo getNewsContent(true); ?></div>
  	</div>	
