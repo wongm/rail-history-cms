@@ -8,6 +8,7 @@
 .centeredTable td {
 	padding: 5px 10px;
 	text-align: center;
+	vertical-align: top;
 }
 .i {
 	background-color: #FAFAFA;

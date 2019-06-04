@@ -65,34 +65,47 @@ drawUpdatedPagesTable($updates['result'], true);
 <p><a href="/updates/">Complete List...</a></p>
 <h4 style="clear:both">Updated galleries</h4>
 <hr/>
+<?php
+$dailySummaryData = array();
+if (function_exists('NewDailySummary')) 
+{
+    NewDailySummary(6);
+    while (next_DailySummaryItem()) { 
+        global $_zp_current_DailySummaryItem;
+    	makeImageCurrent($_zp_current_DailySummaryItem->getDailySummaryThumbImage());	
+    	$dayData = new stdClass;
+    	$dayData->date = date("F j, Y", strtotime(getDailySummaryDate()));
+    	$dayData->imagePath = getImageThumb();
+    	$dayData->imageCaption = $dayData->date . ' - ' . getImageTitle();
+    	$dayData->description = getDailySummaryNumImages() . ' new photos ' . getDailySummaryDescInternal();
+    	$dayData->link = getDailySummaryUrl();
+    	$dailySummaryData[] = $dayData;
+    }
+}
+?>
 <table class="centeredTable">
-<tbody>
-<?php 
-
-setCustomPhotostream("", "i.albumid, DATE(i.date)", "i.date DESC");
-
-for ($albumCount = 1; $albumCount < 7; $albumCount++) {
-	next_photostream_image();
-	if (($albumCount % 3) == 1)
+	<tbody>
+<?php
+foreach ($dailySummaryData as $albumCount=>$dayData)
+{
+	if (($albumCount % 3) == 0)
 	{
 		echo "<tr>";
 	}
-		
-	echo '<td class="image">';
-	echo "	<a href=\"" . getAlbumURL()."\" title=\"" . getAlbumTitleForPhotostreamImage() . "\">\n";
-	printImageThumb(getAlbumTitleForPhotostreamImage());
-	echo "	</a>\n";
-	echo "	<h4><a href=\"" . getAlbumURL() . "\" title=\"" . getAlbumTitleForPhotostreamImage() . "\">" . getAlbumTitleForPhotostreamImage() . "</a></h4>\n";
-	echo "	<small>" . printImageDate() . "</small>\n";
-	echo "</td>\n";
-		
-	if (($albumCount % 3) == 0)
+	?>
+		<td class="image">
+			<img src="<?php echo $dayData->imagePath; ?>" alt="<?php echo $dayData->imageCaption; ?>" title="<?php echo $dayData->imageCaption; ?>" /><br>
+		    <h4><?php echo $dayData->date; ?></h4>
+		    <p><?php echo $dayData->description; ?></p>
+		<?php  
+
+	if (($albumCount % 3) == 2)
 	{
 		echo "</tr>";
 	}
-}
-?>
-</tbody></table>
+} ?>
+	</tbody>
+</table>
 <p><a href="/gallery/recent/">Complete List...</a></p>
 <h4 style="clear:both">Coming Soon...</h4>
 <hr/>
