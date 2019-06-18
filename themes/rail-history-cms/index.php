@@ -94,8 +94,8 @@ foreach ($dailySummaryData as $albumCount=>$dayData)
 	}
 	?>
 		<td class="image">
-			<img src="<?php echo $dayData->imagePath; ?>" alt="<?php echo $dayData->imageCaption; ?>" title="<?php echo $dayData->imageCaption; ?>" /><br>
-		    <h4><?php echo $dayData->date; ?></h4>
+			<a href="/gallery/recent/"><img src="<?php echo $dayData->imagePath; ?>" alt="<?php echo $dayData->imageCaption; ?>" title="<?php echo $dayData->imageCaption; ?>" /></a><br>
+		    <h4><a href="/gallery/recent/"><?php echo $dayData->date; ?></a></h4>
 		    <p><?php echo $dayData->description; ?></p>
 		<?php  
 
