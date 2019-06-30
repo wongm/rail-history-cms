@@ -104,10 +104,11 @@ function drawNewsNextables()
 
 	if($next OR $prev) {
 	?>
-<table class="pagelist"><tr><td>
-  <?php if($prev) { ?><a class="prev" href="<?php echo $prev['link'];?>" title="<?php echo $prev['title']?>"><span>&laquo;</span> <?php echo $prev['title']?></a> <?php } ?>
-  <?php if($next) { ?><a class="next" href="<?php echo $next['link'];?>" title="<?php echo $next['title']?>"><?php echo $next['title']?> <span>&raquo;</span></a> <?php } ?>
-</td></tr></table>
+<div class="pagelist"><ul class="pagelist"><li class="prev">
+  <?php if($prev) { ?><a href="<?php echo $prev['link'];?>" title="<?php echo $prev['title']?>"><span>&laquo;</span> <?php echo $prev['title']?></a> <?php } ?>
+  </li><li class="next">
+  <?php if($next) { ?><a href="<?php echo $next['link'];?>" title="<?php echo $next['title']?>"><?php echo $next['title']?> <span>&raquo;</span></a> <?php } ?>
+</li></ul></div>
   <?php }
 }
 
