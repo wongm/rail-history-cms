@@ -3,7 +3,7 @@
 <?php require_once("nav.php"); ?>
 </div>
 <div id="footer">
-<a href="/">Home</a> :: <a href="<?php echo SITEMAP_URL_PATH ?>">Sitemap</a> :: <a href="<?php echo COPYRIGHT_URL_PATH ?>">Copyright</a> :: <a href="<?php echo 'CONTACT_URL_PATH' ?>">Contact</a><br/>
+<a href="/">Home</a> :: <a href="<?php echo SITEMAP_URL_PATH ?>">Sitemap</a> :: <a href="<?php echo COPYRIGHT_URL_PATH ?>">Copyright</a> :: <a href="<?php echo CONTACT_URL_PATH ?>">Contact</a><br/>
 <?php 	
 //display page generation time
 // start $time = round(microtime(), 3);
