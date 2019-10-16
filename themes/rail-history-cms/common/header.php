@@ -87,10 +87,8 @@ else if ($showGalleryRssLink)
 {
 	printRSSHeaderLink("AlbumsRSS", "Recent gallery uploads");
 }
-//facebook headers for image.php
-if (getImageThumb())
-{
-	printFacebookTag();
+if (function_exists('printMetadata')) {
+    printMetadata($pageTitle);
 }
 ?>
 </head>

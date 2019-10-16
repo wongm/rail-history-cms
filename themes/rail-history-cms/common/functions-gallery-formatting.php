@@ -435,16 +435,86 @@ function getFullSearchDate($format='F Y') {
 	return false;
 }
 
-function printFacebookTag()
+
+function printMetadata($pageTitle)
 {
-	$path = 'http://' . $_SERVER['HTTP_HOST'] . getImageThumb();		
-	$description = getGalleryDesc();	
-	if (strlen(getImageDesc()) > 0)	{
-		$description = getImageDesc() + ". $description";
-	}	
-	echo "<meta property=\"og:image\" content=\"$path\" />\n";
-	echo "<meta property=\"og:title\" content=\"" . getImageTitle() . "\" />\n";	
+	$description = getGalleryDesc();
+	$title = "";
+	
+	// if date based search with images - we can get summary data for the current date
+	if (in_context(ZP_SEARCH) && function_exists('getDailySummaryDesc'))
+	{
+		// check for images, and that we are not on a month based archive page
+		if (isset($_REQUEST['date']) && strlen($_REQUEST['date']) > 8 && getNumImages() && strlen($_REQUEST['date']) > 7)
+		{
+			global $_zp_current_DailySummaryItem;
+			$_zp_current_DailySummaryItem = new DailySummaryItem($_REQUEST['date']);
+			$description = getDailySummaryDesc();
+			$title = getDailySummaryTitleAndDesc();
+			$imagePath = $_zp_current_DailySummaryItem->getDailySummaryThumbImage()->getFullImageURL();
+		}
+	}
+	// image page
+	else if (in_context(ZP_IMAGE))
+	{
+		$imagePath = getDefaultSizedImage();
+		if (strlen(getImageDesc()) > 0) {
+			$description = strip_tags(getImageDesc());
+		}
+		$shortTitle = $title = getImageTitle();
+	} 
+	// album page
+	else if (in_context(ZP_ALBUM))
+	{
+		global $_zp_current_album, $_zp_current_image;
+		
+		// makeImageCurrent can change $_zp_current_album and $_zp_current_image variable to child album
+		// save a local copy, so we can get THIS album back later
+		$currentAlbum = $_zp_current_album;
+		$currentImage = $_zp_current_image;
+		$currentContext = get_context();
+		makeImageCurrent($_zp_current_album->getAlbumThumbImage());
+		$imagePath = getDefaultSizedImage();
+		
+		// now reset image to ensure that rest of Zenphoto does not get confused
+		$_zp_current_album = $currentAlbum;
+		$_zp_current_image = $currentImage;
+		set_context($currentContext);
+		
+		if (strlen(getAlbumDesc()) > 0) {
+			$description = strip_tags(getAlbumDesc());
+		}
+		$title = htmlentities(getBareAlbumTitle());
+	}
+	
 	echo "<meta property=\"og:description\" content=\"$description\" />\n";
+	echo "<meta property=\"og:type\" content=\"article\" />\n";
+	echo "<meta property=\"og:site_name\" content=\"" . getGalleryTitle() . "\" />\n";
+	
+	if (strlen($title) > 0)
+	{
+		$protocol = SERVER_PROTOCOL;
+		if ($protocol == 'https_admin') {
+			$protocol = 'https';
+		}
+		$imagePath = $protocol . '://' . $_SERVER['HTTP_HOST'] . WEBPATH . $imagePath;
+		
+		echo "<meta property=\"og:image\" content=\"$imagePath\" />\n";
+		echo "<meta property=\"og:title\" content=\"$title\" />\n";	
+		echo "<meta name=\"twitter:card\" content=\"photo\">\n";
+		echo "<meta name=\"twitter:title\" content=\"$title\">\n";
+		echo "<meta name=\"twitter:image:src\" content=\"$imagePath\">\n";
+	}
+	else{
+		echo "<meta name=\"twitter:card\" content=\"summary\" />\n";
+		echo "<meta name=\"twitter:title\" content=\"" . htmlentities($pageTitle) . "\">\n";
+	}
+	
+	echo "<meta name=\"twitter:site\" content=\"@railgeelong\">\n";
+	echo "<meta name=\"twitter:creator\" content=\"@railgeelong\">\n";
+	echo "<meta name=\"twitter:domain\" content=\"" . getGalleryTitle() . "\">\n";
+	echo "<meta name=\"twitter:description\" content=\"$description\">\n";	
+	echo "<meta name=\"description\" content=\"$description\" />\n";
 }
 
 /**
