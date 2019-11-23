@@ -180,7 +180,7 @@ function drawWongmGridAlbums($numberOfItems)
  *
  * @return string
  */
-function getImageAlbumLink() {
+function getImageAlbumTitle() {
 	if(!in_context(ZP_IMAGE)) return false;
 	global $_zp_current_image;
 	
@@ -192,8 +192,20 @@ function getImageAlbumLink() {
 	{
 		$title = $_zp_current_image->getAlbum()->getTitle();
 	}
+	return $title;
+}
+
+/**
+ * Returns the raw title of the current image.
+ *
+ * @return string
+ */
+function getImageAlbumLink() {
+	if(!in_context(ZP_IMAGE)) return false;
+	global $_zp_current_image;
+	$title = getImageAlbumTitle();
 	$folder = getAlbumURL($_zp_current_image->getAlbum());
-	return "<br/>In album: <a href=\"$folder\">$title</a>";
+	return "<p>In album: <a href=\"$folder\">$title</a>";
 }
 
 function printImageDescWrapped()
@@ -241,21 +253,23 @@ function drawWongmGridImages($numberOfItems)
 			echo "<tr$style>\n";
 		}
 		
+		$albumTitle = getImageTitle();
 		if (in_context(ZP_SEARCH))
 		{
 			$albumLinkHtml = getImageAlbumLink();
+			$albumTitle = getImageAlbumTitle() . ": " . $albumTitle;
 		}
   
 		global $_zp_current_image;
 ?>
 <td class="image">
-	<div class="imagethumb"><a href="<?php echo getImageURL();?>" title="<?php echo getImageTitle();?>">
-		<img src="<?php echo getImageThumb() ?>" title="<?php echo getImageTitle();?>" alt="<?php echo getImageTitle();?>" />
+	<div class="imagethumb"><a href="<?php echo getImageURL();?>" title="<?php echo $albumTitle;?>">
+		<img src="<?php echo getImageThumb() ?>" title="<?php echo $albumTitle;?>" alt="<?php echo $albumTitle;?>" />
 	</a></div>
 	<div class="imagetitle">
-		<h4><a href="<?php echo getImageURL();?>" title="<?php echo getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
+		<h4><a href="<?php echo getImageURL();?>" title="<?php echo $albumTitle;?>"><?php echo $albumTitle; ?></a></h4>
 		<?php echo printImageDescWrapped(); ?>
-		<small><?php printImageDate(); ?><?php if(function_exists('printHitCounter')) { printHitCounter($_zp_current_image, true); } ?></small><?php echo $albumLinkHtml; ?>
+		<small><?php printImageDate(); ?><?php if(function_exists('printHitCounter')) { printHitCounter($_zp_current_image, true); } ?></small>
 	</div>
 </td>
 <?php

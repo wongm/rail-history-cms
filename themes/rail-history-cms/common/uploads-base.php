@@ -25,14 +25,14 @@ require_once('header.php');
 		echo "<tr>\n";
 	} 
 	global $_zp_current_image;
+	$imageTitle = getAlbumTitleForPhotostreamImage() . ": " . getImageTitle();
 ?>
 	<td class="image" valign="top">
-			<div class="imagethumb"><a href="<?php echo getImageURL();?>" title="<?php echo getImageTitle();?>">
-			 <?php printImageThumb(getImageTitle()); ?></a></div>
+			<div class="imagethumb"><a href="<?php echo getImageURL();?>" title="<?php echo $imageTitle;?>">
+			 <?php printImageThumb($imageTitle); ?></a></div>
 			<div class="imagetitle">
-				<h4><a href="<?php echo getImageURL();?>" title="<?php echo getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
+				<h4><a href="<?php echo getImageURL();?>" title="<?php echo $imageTitle;?>"><?php echo $imageTitle; ?></a></h4>
 		<?php echo printImageDescWrapped(); ?>
-				<p>In album: <a href="<?php echo getAlbumURL();?>" title="View parent album"><?php echo getAlbumTitleForPhotostreamImage(); ?></a></p>
 				<small><?php printImageDate(); ?><br/><?php if(function_exists('printHitCounter')) { printHitCounter($_zp_current_image); } ?></small>
 			</div>
 		</td>

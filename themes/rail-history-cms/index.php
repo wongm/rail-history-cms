@@ -72,7 +72,7 @@ if (function_exists('NewDailySummary'))
     NewDailySummary(6);
     while (next_DailySummaryItem()) { 
         global $_zp_current_DailySummaryItem;
-    	makeImageCurrent($_zp_current_DailySummaryItem->getDailySummaryThumbImage());	
+    	makeImageCurrent($_zp_current_DailySummaryItem->getDailySummaryThumbImage());
     	$dayData = new stdClass;
     	$dayData->date = date("F j, Y", strtotime(getDailySummaryDate()));
     	$dayData->imagePath = getImageThumb();
@@ -94,8 +94,8 @@ foreach ($dailySummaryData as $albumCount=>$dayData)
 	}
 	?>
 		<td class="image">
-			<a href="/gallery/recent/"><img src="<?php echo $dayData->imagePath; ?>" alt="<?php echo $dayData->imageCaption; ?>" title="<?php echo $dayData->imageCaption; ?>" /></a><br>
-		    <h4><a href="/gallery/recent/"><?php echo $dayData->date; ?></a></h4>
+			<a href="<?php echo $dayData->link; ?>"><img src="<?php echo $dayData->imagePath; ?>" alt="<?php echo $dayData->imageCaption; ?>" title="<?php echo $dayData->imageCaption; ?>" /></a><br>
+		    <h4><a href="<?php echo $dayData->link; ?>"><?php echo $dayData->date; ?></a></h4>
 		    <p><?php echo $dayData->description; ?></p>
 		<?php  
 
