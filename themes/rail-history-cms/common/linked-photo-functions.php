@@ -97,7 +97,7 @@ function drawLinkedPhotosFromGallery()
 			{
 ?>
 	<td class="i">
-			<div class="imagethumb"><a href="<?php echo getFullImageURL();?>" rel="lightbox" title="<?php echo getImageTitle();?>">
+			<div class="imagethumb"><a href="<?php echo getDefaultSizedImage();?>" rel="lightbox" title="<?php echo getImageTitle();?>">
 			 <?php printImageThumb(getImageTitle()); ?></a></div>
 			<div class="imagetitle">
 				<h4><a href="<?php echo getImageURL();?>" title="<?php echo getImageTitle();?>"><?php printImageTitle(); ?></a></h4>
