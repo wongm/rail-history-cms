@@ -182,43 +182,6 @@ function drawInterestingYears($interestingYears, $yearToDisplay, $lineToDisplay,
 	}	// end zero years if
 }		// end function
 
-function drawLocationTitle($thisUrl, $id, $thisName, $thisPhoto)
-{
-	// add the id if more than one location by same name exists
-	// yards don't count as they have many leads to them
-	if ($thisUrl != '' OR $id == '')
-	{
-		$base = convertToLink($thisName);
-	}
-	elseif (!isUniqueLocationName($thisName))
-	{
-		$base = $id;
-	}
-
-	if (showPhotosConfigured($thisPhoto))
-	{
-		$info = '<td><img src="/images/photos.gif" alt="Photo" title="Photo" /></td>';
-	}
-
-	if ($thisUrl != '')
-	{
-		if ($info != '')
-		{
-			return '<table><tr>'.$info.'<td><b><a href="/location/'.$base.'/">'.$thisName.'</a></b></td></tr></table>';
-		}
-		else
-		{
-			return '<b><a href="/location/'.$base.'/">'.$thisName.'</a></b>';
-		}
-	}
-	else
-	{
-		return $thisName;
-	}
-
-}	// end function
-
-
 function drawLineDiagram($diagramdata)
 {
 	$numberOfRows =  sizeof($diagramdata);
