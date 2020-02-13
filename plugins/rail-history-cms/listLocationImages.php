@@ -1,7 +1,18 @@
 <?php
 
 $pageFilterType = $_REQUEST['type'];
+
 $pageTitle = 'List location header images';
+switch ($pageFilterType)
+{
+	case 'with';
+		$pageTitle .= " - with images";
+		break;
+	case 'without';
+		$pageTitle .= " - without images";
+		break;
+}
+
 include_once("common/dbConnection.php");
 include_once("common/header.php");
 
