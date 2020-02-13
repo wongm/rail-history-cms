@@ -21,9 +21,15 @@ include_once("common/header.php");
 
 <tr><td>
 <h4>Location images:</h4>
-<a href="listLocationImages.php?type=images">Locations with images</a><br>
-<a href="listLocationImages.php?type=required">Locations without images</a><br>
+<a href="listLocationImages.php?type=with">Locations with images</a><br>
+<a href="listLocationImages.php?type=without">Locations without images</a><br>
 <a href="listLocationImages.php">All locations</a>
+
+<tr><td>
+<h4>Location permalinks:</h4>
+<a href="listLocationPermanlinks.php?type=empty">Locations without permalinks</a><br>
+<a href="listLocationPermanlinks.php?type=duplicates">Duplicated permalinks</a><br>
+<a href="listLocationPermanlinks.php">All locations</a>
 
 </td></tr>
 </table>
