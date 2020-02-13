@@ -78,9 +78,9 @@ for ($i = 0; $i < sizeof($updatedLocations); $i++)
 		$addedText = $newItem ? "Added new " : "Updated ";
 		
 		if ($newItem) {
-			$desc = "A new page for the $name $objectType has been created";			
+			$desc = "A new page for the $name $objectType has been created";
 		} else {
-			$desc = "The $name $objectType $objectTypeDescription has been updated";			
+			$desc = "The $name $objectType $objectTypeDescription has been updated";
 		}
 		
 		$title = "$addedText$objectType: $name";
