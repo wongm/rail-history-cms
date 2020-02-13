@@ -46,18 +46,18 @@ function runQuery($time, $baseUrl)
 	$queryDateFormatted = date('Y-m-d', $time);
 	$day = date('j', $time);
 	$month = date('n', $time);
-	
-    $filter = "";
+
+	$filter = "";
 	// show if admin when page is in edit mode
-    if ( !zp_loggedin() ) {
-        $filter = " AND r.todisplay != 'hide'";
-    }
-	
+	if ( !zp_loggedin() ) {
+		$filter = " AND r.todisplay != 'hide'";
+	}
+
 	$sql = "SELECT YEAR(open) AS year, l.location_id AS event_id, DATE_FORMAT(l.open, '".SHORT_DATE_FORMAT."') AS fdate, openAccuracy AS approx, DATE_FORMAT(l.close, '".SHORT_DATE_FORMAT."') AS fdatealt, closeAccuracy AS approxAlt, l.open AS plaindate, 'opened' AS tracks, 
 			'-', '-', '-', '-', 
 			'-', '-', l.open AS date, r.name AS line, '', 
 			'-', '-', basic, '-', '-', '-', l.openAccuracy AS dateAccuracy, 
-			'-', '-', '-', l.name AS location_name
+			'-', '-', '-', l.name AS location_name, l.link
 			FROM locations l
 			INNER JOIN locations_raillines lr ON lr.location_id = l.location_id 
 			INNER JOIN raillines r ON lr.line_id = r.line_id 
@@ -71,7 +71,7 @@ function runQuery($time, $baseUrl)
 			'-', '-', '-', '-', 
 			'-', '-', l.close, r.name AS line, '', 
 			'-', '-', basic, '-', '-', '-', l.closeAccuracy AS dateAccuracy, 
-			'-', '-', '-', l.name AS location_name 
+			'-', '-', '-', l.name AS location_name, l.link
 			FROM locations l
 			INNER JOIN locations_raillines lr ON lr.location_id = l.location_id 
 			INNER JOIN raillines r ON lr.line_id = r.line_id 
@@ -92,8 +92,9 @@ function runQuery($time, $baseUrl)
 		$fdate = $result[0]['fdate'];
 		$fdatealt = $result[0]['fdatealt'];
 		$fdateFormatted = formatDate($result[0]['fdate'], $result[0]['approx']);
-		$fdatealtFormatted = formatDate($result[0]['fdatealt'], $result[0]['approxAlt']);		
+		$fdatealtFormatted = formatDate($result[0]['fdatealt'], $result[0]['approxAlt']);
 		$location_name = $result[0]['location_name'];
+		$link = $result[0]['link'];
 		$line = $result[0]['line'];
 		$action = $result[0]['tracks'];
 		$location_id = $result[0]['event_id'];
@@ -111,7 +112,7 @@ function runQuery($time, $baseUrl)
 		$root = "$location_name$locationType $action on the $line line";
 		$title = "On this day $yearsAgo year$yearPlural ago, $fdateFormatted: $root";
 		$description = "On this day $yearsAgo year$yearPlural ago: $root on $fdateFormatted$oppositeMessage.";
-		$urlText = "$baseUrl/location/$location_id";
+		$urlText = "$baseUrl/location/$link";
 ?>
 <item>
 	<title><?php echo $title; ?></title>
