@@ -24,7 +24,7 @@ if (sizeof($article) == 1)
 	if ($mapKMLfile)
 	{
 		$description = replaceMapElement($description, $mapKMLfile);
-		$mapJS.= generateKMLScript("/images/kml/" . $mapKMLfile);
+		$mapJS.= generateKMLScript("/images/kml/" . $mapKMLfile, 0);
 	}
 	
 	require_once("common/header.php");
