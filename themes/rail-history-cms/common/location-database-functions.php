@@ -521,7 +521,7 @@ function getAssociatedLocations($id, $name, $type)
 		}
 	}
 	// if there is only a single word
-	else if (sizeof($splitName[0]) == 1)
+	else if ($splitNameLength == 1)
 	{
 		$name = $splitName[0];
 	}
