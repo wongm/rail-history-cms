@@ -56,7 +56,7 @@ function runQuery($time, $baseUrl)
 	$sql = "SELECT YEAR(open) AS year, l.location_id AS event_id, DATE_FORMAT(l.open, '".SHORT_DATE_FORMAT."') AS fdate, openAccuracy AS approx, DATE_FORMAT(l.close, '".SHORT_DATE_FORMAT."') AS fdatealt, closeAccuracy AS approxAlt, l.open AS plaindate, 'opened' AS tracks, 
 			'-', '-', '-', '-', 
 			'-', '-', l.open AS date, r.name AS line, '', 
-			'-', '-', basic, '-', '-', '-', l.openAccuracy AS dateAccuracy, 
+			'-', '-', l.type, '-', '-', '-', l.openAccuracy AS dateAccuracy, 
 			'-', '-', '-', l.name AS location_name, l.link
 			FROM locations l
 			INNER JOIN locations_raillines lr ON lr.location_id = l.location_id 
@@ -70,7 +70,7 @@ function runQuery($time, $baseUrl)
 			SELECT YEAR(close) AS year, l.location_id AS event_id, DATE_FORMAT(l.close, '".SHORT_DATE_FORMAT."')  AS fdate, closeAccuracy AS approx, DATE_FORMAT(l.open, '".SHORT_DATE_FORMAT."') AS fdatealt, openAccuracy AS approxAlt, l.close AS plaindate, 'closed' AS tracks, 
 			'-', '-', '-', '-', 
 			'-', '-', l.close, r.name AS line, '', 
-			'-', '-', basic, '-', '-', '-', l.closeAccuracy AS dateAccuracy, 
+			'-', '-', l.type, '-', '-', '-', l.closeAccuracy AS dateAccuracy, 
 			'-', '-', '-', l.name AS location_name, l.link
 			FROM locations l
 			INNER JOIN locations_raillines lr ON lr.location_id = l.location_id 
@@ -93,23 +93,21 @@ function runQuery($time, $baseUrl)
 		$fdatealt = $result[0]['fdatealt'];
 		$fdateFormatted = formatDate($result[0]['fdate'], $result[0]['approx']);
 		$fdatealtFormatted = formatDate($result[0]['fdatealt'], $result[0]['approxAlt']);
-		$location_name = $result[0]['location_name'];
+		$location_name = getLocationName($result[0]['location_name'], $result[0]['type']);
 		$link = $result[0]['link'];
 		$line = $result[0]['line'];
 		$action = $result[0]['tracks'];
 		$location_id = $result[0]['event_id'];
 		$yearsAgo = $currentYear - $pastYear;
 		$yearPlural = ($yearsAgo == 1) ? "" : "s";
-		
-		$locationType = ($result[0]['basic'] == 'Station') ? ' station' : "";
-		
+
 		$oppositeMessage = "";
 		if ($fdatealt != 'January 1, 9999' && $fdatealt != 'January 1, 0001') {
 			$opposite = ($action == 'opened') ? 'closed' : 'opened';
 			$oppositeMessage = ". It $opposite on $fdatealtFormatted";
 		}
 		
-		$root = "$location_name$locationType $action on the $line line";
+		$root = "$location_name $action on the $line line";
 		$title = "On this day $yearsAgo year$yearPlural ago, $fdateFormatted: $root";
 		$description = "On this day $yearsAgo year$yearPlural ago: $root on $fdateFormatted$oppositeMessage.";
 		$urlText = "$baseUrl/location/$link";
