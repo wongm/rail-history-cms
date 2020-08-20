@@ -46,6 +46,7 @@ switch ($currentPage)
 		$showRailHistoryCmsRssLink = true;
 		
 	case 'contact':
+	case 'safeworking':
 		$localPageTitle = " - $pageTitle";
 		$pageHeading = $localPageTitle;
 		break;

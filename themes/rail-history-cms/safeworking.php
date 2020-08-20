@@ -7,7 +7,7 @@ require_once("common/definitions.php");
 	<div class="link"><a href="/">Home</a> &raquo; <a href="/articles/">Articles</a> &raquo; <?php echo $pageTitle?></div>
 	<div class="search"><?php drawHeadbarSearchBox(); ?></div>
 </div>
-<?php require_once("midbar.php"); ?>
+<?php require_once("common/midbar.php"); ?>
 <h3><?php echo $pageTitle?></h3>
 <p><strong>Safeworking Systems</strong> are a system of rules and equipment used to prevent conflict between trains.</p>
 <p>Track is divided into <strong>Sections</strong> upon which only one one train is permitted. The end points of these sections may be a a place where trains may pass (such as a Station or Crossing Loop), a place where trains leave the main line (a Siding) or just a specially marked location (a Block Point).</p>
