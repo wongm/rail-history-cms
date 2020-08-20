@@ -52,7 +52,7 @@ else
 		$headerpicdisplayed = drawHeaderPic('region', $regionLink, $pageTitle, $caption);
 		
 		// get contents titles
-		$descriptionTitles = addDescriptionTitles('', 'lines');
+		$descriptionTitles = addDescriptionTitles(array(), 'lines');
 		$descriptionTitles = getDescriptionTitles($pageContent, $descriptionTitles);
 		$articleSources = getObjectSources('article', $regionId, '');
 		
