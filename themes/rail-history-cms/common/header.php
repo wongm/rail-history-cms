@@ -47,6 +47,9 @@ switch ($currentPage)
 		
 	case 'contact':
 	case 'safeworking':
+	case 'copyright':
+	case 'sources':
+	case 'credits':
 		$localPageTitle = " - $pageTitle";
 		$pageHeading = $localPageTitle;
 		break;
