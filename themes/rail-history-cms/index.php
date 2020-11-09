@@ -77,7 +77,14 @@ if (function_exists('NewDailySummary'))
     	$dayData->date = date("F j, Y", strtotime(getDailySummaryDate()));
     	$dayData->imagePath = getImageThumb();
     	$dayData->imageCaption = $dayData->date . ' - ' . getImageTitle();
-    	$dayData->description = getDailySummaryNumImages() . ' new photos ' . getDailySummaryDescInternal();
+		
+		$photos = "photo ";
+		if (getDailySummaryNumImages() > 1)
+		{
+			$photos = "photos ";
+		}
+		
+    	$dayData->description = getDailySummaryNumImages() . ' new ' . $photos . getDailySummaryDescInternal();
     	$dayData->link = getDailySummaryUrl();
     	$dailySummaryData[] = $dayData;
     }
