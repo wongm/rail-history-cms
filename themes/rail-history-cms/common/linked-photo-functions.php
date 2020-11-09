@@ -8,27 +8,37 @@ function getLinkedPhotoCount($linkedPhotoPathString)
 	$linkedPhotoPathStringBits = explode(';', $linkedPhotoPathString);
 	$subLocation = sizeof($linkedPhotoPathStringBits);
 	
-	// for comma seperated individual images
-	if ($subLocation > 1)
+	// for comma separated individual images
+	if (strpos($linkedPhotoPathString, '.jpg') > 0)
 	{
-		$sqlWhere = "( i.filename = ".db_quote(getFilenameFromPath($linkedPhotoPathStringBits[0]))." ";
-		for ($i = 1; $i < $subLocation; $i++)
+		if ($subLocation > 1)
 		{
-			$sqlWhere .= " OR i.filename = ".db_quote(getFilenameFromPath($linkedPhotoPathStringBits[$i]))." ";
+			$sqlWhere = "( i.filename = ".db_quote(getFilenameFromPath($linkedPhotoPathStringBits[0]))." ";
+			for ($i = 1; $i < $subLocation; $i++)
+			{
+				$sqlWhere .= " OR i.filename = ".db_quote(getFilenameFromPath($linkedPhotoPathStringBits[$i]))." ";
+			}
+			$sqlWhere .= ")";
 		}
-		$sqlWhere .= ")";
-	}
-	else if (strpos($linkedPhotoPathString, '.jpg') > 0)
-	{
-		$sqlWhere = "i.filename = ".db_quote(getFilenameFromPath($linkedPhotoPathString))." ";
+		else
+		{
+			$sqlWhere = "i.filename = ".db_quote(getFilenameFromPath($linkedPhotoPathString))." ";
+		}
 	}
 	// for album in the gallery 
 	else
 	{
-		$sqlWhere = "a.folder = ".db_quote($linkedPhotoPathString);
+		if ($subLocation > 1)
+		{
+			$sqlWhere = "a.folder = ".db_quote($linkedPhotoPathStringBits[0]);
+		}
+		else
+		{
+			$sqlWhere = "a.folder = ".db_quote($linkedPhotoPathString);
+		}
 	}
 	
-	setCustomPhotostream($sqlWhere);	
+	setCustomPhotostream($sqlWhere);
 	return getNumPhotostreamImages();
 }
 
@@ -44,7 +54,29 @@ function getFilenameFromPath($fullpath)
  * Gets the images for a specified location
  * $locations = path to album, or CSV of image ids
  */
-function drawLinkedPhotosFromGallery()
+function drawLinkedPhotosFromGallery($linkedPhotoPathString)
+{
+	$title = '<h4 id="photos" name="photos">Photos</h4><hr />';
+	drawLinkedPhotosFromGalleryInternal($title );
+	
+	// look to see if magic string has an 'events' album
+	$linkedPhotoPathStringBits = explode(';', $linkedPhotoPathString);
+	$subLocation = sizeof($linkedPhotoPathStringBits);
+	
+	if ($subLocation > 1)
+	{
+		for ($i = 1; $i < $subLocation; $i++)
+		{
+			if (substr($linkedPhotoPathStringBits[$i], 0, 7 ) === "events/")
+			{
+				getLinkedPhotoCount($linkedPhotoPathStringBits[$i]);
+				drawLinkedPhotosFromGalleryInternal();
+			}
+		}
+	}
+}
+
+function drawLinkedPhotosFromGalleryInternal($sectionTitle = '')
 {
 	$displayRows = $originalRows = getNumPhotostreamImages();
 	
@@ -74,15 +106,18 @@ function drawLinkedPhotosFromGallery()
 			
 			if ($i == 0)
 			{
-?>
-<h4 id="photos" name="photos">Photos</h4><hr />
-<?php
+				if ($sectionTitle == '')
+				{
+					$sectionTitle = '<h4>' . getAlbumTitleForPhotostreamImage() . '</h4><hr>';
+				}
+				echo $sectionTitle;
+				
 				if ($originalRows > 9)
 				{
 					$moreString = 'Nine of <a href="'.$linkedGalleryItemPath.'">'.$originalRows.' images found</a> displayed.';
 					$displayRows = 9;
 				}
-				else		
+				else
 				{
 					$moreString = '<a href="'.$linkedGalleryItemPath.'">'.$displayRows.' images found</a>.';
 				}
@@ -107,7 +142,7 @@ function drawLinkedPhotosFromGallery()
 		</td>
 <?php 			$j++;
 				$i++;
-+    			next_photostream_image();
+				next_photostream_image();
 			}	//end while for cols
 			$j=0;
 ?>

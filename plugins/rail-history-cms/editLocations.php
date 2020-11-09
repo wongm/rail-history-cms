@@ -242,7 +242,7 @@ else
 	<tr valign="top" height="20">
 		<td align="right"> <b> Gallery album :  </b> </td>
 		<td><input type="text" name="thisPhotosField" size="60" value="<?php echo $thisPhotos; ?>">
-		<br><small>The folder located inside /gallery/albums/ - no need for leading or trailing "/"</small></td> 
+		<br><small>Either:<br>- filename1.jpg;filename2.jpg for a group of images<br>- folder located inside /gallery/albums/ - no need for leading or trailing "/"</small></td> 
 	</tr>
 	<tr valign="top" height="20">
 		<td align="right"> <b> Description :  </b> </td>

@@ -539,7 +539,7 @@ function printMetadata($pageTitle)
 function printAlbumDescAndLink($editable=false) 
 {
 	global $_zp_current_album;
-		
+
 	$linkContent = "";	
 	$railHistoryCMSLink = getRailHistoryCMSLinkForAlbum($_zp_current_album->getFileName());
 	if ($railHistoryCMSLink != null)
@@ -577,7 +577,7 @@ function getRailHistoryCMSLinkForAlbum($albumFolderName)
 		
 	}
 	
-	$locationResultSQL = "SELECT name, link FROM locations WHERE photos = " . db_quote($albumFolderName) . " AND link != ''";
+	$locationResultSQL = "SELECT name, link FROM locations WHERE photos LIKE " . db_quote("%" . $albumFolderName . "%") . " AND link != ''";
 	$locationResult = query_full_array($locationResultSQL);
 	
 	if (sizeof($locationResult) > 0)

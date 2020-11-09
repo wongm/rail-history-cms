@@ -205,7 +205,7 @@ function drawLocation($location)
 	// display gallery if required
 	if ($showPhotos)
 	{
-		drawLinkedPhotosFromGallery();
+		drawLinkedPhotosFromGallery($location['photos']);
 	}
 
 	// display aerial photos if they exist
