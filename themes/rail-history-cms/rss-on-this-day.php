@@ -66,6 +66,7 @@ function runQuery($time, $baseUrl)
 			AND l.name != '' AND open != '".DATE_UNKNOWN_OPEN."' AND open != '".DATE_UNKNOWN_CLOSE."' 
 			AND DAY(open) = '" . $day . "' AND MONTH(open) = '" . $month . "'
 			AND l.openAccuracy = 'exact' " . $filter . "
+			AND ((YEAR(CURDATE()) - YEAR(open)) % 5) = 0
 			UNION
 			SELECT YEAR(close) AS year, l.location_id AS event_id, DATE_FORMAT(l.close, '".SHORT_DATE_FORMAT."')  AS fdate, closeAccuracy AS approx, DATE_FORMAT(l.open, '".SHORT_DATE_FORMAT."') AS fdatealt, openAccuracy AS approxAlt, l.close AS plaindate, 'closed' AS tracks, 
 			'-', '-', '-', '-', 
@@ -80,7 +81,8 @@ function runQuery($time, $baseUrl)
 			AND l.name != '' AND close != '".DATE_NULL."' AND close != '".DATE_UNKNOWN_CLOSE."' 
 			AND DAY(close) = '" . $day . "' AND MONTH(close) = '" . $month . "'
 			AND l.closeAccuracy = 'exact' " . $filter . "
-			ORDER BY plaindate ASC";
+			AND ((YEAR(CURDATE()) - YEAR(close)) % 5) = 0
+			ORDER BY year ASC";
 			
 	$result = query_full_array($sql);
 	$numberOfRows = sizeof($result);
