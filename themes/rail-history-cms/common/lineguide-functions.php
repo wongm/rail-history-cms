@@ -351,7 +351,7 @@ function drawSpecificLine($line, $contentsHeader = 'Contents')
 
 	if ($showPhotos)
 	{
-		drawLinkedPhotosFromGallery();
+		drawLinkedPhotosFromGallery($line['photos']);
 	}
 }	// end function
 
