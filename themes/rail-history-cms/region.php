@@ -90,7 +90,7 @@ else
 		
 		if($showPhotos)
 		{
-			drawLinkedPhotosFromGallery();
+			drawLinkedPhotosFromGallery($photos);
 		}
 		
 		// draw credits previously formatted by drawObjectSources()

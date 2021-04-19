@@ -62,7 +62,7 @@ if (sizeof($article) == 1)
 		require_once("common/linked-photo-functions.php");
 		if (getLinkedPhotoCount($photos) > 0)
 		{
-    		drawLinkedPhotosFromGallery();
+    		drawLinkedPhotosFromGallery($photos);
 		}
 	}
 	
