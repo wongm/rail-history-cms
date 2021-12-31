@@ -106,7 +106,12 @@ function runQuery($time, $baseUrl)
 		$oppositeMessage = "";
 		if ($fdatealt != 'January 1, 9999' && $fdatealt != 'January 1, 0001') {
 			$opposite = ($action == 'opened') ? 'closed' : 'opened';
-			$oppositeMessage = ". It $opposite on $fdatealtFormatted";
+			// if HTML tags then it's probably the 'approx' / By this date value
+			if ($fdatealtFormatted != strip_tags($fdatealtFormatted)) {
+				$oppositeMessage = ". It was $opposite by " . str_replace(array( '(', ')' ), '', $fdatealtFormatted);
+			} else {
+				$oppositeMessage = ". It $opposite on $fdatealtFormatted";
+			}
 		}
 		
 		$root = "$location_name $action on the $line line";
