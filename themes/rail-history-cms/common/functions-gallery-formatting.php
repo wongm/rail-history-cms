@@ -577,7 +577,7 @@ function getRailHistoryCMSLinkForAlbum($albumFolderName)
 		
 	}
 	
-	$locationResultSQL = "SELECT name, link FROM locations WHERE photos LIKE " . db_quote("%" . $albumFolderName . "%") . " AND link != ''";
+	$locationResultSQL = "SELECT name, link FROM locations WHERE photos = " . db_quote($albumFolderName) . " AND link != ''";
 	$locationResult = query_full_array($locationResultSQL);
 	
 	if (sizeof($locationResult) > 0)
