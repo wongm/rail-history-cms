@@ -7,7 +7,7 @@ require_once("common/map-functions.php");
 
 $link = $_REQUEST['name'];
 $link = str_replace('/', '', $link);
-$article = query_full_array("SELECT *, DATE_FORMAT(modified, '%M %e, %Y') AS fdate FROM articles WHERE `link` = '$link'");
+$article = query_full_array("SELECT *, DATE_FORMAT(modified, '%M %e, %Y') AS fmodified, DATE_FORMAT(added, '%M %e, %Y') AS fadded FROM articles WHERE `link` = '$link'");
 
 if (sizeof($article) == 1)
 {
@@ -16,7 +16,19 @@ if (sizeof($article) == 1)
 	$description = stripslashes($article[0]["content"]);
 	$photos = stripslashes($article[0]["photos"]);
 	$articleSources = getObjectSources('article', $articleId, '');
-	$lastUpdatedDate = $article[0]["fdate"]; 
+	$modified = $article[0]["fmodified"]; 
+	$added = $article[0]["fadded"]; 
+	
+	$dateString = "";
+	if (strlen($added) > 0) 
+	{
+		$dateString = "<p>Published: " . $added;
+		if (strlen($modified) > 0 && $modified != $added) 
+		{
+			$dateString .= " (Last updated: " . $modified . ")";
+		}
+		$dateString .= "</p>";
+	}
 	
 	$mapKMLfile = parseDescriptionForMap($description);
 	$mapJS = "";
@@ -37,6 +49,7 @@ if (sizeof($article) == 1)
 <h3><?php echo $pageTitle?></h3>
 <?php 
 	drawAdminEditableLink("editArticles.php?id=$articleId", "Edit Article");
+	//echo $dateString;
 	
 	// get pretty header photo
 	drawHeaderPic('articles', $link, $pageTitle);
