@@ -12,18 +12,6 @@ DEFINE ('GALLERY_PATH', '/gallery/');
 
 DEFINE ('COPYRIGHT', '<p>All photographs copyright Marcus Wong unless otherwise noted.</p>');
 
-$server = $_SERVER['SERVER_NAME'];
-if ($server == 'localhost')
-{
-	define('GOOGLE_KEY','ABQIAAAAYC6wPz4_TXO8W21k3ZQsxxT2yXp_ZAY8_ufC3CFXhHIE1NvwkxRtkZ1P0Ak4-BtWFnDfiXlK-RmYgg');
-}
-else
-{
-	//railgeelong.com key
-	define('GOOGLE_KEY','ABQIAAAAugzXsqqH3uhS-f10_b0zUBSSVOiGwpfQUHQXPiT4GcEe-nTa6RTLOirELIgs59SYCsR0rfBLa5a8bg');
-}
-define('GOOGLE_KEY_v3','AIzaSyDJ4gZMOYwBqPtilw3EqoT35UwrNqOHA40');
-
 define('TYPE_SIGNAL_BOX', 29);
 define('TYPE_YARD', 31);
 define('TYPE_JUNCTION', 27);

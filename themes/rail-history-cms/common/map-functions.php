@@ -19,7 +19,7 @@ function generateKMLScript($mapKMLpath, $lineId)
 	global $_zp_themeroot;
 	$mapKMLlocation = "https://" . $_SERVER['HTTP_HOST'] . "$mapKMLpath?session=" . rand(100000000,900000000);
 	
-	$mapHTML =  "<script src=\"https://maps.googleapis.com/maps/api/js?key=" . GOOGLE_KEY_v3 . "\" type=\"text/javascript\"></script>\n";
+	$mapHTML =  "<script src=\"https://maps.googleapis.com/maps/api/js?key=" . getOption('gmap_api_key') . "\" type=\"text/javascript\"></script>\n";
 	
 	if ($lineId > 0)
 	{
@@ -113,7 +113,7 @@ function drawGoogleMapForSpecificLocation($view, $id)
 <meta name="author" content="Marcus Wong" />
 <meta name="description" content="<?php echo getGalleryDesc();?>" />
 <link rel="stylesheet" type="text/css" href="/common/css/style.css" media="all" title="Normal" />
-<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_KEY_v3?>&sensor=false"></script>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=<?php echo getOption('gmap_api_key'); ?>&sensor=false"></script>
 <script type="text/javascript">
 <?php /* google map function - single location */ ?>
 var map, marker, infowindow;

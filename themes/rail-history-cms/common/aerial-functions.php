@@ -18,7 +18,7 @@ function drawAllMap($center, $zoom, $types, $lines)
 <meta name="description" content="<?php echo getGalleryDesc();?>" />
 <link rel="stylesheet" type="text/css" href="<?php echo $_zp_themeroot ?>/css/style.css" media="all" title="Normal" />
 <link rel="stylesheet" type="text/css" href="<?php echo $_zp_themeroot ?>/css/aerialstyle.css" />
-<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_KEY_v3 ?>" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo getOption('gmap_api_key'); ?>" type="text/javascript"></script>
 <script src="<?php echo $_zp_themeroot ?>/js/functions.js" type="text/javascript"></script>
 <script src="<?php echo $_zp_themeroot ?>/js/aerialfunctions.js" type="text/javascript"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

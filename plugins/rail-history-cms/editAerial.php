@@ -13,7 +13,7 @@ $locationtoset = isset($_REQUEST["locationtoset"]) ? $_REQUEST["locationtoset"] 
 #navigation { display: none }
 #content { margin: 0; }
 </style>
-<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_KEY_v3; ?>&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo getOption('gmap_api_key'); ?>&callback=initMap" async defer></script>
 <script type="text/javascript">
 //<![CDATA[
 var map;
