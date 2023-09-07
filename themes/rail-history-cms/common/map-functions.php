@@ -140,12 +140,12 @@ function initialize() {
 	map = new google.maps.Map(document.getElementById('map'), mapOptions);	
 	infowindow = new google.maps.InfoWindow({
 		position: locationLatlng,
-		content: '<b><?php echo $name ?></b><p><?php echo $typeName ?></p>'
+		content: '<b><?php echo addslashes($name); ?></b><p><?php echo $typeName ?></p>'
 	});
 	marker = new google.maps.Marker({
 		position: locationLatlng,
 		map: map,
-		title: '<?php echo $name ?>'
+		title: '<?php echo addslashes($name); ?>'
 	});
 	marker.setIcon('https://maps.google.com/mapfiles/ms/icons/blue.png');	
 	infowindow.open(map,marker);
