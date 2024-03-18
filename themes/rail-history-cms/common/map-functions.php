@@ -83,6 +83,8 @@ function replaceMapElement($description, $mapKML)
  */
 function drawGoogleMapForSpecificLocation($view, $id)
 {
+	global $_zp_db;
+	
 	$pageTitle = "Aerial Explorer";
 	
 	// get data from DB
@@ -90,7 +92,7 @@ function drawGoogleMapForSpecificLocation($view, $id)
 		INNER JOIN location_types lt ON lt.type_id = l.type 
 		WHERE location_id = '".$id."'";
 		
-	$result = query_full_array($sql);
+	$result = $_zp_db->queryFullArray($sql);
 	
 	if (sizeof($result) == 0)
 	{

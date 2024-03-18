@@ -2,6 +2,8 @@
 
 require_once("common/definitions.php");
 
+global $_zp_db;
+
 header('Content-Type: application/json');
 
 $lineId = isset($_REQUEST["line"]) ? $_REQUEST["line"] : "";
@@ -19,7 +21,7 @@ $sqlQuery = "SELECT l.name, l.location_id, basic, l.long, l.photos, l.events, l.
 FROM locations l, location_types lt, locations_raillines lr 
 WHERE lt.type_id = l.type AND l.location_id = lr.location_id
 AND name != '' AND `long` != '' AND `long` != '0' AND display != 'tracks' ".$bit;
-$result = query_full_array($sqlQuery);
+$result = $_zp_db->queryFullArray($sqlQuery);
 $numberOfRows = sizeof($result);
 
 if ($numberOfRows > 0) 

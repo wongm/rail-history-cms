@@ -312,6 +312,8 @@ function drawLocationSearchBox()
 
 function drawLocationSearch($locationSearch, $searchPageNumber, $message="")
 {
+	global $_zp_db;
+	
 	$maxRecordsPerPage = 50;
 	$searchPageNumber--;
 
@@ -332,16 +334,16 @@ function drawLocationSearch($locationSearch, $searchPageNumber, $message="")
 		INNER JOIN location_types lt ON lt.type_id = l.type
 		LEFT OUTER JOIN locations ol ON l.name = ol.name
 		WHERE r.todisplay != 'hide'  AND l.name != '' AND l.display != 'tracks' AND l.type != 18
-		AND ".SQL_NEXTABLE." AND l.name like %s", db_quote("%$locationSearch%"));
+		AND ".SQL_NEXTABLE." AND l.name like %s", $_zp_db->quote("%$locationSearch%"));
 	
 		$queryLimitSQL = sprintf(" GROUP BY l.location_id ORDER BY l.location_id, l.name ASC LIMIT %s, %s",
 			($index), ($maxRecordsPerPage));
 	
-		$result = query_full_array("SELECT l.location_id, l.name AS name, r.name AS linename, l.type, l.link, 
+		$result = $_zp_db->queryFullArray("SELECT l.location_id, l.name AS name, r.name AS linename, l.type, l.link, 
 			length(l.description) AS description_length, l.photos, l.events, lr.line_id, lt.basic ".$queryBaseSQL.$queryLimitSQL);
 		$numberOfRecords = sizeof($result);
 	
-		$resultMaxRows = query_full_array("SELECT l.location_id ".$queryBaseSQL." GROUP BY l.location_id");
+		$resultMaxRows = $_zp_db->queryFullArray("SELECT l.location_id ".$queryBaseSQL." GROUP BY l.location_id");
 		$totalNumberOfRecords = sizeof($resultMaxRows);
 	}
 	else

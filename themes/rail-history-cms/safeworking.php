@@ -1,7 +1,12 @@
- <?php $pageTitle = "Safeworking";
-require_once("common/header.php");
+ <?php 
 require_once("common/formatting-functions.php");
 require_once("common/definitions.php");
+
+global $_zp_db;
+
+$pageTitle = "Safeworking";
+require_once("common/header.php");
+
 ?>
 <div id="headbar">
 	<div class="link"><a href="/">Home</a> &raquo; <a href="/articles/">Articles</a> &raquo; <?php echo $pageTitle?></div>
@@ -16,7 +21,7 @@ require_once("common/definitions.php");
 <?php
 
 $sql = "SELECT * FROM safeworking_types WHERE details != '' ORDER BY ordered ASC";
-$result = query_full_array($sql);
+$result = $_zp_db->queryFullArray($sql);
 $numberOfRows = sizeof($result);
 
 if ($numberOfRows==0)

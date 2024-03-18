@@ -112,6 +112,7 @@ function drawPageOfUpdated($updatedPages)
 
 function getUpdatedPages($index, $maxRowsPerPage)
 {
+	global $_zp_db;
 	$filter = "";
 	// show if admin when page is in edit mode
 	if ( !zp_loggedin() ) {
@@ -151,10 +152,10 @@ function getUpdatedPages($index, $maxRowsPerPage)
 		($maxRowsPerPage)
 		);
 	
-	$locations["result"] = $result = query_full_array($sqlQuery.$sqlLimitedOrderBy);
-	$locations["numberOfRows"] = db_affected_rows($result);
-	$resultMaxRows = query($sqlQuery);
-	$locations["maxRows"] = db_affected_rows($resultMaxRows);
+	$locations["result"] = $result = $_zp_db->queryFullArray($sqlQuery.$sqlLimitedOrderBy);
+	$locations["numberOfRows"] = $_zp_db->getAffectedRows($result);
+	$resultMaxRows = $_zp_db->query($sqlQuery);
+	$locations["maxRows"] = $_zp_db->getAffectedRows($resultMaxRows);
 	
 	return $locations;
 }	// end function

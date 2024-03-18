@@ -566,9 +566,11 @@ function printAlbumDescAndLink($editable=false)
 
 function getRailHistoryCMSLinkForAlbum($albumFolderName)
 {
+	global $_zp_db;
+
 	//prefer lineguide first, even if it doesn't exist
-	$lineResultSQL = "SELECT name, link FROM raillines WHERE photos = " . db_quote($albumFolderName);
-	$lineResult = query_full_array($lineResultSQL);
+	$lineResultSQL = "SELECT name, link FROM raillines WHERE photos = " . $_zp_db->quote($albumFolderName);
+	$lineResult = $_zp_db->queryFullArray($lineResultSQL);
 	
 	if (sizeof($lineResult) > 0)
 	{
@@ -577,8 +579,8 @@ function getRailHistoryCMSLinkForAlbum($albumFolderName)
 		
 	}
 	
-	$locationResultSQL = "SELECT name, link FROM locations WHERE photos = " . db_quote($albumFolderName) . " AND link != ''";
-	$locationResult = query_full_array($locationResultSQL);
+	$locationResultSQL = "SELECT name, link FROM locations WHERE photos = " . $_zp_db->quote($albumFolderName) . " AND link != ''";
+	$locationResult = $_zp_db->queryFullArray($locationResultSQL);
 	
 	if (sizeof($locationResult) > 0)
 	{

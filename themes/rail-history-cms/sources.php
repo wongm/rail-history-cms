@@ -2,6 +2,8 @@
 require_once("common/definitions.php");
 require_once("common/formatting-functions.php");
 
+global $_zp_db;
+
 $pageTitle = 'Sources';
 require_once("common/header.php");
 ?>
@@ -15,7 +17,7 @@ require_once("common/header.php");
 <p>The following sources were used in the research for this site. The availability of them varies. I would also like to thank the people and organisations listed on the <a href="/credits.php">Credits</a> page for their assistance.</p>
 <?php
 $sql = "SELECT * FROM sources ORDER BY name ASC";
-$result = query_full_array($sql);
+$result = $_zp_db->queryFullArray($sql);
 $numberOfRows = sizeof($result);
 
 if ($numberOfRows>0)

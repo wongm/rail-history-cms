@@ -11,9 +11,10 @@ require_once("definitions.php");
  */
 function getLineguideExtraPage($line, $section)
 {
+	global $_zp_db;
 	$extrasPageSQL = sprintf("SELECT * FROM articles WHERE `line_id` = '%s' AND `link` = %s", 
-		($line['lineId']), db_quote($section));
-	$extras = query_full_array($extrasPageSQL);
+		($line['lineId']), $_zp_db->quote($section));
+	$extras = $_zp_db->queryFullArray($extrasPageSQL);
 	$extrasLength = sizeof($extras);
 				
 	if ($extrasLength == 1)
@@ -35,6 +36,7 @@ function getLineguideExtraPage($line, $section)
 
 function getLine($lineToDisplay, $yearToDisplay)
 {
+	global $_zp_db;
     $filter = "";
 	// show if admin when page is in edit mode
     if ( !zp_loggedin() ) {
@@ -47,7 +49,7 @@ function getLine($lineToDisplay, $yearToDisplay)
 			count(lr.location_id) AS line_locations, 'page' AS type
 			FROM raillines r
 			LEFT OUTER JOIN locations_raillines lr ON lr.line_id = r.line_id
-			WHERE r.link = ".db_quote($lineToDisplay)." 
+			WHERE r.link = ".$_zp_db->quote($lineToDisplay)." 
 			$filter
 			GROUP BY lr.line_id
 		UNION ALL 
@@ -55,10 +57,10 @@ function getLine($lineToDisplay, $yearToDisplay)
 			DATE_FORMAT(a.modified, '%M %e, %Y') AS fdate, 0 AS line_locations, 'subpage' AS type
 			FROM raillines r
 			LEFT OUTER JOIN articles a ON a.line_id = r.line_id
-			WHERE r.link = ".db_quote($lineToDisplay)." 
+			WHERE r.link = ".$_zp_db->quote($lineToDisplay)." 
 			$filter";
 			
-	$lineResult = query_full_array($lineResultSQL);
+	$lineResult = $_zp_db->queryFullArray($lineResultSQL);
 	$numberOfPageResults = sizeof($lineResult);
 	
 	if ($numberOfPageResults > 0)
@@ -203,11 +205,12 @@ function getLineBasicDetails($result, $j)
 
 function getRegionsForLine($lineid)
 {
+	global $_zp_db;
 	$regionResultSQL = "SELECT region.link FROM railline_region rr
 			LEFT OUTER JOIN articles region ON region.article_id = rr.article_id
 			WHERE rr.line_id = '$lineid'";
 			
-	$regionResult = query_full_array($regionResultSQL);
+	$regionResult = $_zp_db->queryFullArray($regionResultSQL);
 	
 	for ($i = 0; $i < sizeof($regionResult); $i++)
 	{

@@ -26,6 +26,8 @@ function drawLineEvents($lineId, $type)
 	
 function getLineLocationEvents($lineId, $type)	
 {
+	global $_zp_db;
+
 	// array format - DATE - EVENT DSECRIPTION
 	$eventData = array();
 	
@@ -54,7 +56,7 @@ function getLineLocationEvents($lineId, $type)
 			ORDER BY close ASC";
 	}
 	
-	$result = query_full_array($sql);
+	$result = $_zp_db->queryFullArray($sql);
 	$numberOfRows = sizeof($result);
 	if ($numberOfRows > 0)
 	{	
@@ -76,12 +78,14 @@ function getLineLocationEvents($lineId, $type)
  */
 function getMiscLineEvents($lineId)
 {
+	global $_zp_db;
+
 	$sql = "SELECT DATE_FORMAT(date, '".SHORT_DATE_FORMAT."') AS fdate, dateAccuracy, description
 	FROM railline_events
 	WHERE (line = '".$lineId."') AND display != 'hide' 
 	AND (safeworking_why = 'plain') 
 	ORDER BY date ASC";
-	$result = query_full_array($sql);
+	$result = $_zp_db->queryFullArray($sql);
 	$numberOfRows = sizeof($result);
 	
 	$eventData = null;
@@ -99,6 +103,8 @@ function getMiscLineEvents($lineId)
 	
 function getLocationLineEvents($type, $location)
 {
+	global $_zp_db;
+
 	$locationID = isset($location['id']) ? $location['id'] : "";
 	
 	if (!isset($location['numberoflines']) || $location['numberoflines'] == '')
@@ -241,7 +247,7 @@ function getLocationLineEvents($type, $location)
 	}
 	
 	$tram = false;
-	$result = query_full_array($sql);
+	$result = $_zp_db->queryFullArray($sql);
 	$numberOfRows = sizeof($result);
 	
 	if ($numberOfRows > 0 AND $sqlBit != '' )
@@ -401,7 +407,7 @@ function getLocationLineEvents($type, $location)
 						GROUP BY start_location, end_location
 						ORDER BY STARTKM.km ASC";
 					
-					$multiLocations = query_full_array($sqlmultilocations);
+					$multiLocations = $_zp_db->queryFullArray($sqlmultilocations);
 					$sameDate = sizeof($multiLocations);
 					
 					if ($sameDate > 1)
@@ -744,12 +750,14 @@ function getLocationEventDetails($details)
  */
 function getLocationEvents($location)
 {
+	global $_zp_db;
+
 	$sql = "SELECT DATE_FORMAT(date, '".SHORT_DATE_FORMAT."') AS fdate, 
 		date, dateAccuracy, details, source, sourcedetail 
 		FROM location_events 
 		WHERE location = ".$location['id']." 
 		ORDER BY date ASC";
-	$result = query_full_array($sql);
+	$result = $_zp_db->queryFullArray($sql);
 	$numberOfRows = sizeof($result);
 	
 	$i=0;

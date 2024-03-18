@@ -125,6 +125,7 @@ function drawDescription()
 
 function getAerialExplorerTabs()
 {
+	global $_zp_db;
 ?>
 <div><?php /* div for tabs */?>
 <ul id="maintab" class="shadetabs">
@@ -159,7 +160,7 @@ $filter = "";
 if ( !zp_loggedin() ) {
 	$filter = " WHERE todisplay != 'hide' ";
 }
-$result = query_full_array("SELECT * FROM raillines $filter ORDER BY name");
+$result = $_zp_db->queryFullArray("SELECT * FROM raillines $filter ORDER BY name");
 $numberOfRows = sizeof($result);
 if ($numberOfRows>0) 
 {

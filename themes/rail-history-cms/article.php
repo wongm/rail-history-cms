@@ -5,9 +5,11 @@ require_once("common/formatting-functions.php");
 require_once("common/source-functions.php");
 require_once("common/map-functions.php");
 
+global $_zp_db;
+
 $link = $_REQUEST['name'];
 $link = str_replace('/', '', $link);
-$article = query_full_array("SELECT *, DATE_FORMAT(modified, '%M %e, %Y') AS fmodified, DATE_FORMAT(added, '%M %e, %Y') AS fadded FROM articles WHERE `link` = '$link'");
+$article = $_zp_db->queryFullArray("SELECT *, DATE_FORMAT(modified, '%M %e, %Y') AS fmodified, DATE_FORMAT(added, '%M %e, %Y') AS fadded FROM articles WHERE `link` = '$link'");
 
 if (sizeof($article) == 1)
 {

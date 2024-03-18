@@ -2,6 +2,8 @@
 
 function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 {	
+	global $_zp_db;
+	
 	$sqlSpecific = "";
 	
 	// depends on what class of diagram we want - line
@@ -84,8 +86,8 @@ function getLocationsTable($lineId, $lineName, $typeSql, $typeName, $sort)
 		LEFT OUTER JOIN locations ol ON l.name = ol.name 
 		WHERE ".$sqlSpecific." l.name != '' AND l.display != 'tracks' $filter
 		GROUP BY location_id ".$sqlorder;
-	$result = query_full_array($sql);
-	$result = query_full_array($sql);
+	$result = $_zp_db->queryFullArray($sql);
+	$result = $_zp_db->queryFullArray($sql);
 	
 	$numberOfLocations = sizeof($result);
 	$j = 0;

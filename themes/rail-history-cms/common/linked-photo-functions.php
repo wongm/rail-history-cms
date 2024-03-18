@@ -5,6 +5,8 @@ require_once("formatting-functions.php");
 // check this location has images to show
 function getLinkedPhotoCount($linkedPhotoPathString)
 {
+	global $_zp_db;
+	
 	$linkedPhotoPathStringBits = explode(';', $linkedPhotoPathString);
 	$subLocation = sizeof($linkedPhotoPathStringBits);
 	
@@ -13,16 +15,16 @@ function getLinkedPhotoCount($linkedPhotoPathString)
 	{
 		if ($subLocation > 1)
 		{
-			$sqlWhere = "( i.filename = ".db_quote(getFilenameFromPath($linkedPhotoPathStringBits[0]))." ";
+			$sqlWhere = "( i.filename = ".$_zp_db->quote(getFilenameFromPath($linkedPhotoPathStringBits[0]))." ";
 			for ($i = 1; $i < $subLocation; $i++)
 			{
-				$sqlWhere .= " OR i.filename = ".db_quote(getFilenameFromPath($linkedPhotoPathStringBits[$i]))." ";
+				$sqlWhere .= " OR i.filename = ".$_zp_db->quote(getFilenameFromPath($linkedPhotoPathStringBits[$i]))." ";
 			}
 			$sqlWhere .= ")";
 		}
 		else
 		{
-			$sqlWhere = "i.filename = ".db_quote(getFilenameFromPath($linkedPhotoPathString))." ";
+			$sqlWhere = "i.filename = ".$_zp_db->quote(getFilenameFromPath($linkedPhotoPathString))." ";
 		}
 	}
 	// for album in the gallery 
@@ -30,11 +32,11 @@ function getLinkedPhotoCount($linkedPhotoPathString)
 	{
 		if ($subLocation > 1)
 		{
-			$sqlWhere = "a.folder = ".db_quote($linkedPhotoPathStringBits[0]);
+			$sqlWhere = "a.folder = ".$_zp_db->quote($linkedPhotoPathStringBits[0]);
 		}
 		else
 		{
-			$sqlWhere = "a.folder = ".db_quote($linkedPhotoPathString);
+			$sqlWhere = "a.folder = ".$_zp_db->quote($linkedPhotoPathString);
 		}
 	}
 	

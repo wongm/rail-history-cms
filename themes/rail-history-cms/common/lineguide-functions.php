@@ -390,6 +390,8 @@ function getBasicLocationForLineguide($databaseresult, $index)
  */
 function getFullLocationForLineguide($location)
 {
+	global $_zp_db;
+
 	$url = $location['url'];
 	
 	// check if unique name
@@ -408,7 +410,7 @@ function getFullLocationForLineguide($location)
 		$junctionsql = "SELECT * FROM raillines r
 			INNER JOIN locations_raillines lr ON lr.line_id = r.line_id
 			WHERE lr.location_id = ".($location['location_id'])."";
-		$junctionresult = query_full_array($junctionsql);
+		$junctionresult = $_zp_db->queryFullArray($junctionsql);
 
 		if (sizeof($junctionresult) > 1)
 		{
@@ -522,6 +524,8 @@ function getFullLocationForLineguide($location)
  */
 function getLineDiagram($line, $section, $trackPage)
 {
+	global $_zp_db;
+
 	extract($line);
 
 	// check for subpage to be shown, reset if invalid
@@ -561,8 +565,8 @@ function getLineDiagram($line, $section, $trackPage)
 		WHERE line_id = '%s' $pageBounds
 		AND l.open <= %s AND l.close >= %s AND l.display != 'map'
 		ORDER BY km ASC", ($lineId),
-		db_quote($yearStart), db_quote($yearEnd));
-	$locationsOnRaillineResult = query_full_array($locationsOnRaillineSql);
+		$_zp_db->quote($yearStart), $_zp_db->quote($yearEnd));
+	$locationsOnRaillineResult = $_zp_db->queryFullArray($locationsOnRaillineSql);
 	$numberOfLocations = sizeof($locationsOnRaillineResult);
 
 	// end of error checking
@@ -705,7 +709,7 @@ function getLineDiagram($line, $section, $trackPage)
 				AND RE.safeworking != ''
 				ORDER BY RE.date DESC";
 
-			$resultSafeworking = query_full_array($sqlSafeworking);
+			$resultSafeworking = $_zp_db->queryFullArray($sqlSafeworking);
 			$startDist = $middleDist = $nextSwName = "";
 
 			if(sizeof($resultSafeworking) >= 1)
@@ -789,7 +793,7 @@ function getLineDiagramSectionTracks($line, $currentLocation, $pastTracks)
 		AND RE.date < '".$line['yearEnd']."' AND RE.line = '".$currentLocation['line_id']."' AND RE.tracks != ''
 		ORDER BY RE.date DESC";
 
-	$resultTracks = query_full_array($sqlTracks);
+	$resultTracks = $_zp_db->queryFullArray($sqlTracks);
 	$resultRows = sizeof($resultTracks);
 
 	if ($resultRows > 0)
@@ -829,6 +833,8 @@ function getLineDiagramSectionTracks($line, $currentLocation, $pastTracks)
  */
 function getLineDiagramLocationImage($line, $currentLocation, $tracksToDisplay)
 {
+	global $_zp_db;
+
 	$imageToDisplay = "";
 	
 	// set up image url for crossings with events
@@ -842,7 +848,7 @@ function getLineDiagramLocationImage($line, $currentLocation, $tracksToDisplay)
 									WHERE date < '".$line['yearEnd']."'
 									AND location = '".$currentLocation['location_id']."'
 									ORDER BY date DESC";
-			$resultLocationEvents = query_full_array($sqlLocationEvents);
+			$resultLocationEvents = $_zp_db->queryFullArray($sqlLocationEvents);
 
 			if(sizeof($resultLocationEvents) > 0)
 			{
@@ -882,7 +888,7 @@ function getLineDiagramLocationImage($line, $currentLocation, $tracksToDisplay)
 		}
 		else
 		{
-			$yearLimitedResult = query_full_array("SELECT * FROM location_years
+			$yearLimitedResult = $_zp_db->queryFullArray("SELECT * FROM location_years
 											WHERE `location` = '".$currentLocation['location_id']."'
 											AND `year` <= '".$line['yearEnd']."'
 											ORDER BY year DESC");
@@ -898,7 +904,7 @@ function getLineDiagramLocationImage($line, $currentLocation, $tracksToDisplay)
 				// more than one year, but none found (pick pic from location opening)
 				else
 				{
-					$yearAllResults = query_full_array("SELECT * FROM location_years
+					$yearAllResults = $_zp_db->queryFullArray("SELECT * FROM location_years
 											WHERE location = '".$currentLocation['location_id']."'");
 
 					if (sizeof($yearAllResults) > 0)
@@ -1015,6 +1021,8 @@ function checkLineguideDiagramYears($line)
 
 function drawAllLineguideDotpoints($type)
 {
+	global $_zp_db;
+	
     $filter = "";
 	// show if admin when page is in edit mode
     if ( !zp_loggedin() ) {
@@ -1027,7 +1035,7 @@ function drawAllLineguideDotpoints($type)
 	WHERE link != 'off-rail' $filter
 	GROUP BY lr.line_id
 	ORDER BY `order` ASC";
-	$result = query_full_array($sql);
+	$result = $_zp_db->queryFullArray($sql);
 	$numberOfRows = sizeof($result);
 
 	if ($numberOfRows>0)

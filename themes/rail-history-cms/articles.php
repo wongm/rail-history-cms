@@ -3,6 +3,8 @@
 require_once("common/definitions.php");
 require_once("common/formatting-functions.php");
 
+global $_zp_db;
+
 $pageTitle = $pageTitleArticles = 'Articles Listing';
 
 require_once("common/header.php");
@@ -14,7 +16,7 @@ require_once("common/header.php");
 <?php require_once("common/midbar.php"); ?>
 <h3><?php echo $pageTitleArticles?></h3>
 <?php 
-$articles = query_full_array("SELECT * FROM articles WHERE link != '' AND `line_id` = '0'");
+$articles = $_zp_db->queryFullArray("SELECT * FROM articles WHERE link != '' AND `line_id` = '0'");
 
 for ($i = 0; $i < sizeof($articles); $i++)
 {

@@ -15,6 +15,7 @@ Functions relating to sources and credits
  */
 function getObjectSources($type, $id, $credits)
 {
+	global $_zp_db;
 	$toreturn = '';
 	
 	// format passed credits initially
@@ -30,7 +31,7 @@ function getObjectSources($type, $id, $credits)
 		$sql = sprintf("SELECT * FROM object_sources, sources 
 			WHERE object_sources.source_id = sources.source_id 
 			AND %s_id = %s ORDER BY name", ($type), ($id));
-		$result = query_full_array($sql);
+		$result = $_zp_db->queryFullArray($sql);
 		$numberOfRows = sizeof($result);
 		
 		if ($numberOfRows >= 1)

@@ -1,6 +1,9 @@
-<?php require_once("common/definitions.php");
+<?php 
+require_once("common/definitions.php");
 require_once("common/formatting-functions.php");
 require_once("common/lineguide-functions.php");
+
+global $_zp_db;
 
 $pageTitle = 'Sitemap';
 require_once("common/header.php");
@@ -20,7 +23,7 @@ require_once("common/header.php");
 <li><a href="/aerial.php?section=overview">Aerial Explorer</a></li>
 <?php
 // get regions
-$regions = query_full_array("SELECT * FROM articles WHERE line_id = '-1'");
+$regions = $_zp_db->queryFullArray("SELECT * FROM articles WHERE line_id = '-1'");
 $numberOfRows = sizeof($regions);
 if ($numberOfRows>0) 
 {
@@ -49,7 +52,7 @@ drawAllLineguideDotpoints('sitemap');
 </ul></li>
 <?php
 // get all articles
-$articles = query_full_array("SELECT * FROM articles WHERE link != '' AND `line_id` = '0'");
+$articles = $_zp_db->queryFullArray("SELECT * FROM articles WHERE link != '' AND `line_id` = '0'");
 $numberOfRows = sizeof($articles);
 if ($numberOfRows>0) 
 {?>

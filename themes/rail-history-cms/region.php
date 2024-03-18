@@ -6,6 +6,8 @@ require_once("common/source-functions.php");
 require_once("common/lineguide-functions.php");
 require_once("common/lineguide-database-functions.php");
 
+global $_zp_db;
+
 /*
  * For regions, groupings of lineguides and articles, that all deal with a geographic area.
  * Bases around articles, but with extra details
@@ -24,8 +26,8 @@ else
 {	
 	$articleSQL = "SELECT DATE_FORMAT(modified, '".SHORT_DATE_FORMAT.sprintf("') AS fdate, title, 
 		content, description, photos, article_id, caption, `link` 
-		FROM articles WHERE `link` = %s", db_quote($regionLink));
-	$article = query_full_array($articleSQL);
+		FROM articles WHERE `link` = %s", $_zp_db->quote($regionLink));
+	$article = $_zp_db->queryFullArray($articleSQL);
 	
 	if (sizeof($article) == 1)
 	{
@@ -109,6 +111,7 @@ else
 
 function drawRegionRaillines($regionLink, $regionId)
 {
+	global $_zp_db;
     $filter = "";
 	// show if admin when page is in edit mode
     if ( !zp_loggedin() ) {
@@ -132,7 +135,7 @@ function drawRegionRaillines($regionLink, $regionId)
 			ORDER BY lineorder ASC",
 			($regionId), ($regionId));
 						
-	$raillineResults = query_full_array($raillineSQL);
+	$raillineResults = $_zp_db->queryFullArray($raillineSQL);
 	$numberOfLines = sizeof($raillineResults);
 	
 	// build up the dataset

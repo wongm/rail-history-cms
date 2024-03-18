@@ -43,6 +43,8 @@ while ($count < 10)
 
 function runQuery($time, $baseUrl)
 {
+	global $_zp_db;
+	
 	$queryDateFormatted = date('Y-m-d', $time);
 	$day = date('j', $time);
 	$month = date('n', $time);
@@ -84,7 +86,7 @@ function runQuery($time, $baseUrl)
 			AND ((YEAR('" . $queryDateFormatted . "') - YEAR(close)) % 5) = 0
 			ORDER BY year ASC";
 			
-	$result = query_full_array($sql);
+	$result = $_zp_db->queryFullArray($sql);
 	$numberOfRows = sizeof($result);
 	
 	if (sizeof($result) > 0)

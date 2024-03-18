@@ -6,6 +6,7 @@ require_once("definitions.php");
  */
 function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 {
+	global $_zp_db;
 	$toFind = '';
 	$pastId = -1;
 	
@@ -13,7 +14,7 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 	if ($boxToFind != '')
 	{
 		$locationToFind = $boxToFind;
-		$toFind = "l.name = ".db_quote($boxToFind)." AND type = '".TYPE_SIGNAL_BOX."' AND ";
+		$toFind = "l.name = ".$_zp_db->quote($boxToFind)." AND type = '".TYPE_SIGNAL_BOX."' AND ";
 	}
 	else
 	{
@@ -25,12 +26,12 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 			}
 			else
 			{
-				$toFind .= "l.link = ".db_quote($idToFind)." AND ";
+				$toFind .= "l.link = ".$_zp_db->quote($idToFind)." AND ";
 			}
 		}
 		else if ($locationToFind != '')
 		{
-			$toFind .= "l.link = ".db_quote($locationToFind)." AND ";
+			$toFind .= "l.link = ".$_zp_db->quote($locationToFind)." AND ";
 		}
 	}
 	
@@ -51,7 +52,7 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
 		INNER JOIN location_types lt  ON lt.type_id = l.type 
 		WHERE ".$toFind." display != 'tracks' $filter 
 		ORDER BY l.location_id ASC, lr.junctiontype, r.order ASC";
-	$locationResults = query_full_array($locationSql);
+	$locationResults = $_zp_db->queryFullArray($locationSql);
 	$duplicateCount = sizeof($locationResults);
 	$locationIndex = -1;
 	
@@ -225,6 +226,7 @@ function getLocation($locationToFind, $boxToFind, $idToFind, $requestedLineLink)
  */
 function getNeighbourLocation($location, $way)
 {
+	global $_zp_db;
 	if ($location["requestedLineLink"] != '')
 	{		
 		$lineLink = str_replace('lines', 'foolines', $location["requestedLineLink"]);
@@ -238,14 +240,14 @@ function getNeighbourLocation($location, $way)
 	
 	if ($way == 'back')
 	{
-		$neighbourSqlLimit = "lr.km < ".db_quote($location["km"])." 
+		$neighbourSqlLimit = "lr.km < ".$_zp_db->quote($location["km"])." 
 		GROUP BY location_id
 		ORDER BY lr.km DESC
 		LIMIT 0, 1";
 	}
 	else
 	{
-		$neighbourSqlLimit = "lr.km > ".db_quote($location["km"])." 
+		$neighbourSqlLimit = "lr.km > ".$_zp_db->quote($location["km"])." 
 		GROUP BY location_id
 		ORDER BY lr.km ASC
 		LIMIT 0, 1";
@@ -256,10 +258,10 @@ function getNeighbourLocation($location, $way)
 		INNER JOIN locations_raillines lr ON l.location_id = lr.location_id 
 		INNER JOIN raillines r ON lr.line_id = r.line_id 
 		LEFT OUTER JOIN locations ol ON l.name = ol.name 
-		WHERE (r.link = ".db_quote($lineLink).") 
+		WHERE (r.link = ".$_zp_db->quote($lineLink).") 
 		AND ".SQL_NEXTABLE." AND ".$neighbourSqlLimit;
 	
-	$neighbourResult = query_full_array($neighbourSql);
+	$neighbourResult = $_zp_db->queryFullArray($neighbourSql);
 	$neighbourLocationCount = sizeof($neighbourResult);
 	
 	if ($neighbourLocationCount == 1)	
@@ -298,6 +300,7 @@ function getNeighbourLocation($location, $way)
  */
 function getLocationDiagrams($location)
 {
+	global $_zp_db;
 	$id = $location['id'];
 	$image = $location['image'];
 	$open = $location['open'];
@@ -313,8 +316,8 @@ function getLocationDiagrams($location)
 	}
 	else
 	{
-		$sql = "SELECT * FROM location_years WHERE `location` = ".db_quote($id)." ORDER BY year ASC";
-		$result = query_full_array($sql);
+		$sql = "SELECT * FROM location_years WHERE `location` = ".$_zp_db->quote($id)." ORDER BY year ASC";
+		$result = $_zp_db->queryFullArray($sql);
 		$numberOfYears = sizeof($result);
 	}
 	
@@ -480,6 +483,7 @@ function getLocationsOnlyTable($resultLocations, $displaytype, $keyword='')
 
 function getAssociatedLocations($id, $name, $type)
 {
+	global $_zp_db;
 	$splitName = explode(' ', $name);
 	$splitNameLength = sizeof($splitName);
 	$nameLength = strlen($name);
@@ -534,11 +538,11 @@ function getAssociatedLocations($id, $name, $type)
 	$associatedLocationsSQL = "SELECT l.location_id AS id, l.name, l.link AS link, l.type 
 		FROM locations l
 		LEFT OUTER JOIN locations ol ON l.name = ol.name 
-		WHERE l.name LIKE (".db_quote($name . '%').") 
+		WHERE l.name LIKE (".$_zp_db->quote($name . '%').") 
 		AND l.location_id != '".$id."' AND ".SQL_NEXTABLE." 
 		GROUP BY l.location_id
 		ORDER BY l.km_old DESC";
-	$associatedLocationsResults = query_full_array($associatedLocationsSQL);
+	$associatedLocationsResults = $_zp_db->queryFullArray($associatedLocationsSQL);
 	$associatedLocationCount = sizeof($associatedLocationsResults);
 	
 	if ($associatedLocationCount < 1)
