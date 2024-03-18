@@ -1051,16 +1051,20 @@ function drawAllLineguideDotpoints($type)
 			if ($type == 'sitemap')
 			{
 				$itemsToDisplay = getLineguidePages($line);
-				echo "<ul class=\"tableofcontents\">\n";
-
-				for ($i = 0; $i < sizeof($itemsToDisplay); $i++)
+				
+				if ($itemsToDisplay != null)
 				{
+					echo "<ul class=\"tableofcontents\">\n";
+
+					for ($i = 0; $i < sizeof($itemsToDisplay); $i++)
+					{
 ?>
 <li><a href="/lineguide/<?php echo $line["lineLink"]; ?>/<?php echo $itemsToDisplay[$i][0]; ?>" ><?php echo $itemsToDisplay[$i][1]; ?></a></li>
 <?php
-				}
+					}
 
-				echo "</ul></li>\n";
+					echo "</ul></li>\n";
+				}
 			}
 			else
 			{
