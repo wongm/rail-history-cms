@@ -48,7 +48,8 @@ NewDailySummary(getOption('RSS_items'));
     <link><![CDATA[<?php echo $protocol . '://' . $host . getDailySummaryUrl(); ?>]]></link>
     <description><![CDATA[<img border="0" src="<?php echo $protocol . '://' . $host . $imagePath; ?>" alt="<?php echo getDailySummaryTitle() ?>" /><br><?php echo getDailySummaryDesc(); ?>]]></description>
     <guid><![CDATA[<?php echo $protocol . '://' . $host . getDailySummaryUrl(); ?>]]></guid>
-    <pubDate><?php echo getDailySummaryDate("%a, %d %b %Y %H:%M:%S %z"); ?></pubDate>
+    <pubDate><?php echo getDailySummaryDate('r'); ?></pubDate>
+
 </item>
 <?php } ?>
 </channel>
