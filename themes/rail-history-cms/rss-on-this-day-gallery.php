@@ -61,7 +61,7 @@ else {
 <title><?php echo strip_tags($feedTitle); ?></title>
 <link><?php echo $protocol . $host.WEBPATH; ?></link>
 <atom:link href="<?php echo $protocol; ?><?php echo html_encode($_SERVER["HTTP_HOST"]); ?><?php echo html_encode($_SERVER["REQUEST_URI"]); ?>" rel="self" type="application/rss+xml" />
-<description><?php echo strip_tags(get_language_string(getOption('Gallery_description'), $locale)); ?></description>
+<description><?php echo strip_tags(get_language_string(getOption('Gallery_description'), $locale) ?? ''); ?></description>
 <language><?php echo $validlocale; ?></language>
 <pubDate><?php echo date("r", $summaryForCurrentDay->timestamp); ?></pubDate>
 <lastBuildDate><?php echo date("r", $summaryForCurrentDay->timestamp); ?></lastBuildDate>

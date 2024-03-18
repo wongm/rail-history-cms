@@ -13,8 +13,9 @@ if (!function_exists('next_DailySummaryItem')) {
 // hack to show large images
 setOption('image_size', '', false);
 
-$lastModifiedImageDateSQL = "SELECT mtime FROM " . prefix('images') . " ORDER BY mtime DESC LIMIT 0, 1";
-$lastModifiedImageDate = query_single_row($lastModifiedImageDateSQL)['mtime'];
+global $_zp_db;
+$lastModifiedImageDateSQL = "SELECT mtime FROM " . $_zp_db->prefix('images') . " ORDER BY mtime DESC LIMIT 0, 1";
+$lastModifiedImageDate = $_zp_db->querySingleRow($lastModifiedImageDateSQL)['mtime'];
 
 header('Last-Modified: '.gmdate('D, d M Y H:i:s', $lastModifiedImageDate).' GMT', true, 200);
 header('Content-Type: application/xml');
