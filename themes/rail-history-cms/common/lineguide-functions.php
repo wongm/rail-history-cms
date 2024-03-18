@@ -313,7 +313,7 @@ function drawSpecificLine($line, $contentsHeader = 'Contents')
 
 	$headbarTabs = getLineguidePages($line);
 	$totalTabs = sizeof($headbarTabs);
-	$descriptionTabs = getDescriptionTitles($line['description']);
+	$descriptionTabs = getDescriptionTitles($line['description']) ?? [];
 	$totalTabs +=  sizeof($descriptionTabs);
 
 	$line['fullsources'] = getObjectSources('railline', $line['lineId'], $line['credits']);
@@ -544,7 +544,7 @@ function getLineDiagram($line, $section, $trackPage)
 		if ($trackSubpage != "" && $trackPage != "")
 		{
 			$trackSubpages = explode(';', $trackSubpage);
-			$trackSubpageBounds = explode('-', $trackSubpages[$trackPage-1]);			
+			$trackSubpageBounds = explode('-', $trackSubpages[$trackPage-1]);
 			if (sizeof($trackSubpageBounds) == 2)
 			{
 				$lowerBound = $trackSubpageBounds[1]-10;
@@ -662,11 +662,12 @@ function getLineDiagram($line, $section, $trackPage)
 			$pastTracks = $tracksToDisplay;
 		}	// end while loop
 
-		if ($trackSubpageCount > $trackPage AND $trackPage  != 0 AND $pastKm > $lowerBound)
+		if ($trackPage  != '' && $trackSubpageCount > intval($trackPage) AND $pastKm > $lowerBound)
 		{
+			$nextPage = intval($trackPage) + 1;
 			$toreturn[] = array('<td></td>',
 								'<td class="l" align="center" height="30"><img src="/t/1-break.gif" height="30" width="148" alt=""/></td>',
-								'<td class="t"><i><a href="/lineguide/'.$lineLink.'/diagram/page-'.($trackPage+1).'/">Continued on page '.($trackPage+1).'</a></i></td>'
+								'<td class="t"><i><a href="/lineguide/'.$lineLink.'/diagram/page-'.$nextPage.'/">Continued on page '.$nextPage.'</a></i></td>'
 								);
 		}	// end trackpage if
 	}
@@ -783,6 +784,7 @@ function getLineDiagram($line, $section, $trackPage)
  */
 function getLineDiagramSectionTracks($line, $currentLocation, $pastTracks)
 {
+	global $_zp_db;
 	$tracksToDisplay = false;
 
 	$sqlTracks = "SELECT RE.tracks, RE.line, STARTKM.km AS start_distance, ENDKM.km AS end_distance

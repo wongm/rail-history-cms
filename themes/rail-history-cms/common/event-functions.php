@@ -643,7 +643,10 @@ function getAllLocationLineEvents($location, $showEverything)
 }
 
 function drawEventsTable($dataarray)
-{	
+{
+	if ($dataarray === null)
+		return;
+	
 	$numberOfRows = sizeof($dataarray);
 	
 	if ($numberOfRows > 0)

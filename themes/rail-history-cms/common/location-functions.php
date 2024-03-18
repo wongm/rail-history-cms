@@ -54,7 +54,14 @@ function drawLocation($location)
 	if($location['description'] != "")
 	{
 		$descriptionTitles = getDescriptionTitles($location['description']);
-		$numberOfTextSections = sizeof($descriptionTitles);
+		if ($descriptionTitles === null)
+		{
+			$numberOfTextSections = 0;
+		}
+		else
+		{
+			$numberOfTextSections = sizeof($descriptionTitles);
+		}
 		$dotpoints = $dotpoints + $numberOfTextSections;
 	}
 
@@ -70,7 +77,7 @@ function drawLocation($location)
 		$dotpoints++;
 	}
 
-	$showEvents = (sizeof($locationEvents) > 0);
+	$showEvents = ($locationEvents !== null && $locationEvents > 0);
 
 	// determine if diagrams are to be shown
 	if ($location['showDiagrams'] != '')
