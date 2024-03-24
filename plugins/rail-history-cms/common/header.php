@@ -1,7 +1,8 @@
 <?php 
 
 //start timer
-$time = round(microtime(), 3);
+global $time;
+$time = microtime(true);
 
 if(!isset($pageTitle) || $pageTitle == '')
 {
