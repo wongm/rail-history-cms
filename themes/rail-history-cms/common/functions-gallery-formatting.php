@@ -576,16 +576,21 @@ function getRailHistoryCMSLinkForAlbum($albumFolderName)
 	{
 		$url = "/lineguide/" . $lineResult[0]['link'] . "/";
 		return array('url' => $url, 'name' => $lineResult[0]['name']);
-		
 	}
 	
-	$locationResultSQL = "SELECT name, link FROM locations WHERE photos = " . $_zp_db->quote($albumFolderName) . " AND link != ''";
-	$locationResult = $_zp_db->queryFullArray($locationResultSQL);
+	$locationResultSQL = "SELECT name, link, photos FROM locations WHERE photos LIKE '%" . $_zp_db->likeEscape($albumFolderName) . "%' AND link != ''";
+	$locationResults = $_zp_db->queryFullArray($locationResultSQL);
 	
-	if (sizeof($locationResult) > 0)
+	foreach($locationResults as $locationResult)
 	{
-		$url = "/location/" . $locationResult[0]['link'] . "/";
-		return array('url' => $url, 'name' => $locationResult[0]['name']);
+		foreach(explode(';', $locationResult['photos']) as $photosLink)
+		{
+			if ($photosLink == $albumFolderName)
+			{
+				$url = "/location/" . $locationResult['link'] . "/";
+				return array('url' => $url, 'name' => $locationResult['name']);
+			}
+		}
 	}
 	
 	return null;
