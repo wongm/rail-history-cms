@@ -113,7 +113,7 @@ function getParagraph($text, $simple=true)
  * and creates a string with a HTML unordered list of subtitles
  * and links to go to subheadings
  */
-function getDescriptionTitles($text, $toReturn=NULL)
+function getDescriptionTitles($text, $toReturn=[])
 {
 	$description = explode("==", $text);
 	$size = sizeof($description);
