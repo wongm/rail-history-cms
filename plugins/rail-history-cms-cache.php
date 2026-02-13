@@ -82,16 +82,16 @@ class static_html_cache_railHistoryCMS {
 				break;
 			case 'pages.php':
 				$obj = $_zp_current_zenpage_page;
-				$title = $_zp_current_zenpage_page->getTitlelink();
+				$title = $_zp_current_zenpage_page->getName();
 				break;
 			case 'news.php':
 				if (in_context(ZP_ZENPAGE_NEWS_ARTICLE)) {
 					$obj = $_zp_current_zenpage_news;
-					$title = $obj->getTitlelink();
+					$title = $obj->getName();
 				} else {
 					if (in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
 						$obj = $_zp_current_category;
-						$title = $obj->getTitlelink();
+						$title = $obj->getName();
 					} else {
 						$obj = NULL;
 						$title = NULL;
@@ -284,10 +284,10 @@ class static_html_cache_railHistoryCMS {
 			case 'news.php':
 				$cachesubfolder = "pages";
 				if(isset($_zp_current_zenpage_news)) {
-					$title = "-".$_zp_current_zenpage_news->getTitlelink();
+					$title = "-".$_zp_current_zenpage_news->getNamek();
 				}
 				if(isset($_zp_current_category)) {
-					$category = "-".$_zp_current_category->getTitlelink();
+					$category = "-".$_zp_current_category->getName();
 				}
 				$cachefilepath .= 'news'.$category.$title.$page;
 				break;
@@ -404,7 +404,7 @@ class static_html_cache_railHistoryCMS {
 							break;
 						case 'pages.php':
 							$cachesubfolder = "pages";
-							$cachefilepath .= 'page-'.$_zp_current_zenpage_page->getTitlelink();
+							$cachefilepath .= 'page-'.$_zp_current_zenpage_page->getName();
 							break;
 						default;
 							// custom pages
@@ -446,10 +446,10 @@ class static_html_cache_railHistoryCMS {
 		if (is_null($folder)) {
 			$cachesubfolders = array("albums", "images", "pages", "locations", "lineguides", "regions");
 			foreach($cachesubfolders as $cachesubfolder) {
-				zpFunctions::removeDir(SERVERPATH.'/'.STATIC_CACHE_FOLDER."/".$cachesubfolder,true);
+				removeDir(SERVERPATH . '/' . STATIC_CACHE_FOLDER . "/" . $cachesubfolder, true);
 			}
 		} else {
-			zpFunctions::removeDir(SERVERPATH.'/'.STATIC_CACHE_FOLDER."/".$folder);
+			removeDir(SERVERPATH . '/' . STATIC_CACHE_FOLDER . "/" . $folder);
 		}
 	}
 
