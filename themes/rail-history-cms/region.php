@@ -190,10 +190,10 @@ function drawRegionRaillines($regionLink, $regionId)
 			echo "<tr><td class=\"regionLinks\"><ul>\n";
 			echo "<li><a href=\"/lineguide/" . $lineArray[$i]['lineLink'] . "\">History</a></li>\n";
 			
-			for ($j = 0; $j < sizeof($itemstodisplay); $j++)
+			foreach($itemstodisplay as $subitem)
 			{
 ?>
-<li><a href="/lineguide/<?php echo $lineArray[$i]['lineLink']; ?>/<?php echo $itemstodisplay[$j][0]; ?>" ><?php echo $itemstodisplay[$j][1]; ?></a></li>
+<li><a href="/lineguide/<?php echo $lineArray[$i]['lineLink']; ?>/<?php echo $subitem[0]; ?>" ><?php echo $subitem[1]; ?></a></li>
 <?php 	
 			}	
 			echo "</ul></td>\n";
